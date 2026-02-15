@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/83050/.claude/plugins/cache/bkit-marketplace/bkit/1.5.4/templates/**)",
+      "Bash(npm run dev:*)",
+      "Bash(npm test:*)",
+      "Bash(curl:*)",
+      "Bash(npm run build:*)",
+      "Bash(tee:*)"
+    ]
+  }
+}

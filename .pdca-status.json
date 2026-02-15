@@ -1,0 +1,21 @@
+{
+  "ontools": {
+    "phase": "do",
+    "level": "Dynamic",
+    "startedAt": "2026-02-15T00:00:00Z",
+    "planDoc": "docs/01-plan/features/ontools.plan.md",
+    "designDoc": "docs/02-design/features/ontools.design.md",
+    "currentTask": "Phase 1: 기본 도구 구현",
+    "progress": {
+      "phase1": {
+        "projectSetup": "completed",
+        "salaryCalculator": "pending",
+        "currencyCalculator": "pending",
+        "bmiCalculator": "pending",
+        "seoInfra": "pending",
+        "vercelDeploy": "pending"
+      }
+    },
+    "updatedAt": "2026-02-15T00:30:00Z"
+  }
+}

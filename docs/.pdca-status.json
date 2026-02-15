@@ -1,0 +1,245 @@
+{
+  "version": "2.0",
+  "lastUpdated": "2026-02-15T10:15:36.138Z",
+  "activeFeatures": [
+    "salary",
+    "ui",
+    "currency",
+    "bmi"
+  ],
+  "primaryFeature": "salary",
+  "features": {
+    "salary": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-02-15T09:43:24.663Z",
+        "lastUpdated": "2026-02-15T09:47:39.719Z"
+      },
+      "lastFile": "app/(tools)/salary/page.tsx"
+    },
+    "ui": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-02-15T09:43:38.784Z",
+        "lastUpdated": "2026-02-15T09:43:46.126Z"
+      },
+      "lastFile": "components/ui/Card.tsx"
+    },
+    "currency": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-02-15T09:53:10.187Z",
+        "lastUpdated": "2026-02-15T10:05:18.394Z"
+      },
+      "lastFile": "app/(tools)/currency/CurrencyConverter.tsx"
+    },
+    "bmi": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-02-15T10:09:39.567Z",
+        "lastUpdated": "2026-02-15T10:15:36.138Z"
+      },
+      "lastFile": "features/bmi/utils.test.ts"
+    }
+  },
+  "pipeline": {
+    "currentPhase": 1,
+    "level": "Dynamic",
+    "phaseHistory": []
+  },
+  "session": {
+    "startedAt": "2026-02-15T08:54:02.972Z",
+    "onboardingCompleted": false,
+    "lastActivity": "2026-02-15T10:15:36.138Z"
+  },
+  "history": [
+    {
+      "timestamp": "2026-02-15T09:43:24.663Z",
+      "feature": "salary",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T09:43:28.346Z",
+      "feature": "salary",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T09:43:38.784Z",
+      "feature": "ui",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T09:43:41.525Z",
+      "feature": "ui",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T09:43:46.126Z",
+      "feature": "ui",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T09:44:19.625Z",
+      "feature": "salary",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T09:44:31.408Z",
+      "feature": "salary",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T09:44:42.689Z",
+      "feature": "salary",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T09:47:25.999Z",
+      "feature": "salary",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T09:47:39.719Z",
+      "feature": "salary",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T09:53:10.187Z",
+      "feature": "currency",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T09:53:25.020Z",
+      "feature": "currency",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T09:53:58.059Z",
+      "feature": "currency",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T09:54:25.075Z",
+      "feature": "currency",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T09:54:44.711Z",
+      "feature": "currency",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T10:01:07.894Z",
+      "feature": "currency",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T10:01:31.367Z",
+      "feature": "currency",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T10:01:44.165Z",
+      "feature": "currency",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T10:05:18.394Z",
+      "feature": "currency",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T10:09:39.567Z",
+      "feature": "bmi",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T10:09:50.307Z",
+      "feature": "bmi",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T10:10:23.061Z",
+      "feature": "bmi",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T10:10:47.659Z",
+      "feature": "bmi",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T10:11:12.013Z",
+      "feature": "bmi",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T10:14:45.226Z",
+      "feature": "bmi",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T10:14:54.609Z",
+      "feature": "bmi",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T10:15:19.670Z",
+      "feature": "bmi",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T10:15:36.138Z",
+      "feature": "bmi",
+      "phase": "do",
+      "action": "updated"
+    }
+  ]
+}
