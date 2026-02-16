@@ -65,6 +65,10 @@ export default function CurrencyPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           <div className="lg:col-span-2">
             <CurrencyConverter />
+            <div className="mt-10 space-y-10">
+              <NewsSidebar toolId="currency" title="환율 뉴스" />
+              <YouTubeSection category="currency" />
+            </div>
           </div>
 
           <aside className="space-y-8">
@@ -116,11 +120,6 @@ export default function CurrencyPage() {
           </aside>
         </div>
 
-        {/* Bottom Sections */}
-        <div className="mt-12 space-y-10">
-          <NewsSidebar toolId="currency" title="환율 뉴스" />
-          <YouTubeSection category="currency" />
-        </div>
       </main>
 
       {/* Footer */}

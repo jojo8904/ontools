@@ -66,6 +66,9 @@ export default function SalaryCalculatorPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           <div className="lg:col-span-2">
             <SalaryCalculator />
+            <div className="mt-10">
+              <YouTubeSection category="salary" />
+            </div>
           </div>
 
           <aside className="space-y-8">
@@ -239,10 +242,6 @@ export default function SalaryCalculatorPage() {
           </aside>
         </div>
 
-        {/* Bottom Section */}
-        <div className="mt-12">
-          <YouTubeSection category="salary" />
-        </div>
       </main>
 
       {/* Footer */}
