@@ -19,6 +19,15 @@ const categoryColors: Record<string, string> = {
   general: 'bg-gray-400',
 }
 
+const categoryGradients: Record<string, string> = {
+  tech: 'from-blue-400 to-indigo-500',
+  finance: 'from-emerald-400 to-teal-500',
+  health: 'from-rose-400 to-pink-500',
+  energy: 'from-amber-400 to-orange-500',
+  game: 'from-violet-400 to-purple-500',
+  general: 'from-gray-300 to-gray-400',
+}
+
 const categoryBadgeColors: Record<string, string> = {
   tech: 'bg-blue-50 text-blue-700',
   finance: 'bg-emerald-50 text-emerald-700',
@@ -67,11 +76,23 @@ export function NewsCard({
       rel="noopener noreferrer"
       className="block group"
     >
-      <article className="flex rounded-xl bg-white shadow-sm hover:shadow-lg hover:bg-gray-50/50 transition-all duration-300 h-full border border-gray-100 overflow-hidden">
-        {/* Left category color bar */}
-        <div
-          className={`w-[4px] shrink-0 ${categoryColors[primaryCategory] || categoryColors.general}`}
-        />
+      <article className="rounded-2xl glass shadow-sm hover:shadow-xl hover:scale-[1.02] transition-all duration-300 h-full overflow-hidden flex flex-col">
+        {/* Thumbnail or gradient header */}
+        {news.image_url ? (
+          <div className="h-36 overflow-hidden">
+            <img
+              src={news.image_url}
+              alt=""
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+          </div>
+        ) : (
+          <div className={`h-20 bg-gradient-to-br ${categoryGradients[primaryCategory] || categoryGradients.general} flex items-center justify-center`}>
+            <span className="text-white/60 text-xs font-semibold uppercase tracking-widest">
+              {categoryLabels[primaryCategory] || 'News'}
+            </span>
+          </div>
+        )}
 
         {/* Content */}
         <div className="p-4 flex flex-col flex-1 min-w-0">

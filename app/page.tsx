@@ -1,6 +1,45 @@
 import Link from 'next/link'
 import { NewsList } from '@/features/news/components/NewsList'
 import { NewsTicker } from './NewsTicker'
+import { FadeInSection } from './FadeInSection'
+
+const CATEGORY_ICONS: Record<string, React.ReactNode> = {
+  금융: (
+    <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+    </svg>
+  ),
+  건강: (
+    <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+    </svg>
+  ),
+  유틸리티: (
+    <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+    </svg>
+  ),
+  게임: (
+    <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 01-.657.643 48.491 48.491 0 01-4.163-.3c-1.18-.143-2.224-.632-2.995-1.37A3 3 0 002.25 8.25v1.5A2.25 2.25 0 004.5 12h.667c.278 0 .547.06.79.168l1.065.487c.488.223.86.637 1.07 1.114.23.525.325 1.068.325 1.606v0c0 1.183-.456 2.36-1.371 3.157A3.75 3.75 0 005.25 21h2.577c.614 0 1.22-.135 1.777-.4l1.036-.494A2.25 2.25 0 0112 19.5v0a2.25 2.25 0 011.36.606l1.036.494c.558.265 1.163.4 1.777.4h2.577a3.75 3.75 0 01-1.796-2.468C16.456 17.235 16 16.058 16 14.875v0c0-.538.095-1.081.325-1.606.21-.477.582-.891 1.07-1.114l1.065-.487c.243-.108.512-.168.79-.168h.667A2.25 2.25 0 0022.167 9.75v-1.5a3 3 0 00-1.435-2.561c-.771.738-1.815 1.227-2.995 1.37a48.474 48.474 0 01-4.163.3.64.64 0 01-.657-.643v0z" />
+    </svg>
+  ),
+}
+
+const CATEGORY_GRADIENTS: Record<string, string> = {
+  금융: 'from-emerald-50 to-teal-50/50',
+  건강: 'from-rose-50 to-pink-50/50',
+  유틸리티: 'from-blue-50 to-indigo-50/50',
+  게임: 'from-violet-50 to-purple-50/50',
+}
+
+const CATEGORY_ICON_COLORS: Record<string, string> = {
+  금융: 'text-emerald-500',
+  건강: 'text-rose-500',
+  유틸리티: 'text-blue-500',
+  게임: 'text-violet-500',
+}
 
 const TOOL_CATEGORIES = [
   {
@@ -53,7 +92,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-10">
+      <header className="border-b bg-white/70 backdrop-blur-md sticky top-0 z-10">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <a href="/" className="flex items-center gap-2.5">
             <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
@@ -70,15 +109,32 @@ export default function HomePage() {
         </div>
       </header>
 
-      {/* Hero Section - compact */}
-      <section className="bg-gradient-to-b from-[#f8fafc] to-[#e2e8f0]">
-        <div className="container mx-auto px-4 py-16 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-3 tracking-tight text-gray-900">
-            당신의 <span className="text-blue-600">스마트한</span> 일상 도구
-          </h2>
-          <p className="text-lg md:text-xl text-gray-400">
-            계산도, 뉴스도, 게임도 — 여기서 다.
-          </p>
+      {/* Hero Section - animated gradient mesh */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-blue-500 via-purple-500 to-pink-400 animate-gradient-mesh">
+        {/* Gradient overlay for depth */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(255,255,255,0.15),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_60%,rgba(255,255,255,0.1),transparent_50%)]" />
+
+        <div className="container mx-auto px-4 py-16 relative z-[1]">
+          <div className="flex items-center justify-between gap-8">
+            {/* Left: text */}
+            <div className="flex-1 min-w-0">
+              <h2 className="text-[3rem] md:text-[3.5rem] leading-tight font-[800] mb-4 tracking-tight text-white drop-shadow-sm">
+                당신의 <span className="text-yellow-300">스마트한</span><br />일상 도구
+              </h2>
+              <p className="text-lg md:text-xl text-white/80">
+                계산도, 뉴스도, 게임도 — 여기서 다.
+              </p>
+            </div>
+            {/* Right: mascot */}
+            <div className="hidden md:block shrink-0">
+              <img
+                src="/mascot.png"
+                alt="ontools mascot"
+                className="w-[200px] h-[200px] rounded-3xl shadow-2xl ring-4 ring-white/20"
+              />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -86,66 +142,74 @@ export default function HomePage() {
       <NewsTicker />
 
       {/* Tool Categories Section */}
-      <section id="tools" className="bg-white scroll-mt-20">
-        <div className="container mx-auto px-4 pt-10 pb-20">
-          <h2 className="text-2xl font-bold mb-2 tracking-tight">도구 모음</h2>
-          <p className="text-gray-500 mb-10">
-            카테고리별로 필요한 계산기를 찾아보세요
-          </p>
+      <FadeInSection>
+        <section id="tools" className="bg-gray-50/50 scroll-mt-20">
+          <div className="container mx-auto px-4 pt-10 pb-20">
+            <h2 className="text-2xl font-bold mb-2 tracking-tight">도구 모음</h2>
+            <p className="text-gray-500 mb-10">
+              카테고리별로 필요한 계산기를 찾아보세요
+            </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {TOOL_CATEGORIES.map((cat) => (
-              <div
-                key={cat.title}
-                id={cat.title === '게임' ? 'games' : undefined}
-                className="rounded-xl border border-gray-100 bg-white overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
-              >
-                {/* Color accent bar */}
-                <div className={`h-1 ${cat.color}`} />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {TOOL_CATEGORIES.map((cat) => (
+                <div
+                  key={cat.title}
+                  id={cat.title === '게임' ? 'games' : undefined}
+                  className={`group rounded-2xl glass overflow-hidden hover:scale-[1.03] hover:shadow-xl transition-all duration-300 bg-gradient-to-br ${CATEGORY_GRADIENTS[cat.title] || ''}`}
+                >
+                  {/* Color accent bar */}
+                  <div className={`h-1 ${cat.color}`} />
 
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-1">{cat.title}</h3>
-                  <p className="text-sm text-gray-500 mb-5">
-                    {cat.description}
-                  </p>
-                  <ul className="space-y-2.5">
-                    {cat.tools.map((tool) => (
-                      <li key={tool.href}>
-                        <Link
-                          href={tool.href}
-                          className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors group"
-                        >
-                          <svg
-                            className="w-4 h-4 text-gray-300 group-hover:text-blue-400 transition-colors shrink-0"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
+                  <div className="p-6">
+                    {/* Icon + title */}
+                    <div className={`mb-4 ${CATEGORY_ICON_COLORS[cat.title] || 'text-gray-400'}`}>
+                      {CATEGORY_ICONS[cat.title]}
+                    </div>
+                    <h3 className="text-xl font-bold mb-1">{cat.title}</h3>
+                    <p className="text-sm text-gray-500 mb-5">
+                      {cat.description}
+                    </p>
+                    <ul className="space-y-2.5">
+                      {cat.tools.map((tool) => (
+                        <li key={tool.href}>
+                          <Link
+                            href={tool.href}
+                            className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors group/link"
                           >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M9 5l7 7-7 7"
-                            />
-                          </svg>
-                          <span className="text-[15px]">{tool.label}</span>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
+                            <svg
+                              className="w-4 h-4 text-gray-300 group-hover/link:text-blue-400 transition-colors shrink-0"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M9 5l7 7-7 7"
+                              />
+                            </svg>
+                            <span className="text-[15px]">{tool.label}</span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </FadeInSection>
 
       {/* News Section */}
-      <section id="news" className="bg-gray-50/80 scroll-mt-20">
-        <div className="container mx-auto px-4 py-20">
-          <NewsList limit={50} title="최신 뉴스" showCategories={true} />
-        </div>
-      </section>
+      <FadeInSection>
+        <section id="news" className="bg-white scroll-mt-20">
+          <div className="container mx-auto px-4 py-20">
+            <NewsList limit={50} title="최신 뉴스" showCategories={true} />
+          </div>
+        </section>
+      </FadeInSection>
 
       {/* Footer */}
       <footer className="border-t bg-white mt-auto">
