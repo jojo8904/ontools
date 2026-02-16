@@ -68,14 +68,16 @@ export default function SalaryCalculatorPage() {
         <div className="mt-12">
           <h2 className="text-xl font-semibold mb-4">관련 도구</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Card className="hover:border-primary cursor-pointer transition-colors">
-              <CardContent className="p-6">
-                <p className="font-medium">퇴직금 계산기</p>
-                <p className="text-sm text-muted-foreground mt-1">
-                  Phase 4에서 제공 예정
-                </p>
-              </CardContent>
-            </Card>
+            <a href="/severance-pay">
+              <Card className="hover:border-primary cursor-pointer transition-colors">
+                <CardContent className="p-6">
+                  <p className="font-medium">퇴직금 계산기</p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    입사일·퇴사일로 퇴직금 계산
+                  </p>
+                </CardContent>
+              </Card>
+            </a>
             <Card className="hover:border-primary cursor-pointer transition-colors">
               <CardContent className="p-6">
                 <p className="font-medium">국민연금 계산기</p>

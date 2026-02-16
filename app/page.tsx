@@ -38,7 +38,11 @@ export default function HomePage() {
                   • 환율 계산기
                 </Link>
               </li>
-              <li className="text-muted-foreground opacity-60">• 퇴직금 계산기 (예정)</li>
+              <li>
+                <Link href="/severance-pay" className="text-muted-foreground hover:text-blue-600 transition-colors">
+                  • 퇴직금 계산기
+                </Link>
+              </li>
             </ul>
           </div>
 

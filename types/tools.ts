@@ -62,6 +62,22 @@ export interface CurrencyResult {
   isWeekend: boolean
 }
 
+export interface SeveranceInput {
+  startDate: string // 입사일 (YYYY-MM-DD)
+  endDate: string // 퇴사일 (YYYY-MM-DD)
+  monthlyAvgWage: number // 퇴직 전 3개월 월 평균임금 (원)
+}
+
+export interface SeveranceResult {
+  severancePay: number // 퇴직금 (원)
+  totalDays: number // 총 재직일수
+  totalYears: number // 총 재직연수 (소수점)
+  dailyAvgWage: number // 1일 평균임금
+  monthlyAvgWage: number // 월 평균임금
+  startDate: string
+  endDate: string
+}
+
 export type BmiCategory =
   | 'underweight'
   | 'normal'
