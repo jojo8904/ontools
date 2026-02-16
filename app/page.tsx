@@ -112,7 +112,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="bg-[#000] relative overflow-hidden" style={{ padding: '40px 0' }}>
         <div className="container mx-auto px-4 relative z-[1]">
-          <div className="flex items-center justify-between gap-6">
+          <div className="flex items-stretch justify-between gap-6">
             <div className="flex-1 min-w-0">
               <h2 className="text-[2.5rem] md:text-[3.5rem] leading-[1.1] font-[900] tracking-[-0.03em] text-white mb-0">
                 당신의 <span className="hero-gradient-text">스마트한</span> 일상 도구
@@ -121,8 +121,8 @@ export default function HomePage() {
                 계산도, 뉴스도, 게임도 — 여기서 다.
               </p>
             </div>
-            <div className="hidden md:block shrink-0 w-[200px] h-[150px]">
-              <img src="/hero-bg.png" alt="" className="w-full h-full object-contain" />
+            <div className="hidden md:block shrink-0 h-full">
+              <img src="/hero-bg.png" alt="" className="h-full w-auto object-contain" />
             </div>
           </div>
         </div>
