@@ -48,8 +48,8 @@ const TOOL_CATEGORIES = [
     description: '연봉, 환율, 퇴직금 등 금융 관련 계산',
     color: 'bg-emerald-500',
     tools: [
-      { href: '/salary', label: '연봉 실수령액 계산기' },
-      { href: '/currency', label: '환율 계산기' },
+      { href: '/salary', label: '연봉 실수령액 계산기', badge: '인기' },
+      { href: '/currency', label: '환율 계산기', badge: '인기' },
       { href: '/severance-pay', label: '퇴직금 계산기' },
       { href: '/loan', label: '대출이자 계산기' },
       { href: '/savings', label: '적금/예금 이자 계산기' },
@@ -64,7 +64,7 @@ const TOOL_CATEGORIES = [
     color: 'bg-rose-500',
     tools: [
       { href: '/bmi', label: 'BMI 계산기' },
-      { href: '/calorie', label: '일일 칼로리(TDEE) 계산기' },
+      { href: '/calorie', label: '일일 칼로리(TDEE) 계산기', badge: '인기' },
     ],
   },
   {
@@ -75,7 +75,7 @@ const TOOL_CATEGORIES = [
       { href: '/unit-converter', label: '단위 변환기' },
       { href: '/d-day', label: 'D-day 계산기' },
       { href: '/electricity', label: '전기요금 계산기' },
-      { href: '/character-counter', label: '글자수 세기' },
+      { href: '/character-counter', label: '글자수 세기', badge: '인기' },
       { href: '/qr-generator', label: 'QR코드 생성기' },
     ],
   },
@@ -84,7 +84,7 @@ const TOOL_CATEGORIES = [
     description: '브라우저에서 바로 즐기는 캐주얼 게임',
     color: 'bg-violet-500',
     tools: [
-      { href: '/games', label: '게임 모음 보기' },
+      { href: '/games', label: '게임 모음 보기', badge: 'NEW' },
     ],
   },
 ]
@@ -135,7 +135,7 @@ export default function HomePage() {
       {/* Tool Categories Section */}
       <FadeInSection>
         <section id="tools" className="bg-[#151525] scroll-mt-20">
-          <div className="container mx-auto px-4 py-16">
+          <div className="container mx-auto px-4 pt-16 pb-10">
             <h2 className="text-[2rem] font-[800] mb-2 tracking-tight text-white">도구 모음</h2>
             <p className="text-[#888] mb-10">
               카테고리별로 필요한 계산기를 찾아보세요
@@ -182,6 +182,11 @@ export default function HomePage() {
                               />
                             </svg>
                             <span className="text-[15px]">{tool.label}</span>
+                            {tool.badge && (
+                              <span className={`ml-1 px-1.5 py-0.5 text-[10px] font-bold text-white rounded-full leading-none ${tool.badge === 'NEW' ? 'bg-blue-500' : 'bg-orange-500'}`}>
+                                {tool.badge}
+                              </span>
+                            )}
                           </Link>
                         </li>
                       ))}
@@ -197,8 +202,8 @@ export default function HomePage() {
       {/* News Section */}
       <FadeInSection>
         <section id="news" className="bg-white scroll-mt-20">
-          <div className="container mx-auto px-4" style={{ padding: '40px 1rem' }}>
-            <div className="flex justify-center mb-4">
+          <div className="container mx-auto px-4" style={{ padding: '20px 1rem 40px' }}>
+            <div className="flex justify-center mb-3">
               <ScrollDownButton />
             </div>
             <h2 className="text-[2rem] font-[800] tracking-tight text-[#111] mb-6">최신 뉴스</h2>
