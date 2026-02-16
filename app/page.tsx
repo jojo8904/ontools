@@ -58,13 +58,17 @@ export default function HomePage() {
             </ul>
           </div>
 
-          <div className="p-6 border rounded-lg bg-gray-50">
+          <div className="p-6 border rounded-lg bg-white">
             <div className="text-3xl mb-4">🔧</div>
             <h3 className="text-xl font-bold mb-4">유틸리티</h3>
-            <ul className="space-y-2 text-muted-foreground opacity-60">
-              <li>• 단위 변환기 (예정)</li>
-              <li>• D-day 카운터 (예정)</li>
-              <li>• 전기요금 계산기 (예정)</li>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/unit-converter" className="text-muted-foreground hover:text-blue-600 transition-colors">
+                  • 단위 변환기
+                </Link>
+              </li>
+              <li className="text-muted-foreground opacity-60">• D-day 카운터 (예정)</li>
+              <li className="text-muted-foreground opacity-60">• 전기요금 계산기 (예정)</li>
             </ul>
           </div>
         </div>
