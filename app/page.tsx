@@ -55,10 +55,10 @@ export default function HomePage() {
       <section className="bg-gradient-to-b from-[#f8fafc] to-[#e2e8f0]">
         <div className="container mx-auto px-4 py-24 text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight text-gray-900">
-            필요한 계산, 관련 뉴스까지 한 번에
+            당신의 <span className="text-blue-600">스마트한</span> 일상 도구
           </h2>
-          <p className="text-lg md:text-xl text-gray-500">
-            실생활 유틸리티 도구와 AI 자동 뉴스 포털
+          <p className="text-lg md:text-xl text-gray-400">
+            계산도, 뉴스도, 게임도 — 여기서 다.
           </p>
         </div>
       </section>
