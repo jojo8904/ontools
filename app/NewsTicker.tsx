@@ -28,9 +28,9 @@ export function NewsTicker() {
   const doubled = [...items, ...items]
 
   return (
-    <div className="bg-white overflow-hidden border-t border-b border-[#eee]">
+    <div style={{ backgroundColor: '#ffffff' }} className="overflow-hidden border-t border-b border-[#eee]">
       <div className="container mx-auto px-4 flex items-center h-10">
-        <span className="text-[11px] font-bold bg-[#111] text-white px-2 py-0.5 rounded tracking-wider mr-4 shrink-0">
+        <span className="text-[11px] font-bold bg-[#1a1a2e] text-white px-2 py-0.5 rounded tracking-wider mr-4 shrink-0">
           NEWS
         </span>
         <div className="overflow-hidden flex-1 relative">
