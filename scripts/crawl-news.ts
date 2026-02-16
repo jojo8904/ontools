@@ -44,10 +44,9 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)
 
 // RSS sources
 const RSS_SOURCES = [
-  // IT/Tech
-  { url: 'https://www.etnews.com/rss.xml', category: 'tech', source: '전자신문' },
-  { url: 'https://www.bloter.net/feed', category: 'tech', source: '블로터' },
-  { url: 'https://www.boannews.com/media/rss.xml', category: 'tech', source: '보안뉴스' },
+  // IT/Tech (Google뉴스 RSS - 안정적)
+  { url: 'https://news.google.com/rss/search?q=IT+%EA%B8%B0%EC%88%A0+%EC%9D%B8%EA%B3%B5%EC%A7%80%EB%8A%A5+%EB%B0%98%EB%8F%84%EC%B2%B4&hl=ko&gl=KR&ceid=KR:ko', category: 'tech', source: 'Google뉴스 IT' },
+  { url: 'https://news.google.com/rss/search?q=AI+%EC%B1%97GPT+%EC%9D%B8%EA%B3%B5%EC%A7%80%EB%8A%A5+%EC%8A%A4%ED%83%80%ED%8A%B8%EC%97%85&hl=ko&gl=KR&ceid=KR:ko', category: 'tech', source: 'Google뉴스 AI' },
 
   // Finance
   { url: 'https://www.hankyung.com/feed/economy', category: 'finance', source: '한국경제' },
