@@ -13,6 +13,7 @@ export const UNIT_CATEGORIES: Record<UnitCategory, { label: string; units: UnitO
   length: {
     label: '길이',
     units: [
+      { code: 'mm', label: 'mm (밀리미터)' },
       { code: 'cm', label: 'cm (센티미터)' },
       { code: 'm', label: 'm (미터)' },
       { code: 'km', label: 'km (킬로미터)' },
@@ -50,6 +51,7 @@ export const UNIT_CATEGORIES: Record<UnitCategory, { label: string; units: UnitO
 
 // 기준 단위(m, g, 초)로의 변환 계수
 const LENGTH_TO_M: Record<string, number> = {
+  mm: 0.001,
   cm: 0.01,
   m: 1,
   km: 1000,
