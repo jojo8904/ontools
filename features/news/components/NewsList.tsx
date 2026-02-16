@@ -18,6 +18,7 @@ const CATEGORY_TABS: Array<{ key: 'all' | NewsCategory; label: string }> = [
   { key: 'finance', label: '금융' },
   { key: 'health', label: '건강' },
   { key: 'energy', label: '에너지' },
+  { key: 'game', label: '게임' },
 ]
 
 export function NewsList({

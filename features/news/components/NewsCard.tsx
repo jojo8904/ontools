@@ -15,6 +15,7 @@ const categoryColors: Record<string, string> = {
   finance: 'bg-emerald-50 text-emerald-700',
   health: 'bg-rose-50 text-rose-700',
   energy: 'bg-amber-50 text-amber-700',
+  game: 'bg-violet-50 text-violet-700',
   general: 'bg-gray-100 text-gray-600',
 }
 
@@ -23,6 +24,7 @@ const categoryLabels: Record<string, string> = {
   finance: '금융',
   health: '건강',
   energy: '에너지',
+  game: '게임',
   general: '일반',
 }
 
@@ -58,9 +60,7 @@ export function NewsCard({
         {/* Categories */}
         {showCategories && news.categories.length > 0 && (
           <div className="flex flex-wrap gap-1.5 mb-3">
-            {news.categories
-              .filter((c) => c !== 'labor')
-              .map((category) => (
+            {news.categories.map((category) => (
                 <span
                   key={category}
                   className={`px-2.5 py-1 text-[11px] font-semibold rounded-full ${

@@ -15,9 +15,9 @@ export interface News {
 export type NewsCategory =
   | 'tech'
   | 'finance'
-  | 'labor'
   | 'health'
   | 'energy'
+  | 'game'
   | 'general'
 
 export type ToolId =

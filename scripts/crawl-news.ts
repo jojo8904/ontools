@@ -32,6 +32,10 @@ const RSS_SOURCES = [
 
   // Energy
   { url: 'https://news.google.com/rss/search?q=%EC%97%90%EB%84%88%EC%A7%80+%EC%A0%84%EA%B8%B0%EC%9A%94%EA%B8%88+%EC%A0%84%EB%A0%A5&hl=ko&gl=KR&ceid=KR:ko', category: 'energy', source: 'Google뉴스 에너지' },
+
+  // Game
+  { url: 'https://www.gamemeca.com/rss.xml', category: 'game', source: '게임메카' },
+  { url: 'https://news.google.com/rss/search?q=%EA%B2%8C%EC%9E%84+%EC%8B%A0%EC%9E%91+%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8&hl=ko&gl=KR&ceid=KR:ko', category: 'game', source: 'Google뉴스 게임' },
 ]
 
 // Tool mapping keywords
@@ -72,7 +76,7 @@ async function summarizeNews(title: string, content: string): Promise<{
 응답 형식:
 {
   "summary": "200자 내외의 한국어 요약",
-  "categories": ["카테고리 배열 (tech, finance, labor, health, energy, general 중 선택)"],
+  "categories": ["카테고리 배열 (tech, finance, health, energy, game, general 중 선택)"],
   "related_tools": ["관련 도구 배열 (salary, currency, retirement, bmi, electricity, dday, unit 중 선택)"]
 }
 
