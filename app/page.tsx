@@ -14,6 +14,7 @@ const TOOL_CATEGORIES = [
       { href: '/savings', label: '적금/예금 이자 계산기' },
       { href: '/weekly-holiday-pay', label: '주휴수당 계산기' },
       { href: '/unemployment', label: '실업급여 계산기' },
+      { href: '/vat', label: '부가세(VAT) 계산기' },
     ],
   },
   {

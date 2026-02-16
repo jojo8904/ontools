@@ -123,6 +123,7 @@ const TOOL_CATEGORY_MAP: Record<string, string> = {
   savings: 'finance',
   'weekly-holiday-pay': 'finance',
   unemployment: 'finance',
+  vat: 'finance',
   bmi: 'health',
   calorie: 'health',
   electricity: 'energy',
