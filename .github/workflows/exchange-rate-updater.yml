@@ -1,0 +1,41 @@
+name: Exchange Rate Updater
+
+on:
+  schedule:
+    # Run at 11:00 KST (02:00 UTC) on weekdays
+    - cron: '0 2 * * 1-5'
+  workflow_dispatch: # Manual trigger
+
+jobs:
+  update-exchange-rates:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Update exchange rates
+        env:
+          BKEND_API_URL: ${{ secrets.BKEND_API_URL }}
+          BKEND_PROJECT_ID: ${{ secrets.BKEND_PROJECT_ID }}
+          BKEND_ENV: ${{ secrets.BKEND_ENV }}
+          EXCHANGE_RATE_API_KEY: ${{ secrets.EXCHANGE_RATE_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: npx tsx scripts/update-exchange-rate.ts
+
+      - name: Notify on failure
+        if: failure()
+        run: |
+          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
+            -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
+            -d text="⚠️ Exchange rate updater failed at $(date)"

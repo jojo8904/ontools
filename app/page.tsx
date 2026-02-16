@@ -1,8 +1,11 @@
+import Link from 'next/link'
+import { NewsList } from '@/features/news/components/NewsList'
+
 export default function HomePage() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <header className="border-b">
+      <header className="border-b bg-white sticky top-0 z-10">
         <div className="container mx-auto px-4 py-4">
           <h1 className="text-2xl font-bold">ontools</h1>
         </div>
@@ -20,47 +23,44 @@ export default function HomePage() {
         </div>
 
         {/* Tool Categories */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <div className="p-6 border rounded-lg">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          <Link href="/salary" className="p-6 border rounded-lg hover:shadow-md transition-shadow bg-white">
             <div className="text-3xl mb-4">💰</div>
             <h3 className="text-xl font-bold mb-2">금융</h3>
             <ul className="space-y-1 text-muted-foreground">
-              <li>연봉 실수령액 계산기</li>
-              <li>환율 계산기</li>
-              <li>퇴직금 계산기</li>
+              <li>• 연봉 실수령액 계산기</li>
+              <li>• 환율 계산기</li>
+              <li>• 퇴직금 계산기</li>
             </ul>
-          </div>
+          </Link>
 
-          <div className="p-6 border rounded-lg">
+          <Link href="/bmi" className="p-6 border rounded-lg hover:shadow-md transition-shadow bg-white">
             <div className="text-3xl mb-4">💪</div>
             <h3 className="text-xl font-bold mb-2">건강</h3>
             <ul className="space-y-1 text-muted-foreground">
-              <li>BMI 계산기</li>
+              <li>• BMI 계산기</li>
             </ul>
-          </div>
+          </Link>
 
-          <div className="p-6 border rounded-lg">
+          <div className="p-6 border rounded-lg bg-gray-50">
             <div className="text-3xl mb-4">🔧</div>
             <h3 className="text-xl font-bold mb-2">유틸리티</h3>
             <ul className="space-y-1 text-muted-foreground">
-              <li>단위 변환기</li>
-              <li>D-day 카운터</li>
-              <li>전기요금 계산기</li>
+              <li>• 단위 변환기 (예정)</li>
+              <li>• D-day 카운터 (예정)</li>
+              <li>• 전기요금 계산기 (예정)</li>
             </ul>
           </div>
         </div>
 
-        {/* Status */}
-        <div className="text-center text-muted-foreground">
-          <p>🚀 프로젝트 초기화 완료!</p>
-          <p className="text-sm mt-2">
-            다음 단계: npm install 후 npm run dev
-          </p>
+        {/* News Section */}
+        <div className="mb-12">
+          <NewsList limit={6} title="📰 최신 뉴스" showCategories={true} />
         </div>
       </main>
 
       {/* Footer */}
-      <footer className="border-t mt-auto">
+      <footer className="border-t mt-auto bg-gray-50">
         <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
           © 2026 ontools. All rights reserved.
         </div>

@@ -1,11 +1,17 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-02-15T10:15:36.138Z",
+  "lastUpdated": "2026-02-15T11:46:54.139Z",
   "activeFeatures": [
     "salary",
     "ui",
     "currency",
-    "bmi"
+    "bmi",
+    "news",
+    "test",
+    "seed-test-news",
+    "test-bkend",
+    "data",
+    "scripts"
   ],
   "primaryFeature": "salary",
   "features": {
@@ -60,6 +66,84 @@
         "lastUpdated": "2026-02-15T10:15:36.138Z"
       },
       "lastFile": "features/bmi/utils.test.ts"
+    },
+    "news": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-02-15T10:59:15.027Z",
+        "lastUpdated": "2026-02-15T11:13:54.749Z"
+      },
+      "lastFile": "c:\\test\\features\\news\\hooks\\useNews.ts"
+    },
+    "test": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-02-15T11:00:00.812Z",
+        "lastUpdated": "2026-02-15T11:08:46.685Z"
+      },
+      "lastFile": "c:\\test\\lib\\bkend.ts"
+    },
+    "seed-test-news": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-02-15T11:04:50.174Z",
+        "lastUpdated": "2026-02-15T11:04:50.174Z"
+      },
+      "lastFile": "c:\\test\\app\\api\\seed-test-news\\route.ts"
+    },
+    "test-bkend": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-02-15T11:05:15.696Z",
+        "lastUpdated": "2026-02-15T11:05:15.696Z"
+      },
+      "lastFile": "c:\\test\\app\\api\\test-bkend\\route.ts"
+    },
+    "data": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-02-15T11:13:36.641Z",
+        "lastUpdated": "2026-02-15T11:15:26.660Z"
+      },
+      "lastFile": "c:\\test\\features\\news\\data\\mockNews.ts"
+    },
+    "scripts": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-02-15T11:46:35.479Z",
+        "lastUpdated": "2026-02-15T11:46:54.139Z"
+      },
+      "lastFile": "c:\\test\\scripts\\update-exchange-rate.ts"
     }
   },
   "pipeline": {
@@ -70,7 +154,7 @@
   "session": {
     "startedAt": "2026-02-15T08:54:02.972Z",
     "onboardingCompleted": false,
-    "lastActivity": "2026-02-15T10:15:36.138Z"
+    "lastActivity": "2026-02-15T11:46:54.139Z"
   },
   "history": [
     {
@@ -238,6 +322,120 @@
     {
       "timestamp": "2026-02-15T10:15:36.138Z",
       "feature": "bmi",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T10:59:15.027Z",
+      "feature": "news",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T10:59:21.199Z",
+      "feature": "news",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T10:59:41.659Z",
+      "feature": "news",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T10:59:50.237Z",
+      "feature": "news",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T11:00:00.812Z",
+      "feature": "test",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T11:00:10.176Z",
+      "feature": "test",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T11:00:28.814Z",
+      "feature": "test",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T11:04:50.174Z",
+      "feature": "seed-test-news",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T11:05:15.696Z",
+      "feature": "test-bkend",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T11:08:41.075Z",
+      "feature": "test",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T11:08:46.685Z",
+      "feature": "test",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T11:13:36.641Z",
+      "feature": "data",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T11:13:45.625Z",
+      "feature": "news",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T11:13:48.744Z",
+      "feature": "news",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T11:13:51.692Z",
+      "feature": "news",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T11:13:54.749Z",
+      "feature": "news",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T11:15:26.660Z",
+      "feature": "data",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T11:46:35.479Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-15T11:46:54.139Z",
+      "feature": "scripts",
       "phase": "do",
       "action": "updated"
     }

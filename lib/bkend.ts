@@ -4,7 +4,7 @@
  */
 
 const API_BASE =
-  process.env.NEXT_PUBLIC_BKEND_API_URL || 'https://api.bkend.ai/v1'
+  process.env.NEXT_PUBLIC_BKEND_API_URL || 'https://api-client.bkend.ai/v1'
 const PROJECT_ID = process.env.NEXT_PUBLIC_BKEND_PROJECT_ID!
 const ENVIRONMENT = process.env.NEXT_PUBLIC_BKEND_ENV || 'dev'
 
@@ -75,31 +75,31 @@ export const bkend = {
   },
 
   /**
-   * Data API (Collections)
+   * Data API (Tables)
    */
   data: {
-    list: (collection: string, params?: Record<string, string>) =>
+    list: (table: string, params?: Record<string, string>) =>
       bkendFetch(
-        `/collections/${collection}/records?${new URLSearchParams(params)}`
+        `/data/${table}${params ? '?' + new URLSearchParams(params) : ''}`
       ),
 
-    get: (collection: string, id: string) =>
-      bkendFetch(`/collections/${collection}/records/${id}`),
+    get: (table: string, id: string) =>
+      bkendFetch(`/data/${table}/${id}`),
 
-    create: (collection: string, body: any) =>
-      bkendFetch(`/collections/${collection}/records`, {
+    create: (table: string, body: any) =>
+      bkendFetch(`/data/${table}`, {
         method: 'POST',
         body: JSON.stringify(body),
       }),
 
-    update: (collection: string, id: string, body: any) =>
-      bkendFetch(`/collections/${collection}/records/${id}`, {
+    update: (table: string, id: string, body: any) =>
+      bkendFetch(`/data/${table}/${id}`, {
         method: 'PATCH',
         body: JSON.stringify(body),
       }),
 
-    delete: (collection: string, id: string) =>
-      bkendFetch(`/collections/${collection}/records/${id}`, {
+    delete: (table: string, id: string) =>
+      bkendFetch(`/data/${table}/${id}`, {
         method: 'DELETE',
       }),
   },

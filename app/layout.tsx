@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Providers } from "./providers";
 
 export const metadata: Metadata = {
   title: "ontools - 실생활 유틸리티 + AI 자동 뉴스",
@@ -15,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className="min-h-screen bg-background font-sans antialiased">
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
