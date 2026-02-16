@@ -19,6 +19,9 @@ const SEARCH_QUERIES: Record<string, string> = {
   severance: '퇴직금 계산 방법',
   electricity: '전기요금 절약',
   bmi: 'BMI 다이어트',
+  loan: '대출이자 계산',
+  savings: '적금 이자 계산',
+  calorie: '기초대사량 다이어트',
 }
 
 const MAX_RESULTS = 5
