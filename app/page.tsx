@@ -110,25 +110,14 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-[#0f172a] to-[#1e3a5f]">
-        <div className="container mx-auto px-4 py-14 text-center">
-          <h2 className="text-[3rem] md:text-[3.5rem] leading-tight font-[800] mb-3 tracking-tight text-white">
-            당신의 <span className="text-[#38bdf8]">스마트한</span> 일상 도구
+      <section className="bg-[#0a0a0a]">
+        <div className="container mx-auto px-4 py-12 text-center">
+          <h2 className="text-[4rem] md:text-[5rem] leading-[1.05] font-[900] mb-3 tracking-tight text-white">
+            당신의 <span className="hero-gradient-text">스마트한</span> 일상 도구
           </h2>
-          <p className="text-lg md:text-xl text-white/60 mb-6">
+          <p className="text-base md:text-lg text-[#888]">
             계산도, 뉴스도, 게임도 — 여기서 다.
           </p>
-          <div className="flex items-center justify-center gap-3 flex-wrap">
-            <Link href="/salary" className="px-5 py-2 rounded-full border border-white/40 text-sm font-medium text-white/90 hover:bg-white hover:text-[#0f172a] transition-all duration-200">
-              연봉 계산기
-            </Link>
-            <Link href="/currency" className="px-5 py-2 rounded-full border border-white/40 text-sm font-medium text-white/90 hover:bg-white hover:text-[#0f172a] transition-all duration-200">
-              환율 계산기
-            </Link>
-            <Link href="/loan" className="px-5 py-2 rounded-full border border-white/40 text-sm font-medium text-white/90 hover:bg-white hover:text-[#0f172a] transition-all duration-200">
-              대출이자 계산기
-            </Link>
-          </div>
         </div>
       </section>
 
@@ -138,7 +127,7 @@ export default function HomePage() {
       {/* Tool Categories Section */}
       <FadeInSection>
         <section id="tools" className="bg-gray-50/50 scroll-mt-20">
-          <div className="container mx-auto px-4 pt-10 pb-20">
+          <div className="container mx-auto px-4 pt-10 pb-12">
             <h2 className="text-2xl font-bold mb-2 tracking-tight">도구 모음</h2>
             <p className="text-gray-500 mb-10">
               카테고리별로 필요한 계산기를 찾아보세요

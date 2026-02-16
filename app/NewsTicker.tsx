@@ -29,7 +29,7 @@ export function NewsTicker() {
   const doubled = [...items, ...items]
 
   return (
-    <div className="bg-gray-900 text-white overflow-hidden">
+    <div className="bg-[#111] text-white overflow-hidden">
       <div className="container mx-auto px-4 flex items-center h-10">
         <span className="text-xs font-bold bg-blue-600 text-white px-2 py-0.5 rounded mr-3 shrink-0">
           NEW
