@@ -23,6 +23,7 @@ const SEARCH_QUERIES: Record<string, string> = {
   savings: '적금 이자 계산',
   calorie: '기초대사량 다이어트',
   'weekly-holiday-pay': '주휴수당 계산 알바',
+  unemployment: '실업급여 구직급여 신청',
 }
 
 const MAX_RESULTS = 5
