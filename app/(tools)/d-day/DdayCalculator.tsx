@@ -1,7 +1,6 @@
 'use client'
 
 import { useDdayCalculator } from '@/features/dday/hooks/useDdayCalculator'
-import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import {
@@ -254,8 +253,6 @@ export function DdayCalculator() {
             </p>
           </CardContent>
         </Card>
-
-        <YouTubeSection category="dday" />
       </div>
     </div>
   )

@@ -1,7 +1,6 @@
 'use client'
 
 import { useSeveranceCalculator } from '@/features/retirement/hooks/useSeveranceCalculator'
-import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { formatCurrency } from '@/lib/utils'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
@@ -187,8 +186,6 @@ export function SeveranceCalculator() {
             </p>
           </CardContent>
         </Card>
-
-        <YouTubeSection category="severance" />
       </div>
     </div>
   )

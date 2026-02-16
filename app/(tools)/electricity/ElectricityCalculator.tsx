@@ -1,7 +1,6 @@
 'use client'
 
 import { useElectricityCalculator } from '@/features/electricity/hooks/useElectricityCalculator'
-import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { formatCurrency } from '@/lib/utils'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
@@ -296,8 +295,6 @@ export function ElectricityCalculator() {
             </table>
           </CardContent>
         </Card>
-
-        <YouTubeSection category="electricity" />
       </div>
     </div>
   )

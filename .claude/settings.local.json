@@ -20,7 +20,11 @@
       "WebFetch(domain:w3devlabs.net)",
       "WebFetch(domain:www.yonhapnewseconomytv.com)",
       "WebFetch(domain:kenees.com)",
-      "WebFetch(domain:rss.feedspot.com)"
+      "WebFetch(domain:rss.feedspot.com)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(npx next build)"
     ]
   }
 }

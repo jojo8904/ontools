@@ -11,16 +11,12 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/Card'
-import { NewsSidebar } from '@/features/news/components/NewsSidebar'
-import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 
 export function SalaryCalculator() {
   const { input, result, calculate, updateInput, reset } = useSalaryCalculator()
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      {/* Calculator (Left 60%) */}
-      <div className="lg:col-span-2 space-y-6">
+    <div className="space-y-6">
         {/* Input Form */}
         <Card>
           <CardHeader>
@@ -171,14 +167,6 @@ export function SalaryCalculator() {
             </CardContent>
           </Card>
         )}
-      </div>
-
-      {/* Sidebar (Right 40%) */}
-      <div className="space-y-6">
-        <NewsSidebar toolId="salary" title="관련 뉴스" />
-
-        <YouTubeSection category="salary" />
-      </div>
     </div>
   )
 }

@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import { ElectricityCalculator } from './ElectricityCalculator'
+import { NewsSidebar } from '@/features/news/components/NewsSidebar'
+import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 
 export const metadata: Metadata = {
   title: '전기요금 계산기 - ontools',
@@ -55,6 +57,12 @@ export default function ElectricityPage() {
         </div>
 
         <ElectricityCalculator />
+
+        {/* Bottom Sections */}
+        <div className="mt-12 space-y-10">
+          <NewsSidebar toolId="electricity" title="관련 뉴스" />
+          <YouTubeSection category="electricity" />
+        </div>
       </main>
 
       <footer className="border-t mt-auto">

@@ -1,7 +1,6 @@
 'use client'
 
 import { useBmiCalculator } from '@/features/bmi/hooks/useBmiCalculator'
-import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import {
   getCategoryColor,
   getCategoryBgColor,
@@ -16,7 +15,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/Card'
-import { NewsSidebar } from '@/features/news/components/NewsSidebar'
 
 export function BmiCalculator() {
   const { input, result, calculate, updateInput, reset } = useBmiCalculator()
@@ -24,9 +22,7 @@ export function BmiCalculator() {
   const idealWeight = result ? getIdealWeight(result.height) : null
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      {/* Calculator (Left 60%) */}
-      <div className="lg:col-span-2 space-y-6">
+    <div className="space-y-6">
         {/* Input Form */}
         <Card>
           <CardHeader>
@@ -240,14 +236,6 @@ export function BmiCalculator() {
             </CardContent>
           </Card>
         )}
-      </div>
-
-      {/* Sidebar (Right 40%) */}
-      <div className="space-y-6">
-        <NewsSidebar toolId="bmi" title="건강 뉴스" />
-
-        <YouTubeSection category="bmi" />
-      </div>
     </div>
   )
 }

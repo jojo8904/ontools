@@ -1,7 +1,6 @@
 'use client'
 
 import { useUnitConverter } from '@/features/unit-converter/hooks/useUnitConverter'
-import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { UNIT_CATEGORIES, UnitCategory } from '@/features/unit-converter/utils'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
@@ -206,8 +205,6 @@ export function UnitConverterCalculator() {
             </p>
           </CardContent>
         </Card>
-
-        <YouTubeSection category="unit" />
       </div>
     </div>
   )

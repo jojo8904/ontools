@@ -58,10 +58,10 @@ export async function fetchNewsList(
       .select('*', { count: 'exact' })
 
     if (category) {
-      query = query.contains('categories', [category])
+      query = query.like('categories', `%${category}%`)
     }
     if (relatedTool) {
-      query = query.contains('related_tools', [relatedTool])
+      query = query.like('related_tools', `%${relatedTool}%`)
     }
 
     const { data, count, error } = await query
@@ -114,13 +114,30 @@ export async function fetchNewsByCategory(
   return response.data
 }
 
+/** Map tool IDs to news categories */
+const TOOL_CATEGORY_MAP: Record<string, string> = {
+  salary: 'finance',
+  currency: 'finance',
+  severance: 'finance',
+  bmi: 'health',
+  electricity: 'energy',
+  unit: 'tech',
+  dday: 'tech',
+}
+
 /**
  * Fetch news related to a specific tool (for tool pages)
+ * Uses category-based query since related_tools is TEXT, not array
  */
 export async function fetchNewsByTool(
   toolId: string,
   limit: number = 5
 ): Promise<News[]> {
-  const response = await fetchNewsList({ relatedTool: toolId, limit })
+  const category = TOOL_CATEGORY_MAP[toolId]
+  if (!category) {
+    const response = await fetchNewsList({ limit })
+    return response.data
+  }
+  const response = await fetchNewsList({ category, limit })
   return response.data
 }

@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-02-16T04:21:38.576Z",
+  "lastUpdated": "2026-02-16T07:17:55.440Z",
   "activeFeatures": [
     "salary",
     "ui",
@@ -11,7 +11,14 @@
     "seed-test-news",
     "test-bkend",
     "data",
-    "scripts"
+    "scripts",
+    "retirement",
+    "severance-pay",
+    "unit-converter",
+    "dday",
+    "d-day",
+    "electricity",
+    "youtube"
   ],
   "primaryFeature": "salary",
   "features": {
@@ -24,9 +31,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-02-15T09:43:24.663Z",
-        "lastUpdated": "2026-02-15T09:47:39.719Z"
+        "lastUpdated": "2026-02-16T07:16:29.361Z"
       },
-      "lastFile": "app/(tools)/salary/page.tsx"
+      "lastFile": "c:\\test\\app\\(tools)\\salary\\page.tsx"
     },
     "ui": {
       "phase": "do",
@@ -50,9 +57,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-02-15T09:53:10.187Z",
-        "lastUpdated": "2026-02-16T04:10:22.363Z"
+        "lastUpdated": "2026-02-16T07:16:46.582Z"
       },
-      "lastFile": "c:\\test\\features\\currency\\services\\exchangeRateApi.ts"
+      "lastFile": "c:\\test\\app\\(tools)\\currency\\page.tsx"
     },
     "bmi": {
       "phase": "do",
@@ -63,9 +70,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-02-15T10:09:39.567Z",
-        "lastUpdated": "2026-02-15T10:15:36.138Z"
+        "lastUpdated": "2026-02-16T07:16:59.703Z"
       },
-      "lastFile": "features/bmi/utils.test.ts"
+      "lastFile": "c:\\test\\app\\(tools)\\bmi\\page.tsx"
     },
     "news": {
       "phase": "do",
@@ -76,9 +83,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-02-15T10:59:15.027Z",
-        "lastUpdated": "2026-02-16T04:21:07.519Z"
+        "lastUpdated": "2026-02-16T07:13:46.286Z"
       },
-      "lastFile": "c:\\test\\features\\news\\components\\NewsCard.tsx"
+      "lastFile": "c:\\test\\features\\news\\components\\NewsSidebar.tsx"
     },
     "test": {
       "phase": "do",
@@ -89,9 +96,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-02-15T11:00:00.812Z",
-        "lastUpdated": "2026-02-16T04:21:38.576Z"
+        "lastUpdated": "2026-02-16T06:32:09.985Z"
       },
-      "lastFile": "c:\\test\\app\\page.tsx"
+      "lastFile": "c:\\test\\app\\sitemap.ts"
     },
     "seed-test-news": {
       "phase": "do",
@@ -141,9 +148,100 @@
       "documents": {},
       "timestamps": {
         "started": "2026-02-15T11:46:35.479Z",
-        "lastUpdated": "2026-02-16T04:04:34.756Z"
+        "lastUpdated": "2026-02-16T06:47:06.175Z"
       },
-      "lastFile": "c:\\test\\scripts\\update-exchange-rate.ts"
+      "lastFile": "c:\\test\\scripts\\crawl-youtube.ts"
+    },
+    "retirement": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-02-16T06:16:46.783Z",
+        "lastUpdated": "2026-02-16T06:16:51.560Z"
+      },
+      "lastFile": "c:\\test\\features\\retirement\\hooks\\useSeveranceCalculator.ts"
+    },
+    "severance-pay": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-02-16T06:17:24.012Z",
+        "lastUpdated": "2026-02-16T07:17:13.301Z"
+      },
+      "lastFile": "c:\\test\\app\\(tools)\\severance-pay\\page.tsx"
+    },
+    "unit-converter": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-02-16T06:23:19.615Z",
+        "lastUpdated": "2026-02-16T07:17:26.730Z"
+      },
+      "lastFile": "c:\\test\\app\\(tools)\\unit-converter\\page.tsx"
+    },
+    "dday": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-02-16T06:28:46.504Z",
+        "lastUpdated": "2026-02-16T06:28:51.997Z"
+      },
+      "lastFile": "c:\\test\\features\\dday\\hooks\\useDdayCalculator.ts"
+    },
+    "d-day": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-02-16T06:29:22.154Z",
+        "lastUpdated": "2026-02-16T07:17:40.689Z"
+      },
+      "lastFile": "c:\\test\\app\\(tools)\\d-day\\page.tsx"
+    },
+    "electricity": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-02-16T06:31:01.913Z",
+        "lastUpdated": "2026-02-16T07:17:55.440Z"
+      },
+      "lastFile": "c:\\test\\app\\(tools)\\electricity\\page.tsx"
+    },
+    "youtube": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-02-16T06:47:32.390Z",
+        "lastUpdated": "2026-02-16T07:14:13.824Z"
+      },
+      "lastFile": "c:\\test\\features\\youtube\\components\\YouTubeSection.tsx"
     }
   },
   "pipeline": {
@@ -154,7 +252,7 @@
   "session": {
     "startedAt": "2026-02-15T08:54:02.972Z",
     "onboardingCompleted": false,
-    "lastActivity": "2026-02-16T04:21:38.576Z"
+    "lastActivity": "2026-02-16T07:17:55.440Z"
   },
   "history": [
     {
@@ -538,6 +636,816 @@
     {
       "timestamp": "2026-02-16T04:21:38.576Z",
       "feature": "test",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T04:40:47.257Z",
+      "feature": "news",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T04:40:52.700Z",
+      "feature": "news",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T04:40:57.414Z",
+      "feature": "news",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T04:48:51.541Z",
+      "feature": "currency",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T04:48:56.784Z",
+      "feature": "currency",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T04:49:02.424Z",
+      "feature": "currency",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T04:49:12.786Z",
+      "feature": "currency",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T04:49:31.909Z",
+      "feature": "currency",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T04:49:40.858Z",
+      "feature": "currency",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T04:50:07.860Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T04:50:39.126Z",
+      "feature": "news",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T04:50:55.288Z",
+      "feature": "news",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T04:55:52.961Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T04:55:58.932Z",
+      "feature": "news",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T04:56:13.222Z",
+      "feature": "news",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T04:56:25.039Z",
+      "feature": "news",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T04:56:30.133Z",
+      "feature": "news",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T04:57:26.369Z",
+      "feature": "test",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T04:57:34.813Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T04:57:40.260Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T04:57:50.414Z",
+      "feature": "news",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T04:58:00.132Z",
+      "feature": "news",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T04:58:16.405Z",
+      "feature": "news",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T05:04:35.475Z",
+      "feature": "test",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T05:04:53.930Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T05:05:04.136Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T05:05:11.933Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T05:05:18.892Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T05:05:25.430Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T05:05:33.035Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T05:05:56.750Z",
+      "feature": "news",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:04:18.437Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:08:06.460Z",
+      "feature": "news",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:08:18.732Z",
+      "feature": "news",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:16:35.578Z",
+      "feature": "test",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:16:46.783Z",
+      "feature": "retirement",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:16:51.560Z",
+      "feature": "retirement",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:17:24.012Z",
+      "feature": "severance-pay",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:17:32.641Z",
+      "feature": "severance-pay",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:17:42.625Z",
+      "feature": "test",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:17:49.799Z",
+      "feature": "salary",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:18:02.780Z",
+      "feature": "test",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:23:19.615Z",
+      "feature": "unit-converter",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:23:23.888Z",
+      "feature": "unit-converter",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:23:58.020Z",
+      "feature": "unit-converter",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:24:06.196Z",
+      "feature": "unit-converter",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:24:19.968Z",
+      "feature": "test",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:24:25.105Z",
+      "feature": "test",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:26:45.789Z",
+      "feature": "unit-converter",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:26:46.908Z",
+      "feature": "unit-converter",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:28:46.504Z",
+      "feature": "dday",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:28:51.997Z",
+      "feature": "dday",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:29:22.154Z",
+      "feature": "d-day",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:29:29.978Z",
+      "feature": "d-day",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:29:36.161Z",
+      "feature": "test",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:29:44.187Z",
+      "feature": "test",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:31:01.913Z",
+      "feature": "electricity",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:31:06.228Z",
+      "feature": "electricity",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:31:44.966Z",
+      "feature": "electricity",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:31:53.184Z",
+      "feature": "electricity",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:32:02.615Z",
+      "feature": "test",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:32:09.985Z",
+      "feature": "test",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:47:06.175Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:47:32.390Z",
+      "feature": "youtube",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:47:40.750Z",
+      "feature": "youtube",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:48:01.133Z",
+      "feature": "salary",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:48:03.861Z",
+      "feature": "salary",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:48:14.384Z",
+      "feature": "salary",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:48:24.821Z",
+      "feature": "currency",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:48:27.561Z",
+      "feature": "currency",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:48:33.264Z",
+      "feature": "bmi",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:48:35.999Z",
+      "feature": "bmi",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:48:51.455Z",
+      "feature": "severance-pay",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:48:54.117Z",
+      "feature": "severance-pay",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:49:03.397Z",
+      "feature": "unit-converter",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:49:06.207Z",
+      "feature": "unit-converter",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:49:11.011Z",
+      "feature": "d-day",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:49:14.448Z",
+      "feature": "d-day",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:49:19.165Z",
+      "feature": "electricity",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:49:22.071Z",
+      "feature": "electricity",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:49:32.668Z",
+      "feature": "salary",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:49:33.759Z",
+      "feature": "salary",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:56:35.801Z",
+      "feature": "salary",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:56:37.772Z",
+      "feature": "currency",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T06:56:39.772Z",
+      "feature": "bmi",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:01:19.696Z",
+      "feature": "news",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:01:30.283Z",
+      "feature": "youtube",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:01:40.938Z",
+      "feature": "salary",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:01:48.149Z",
+      "feature": "salary",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:01:53.192Z",
+      "feature": "currency",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:01:59.507Z",
+      "feature": "currency",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:02:04.207Z",
+      "feature": "bmi",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:02:09.803Z",
+      "feature": "bmi",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:02:26.052Z",
+      "feature": "currency",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:02:33.139Z",
+      "feature": "currency",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:02:40.288Z",
+      "feature": "bmi",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:02:49.592Z",
+      "feature": "bmi",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:03:04.388Z",
+      "feature": "salary",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:03:05.733Z",
+      "feature": "currency",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:03:13.548Z",
+      "feature": "bmi",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:13:18.853Z",
+      "feature": "news",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:13:28.054Z",
+      "feature": "news",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:13:46.286Z",
+      "feature": "news",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:14:13.824Z",
+      "feature": "youtube",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:14:32.844Z",
+      "feature": "salary",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:14:37.709Z",
+      "feature": "salary",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:14:42.427Z",
+      "feature": "salary",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:14:52.435Z",
+      "feature": "currency",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:14:57.408Z",
+      "feature": "currency",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:15:03.177Z",
+      "feature": "currency",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:15:12.548Z",
+      "feature": "bmi",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:15:17.422Z",
+      "feature": "bmi",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:15:22.502Z",
+      "feature": "bmi",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:15:42.532Z",
+      "feature": "severance-pay",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:15:44.196Z",
+      "feature": "unit-converter",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:15:45.641Z",
+      "feature": "d-day",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:15:47.196Z",
+      "feature": "electricity",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:15:52.198Z",
+      "feature": "severance-pay",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:15:53.278Z",
+      "feature": "unit-converter",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:15:54.353Z",
+      "feature": "d-day",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:15:55.438Z",
+      "feature": "electricity",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:16:23.289Z",
+      "feature": "salary",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:16:29.361Z",
+      "feature": "salary",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:16:40.991Z",
+      "feature": "currency",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:16:46.582Z",
+      "feature": "currency",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:16:54.879Z",
+      "feature": "bmi",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:16:59.703Z",
+      "feature": "bmi",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:17:07.767Z",
+      "feature": "severance-pay",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:17:13.301Z",
+      "feature": "severance-pay",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:17:21.581Z",
+      "feature": "unit-converter",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:17:26.730Z",
+      "feature": "unit-converter",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:17:35.448Z",
+      "feature": "d-day",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:17:40.689Z",
+      "feature": "d-day",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:17:48.703Z",
+      "feature": "electricity",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-16T07:17:55.440Z",
+      "feature": "electricity",
       "phase": "do",
       "action": "updated"
     }

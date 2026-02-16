@@ -1,7 +1,6 @@
 'use client'
 
 import { useCurrencyConverter } from '@/features/currency/hooks/useCurrencyConverter'
-import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { CURRENCY_NAMES, getCurrencySymbol } from '@/features/currency/utils'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
@@ -12,7 +11,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/Card'
-import { NewsSidebar } from '@/features/news/components/NewsSidebar'
 import { CurrencyCode } from '@/types/tools'
 
 const CURRENCIES: Array<'KRW' | CurrencyCode> = ['KRW', 'USD', 'JPY', 'EUR', 'CNY']
@@ -22,9 +20,7 @@ export function CurrencyConverter() {
     useCurrencyConverter()
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      {/* Converter (Left 60%) */}
-      <div className="lg:col-span-2 space-y-6">
+    <div className="space-y-6">
         {/* Input Form */}
         <Card>
           <CardHeader>
@@ -183,14 +179,6 @@ export function CurrencyConverter() {
             </CardContent>
           </Card>
         )}
-      </div>
-
-      {/* Sidebar (Right 40%) */}
-      <div className="space-y-6">
-        <NewsSidebar toolId="currency" title="환율 뉴스" />
-
-        <YouTubeSection category="currency" />
-      </div>
     </div>
   )
 }

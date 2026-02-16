@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import { SalaryCalculator } from './SalaryCalculator'
+import { NewsSidebar } from '@/features/news/components/NewsSidebar'
+import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 
 export const metadata: Metadata = {
   title: '연봉 실수령액 계산기 - ontools',
@@ -63,6 +65,11 @@ export default function SalaryCalculatorPage() {
         {/* Calculator Component */}
         <SalaryCalculator />
 
+        {/* Bottom Sections */}
+        <div className="mt-12 space-y-10">
+          <NewsSidebar toolId="salary" title="관련 뉴스" />
+          <YouTubeSection category="salary" />
+        </div>
       </main>
 
       {/* Footer */}
