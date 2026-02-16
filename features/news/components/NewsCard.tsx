@@ -89,12 +89,12 @@ export function NewsCard({
         ) : (
           <div
             className="h-24 flex flex-col items-center justify-center gap-1.5"
-            style={{ background: (categoryColors[primaryCategory] || categoryColors.general).bg }}
+            style={{ backgroundColor: '#f5f5f5' }}
           >
-            <svg className="w-8 h-8" fill="none" stroke="white" strokeOpacity={0.9} viewBox="0 0 24 24">
+            <svg className="w-8 h-8" fill="none" stroke={(categoryColors[primaryCategory] || categoryColors.general).icon} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={categoryIcons[primaryCategory] || categoryIcons.general} />
             </svg>
-            <span className="text-[10px] font-semibold uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.7)' }}>
+            <span className="text-[10px] font-semibold uppercase tracking-widest" style={{ color: (categoryColors[primaryCategory] || categoryColors.general).icon }}>
               {categoryLabels[primaryCategory] || 'News'}
             </span>
           </div>
