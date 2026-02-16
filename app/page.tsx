@@ -110,8 +110,9 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section */}
-      <section className="bg-[#000]" style={{ padding: '80px 0' }}>
-        <div className="container mx-auto px-4 text-center">
+      <section className="bg-[#000] relative overflow-hidden" style={{ padding: '80px 0' }}>
+        <div className="absolute inset-0 bg-[url('/hero-bg.png')] bg-center bg-contain bg-no-repeat" />
+        <div className="container mx-auto px-4 text-center relative z-[1]">
           <h2 className="text-[3.5rem] md:text-[5rem] leading-[1.1] font-[900] tracking-[-0.03em] text-white mb-0">
             당신의 <span className="hero-gradient-text">스마트한</span> 일상 도구
           </h2>
@@ -126,8 +127,9 @@ export default function HomePage() {
 
       {/* Tool Categories Section */}
       <FadeInSection>
-        <section id="tools" className="bg-[#fafafa] scroll-mt-20">
-          <div className="container mx-auto px-4 py-16">
+        <section id="tools" className="bg-[#fafafa] scroll-mt-20 relative overflow-hidden">
+          <div className="absolute inset-0 bg-[url('/tools-bg.png')] bg-center bg-contain bg-no-repeat opacity-[0.12]" />
+          <div className="container mx-auto px-4 py-16 relative z-[1]">
             <h2 className="text-[2rem] font-[800] mb-2 tracking-tight text-[#111]">도구 모음</h2>
             <p className="text-[#999] mb-10">
               카테고리별로 필요한 계산기를 찾아보세요
