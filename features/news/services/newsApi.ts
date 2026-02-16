@@ -125,9 +125,13 @@ const TOOL_CATEGORY_MAP: Record<string, string> = {
   dday: 'tech',
 }
 
+/** Primary categories that should not overlap */
+const PRIMARY_CATEGORIES = ['finance', 'health', 'energy', 'tech']
+
 /**
  * Fetch news related to a specific tool (for tool pages)
  * Uses category-based query since related_tools is TEXT, not array
+ * Filters out articles that are cross-tagged with conflicting primary categories
  */
 export async function fetchNewsByTool(
   toolId: string,
@@ -138,6 +142,10 @@ export async function fetchNewsByTool(
     const response = await fetchNewsList({ limit })
     return response.data
   }
-  const response = await fetchNewsList({ category, limit })
+  // Fetch extra to account for filtering
+  const response = await fetchNewsList({ category, limit: limit + 5 })
+  const otherPrimary = PRIMARY_CATEGORIES.filter((c) => c !== category)
   return response.data
+    .filter((news) => !news.categories.some((c) => otherPrimary.includes(c)))
+    .slice(0, limit)
 }
