@@ -5,23 +5,23 @@ import { FadeInSection } from './FadeInSection'
 import { ScrollDownButton } from './ScrollDownButton'
 
 const CATEGORY_ICONS: Record<string, React.ReactNode> = {
-  금융: (
+  Finance: (
     <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
     </svg>
   ),
-  건강: (
+  Health: (
     <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
     </svg>
   ),
-  유틸리티: (
+  Utility: (
     <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
     </svg>
   ),
-  게임: (
+  Game: (
     <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 01-.657.643 48.491 48.491 0 01-4.163-.3c-1.18-.143-2.224-.632-2.995-1.37A3 3 0 002.25 8.25v1.5A2.25 2.25 0 004.5 12h.667c.278 0 .547.06.79.168l1.065.487c.488.223.86.637 1.07 1.114.23.525.325 1.068.325 1.606v0c0 1.183-.456 2.36-1.371 3.157A3.75 3.75 0 005.25 21h2.577c.614 0 1.22-.135 1.777-.4l1.036-.494A2.25 2.25 0 0112 19.5v0a2.25 2.25 0 011.36.606l1.036.494c.558.265 1.163.4 1.777.4h2.577a3.75 3.75 0 01-1.796-2.468C16.456 17.235 16 16.058 16 14.875v0c0-.538.095-1.081.325-1.606.21-.477.582-.891 1.07-1.114l1.065-.487c.243-.108.512-.168.79-.168h.667A2.25 2.25 0 0022.167 9.75v-1.5a3 3 0 00-1.435-2.561c-.771.738-1.815 1.227-2.995 1.37a48.474 48.474 0 01-4.163.3.64.64 0 01-.657-.643v0z" />
     </svg>
@@ -29,22 +29,22 @@ const CATEGORY_ICONS: Record<string, React.ReactNode> = {
 }
 
 const CATEGORY_ICON_COLORS: Record<string, string> = {
-  금융: 'text-emerald-500',
-  건강: 'text-rose-500',
-  유틸리티: 'text-blue-500',
-  게임: 'text-violet-500',
+  Finance: 'text-emerald-500',
+  Health: 'text-rose-500',
+  Utility: 'text-blue-500',
+  Game: 'text-violet-500',
 }
 
 const CATEGORY_LINK_HOVER: Record<string, string> = {
-  금융: 'hover:text-emerald-600',
-  건강: 'hover:text-rose-600',
-  유틸리티: 'hover:text-blue-600',
-  게임: 'hover:text-violet-600',
+  Finance: 'hover:text-emerald-600',
+  Health: 'hover:text-rose-600',
+  Utility: 'hover:text-blue-600',
+  Game: 'hover:text-violet-600',
 }
 
 const TOOL_CATEGORIES = [
   {
-    title: '금융',
+    title: 'Finance',
     description: '연봉, 환율, 퇴직금 등 금융 관련 계산',
     color: 'bg-emerald-500',
     tools: [
@@ -59,7 +59,7 @@ const TOOL_CATEGORIES = [
     ],
   },
   {
-    title: '건강',
+    title: 'Health',
     description: '건강 지표를 간편하게 확인',
     color: 'bg-rose-500',
     tools: [
@@ -68,7 +68,7 @@ const TOOL_CATEGORIES = [
     ],
   },
   {
-    title: '유틸리티',
+    title: 'Utility',
     description: '일상에서 자주 쓰는 변환/계산 도구',
     color: 'bg-blue-500',
     tools: [
@@ -80,7 +80,7 @@ const TOOL_CATEGORIES = [
     ],
   },
   {
-    title: '게임',
+    title: 'Game',
     description: '브라우저에서 바로 즐기는 캐주얼 게임',
     color: 'bg-violet-500',
     tools: [
@@ -145,7 +145,7 @@ export default function HomePage() {
               {TOOL_CATEGORIES.map((cat) => (
                 <div
                   key={cat.title}
-                  id={cat.title === '게임' ? 'games' : undefined}
+                  id={cat.title === 'Game' ? 'games' : undefined}
                   className="tool-card overflow-hidden flex flex-col"
                   style={{ minHeight: '420px' }}
                 >
