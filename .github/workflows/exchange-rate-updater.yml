@@ -25,10 +25,8 @@ jobs:
 
       - name: Update exchange rates
         env:
-          NODE_TLS_REJECT_UNAUTHORIZED: '0'
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-          EXCHANGE_RATE_API_KEY: ${{ secrets.EXCHANGE_RATE_API_KEY }}
         run: npx tsx scripts/update-exchange-rate.ts
 
       - name: Notify on failure

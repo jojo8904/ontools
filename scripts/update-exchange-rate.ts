@@ -1,81 +1,44 @@
 #!/usr/bin/env tsx
 /**
  * Exchange Rate Updater Script
- * Fetches exchange rates from Korea Eximbank API and saves to Supabase
+ * Fetches exchange rates from open.er-api.com and saves to Supabase
  */
-
-// Disable SSL verification for Korea Eximbank API (self-signed certificate)
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 
 import { createClient } from '@supabase/supabase-js'
 
 // Environment variables
 const SUPABASE_URL = process.env.SUPABASE_URL!
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY!
-const EXCHANGE_RATE_API_KEY = process.env.EXCHANGE_RATE_API_KEY!
 
 // Supabase client (service_role for server-side writes)
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)
 
-// Currency codes (Korea Eximbank API format)
+// Currency codes to fetch (er-api uses ISO codes, KRW base)
 const CURRENCIES = [
-  { code: 'USD', name: '미국 달러' },
-  { code: 'JPY(100)', name: '일본 엔화 (100엔 기준)' },
-  { code: 'EUR', name: '유럽연합 유로' },
-  { code: 'CNH', name: '중국 위안' },
+  { code: 'USD', erApiCode: 'USD', name: '미국 달러', multiply: 1 },
+  { code: 'JPY', erApiCode: 'JPY', name: '일본 엔화 (100엔 기준)', multiply: 100 },
+  { code: 'EUR', erApiCode: 'EUR', name: '유럽연합 유로', multiply: 1 },
+  { code: 'CNY', erApiCode: 'CNY', name: '중국 위안', multiply: 1 },
 ]
 
-// Check if today is weekend
-function isWeekend(): boolean {
-  const day = new Date().getDay()
-  return day === 0 || day === 6
-}
-
-// Fetch exchange rate from Korea Eximbank API
-async function fetchExchangeRate(currencyCode: string): Promise<number | null> {
-  const today = new Date().toISOString().split('T')[0].replace(/-/g, '')
-  const url = `https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey=${EXCHANGE_RATE_API_KEY}&searchdate=${today}&data=AP01`
+// Fetch all exchange rates from open.er-api.com (KRW base)
+async function fetchAllRates(): Promise<Record<string, number> | null> {
+  const url = 'https://open.er-api.com/v6/latest/KRW'
 
   try {
     const res = await fetch(url)
     const data = await res.json()
 
-    if (!Array.isArray(data)) {
-      console.error('Unexpected API response format:', data)
+    if (data.result !== 'success') {
+      console.error('API returned error:', data)
       return null
     }
 
-    const rateData = data.find((item: any) => item.cur_unit === currencyCode)
-
-    if (!rateData) {
-      console.warn(`Currency ${currencyCode} not found in API response`)
-      return null
-    }
-
-    const rate = parseFloat(rateData.deal_bas_r.replace(/,/g, ''))
-    return isNaN(rate) ? null : rate
+    return data.rates
   } catch (error) {
-    console.error(`Error fetching ${currencyCode}:`, error)
+    console.error('Error fetching exchange rates:', error)
     return null
   }
-}
-
-// Get latest rate from database (for weekend fallback)
-async function getLatestRate(currencyCode: string): Promise<number | null> {
-  const { data, error } = await supabase
-    .from('exchange_rates')
-    .select('rate')
-    .eq('currency_code', currencyCode.replace('(100)', ''))
-    .eq('is_weekend', false)
-    .order('date', { ascending: false })
-    .limit(1)
-
-  if (error) {
-    console.error(`Error getting latest rate for ${currencyCode}:`, error.message)
-    return null
-  }
-
-  return data?.[0]?.rate ?? null
 }
 
 // Save exchange rate to Supabase
@@ -92,42 +55,41 @@ async function saveExchangeRate(record: {
 // Main updater function
 async function updateExchangeRates() {
   const today = new Date().toISOString()
-  const weekend = isWeekend()
+  const day = new Date().getDay()
+  const weekend = day === 0 || day === 6
 
   console.log('💱 Starting exchange rate updater...')
   console.log(`📅 Date: ${today.split('T')[0]}`)
   console.log(`🗓️  Weekend: ${weekend ? 'Yes' : 'No'}`)
 
+  // Fetch all rates in one call
+  const rates = await fetchAllRates()
+
+  if (!rates) {
+    throw new Error('Failed to fetch exchange rates from API')
+  }
+
   let totalUpdated = 0
   let totalErrors = 0
 
-  for (const { code, name } of CURRENCIES) {
+  for (const { code, erApiCode, name, multiply } of CURRENCIES) {
     console.log(`\n💵 Processing ${name} (${code})...`)
 
     try {
-      let rate: number | null = null
+      const foreignPerKrw = rates[erApiCode]
 
-      if (weekend) {
-        console.log('  📌 Weekend detected, using latest weekday rate')
-        rate = await getLatestRate(code)
-
-        if (!rate) {
-          console.error(`  ❌ No latest rate found for ${code}`)
-          totalErrors++
-          continue
-        }
-      } else {
-        rate = await fetchExchangeRate(code)
-
-        if (!rate) {
-          console.error(`  ❌ Failed to fetch rate for ${code}`)
-          totalErrors++
-          continue
-        }
+      if (!foreignPerKrw || foreignPerKrw === 0) {
+        console.error(`  ❌ Rate not found for ${erApiCode}`)
+        totalErrors++
+        continue
       }
 
+      // 1 KRW = foreignPerKrw foreign currency → 1 foreign currency = 1/foreignPerKrw KRW
+      const krwPerUnit = (1 / foreignPerKrw) * multiply
+      const rate = Math.round(krwPerUnit * 100) / 100
+
       await saveExchangeRate({
-        currency_code: code.replace('(100)', ''),
+        currency_code: code,
         rate,
         date: today,
         is_weekend: weekend,
@@ -135,8 +97,6 @@ async function updateExchangeRates() {
 
       console.log(`  ✅ Saved ${code}: ${rate.toLocaleString('ko-KR')} KRW`)
       totalUpdated++
-
-      await new Promise(resolve => setTimeout(resolve, 500))
     } catch (error) {
       console.error(`  ❌ Error processing ${code}:`, error)
       totalErrors++
