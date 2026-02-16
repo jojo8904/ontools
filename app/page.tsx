@@ -34,6 +34,7 @@ const TOOL_CATEGORIES = [
       { href: '/unit-converter', label: '단위 변환기' },
       { href: '/d-day', label: 'D-day 계산기' },
       { href: '/electricity', label: '전기요금 계산기' },
+      { href: '/character-counter', label: '글자수 세기' },
     ],
   },
   {
