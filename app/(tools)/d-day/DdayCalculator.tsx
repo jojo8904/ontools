@@ -1,6 +1,7 @@
 'use client'
 
 import { useDdayCalculator } from '@/features/dday/hooks/useDdayCalculator'
+import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import {
@@ -254,31 +255,7 @@ export function DdayCalculator() {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">관련 도구</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            <a
-              href="/severance-pay"
-              className="block p-3 rounded-lg hover:bg-muted transition-colors"
-            >
-              <p className="font-medium text-sm">퇴직금 계산기</p>
-              <p className="text-xs text-muted-foreground">
-                입사일·퇴사일로 퇴직금 계산
-              </p>
-            </a>
-            <a
-              href="/unit-converter"
-              className="block p-3 rounded-lg hover:bg-muted transition-colors"
-            >
-              <p className="font-medium text-sm">단위 변환기</p>
-              <p className="text-xs text-muted-foreground">
-                길이, 무게, 온도, 시간 변환
-              </p>
-            </a>
-          </CardContent>
-        </Card>
+        <YouTubeSection category="dday" />
       </div>
     </div>
   )

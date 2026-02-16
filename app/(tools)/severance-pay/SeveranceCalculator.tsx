@@ -1,6 +1,7 @@
 'use client'
 
 import { useSeveranceCalculator } from '@/features/retirement/hooks/useSeveranceCalculator'
+import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { formatCurrency } from '@/lib/utils'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
@@ -187,32 +188,7 @@ export function SeveranceCalculator() {
           </CardContent>
         </Card>
 
-        {/* Related Tools */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">관련 도구</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            <a
-              href="/salary"
-              className="block p-3 rounded-lg hover:bg-muted transition-colors"
-            >
-              <p className="font-medium text-sm">연봉 실수령액 계산기</p>
-              <p className="text-xs text-muted-foreground">
-                세금 제외 실수령액 계산
-              </p>
-            </a>
-            <a
-              href="/currency"
-              className="block p-3 rounded-lg hover:bg-muted transition-colors"
-            >
-              <p className="font-medium text-sm">환율 계산기</p>
-              <p className="text-xs text-muted-foreground">
-                실시간 환율 변환
-              </p>
-            </a>
-          </CardContent>
-        </Card>
+        <YouTubeSection category="severance" />
       </div>
     </div>
   )

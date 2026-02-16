@@ -1,6 +1,7 @@
 'use client'
 
 import { useBmiCalculator } from '@/features/bmi/hooks/useBmiCalculator'
+import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import {
   getCategoryColor,
   getCategoryBgColor,
@@ -240,29 +241,9 @@ export function BmiCalculator() {
         )}
       </div>
 
-      {/* Related News (Right 40%) */}
+      {/* Sidebar (Right 40%) */}
       <div className="space-y-6">
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">건강 뉴스</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-muted-foreground text-center py-8">
-              뉴스 시스템은 Phase 2에서 구현됩니다
-            </p>
-          </CardContent>
-        </Card>
-
-        {/* Ad Placeholder */}
-        <Card>
-          <CardContent className="p-6">
-            <div className="bg-muted h-60 rounded flex items-center justify-center text-muted-foreground">
-              [Google AdSense]
-              <br />
-              Phase 3
-            </div>
-          </CardContent>
-        </Card>
+        <YouTubeSection category="bmi" />
       </div>
     </div>
   )

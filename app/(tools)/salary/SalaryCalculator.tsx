@@ -11,6 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/Card'
+import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 
 export function SalaryCalculator() {
   const { input, result, calculate, updateInput, reset } = useSalaryCalculator()
@@ -171,29 +172,9 @@ export function SalaryCalculator() {
         )}
       </div>
 
-      {/* Related News (Right 40%) */}
+      {/* Sidebar (Right 40%) */}
       <div className="space-y-6">
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">관련 뉴스</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-muted-foreground text-center py-8">
-              뉴스 시스템은 Phase 2에서 구현됩니다
-            </p>
-          </CardContent>
-        </Card>
-
-        {/* Ad Placeholder */}
-        <Card>
-          <CardContent className="p-6">
-            <div className="bg-muted h-60 rounded flex items-center justify-center text-muted-foreground">
-              [Google AdSense]
-              <br />
-              Phase 3
-            </div>
-          </CardContent>
-        </Card>
+        <YouTubeSection category="salary" />
       </div>
     </div>
   )
