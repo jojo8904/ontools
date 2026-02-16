@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { NewsList } from '@/features/news/components/NewsList'
 import { NewsTicker } from './NewsTicker'
 import { FadeInSection } from './FadeInSection'
+import { ScrollDownButton } from './ScrollDownButton'
 
 const CATEGORY_ICONS: Record<string, React.ReactNode> = {
   금융: (
@@ -126,6 +127,10 @@ export default function HomePage() {
             </div>
           </div>
         </div>
+        {/* Scroll down arrow */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-[2]">
+          <ScrollDownButton />
+        </div>
       </section>
 
       {/* News Ticker */}
@@ -133,7 +138,7 @@ export default function HomePage() {
 
       {/* Tool Categories Section */}
       <FadeInSection>
-        <section id="tools" className="bg-gradient-to-b from-[#111] to-[#1a1a2e] scroll-mt-20">
+        <section id="tools" className="bg-[#151525] scroll-mt-20">
           <div className="container mx-auto px-4 py-16">
             <h2 className="text-[2rem] font-[800] mb-2 tracking-tight text-white">도구 모음</h2>
             <p className="text-[#888] mb-10">
@@ -145,12 +150,13 @@ export default function HomePage() {
                 <div
                   key={cat.title}
                   id={cat.title === '게임' ? 'games' : undefined}
-                  className="tool-card overflow-hidden"
+                  className="tool-card overflow-hidden flex flex-col"
+                  style={{ minHeight: '420px' }}
                 >
                   {/* Color accent bar */}
                   <div className={`h-[5px] ${cat.color}`} />
 
-                  <div className="p-8">
+                  <div className="p-8 flex-1 flex flex-col">
                     {/* Icon */}
                     <div className={`mb-5 ${CATEGORY_ICON_COLORS[cat.title] || 'text-gray-400'}`}>
                       {CATEGORY_ICONS[cat.title]}
@@ -159,7 +165,7 @@ export default function HomePage() {
                     <p className="text-sm text-[#999] mb-6">
                       {cat.description}
                     </p>
-                    <ul className="space-y-3">
+                    <ul className="space-y-3 mt-auto">
                       {cat.tools.map((tool) => (
                         <li key={tool.href}>
                           <Link
@@ -202,8 +208,8 @@ export default function HomePage() {
       </FadeInSection>
 
       {/* Footer */}
-      <footer className="border-t border-[#eee] bg-white mt-auto">
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-[#999]">
+      <footer className="bg-[#0a0a0a] mt-auto">
+        <div className="container mx-auto px-4 py-8 text-center text-sm text-[#888]">
           &copy; 2026 ontools. All rights reserved.
         </div>
       </footer>
