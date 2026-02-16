@@ -32,8 +32,9 @@ export default function UnitConverterPage() {
       {/* Header */}
       <header className="border-b">
         <div className="container mx-auto px-4 py-4">
-          <a href="/" className="text-xl font-bold hover:text-primary">
-            ontools
+          <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
+            <img src="/mascot.PNG" alt="ontools" className="w-10 h-10 rounded-full" />
+            <span className="text-xl font-bold">ontools</span>
           </a>
         </div>
       </header>
