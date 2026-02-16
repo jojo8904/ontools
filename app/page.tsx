@@ -24,28 +24,40 @@ export default function HomePage() {
 
         {/* Tool Categories */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-          <Link href="/salary" className="p-6 border rounded-lg hover:shadow-md transition-shadow bg-white">
+          <div className="p-6 border rounded-lg bg-white">
             <div className="text-3xl mb-4">💰</div>
-            <h3 className="text-xl font-bold mb-2">금융</h3>
-            <ul className="space-y-1 text-muted-foreground">
-              <li>• 연봉 실수령액 계산기</li>
-              <li>• 환율 계산기</li>
-              <li>• 퇴직금 계산기</li>
+            <h3 className="text-xl font-bold mb-4">금융</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/salary" className="text-muted-foreground hover:text-blue-600 transition-colors">
+                  • 연봉 실수령액 계산기
+                </Link>
+              </li>
+              <li>
+                <Link href="/currency" className="text-muted-foreground hover:text-blue-600 transition-colors">
+                  • 환율 계산기
+                </Link>
+              </li>
+              <li className="text-muted-foreground opacity-60">• 퇴직금 계산기 (예정)</li>
             </ul>
-          </Link>
+          </div>
 
-          <Link href="/bmi" className="p-6 border rounded-lg hover:shadow-md transition-shadow bg-white">
+          <div className="p-6 border rounded-lg bg-white">
             <div className="text-3xl mb-4">💪</div>
-            <h3 className="text-xl font-bold mb-2">건강</h3>
-            <ul className="space-y-1 text-muted-foreground">
-              <li>• BMI 계산기</li>
+            <h3 className="text-xl font-bold mb-4">건강</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/bmi" className="text-muted-foreground hover:text-blue-600 transition-colors">
+                  • BMI 계산기
+                </Link>
+              </li>
             </ul>
-          </Link>
+          </div>
 
           <div className="p-6 border rounded-lg bg-gray-50">
             <div className="text-3xl mb-4">🔧</div>
-            <h3 className="text-xl font-bold mb-2">유틸리티</h3>
-            <ul className="space-y-1 text-muted-foreground">
+            <h3 className="text-xl font-bold mb-4">유틸리티</h3>
+            <ul className="space-y-2 text-muted-foreground opacity-60">
               <li>• 단위 변환기 (예정)</li>
               <li>• D-day 카운터 (예정)</li>
               <li>• 전기요금 계산기 (예정)</li>
@@ -55,7 +67,7 @@ export default function HomePage() {
 
         {/* News Section */}
         <div className="mb-12">
-          <NewsList limit={6} title="📰 최신 뉴스" showCategories={true} />
+          <NewsList limit={50} title="📰 최신 뉴스" showCategories={true} />
         </div>
       </main>
 

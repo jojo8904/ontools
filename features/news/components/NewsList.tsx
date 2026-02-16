@@ -66,7 +66,7 @@ export function NewsList({
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {newsList.map((news) => (
           <NewsCard
-            key={news._id}
+            key={news.id}
             news={news}
             showCategories={showCategories}
             showRelatedTools={showRelatedTools}

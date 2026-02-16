@@ -29,12 +29,12 @@ export interface SalaryResult {
 }
 
 export interface ExchangeRate {
-  _id: string
+  id: string
   currency_code: string
   rate: number
-  date: Date
-  source: string
-  createdAt: Date
+  date: string
+  is_weekend: boolean
+  created_at: string
 }
 
 export interface ExchangeRateDisplay {

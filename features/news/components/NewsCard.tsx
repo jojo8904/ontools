@@ -50,55 +50,60 @@ export function NewsCard({
   })
 
   return (
-    <article className="group p-6 border rounded-lg hover:shadow-md transition-shadow bg-white">
-      {/* Categories */}
-      {showCategories && news.categories.length > 0 && (
-        <div className="flex flex-wrap gap-2 mb-3">
-          {news.categories.map((category) => (
-            <span
-              key={category}
-              className={`px-2 py-1 text-xs font-medium rounded ${
-                categoryColors[category] || categoryColors.general
-              }`}
-            >
-              {categoryLabels[category] || category}
-            </span>
-          ))}
-        </div>
-      )}
+    <a
+      href={news.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block group"
+    >
+      <article className="p-6 border rounded-lg hover:shadow-md transition-shadow bg-white h-full">
+        {/* Categories */}
+        {showCategories && news.categories.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-3">
+            {news.categories.map((category) => (
+              <span
+                key={category}
+                className={`px-2 py-1 text-xs font-medium rounded ${
+                  categoryColors[category] || categoryColors.general
+                }`}
+              >
+                {categoryLabels[category] || category}
+              </span>
+            ))}
+          </div>
+        )}
 
-      {/* Title */}
-      <h3 className="text-lg font-bold mb-2 group-hover:text-blue-600 transition-colors line-clamp-2">
-        <a href={news.url} target="_blank" rel="noopener noreferrer">
+        {/* Title */}
+        <h3 className="text-lg font-bold mb-2 group-hover:text-blue-600 transition-colors line-clamp-2">
           {news.title}
-        </a>
-      </h3>
+        </h3>
 
-      {/* Summary */}
-      <p className="text-muted-foreground mb-4 line-clamp-3 text-sm">
-        {news.summary}
-      </p>
+        {/* Summary */}
+        <p className="text-muted-foreground mb-4 line-clamp-3 text-sm">
+          {news.summary}
+        </p>
 
-      {/* Related Tools */}
-      {showRelatedTools && news.related_tools.length > 0 && (
-        <div className="flex flex-wrap gap-2 mb-3">
-          <span className="text-xs text-muted-foreground">관련 도구:</span>
-          {news.related_tools.map((tool) => (
-            <span
-              key={tool}
-              className="px-2 py-1 text-xs bg-gray-50 text-gray-700 rounded border"
-            >
-              {toolLabels[tool] || tool}
-            </span>
-          ))}
+        {/* Related Tools */}
+        {showRelatedTools && news.related_tools.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-3">
+            <span className="text-xs text-muted-foreground">관련 도구:</span>
+            {news.related_tools.map((tool) => (
+              <span
+                key={tool}
+                className="px-2 py-1 text-xs bg-gray-50 text-gray-700 rounded border"
+              >
+                {toolLabels[tool] || tool}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {/* Footer */}
+        <div className="flex items-center justify-between text-xs text-muted-foreground">
+          <span className="font-medium">{news.source}</span>
+          <time dateTime={publishedDate.toISOString()}>{timeAgo}</time>
         </div>
-      )}
-
-      {/* Footer */}
-      <div className="flex items-center justify-between text-xs text-muted-foreground">
-        <span className="font-medium">{news.source}</span>
-        <time dateTime={publishedDate.toISOString()}>{timeAgo}</time>
-      </div>
-    </article>
+      </article>
+    </a>
   )
 }

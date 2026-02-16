@@ -1,15 +1,15 @@
 export interface News {
-  _id: string
+  id: string
   title: string
   summary: string
   original_content: string
   source: string
-  published_at: Date
+  published_at: string
   categories: NewsCategory[]
   related_tools: ToolId[]
   url: string
-  createdAt: Date
-  updatedAt: Date
+  created_at: string
+  updated_at: string
 }
 
 export type NewsCategory =
