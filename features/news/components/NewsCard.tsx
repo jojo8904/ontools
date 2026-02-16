@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import { News } from '@/types/news'
 import { formatDistanceToNow } from 'date-fns'
 import { ko } from 'date-fns/locale'
@@ -12,6 +11,15 @@ interface NewsCardProps {
 }
 
 const categoryColors: Record<string, string> = {
+  tech: 'bg-blue-500',
+  finance: 'bg-emerald-500',
+  health: 'bg-rose-500',
+  energy: 'bg-amber-500',
+  game: 'bg-violet-500',
+  general: 'bg-gray-400',
+}
+
+const categoryBadgeColors: Record<string, string> = {
   tech: 'bg-blue-50 text-blue-700',
   finance: 'bg-emerald-50 text-emerald-700',
   health: 'bg-rose-50 text-rose-700',
@@ -29,24 +37,6 @@ const categoryLabels: Record<string, string> = {
   general: '일반',
 }
 
-const categoryIcons: Record<string, string> = {
-  tech: '💻',
-  finance: '💰',
-  health: '💪',
-  energy: '⚡',
-  game: '🎮',
-  general: '📰',
-}
-
-const categoryGradients: Record<string, string> = {
-  tech: 'from-blue-400 to-blue-600',
-  finance: 'from-emerald-400 to-emerald-600',
-  health: 'from-rose-400 to-rose-600',
-  energy: 'from-amber-400 to-amber-600',
-  game: 'from-violet-400 to-violet-600',
-  general: 'from-gray-400 to-gray-600',
-}
-
 const toolLabels: Record<string, string> = {
   salary: '연봉계산',
   currency: '환율',
@@ -62,7 +52,6 @@ export function NewsCard({
   showCategories = true,
   showRelatedTools = false,
 }: NewsCardProps) {
-  const [imgError, setImgError] = useState(false)
   const publishedDate = new Date(news.published_at)
   const timeAgo = formatDistanceToNow(publishedDate, {
     addSuffix: true,
@@ -70,7 +59,6 @@ export function NewsCard({
   })
 
   const primaryCategory = news.categories[0] || 'general'
-  const hasImage = news.image_url && !imgError
 
   return (
     <a
@@ -79,47 +67,37 @@ export function NewsCard({
       rel="noopener noreferrer"
       className="block group"
     >
-      <article className="rounded-2xl bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full flex flex-col border border-gray-100 overflow-hidden">
-        {/* Thumbnail */}
-        <div className="relative h-40 overflow-hidden bg-gray-100">
-          {hasImage ? (
-            <img
-              src={news.image_url!}
-              alt=""
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-              onError={() => setImgError(true)}
-              loading="lazy"
-            />
-          ) : (
-            <div className={`w-full h-full bg-gradient-to-br ${categoryGradients[primaryCategory] || categoryGradients.general} flex items-center justify-center`}>
-              <span className="text-4xl opacity-80">
-                {categoryIcons[primaryCategory] || categoryIcons.general}
-              </span>
-            </div>
-          )}
-          {/* Source badge on image */}
-          <span className="absolute top-2.5 right-2.5 px-2 py-0.5 text-[10px] font-medium bg-black/50 text-white rounded-md backdrop-blur-sm">
-            {news.source}
-          </span>
-        </div>
+      <article className="flex rounded-xl bg-white shadow-sm hover:shadow-lg transition-all duration-300 h-full border border-gray-100 overflow-hidden">
+        {/* Left category color bar */}
+        <div
+          className={`w-1 shrink-0 ${categoryColors[primaryCategory] || categoryColors.general}`}
+        />
 
         {/* Content */}
-        <div className="p-4 flex flex-col flex-1">
-          {/* Categories */}
-          {showCategories && news.categories.length > 0 && (
-            <div className="flex flex-wrap gap-1.5 mb-2">
-              {news.categories.map((category) => (
-                <span
-                  key={category}
-                  className={`px-2 py-0.5 text-[11px] font-semibold rounded-full ${
-                    categoryColors[category] || categoryColors.general
-                  }`}
-                >
-                  {categoryLabels[category] || category}
-                </span>
-              ))}
-            </div>
-          )}
+        <div className="p-4 flex flex-col flex-1 min-w-0">
+          {/* Source + Category badges */}
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-xs font-medium text-gray-500">
+              {news.source}
+            </span>
+            {showCategories && news.categories.length > 0 && (
+              <>
+                <span className="text-gray-300">|</span>
+                <div className="flex flex-wrap gap-1">
+                  {news.categories.map((category) => (
+                    <span
+                      key={category}
+                      className={`px-1.5 py-0.5 text-[10px] font-semibold rounded ${
+                        categoryBadgeColors[category] || categoryBadgeColors.general
+                      }`}
+                    >
+                      {categoryLabels[category] || category}
+                    </span>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
 
           {/* Title */}
           <h3 className="text-[15px] font-bold mb-1.5 group-hover:text-blue-600 transition-colors line-clamp-2 leading-snug tracking-tight">
@@ -145,10 +123,14 @@ export function NewsCard({
             </div>
           )}
 
-          {/* Footer */}
-          <div className="flex items-center justify-between text-xs text-gray-400 mt-3 pt-2.5 border-t border-gray-50">
-            <span className="font-medium text-gray-500">{news.source}</span>
-            <time dateTime={publishedDate.toISOString()}>{timeAgo}</time>
+          {/* Footer - time */}
+          <div className="mt-3 pt-2.5 border-t border-gray-50">
+            <time
+              dateTime={publishedDate.toISOString()}
+              className="text-xs text-gray-400"
+            >
+              {timeAgo}
+            </time>
           </div>
         </div>
       </article>

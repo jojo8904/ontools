@@ -46,18 +46,21 @@ export function NewsList({
           {Array.from({ length: 6 }).map((_, i) => (
             <div
               key={i}
-              className="p-5 rounded-2xl animate-pulse bg-white shadow-sm border border-gray-100"
+              className="flex rounded-xl animate-pulse bg-white shadow-sm border border-gray-100 overflow-hidden"
             >
-              <div className="flex gap-2 mb-3">
-                <div className="h-5 bg-gray-100 rounded-full w-14"></div>
-              </div>
-              <div className="h-5 bg-gray-100 rounded mb-2"></div>
-              <div className="h-5 bg-gray-100 rounded w-4/5 mb-3"></div>
-              <div className="h-4 bg-gray-50 rounded mb-1"></div>
-              <div className="h-4 bg-gray-50 rounded w-2/3 mb-4"></div>
-              <div className="flex justify-between pt-3 border-t border-gray-50">
-                <div className="h-3 bg-gray-100 rounded w-16"></div>
-                <div className="h-3 bg-gray-100 rounded w-12"></div>
+              <div className="w-1 shrink-0 bg-gray-200" />
+              <div className="p-4 flex-1">
+                <div className="flex gap-2 mb-2">
+                  <div className="h-4 bg-gray-100 rounded w-16"></div>
+                  <div className="h-4 bg-gray-100 rounded w-12"></div>
+                </div>
+                <div className="h-5 bg-gray-100 rounded mb-1.5"></div>
+                <div className="h-5 bg-gray-100 rounded w-4/5 mb-2"></div>
+                <div className="h-4 bg-gray-50 rounded mb-1"></div>
+                <div className="h-4 bg-gray-50 rounded w-2/3 mb-3"></div>
+                <div className="pt-2.5 border-t border-gray-50">
+                  <div className="h-3 bg-gray-100 rounded w-16"></div>
+                </div>
               </div>
             </div>
           ))}
