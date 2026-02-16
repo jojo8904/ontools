@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { NewsList } from '@/features/news/components/NewsList'
+import { NewsTicker } from './NewsTicker'
 
 const TOOL_CATEGORIES = [
   {
@@ -53,18 +54,29 @@ export default function HomePage() {
     <div className="min-h-screen flex flex-col">
       {/* Header */}
       <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-10">
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <a href="/" className="flex items-center gap-2.5">
             <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
             <span className="text-2xl font-bold tracking-tight">ontools</span>
           </a>
+          <nav className="flex items-center gap-6">
+            <a href="#tools" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+              도구
+            </a>
+            <a href="#news" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+              뉴스
+            </a>
+            <a href="#games" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+              게임
+            </a>
+          </nav>
         </div>
       </header>
 
-      {/* Hero Section */}
+      {/* Hero Section - compact */}
       <section className="bg-gradient-to-b from-[#f8fafc] to-[#e2e8f0]">
-        <div className="container mx-auto px-4 py-24 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight text-gray-900">
+        <div className="container mx-auto px-4 py-16 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold mb-3 tracking-tight text-gray-900">
             당신의 <span className="text-blue-600">스마트한</span> 일상 도구
           </h2>
           <p className="text-lg md:text-xl text-gray-400">
@@ -73,8 +85,11 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* News Ticker */}
+      <NewsTicker />
+
       {/* Tool Categories Section */}
-      <section className="bg-white">
+      <section id="tools" className="bg-white scroll-mt-20">
         <div className="container mx-auto px-4 py-20">
           <h2 className="text-2xl font-bold mb-2 tracking-tight">도구 모음</h2>
           <p className="text-gray-500 mb-10">
@@ -85,6 +100,7 @@ export default function HomePage() {
             {TOOL_CATEGORIES.map((cat) => (
               <div
                 key={cat.title}
+                id={cat.title === '게임' ? 'games' : undefined}
                 className="rounded-xl border border-gray-100 bg-white overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
               >
                 {/* Color accent bar */}
@@ -128,7 +144,7 @@ export default function HomePage() {
       </section>
 
       {/* News Section */}
-      <section className="bg-gray-50/80">
+      <section id="news" className="bg-gray-50/80 scroll-mt-20">
         <div className="container mx-auto px-4 py-20">
           <NewsList limit={50} title="최신 뉴스" showCategories={true} />
         </div>
