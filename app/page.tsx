@@ -35,6 +35,7 @@ const TOOL_CATEGORIES = [
       { href: '/d-day', label: 'D-day 계산기' },
       { href: '/electricity', label: '전기요금 계산기' },
       { href: '/character-counter', label: '글자수 세기' },
+      { href: '/qr-generator', label: 'QR코드 생성기' },
     ],
   },
   {
