@@ -1,6 +1,27 @@
 import { supabase } from '@/lib/supabase'
 import { News } from '@/types/news'
 
+function toArray(value: unknown): string[] {
+  if (Array.isArray(value)) return value
+  if (typeof value === 'string') {
+    try {
+      const parsed = JSON.parse(value)
+      if (Array.isArray(parsed)) return parsed
+    } catch {
+      return value.split(',').map((s) => s.trim()).filter(Boolean)
+    }
+  }
+  return []
+}
+
+function normalizeNews(raw: Record<string, unknown>): News {
+  return {
+    ...raw,
+    categories: toArray(raw.categories),
+    related_tools: toArray(raw.related_tools),
+  } as News
+}
+
 export interface FetchNewsParams {
   limit?: number
   offset?: number
@@ -50,7 +71,7 @@ export async function fetchNewsList(
     if (error) throw error
 
     return {
-      data: (data as News[]) || [],
+      data: (data || []).map(normalizeNews),
       total: count || 0,
       hasMore: offset + limit < (count || 0),
     }
@@ -71,7 +92,7 @@ export async function fetchNewsById(id: string): Promise<News> {
     .single()
 
   if (error) throw error
-  return data as News
+  return normalizeNews(data as Record<string, unknown>)
 }
 
 /**
