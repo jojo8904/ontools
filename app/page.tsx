@@ -198,10 +198,10 @@ export default function HomePage() {
       <FadeInSection>
         <section id="news" className="bg-white scroll-mt-20">
           <div className="container mx-auto px-4" style={{ padding: '40px 1rem' }}>
-            <div className="flex items-center gap-3 mb-6">
-              <h2 className="text-[2rem] font-[800] tracking-tight text-[#111]">최신 뉴스</h2>
+            <div className="flex justify-center mb-4">
               <ScrollDownButton />
             </div>
+            <h2 className="text-[2rem] font-[800] tracking-tight text-[#111] mb-6">최신 뉴스</h2>
             <NewsList limit={50} title="" showCategories={true} />
           </div>
         </section>
