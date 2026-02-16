@@ -117,10 +117,10 @@
   50% { transform: translateY(6px); }
 }
 .scroll-down-btn {
-  width: 32px;
-  height: 32px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
-  border: 1.5px solid #333;
+  border: 2.5px solid #333;
   background: transparent;
   color: #111;
   display: flex;
