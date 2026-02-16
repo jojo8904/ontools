@@ -6,7 +6,21 @@
       "Bash(npm test:*)",
       "Bash(curl:*)",
       "Bash(npm run build:*)",
-      "Bash(tee:*)"
+      "Bash(tee:*)",
+      "WebFetch(domain:gist.github.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:www.moel.go.kr)",
+      "WebFetch(domain:it.chosun.com)",
+      "WebFetch(domain:zdnet.co.kr)",
+      "WebFetch(domain:health.chosun.com)",
+      "WebFetch(domain:www.ekn.kr)",
+      "WebFetch(domain:taking.kr)",
+      "WebFetch(domain:junpyopark.github.io)",
+      "WebFetch(domain:www.korea.kr)",
+      "WebFetch(domain:w3devlabs.net)",
+      "WebFetch(domain:www.yonhapnewseconomytv.com)",
+      "WebFetch(domain:kenees.com)",
+      "WebFetch(domain:rss.feedspot.com)"
     ]
   }
 }

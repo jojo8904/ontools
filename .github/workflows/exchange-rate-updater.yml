@@ -25,6 +25,7 @@ jobs:
 
       - name: Update exchange rates
         env:
+          NODE_TLS_REJECT_UNAUTHORIZED: '0'
           BKEND_API_URL: ${{ secrets.BKEND_API_URL }}
           BKEND_PROJECT_ID: ${{ secrets.BKEND_PROJECT_ID }}
           BKEND_ENV: ${{ secrets.BKEND_ENV }}

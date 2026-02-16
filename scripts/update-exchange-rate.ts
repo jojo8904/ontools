@@ -4,6 +4,9 @@
  * Fetches exchange rates from Korea Eximbank API and saves to bkend.ai
  */
 
+// Disable SSL verification for Korea Eximbank API (self-signed certificate)
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
+
 // Environment variables
 const BKEND_API_URL = process.env.BKEND_API_URL || 'https://api-client.bkend.ai/v1'
 const BKEND_PROJECT_ID = process.env.BKEND_PROJECT_ID!

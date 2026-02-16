@@ -13,25 +13,25 @@ const BKEND_PROJECT_ID = process.env.BKEND_PROJECT_ID!
 const BKEND_ENV = process.env.BKEND_ENV || 'production'
 const CLAUDE_API_KEY = process.env.CLAUDE_API_KEY!
 
-// RSS sources from Plan document
+// RSS sources
 const RSS_SOURCES = [
   // IT/Tech
-  { url: 'https://it.chosun.com/site/data/rss/rss.xml', category: 'tech', source: 'IT조선' },
   { url: 'https://www.etnews.com/rss.xml', category: 'tech', source: '전자신문' },
-  { url: 'https://zdnet.co.kr/rss/news.xml', category: 'tech', source: 'ZDNet Korea' },
+  { url: 'https://www.bloter.net/feed', category: 'tech', source: '블로터' },
+  { url: 'https://www.boannews.com/media/rss.xml', category: 'tech', source: '보안뉴스' },
 
   // Finance
   { url: 'https://www.hankyung.com/feed/economy', category: 'finance', source: '한국경제' },
   { url: 'https://www.mk.co.kr/rss/30100041/', category: 'finance', source: '매일경제' },
 
   // Labor
-  { url: 'https://www.moel.go.kr/rss/news.xml', category: 'labor', source: '고용노동부' },
+  { url: 'https://www.moel.go.kr/rss/policy.do', category: 'labor', source: '고용노동부' },
 
   // Health
-  { url: 'https://health.chosun.com/rss/health.xml', category: 'health', source: '헬스조선' },
+  { url: 'https://news.google.com/rss/search?q=%EA%B1%B4%EA%B0%95+%EC%9D%98%EB%A3%8C+%EB%B3%B4%EA%B1%B4&hl=ko&gl=KR&ceid=KR:ko', category: 'health', source: 'Google뉴스 건강' },
 
   // Energy
-  { url: 'https://www.ekn.kr/rss/economy.xml', category: 'energy', source: '에너지경제' },
+  { url: 'https://news.google.com/rss/search?q=%EC%97%90%EB%84%88%EC%A7%80+%EC%A0%84%EA%B8%B0%EC%9A%94%EA%B8%88+%EC%A0%84%EB%A0%A5&hl=ko&gl=KR&ceid=KR:ko', category: 'energy', source: 'Google뉴스 에너지' },
 ]
 
 // Tool mapping keywords
@@ -103,7 +103,7 @@ async function summarizeNews(title: string, content: string): Promise<{
 4. JSON만 반환 (설명 없이)`
 
   const message = await claude.messages.create({
-    model: 'claude-haiku-4-20250514', // Haiku 4.5
+    model: 'claude-haiku-4-5-20251001',
     max_tokens: 1024,
     messages: [{ role: 'user', content: prompt }],
   })
