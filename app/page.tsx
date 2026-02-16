@@ -72,7 +72,11 @@ export default function HomePage() {
                   • D-day 계산기
                 </Link>
               </li>
-              <li className="text-muted-foreground opacity-60">• 전기요금 계산기 (예정)</li>
+              <li>
+                <Link href="/electricity" className="text-muted-foreground hover:text-blue-600 transition-colors">
+                  • 전기요금 계산기
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
