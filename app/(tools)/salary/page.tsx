@@ -71,9 +71,9 @@ export default function SalaryCalculatorPage() {
             </div>
           </div>
 
-          <aside className="space-y-8">
+          <aside className="space-y-6">
             {/* 4대보험 요율표 */}
-            <section>
+            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
               <h2 className="text-xl font-bold mb-4">2026년 4대보험 요율표</h2>
               <p className="text-sm text-gray-500 mb-3">
                 근로자 부담분 기준. 사업주도 동일 비율을 부담합니다.
@@ -113,7 +113,7 @@ export default function SalaryCalculatorPage() {
             </section>
 
             {/* 소득세율 구간표 */}
-            <section>
+            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
               <h2 className="text-xl font-bold mb-4">소득세율 구간표</h2>
               <p className="text-sm text-gray-500 mb-3">
                 2026년 귀속 종합소득세 기준. 과세표준 구간별 세율입니다.
@@ -165,7 +165,7 @@ export default function SalaryCalculatorPage() {
             </section>
 
             {/* 연봉별 실수령액 비교표 */}
-            <section>
+            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
               <h2 className="text-xl font-bold mb-4">연봉별 실수령액 비교표</h2>
               <h3 className="text-sm font-semibold text-gray-500 mb-3">
                 부양가족 1인(본인) 기준 월 실수령액 (근사치)

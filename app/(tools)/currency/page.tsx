@@ -71,9 +71,9 @@ export default function CurrencyPage() {
             </div>
           </div>
 
-          <aside className="space-y-8">
+          <aside className="space-y-6">
             {/* 환전 수수료 절약 팁 */}
-            <section>
+            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
               <h2 className="text-xl font-bold mb-4">환전 수수료 절약 팁</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <div>
@@ -96,7 +96,7 @@ export default function CurrencyPage() {
             </section>
 
             {/* 통화별 특징 */}
-            <section>
+            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
               <h2 className="text-xl font-bold mb-4">주요 통화별 특징</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <div>

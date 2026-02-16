@@ -69,9 +69,9 @@ export default function SeverancePayPage() {
             </div>
           </div>
 
-          <aside className="space-y-8">
+          <aside className="space-y-6">
             {/* 퇴직금 계산 방법 */}
-            <section>
+            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
               <h2 className="text-xl font-bold mb-4">퇴직금 계산 방법</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <div>
@@ -96,7 +96,7 @@ export default function SeverancePayPage() {
             </section>
 
             {/* 퇴직소득세 계산법 */}
-            <section>
+            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
               <h2 className="text-xl font-bold mb-4">퇴직소득세 계산법</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <div>
