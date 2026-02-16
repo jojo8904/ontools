@@ -117,7 +117,7 @@ export default function HomePage() {
               <h2 className="text-[3.5rem] md:text-[5rem] leading-[1.1] font-[900] tracking-[-0.03em] text-white mb-0">
                 당신의 <span className="hero-gradient-text">스마트한</span> 일상 도구
               </h2>
-              <p className="text-[1.1rem] text-[#666] mt-6">
+              <p className="text-[1.35rem] text-[rgba(255,255,255,0.85)] mt-6">
                 계산도, 뉴스도, 게임도 — 여기서 다.
               </p>
             </div>

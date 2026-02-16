@@ -14,7 +14,7 @@ const categoryGradients: Record<string, string> = {
   tech: 'from-blue-400 to-indigo-500',
   finance: 'from-emerald-400 to-teal-500',
   health: 'from-rose-400 to-pink-500',
-  energy: 'from-amber-400 to-orange-500',
+  energy: 'from-gray-300 to-gray-400',
   game: 'from-violet-400 to-purple-500',
   general: 'from-gray-300 to-gray-400',
 }
@@ -23,7 +23,7 @@ const categoryBadgeColors: Record<string, string> = {
   tech: 'bg-blue-50 text-blue-700',
   finance: 'bg-emerald-50 text-emerald-700',
   health: 'bg-rose-50 text-rose-700',
-  energy: 'bg-amber-50 text-amber-700',
+  energy: 'bg-gray-100 text-gray-600',
   game: 'bg-violet-50 text-violet-700',
   general: 'bg-gray-100 text-gray-600',
 }
