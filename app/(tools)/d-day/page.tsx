@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { DdayCalculator } from './DdayCalculator'
-import { NewsSidebar } from '@/features/news/components/NewsSidebar'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 
 export const metadata: Metadata = {
@@ -59,7 +58,6 @@ export default function DdayPage() {
 
         {/* Bottom Sections */}
         <div className="mt-12 space-y-10">
-          <NewsSidebar toolId="dday" title="관련 뉴스" />
           <YouTubeSection category="dday" />
         </div>
       </main>
