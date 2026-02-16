@@ -11,12 +11,12 @@ interface NewsCardProps {
 }
 
 const categoryColors: Record<string, string> = {
-  tech: 'bg-blue-100 text-blue-800',
-  finance: 'bg-green-100 text-green-800',
-  labor: 'bg-purple-100 text-purple-800',
-  health: 'bg-red-100 text-red-800',
-  energy: 'bg-yellow-100 text-yellow-800',
-  general: 'bg-gray-100 text-gray-800',
+  tech: 'bg-blue-50 text-blue-700 border-blue-200',
+  finance: 'bg-green-50 text-green-700 border-green-200',
+  labor: 'bg-purple-50 text-purple-700 border-purple-200',
+  health: 'bg-red-50 text-red-700 border-red-200',
+  energy: 'bg-amber-50 text-amber-700 border-amber-200',
+  general: 'bg-gray-50 text-gray-700 border-gray-200',
 }
 
 const categoryLabels: Record<string, string> = {
@@ -56,14 +56,14 @@ export function NewsCard({
       rel="noopener noreferrer"
       className="block group"
     >
-      <article className="p-6 border rounded-lg hover:shadow-md transition-shadow bg-white h-full">
+      <article className="p-5 border rounded-xl hover:shadow-lg hover:border-gray-300 transition-all duration-200 bg-white h-full flex flex-col">
         {/* Categories */}
         {showCategories && news.categories.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-3">
+          <div className="flex flex-wrap gap-1.5 mb-3">
             {news.categories.map((category) => (
               <span
                 key={category}
-                className={`px-2 py-1 text-xs font-medium rounded ${
+                className={`px-2.5 py-0.5 text-xs font-medium rounded-full border ${
                   categoryColors[category] || categoryColors.general
                 }`}
               >
@@ -74,23 +74,22 @@ export function NewsCard({
         )}
 
         {/* Title */}
-        <h3 className="text-lg font-bold mb-2 group-hover:text-blue-600 transition-colors line-clamp-2">
+        <h3 className="text-base font-bold mb-2 group-hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
           {news.title}
         </h3>
 
         {/* Summary */}
-        <p className="text-muted-foreground mb-4 line-clamp-3 text-sm">
+        <p className="text-muted-foreground mb-4 line-clamp-2 text-sm leading-relaxed flex-1">
           {news.summary}
         </p>
 
         {/* Related Tools */}
         {showRelatedTools && news.related_tools.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-3">
-            <span className="text-xs text-muted-foreground">관련 도구:</span>
+          <div className="flex flex-wrap gap-1.5 mb-3">
             {news.related_tools.map((tool) => (
               <span
                 key={tool}
-                className="px-2 py-1 text-xs bg-gray-50 text-gray-700 rounded border"
+                className="px-2 py-0.5 text-xs bg-gray-50 text-gray-600 rounded border"
               >
                 {toolLabels[tool] || tool}
               </span>
@@ -99,7 +98,7 @@ export function NewsCard({
         )}
 
         {/* Footer */}
-        <div className="flex items-center justify-between text-xs text-muted-foreground">
+        <div className="flex items-center justify-between text-xs text-muted-foreground pt-3 border-t">
           <span className="font-medium">{news.source}</span>
           <time dateTime={publishedDate.toISOString()}>{timeAgo}</time>
         </div>

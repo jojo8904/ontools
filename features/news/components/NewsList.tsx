@@ -1,7 +1,9 @@
 'use client'
 
+import { useState, useMemo } from 'react'
 import { useLatestNews } from '../hooks/useNews'
 import { NewsCard } from './NewsCard'
+import type { NewsCategory } from '@/types/news'
 
 interface NewsListProps {
   limit?: number
@@ -10,28 +12,54 @@ interface NewsListProps {
   title?: string
 }
 
+const CATEGORY_TABS: Array<{ key: 'all' | NewsCategory; label: string }> = [
+  { key: 'all', label: '전체' },
+  { key: 'tech', label: '기술/IT' },
+  { key: 'finance', label: '금융' },
+  { key: 'labor', label: '노동' },
+  { key: 'health', label: '건강' },
+  { key: 'energy', label: '에너지' },
+]
+
 export function NewsList({
   limit = 6,
   showCategories = true,
   showRelatedTools = false,
   title = '최신 뉴스',
 }: NewsListProps) {
+  const [activeCategory, setActiveCategory] = useState<'all' | NewsCategory>('all')
   const { data: newsList, isLoading, error } = useLatestNews(limit)
+
+  const filteredNews = useMemo(() => {
+    if (!newsList) return []
+    if (activeCategory === 'all') return newsList
+    return newsList.filter((news) =>
+      news.categories.includes(activeCategory)
+    )
+  }, [newsList, activeCategory])
 
   if (isLoading) {
     return (
       <div className="space-y-4">
         {title && <h2 className="text-2xl font-bold mb-6">{title}</h2>}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {Array.from({ length: limit }).map((_, i) => (
+          {Array.from({ length: 6 }).map((_, i) => (
             <div
               key={i}
-              className="p-6 border rounded-lg animate-pulse bg-gray-50"
+              className="p-5 border rounded-xl animate-pulse bg-gray-50"
             >
-              <div className="h-4 bg-gray-200 rounded w-1/3 mb-3"></div>
-              <div className="h-6 bg-gray-200 rounded mb-2"></div>
+              <div className="flex gap-2 mb-3">
+                <div className="h-5 bg-gray-200 rounded-full w-14"></div>
+                <div className="h-5 bg-gray-200 rounded-full w-10"></div>
+              </div>
+              <div className="h-5 bg-gray-200 rounded mb-2"></div>
+              <div className="h-5 bg-gray-200 rounded w-4/5 mb-3"></div>
               <div className="h-4 bg-gray-200 rounded mb-1"></div>
-              <div className="h-4 bg-gray-200 rounded w-2/3"></div>
+              <div className="h-4 bg-gray-200 rounded w-2/3 mb-4"></div>
+              <div className="flex justify-between">
+                <div className="h-3 bg-gray-200 rounded w-16"></div>
+                <div className="h-3 bg-gray-200 rounded w-12"></div>
+              </div>
             </div>
           ))}
         </div>
@@ -63,16 +91,45 @@ export function NewsList({
   return (
     <div className="space-y-6">
       {title && <h2 className="text-2xl font-bold">{title}</h2>}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {newsList.map((news) => (
-          <NewsCard
-            key={news.id}
-            news={news}
-            showCategories={showCategories}
-            showRelatedTools={showRelatedTools}
-          />
-        ))}
-      </div>
+
+      {/* Category Filter Tabs */}
+      {showCategories && (
+        <div className="flex flex-wrap gap-2">
+          {CATEGORY_TABS.map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setActiveCategory(tab.key)}
+              className={`px-4 py-2 text-sm font-medium rounded-full transition-colors ${
+                activeCategory === tab.key
+                  ? 'bg-gray-900 text-white'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* News Grid */}
+      {filteredNews.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {filteredNews.map((news) => (
+            <NewsCard
+              key={news.id}
+              news={news}
+              showCategories={showCategories}
+              showRelatedTools={showRelatedTools}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="p-8 border rounded-lg bg-gray-50 text-center">
+          <p className="text-muted-foreground">
+            해당 카테고리의 뉴스가 없습니다.
+          </p>
+        </div>
+      )}
     </div>
   )
 }

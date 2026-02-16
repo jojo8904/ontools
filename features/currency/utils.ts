@@ -1,13 +1,11 @@
 import { CurrencyInput, CurrencyResult, CurrencyCode } from '@/types/tools'
 
-// Phase 1: 하드코딩된 기본 환율 (2026-02-15 기준 가상 데이터)
-// Phase 2: bkend.ai API 연동 (n8n이 한국수출입은행 API에서 매일 11시 업데이트)
-// API 호출 실패 시에도 이 기본값을 폴백으로 사용
+// 폴백 환율 (1단위 기준, JPY도 1엔 기준)
 export const EXCHANGE_RATES: Record<CurrencyCode, number> = {
-  USD: 1380, // 미국 달러
-  JPY: 9.2, // 일본 엔 (100엔 기준)
-  EUR: 1490, // 유로
-  CNY: 190, // 중국 위안
+  USD: 1380, // 1 USD = 1380 KRW
+  JPY: 9.2, // 1 JPY = 9.2 KRW
+  EUR: 1490, // 1 EUR = 1490 KRW
+  CNY: 190, // 1 CNY = 190 KRW
 }
 
 export const CURRENCY_NAMES: Record<CurrencyCode | 'KRW', string> = {
@@ -42,21 +40,18 @@ export function getLastUpdatedTime(): string {
 
 /**
  * 환율 변환 계산
- *
- * Phase 1: 하드코딩된 EXCHANGE_RATES 사용
- * Phase 2: getAllExchangeRates() API 호출로 대체 (실시간 환율)
+ * 모든 환율은 1단위 기준 (JPY도 1엔 = X원)
  *
  * KRW → 외화: amount / rate
  * 외화 → KRW: amount * rate
  * 외화 → 외화: (amount * fromRate) / toRate
  */
-export function convertCurrency(input: CurrencyInput): CurrencyResult {
+export function convertCurrency(
+  input: CurrencyInput,
+  rates: Record<CurrencyCode, number> = EXCHANGE_RATES
+): CurrencyResult {
   const { amount, fromCurrency, toCurrency } = input
 
-  // Phase 1: 하드코딩된 환율 사용
-  // Phase 2: const rates = await getAllExchangeRates()로 대체
-
-  // 같은 통화 간 변환
   if (fromCurrency === toCurrency) {
     return {
       amount,
@@ -72,51 +67,21 @@ export function convertCurrency(input: CurrencyInput): CurrencyResult {
   let convertedAmount: number
   let rate: number
 
-  // KRW → 외화
   if (fromCurrency === 'KRW') {
-    const targetRate = EXCHANGE_RATES[toCurrency as CurrencyCode]
+    const targetRate = rates[toCurrency as CurrencyCode]
     rate = targetRate
-    // JPY는 100엔 단위이므로 특별 처리
-    if (toCurrency === 'JPY') {
-      convertedAmount = (amount / targetRate) * 100
-    } else {
-      convertedAmount = amount / targetRate
-    }
-  }
-  // 외화 → KRW
-  else if (toCurrency === 'KRW') {
-    const sourceRate = EXCHANGE_RATES[fromCurrency as CurrencyCode]
+    convertedAmount = amount / targetRate
+  } else if (toCurrency === 'KRW') {
+    const sourceRate = rates[fromCurrency as CurrencyCode]
     rate = sourceRate
-    // JPY는 100엔 단위이므로 특별 처리
-    if (fromCurrency === 'JPY') {
-      convertedAmount = (amount / 100) * sourceRate
-    } else {
-      convertedAmount = amount * sourceRate
-    }
-  }
-  // 외화 → 외화
-  else {
-    const sourceRate = EXCHANGE_RATES[fromCurrency as CurrencyCode]
-    const targetRate = EXCHANGE_RATES[toCurrency as CurrencyCode]
-
-    // 먼저 KRW로 변환 후 목표 통화로 변환
-    let amountInKRW: number
-    if (fromCurrency === 'JPY') {
-      amountInKRW = (amount / 100) * sourceRate
-    } else {
-      amountInKRW = amount * sourceRate
-    }
-
-    if (toCurrency === 'JPY') {
-      convertedAmount = (amountInKRW / targetRate) * 100
-    } else {
-      convertedAmount = amountInKRW / targetRate
-    }
-
+    convertedAmount = amount * sourceRate
+  } else {
+    const sourceRate = rates[fromCurrency as CurrencyCode]
+    const targetRate = rates[toCurrency as CurrencyCode]
+    convertedAmount = (amount * sourceRate) / targetRate
     rate = sourceRate / targetRate
   }
 
-  // 소수점 2자리까지 반올림
   convertedAmount = Math.round(convertedAmount * 100) / 100
 
   return {

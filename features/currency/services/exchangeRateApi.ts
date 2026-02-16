@@ -18,7 +18,10 @@ export async function getExchangeRate(
       .limit(1)
 
     if (error) throw error
-    if (data && data.length > 0) return data[0].rate
+    if (data && data.length > 0) {
+      // JPY는 DB에 100엔 기준 저장 → 1엔 기준으로 변환
+      return currencyCode === 'JPY' ? data[0].rate / 100 : data[0].rate
+    }
 
     return EXCHANGE_RATES[currencyCode]
   } catch (error) {
@@ -51,7 +54,8 @@ export async function getAllExchangeRates(): Promise<
         .limit(1)
 
       if (!error && data && data.length > 0) {
-        rates[code] = data[0].rate
+        // JPY는 DB에 100엔 기준 저장 → 1엔 기준으로 변환
+        rates[code] = code === 'JPY' ? data[0].rate / 100 : data[0].rate
       }
     }
 
@@ -81,8 +85,9 @@ export async function getLatestBusinessDayRate(
       .limit(1)
 
     if (!error && data && data.length > 0) {
+      const rate = currencyCode === 'JPY' ? data[0].rate / 100 : data[0].rate
       return {
-        rate: data[0].rate,
+        rate,
         date: new Date(data[0].date),
         isWeekend: data[0].is_weekend,
       }

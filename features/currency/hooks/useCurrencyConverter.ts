@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { CurrencyInput, CurrencyResult, CurrencyCode } from '@/types/tools'
-import { convertCurrency } from '../utils'
+import { convertCurrency, EXCHANGE_RATES } from '../utils'
+import { getAllExchangeRates } from '../services/exchangeRateApi'
 
 export function useCurrencyConverter() {
   const [input, setInput] = useState<CurrencyInput>({
@@ -10,9 +11,14 @@ export function useCurrencyConverter() {
   })
 
   const [result, setResult] = useState<CurrencyResult | null>(null)
+  const [rates, setRates] = useState<Record<CurrencyCode, number>>(EXCHANGE_RATES)
+
+  useEffect(() => {
+    getAllExchangeRates().then(setRates)
+  }, [])
 
   const convert = () => {
-    const conversionResult = convertCurrency(input)
+    const conversionResult = convertCurrency(input, rates)
     setResult(conversionResult)
   }
 
