@@ -67,7 +67,11 @@ export default function HomePage() {
                   • 단위 변환기
                 </Link>
               </li>
-              <li className="text-muted-foreground opacity-60">• D-day 카운터 (예정)</li>
+              <li>
+                <Link href="/d-day" className="text-muted-foreground hover:text-blue-600 transition-colors">
+                  • D-day 계산기
+                </Link>
+              </li>
               <li className="text-muted-foreground opacity-60">• 전기요금 계산기 (예정)</li>
             </ul>
           </div>
