@@ -148,7 +148,7 @@ export default function HomePage() {
                   className="tool-card overflow-hidden"
                 >
                   {/* Color accent bar */}
-                  <div className={`h-[3px] ${cat.color}`} />
+                  <div className={`h-[5px] ${cat.color}`} />
 
                   <div className="p-8">
                     {/* Icon */}
