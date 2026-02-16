@@ -122,6 +122,7 @@ const TOOL_CATEGORY_MAP: Record<string, string> = {
   loan: 'finance',
   savings: 'finance',
   bmi: 'health',
+  calorie: 'health',
   electricity: 'energy',
   unit: 'tech',
   dday: 'tech',

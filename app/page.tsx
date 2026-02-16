@@ -18,7 +18,10 @@ const TOOL_CATEGORIES = [
     title: '건강',
     description: '건강 지표를 간편하게 확인',
     color: 'bg-rose-500',
-    tools: [{ href: '/bmi', label: 'BMI 계산기' }],
+    tools: [
+      { href: '/bmi', label: 'BMI 계산기' },
+      { href: '/calorie', label: '일일 칼로리(TDEE) 계산기' },
+    ],
   },
   {
     title: '유틸리티',
