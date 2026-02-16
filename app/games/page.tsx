@@ -4,7 +4,7 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: '게임 모음 - ontools',
   description:
-    '브라우저에서 바로 즐기는 하이퍼캐주얼 게임. 2048, 테트리스, 스네이크, 지뢰찾기, 솔리테어, 블랙잭, 메모리 카드.',
+    '브라우저에서 바로 즐기는 하이퍼캐주얼 게임. 2048, 테트리스, 스네이크, 지뢰찾기, 솔리테어, 블랙잭, 메모리 카드, Flappy Bird, 타자연습, 오목.',
   openGraph: {
     title: '게임 모음 - ontools',
     description: '브라우저에서 바로 즐기는 하이퍼캐주얼 게임.',
@@ -63,6 +63,27 @@ const GAMES = [
     description: '카드를 뒤집어 같은 짝을 찾아보세요',
     color: 'from-purple-400 to-indigo-500',
     icon: '🧠',
+  },
+  {
+    id: 'flappy',
+    title: 'Flappy Bird',
+    description: '탭해서 장애물을 피하며 날아가세요',
+    color: 'from-sky-400 to-cyan-500',
+    icon: '🐦',
+  },
+  {
+    id: 'typing',
+    title: '타자연습',
+    description: '떨어지는 단어를 빠르게 타이핑하세요',
+    color: 'from-yellow-400 to-amber-500',
+    icon: '⌨️',
+  },
+  {
+    id: 'gomoku',
+    title: '오목',
+    description: 'AI와 대결! 먼저 다섯 개를 놓으세요',
+    color: 'from-stone-600 to-stone-800',
+    icon: '⚫',
   },
 ]
 
