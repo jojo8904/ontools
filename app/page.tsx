@@ -122,7 +122,7 @@ export default function HomePage() {
               </p>
             </div>
             <div className="hidden md:block shrink-0 h-full overflow-hidden">
-              <img src="/hero-bg.png" alt="" style={{ maxHeight: '100%', width: 'auto', objectFit: 'contain' }} />
+              <img src="/images/hero-bg.png" alt="" style={{ maxHeight: '100%', width: 'auto', objectFit: 'contain' }} />
             </div>
           </div>
         </div>
