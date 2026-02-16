@@ -119,6 +119,7 @@ const TOOL_CATEGORY_MAP: Record<string, string> = {
   salary: 'finance',
   currency: 'finance',
   severance: 'finance',
+  loan: 'finance',
   bmi: 'health',
   electricity: 'energy',
   unit: 'tech',

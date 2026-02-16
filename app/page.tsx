@@ -10,6 +10,7 @@ const TOOL_CATEGORIES = [
       { href: '/salary', label: '연봉 실수령액 계산기' },
       { href: '/currency', label: '환율 계산기' },
       { href: '/severance-pay', label: '퇴직금 계산기' },
+      { href: '/loan', label: '대출이자 계산기' },
     ],
   },
   {
