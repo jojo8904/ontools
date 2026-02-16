@@ -171,9 +171,9 @@ export function CurrencyConverter() {
               <div className="bg-muted rounded-lg p-4">
                 <p className="text-sm text-muted-foreground">
                   💡 <strong>안내</strong>
-                  <br />• 환율은 매일 오전 11시에 업데이트됩니다
+                  <br />• 환율은 한국수출입은행 기준, 평일 오전 11시에 자동 업데이트됩니다
+                  <br />• 주말/공휴일에는 직전 영업일 환율이 표시됩니다
                   <br />• 실제 환전 시 은행/환전소 수수료가 추가될 수 있습니다
-                  <br />• Phase 2부터 한국수출입은행 API 실시간 환율 제공 예정
                 </p>
               </div>
             </CardContent>

@@ -140,12 +140,12 @@ SUPABASE_SERVICE_ROLE_KEY=eyJ...
 3. ✅ SEO 인프라 (sitemap, robots, metadata)
 4. ✅ Vercel 배포
 
-### Phase 2: 뉴스 시스템 (2주) - CURRENT
+### Phase 2: 뉴스 시스템 (2주) - DONE
 
-1. ✅ Supabase 테이블 생성 (news, exchange_rates)
-2. ✅ Frontend 뉴스 기능 (mock data)
-3. ✅ GitHub Actions 워크플로우 (뉴스 크롤러, 환율 업데이트)
-4. [ ] USE_MOCK_DATA → false 전환 (Supabase 연동 테스트 후)
+1. ✅ Supabase 테이블 생성 (news, exchange_rates, youtube_videos)
+2. ✅ Frontend 뉴스 기능 (Supabase 실데이터 연동)
+3. ✅ GitHub Actions 워크플로우 (뉴스 크롤러, 환율 업데이트, 유튜브 크롤러)
+4. ✅ Supabase 실데이터 전환 완료 (mock 데이터 제거)
 
 ### Phase 3: 수익화 (1주)
 
@@ -153,9 +153,9 @@ SUPABASE_SERVICE_ROLE_KEY=eyJ...
 2. [ ] AdUnit 컴포넌트
 3. [ ] **AdSense 호환 CSP 설정**
 
-### Phase 4: 추가 도구 (1주)
+### Phase 4: 추가 도구 (1주) - DONE
 
-1. [ ] 퇴직금, 단위변환, D-day, 전기요금 계산기
+1. ✅ 퇴직금, 단위변환, D-day, 전기요금 계산기
 
 ## Key Design Decisions
 
