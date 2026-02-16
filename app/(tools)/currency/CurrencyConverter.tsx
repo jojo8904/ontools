@@ -186,6 +186,17 @@ export function CurrencyConverter() {
 
       {/* Sidebar (Right 40%) */}
       <div className="space-y-6">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">환율 뉴스</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-muted-foreground text-center py-8">
+              뉴스 시스템은 Phase 2에서 구현됩니다
+            </p>
+          </CardContent>
+        </Card>
+
         <YouTubeSection category="currency" />
       </div>
     </div>
