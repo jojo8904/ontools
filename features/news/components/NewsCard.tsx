@@ -11,19 +11,19 @@ interface NewsCardProps {
 }
 
 const categoryGradients: Record<string, string> = {
-  tech: 'from-blue-400 to-indigo-500',
-  finance: 'from-emerald-400 to-teal-500',
-  health: 'from-rose-400 to-pink-500',
-  energy: 'from-gray-300 to-gray-400',
-  game: 'from-violet-400 to-purple-500',
-  general: 'from-gray-300 to-gray-400',
+  tech: 'from-[#3B82F6] to-[#6366F1]',
+  finance: 'from-[#10B981] to-[#059669]',
+  health: 'from-[#EF4444] to-[#EC4899]',
+  energy: 'from-[#F59E0B] to-[#F97316]',
+  game: 'from-[#8B5CF6] to-[#7C3AED]',
+  general: 'from-gray-400 to-gray-500',
 }
 
 const categoryBadgeColors: Record<string, string> = {
   tech: 'bg-blue-50 text-blue-700',
   finance: 'bg-emerald-50 text-emerald-700',
   health: 'bg-rose-50 text-rose-700',
-  energy: 'bg-gray-100 text-gray-600',
+  energy: 'bg-amber-50 text-amber-700',
   game: 'bg-violet-50 text-violet-700',
   general: 'bg-gray-100 text-gray-600',
 }

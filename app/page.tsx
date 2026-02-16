@@ -55,14 +55,14 @@ const TOOL_CATEGORIES = [
     description: '연봉, 환율, 퇴직금 등 금융 관련 계산',
     color: 'bg-emerald-500',
     tools: [
-      { href: '/salary', label: '연봉 실수령액 계산기', badge: '인기', uses: '42,180' },
-      { href: '/currency', label: '환율 계산기', badge: '인기', uses: '31,504' },
-      { href: '/severance-pay', label: '퇴직금 계산기', uses: '8,721' },
-      { href: '/loan', label: '대출이자 계산기', uses: '7,342' },
-      { href: '/savings', label: '적금/예금 이자 계산기', uses: '5,918' },
-      { href: '/weekly-holiday-pay', label: '주휴수당 계산기', uses: '4,205' },
-      { href: '/unemployment', label: '실업급여 계산기', uses: '3,876' },
-      { href: '/vat', label: '부가세(VAT) 계산기', uses: '2,413' },
+      { href: '/salary', label: '연봉 실수령액 계산기', badge: '인기' },
+      { href: '/currency', label: '환율 계산기', badge: '인기' },
+      { href: '/severance-pay', label: '퇴직금 계산기' },
+      { href: '/loan', label: '대출이자 계산기' },
+      { href: '/savings', label: '적금/예금 이자 계산기' },
+      { href: '/weekly-holiday-pay', label: '주휴수당 계산기' },
+      { href: '/unemployment', label: '실업급여 계산기' },
+      { href: '/vat', label: '부가세(VAT) 계산기' },
     ],
   },
   {
@@ -70,8 +70,8 @@ const TOOL_CATEGORIES = [
     description: '건강 지표를 간편하게 확인',
     color: 'bg-rose-500',
     tools: [
-      { href: '/bmi', label: 'BMI 계산기', uses: '6,832' },
-      { href: '/calorie', label: '일일 칼로리(TDEE) 계산기', badge: '인기', uses: '18,294' },
+      { href: '/bmi', label: 'BMI 계산기' },
+      { href: '/calorie', label: '일일 칼로리(TDEE) 계산기', badge: '인기' },
     ],
   },
   {
@@ -79,11 +79,11 @@ const TOOL_CATEGORIES = [
     description: '일상에서 자주 쓰는 변환/계산 도구',
     color: 'bg-blue-500',
     tools: [
-      { href: '/unit-converter', label: '단위 변환기', uses: '5,127' },
-      { href: '/d-day', label: 'D-day 계산기', uses: '4,653' },
-      { href: '/electricity', label: '전기요금 계산기', uses: '3,291' },
-      { href: '/character-counter', label: '글자수 세기', badge: '인기', uses: '22,847' },
-      { href: '/qr-generator', label: 'QR코드 생성기', uses: '7,512' },
+      { href: '/unit-converter', label: '단위 변환기' },
+      { href: '/d-day', label: 'D-day 계산기' },
+      { href: '/electricity', label: '전기요금 계산기' },
+      { href: '/character-counter', label: '글자수 세기', badge: '인기' },
+      { href: '/qr-generator', label: 'QR코드 생성기' },
     ],
   },
   {
@@ -91,7 +91,7 @@ const TOOL_CATEGORIES = [
     description: '브라우저에서 바로 즐기는 캐주얼 게임',
     color: 'bg-violet-500',
     tools: [
-      { href: '/games', label: '게임 모음 보기', badge: 'NEW', uses: '15,630' },
+      { href: '/games', label: '게임 모음 보기', badge: 'NEW' },
     ],
   },
 ]
@@ -193,9 +193,6 @@ export default function HomePage() {
                               <span className={`ml-1 px-1.5 py-0.5 text-[10px] font-bold text-white rounded-full leading-none ${tool.badge === 'NEW' ? 'bg-blue-500' : 'bg-orange-500'}`}>
                                 {tool.badge}
                               </span>
-                            )}
-                            {tool.uses && (
-                              <span className="ml-auto text-[11px] text-[#bbb] shrink-0">{tool.uses}회</span>
                             )}
                           </Link>
                         </li>
