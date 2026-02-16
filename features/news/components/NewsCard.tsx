@@ -10,15 +10,6 @@ interface NewsCardProps {
   showRelatedTools?: boolean
 }
 
-const categoryColors: Record<string, string> = {
-  tech: 'bg-blue-500',
-  finance: 'bg-emerald-500',
-  health: 'bg-rose-500',
-  energy: 'bg-amber-500',
-  game: 'bg-violet-500',
-  general: 'bg-gray-400',
-}
-
 const categoryGradients: Record<string, string> = {
   tech: 'from-blue-400 to-indigo-500',
   finance: 'from-emerald-400 to-teal-500',
@@ -76,7 +67,7 @@ export function NewsCard({
       rel="noopener noreferrer"
       className="block group"
     >
-      <article className="rounded-2xl glass shadow-sm hover:shadow-xl hover:scale-[1.02] transition-all duration-300 h-full overflow-hidden flex flex-col">
+      <article className="news-card h-full overflow-hidden flex flex-col">
         {/* Thumbnail or gradient header */}
         {news.image_url ? (
           <div className="h-36 overflow-hidden">
@@ -95,15 +86,15 @@ export function NewsCard({
         )}
 
         {/* Content */}
-        <div className="p-4 flex flex-col flex-1 min-w-0">
+        <div className="p-5 flex flex-col flex-1 min-w-0">
           {/* Source + Category badges */}
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-xs font-medium text-gray-500">
+            <span className="text-xs font-medium text-[#999]">
               {news.source}
             </span>
             {showCategories && news.categories.length > 0 && (
               <>
-                <span className="text-gray-300">|</span>
+                <span className="text-[#ddd]">|</span>
                 <div className="flex flex-wrap gap-1">
                   {news.categories.map((category) => (
                     <span
@@ -121,12 +112,12 @@ export function NewsCard({
           </div>
 
           {/* Title */}
-          <h3 className="text-[15px] font-bold mb-1.5 group-hover:text-blue-600 transition-colors line-clamp-2 leading-snug tracking-tight">
+          <h3 className="text-[15px] font-bold mb-1.5 text-[#111] group-hover:text-blue-600 transition-colors line-clamp-2 leading-snug tracking-tight">
             {news.title}
           </h3>
 
           {/* Summary */}
-          <p className="text-gray-500 mb-auto line-clamp-2 text-sm leading-relaxed">
+          <p className="text-[#888] mb-auto line-clamp-2 text-sm leading-relaxed">
             {news.summary}
           </p>
 
@@ -136,7 +127,7 @@ export function NewsCard({
               {news.related_tools.map((tool) => (
                 <span
                   key={tool}
-                  className="px-2 py-0.5 text-[11px] bg-gray-50 text-gray-500 rounded-md"
+                  className="px-2 py-0.5 text-[11px] bg-[#f5f5f5] text-[#888] rounded-md"
                 >
                   {toolLabels[tool] || tool}
                 </span>
@@ -145,10 +136,10 @@ export function NewsCard({
           )}
 
           {/* Footer - time */}
-          <div className="mt-3 pt-2.5 border-t border-gray-50">
+          <div className="mt-3 pt-2.5 border-t border-[#f0f0f0]">
             <time
               dateTime={publishedDate.toISOString()}
-              className="text-xs text-gray-400"
+              className="text-xs text-[#bbb]"
             >
               {timeAgo}
             </time>
