@@ -10,13 +10,13 @@ interface NewsCardProps {
   showRelatedTools?: boolean
 }
 
-const categoryGradients: Record<string, string> = {
-  tech: 'from-[#3B82F6] to-[#6366F1]',
-  finance: 'from-[#10B981] to-[#059669]',
-  health: 'from-[#EF4444] to-[#EC4899]',
-  energy: 'from-[#F59E0B] to-[#F97316]',
-  game: 'from-[#8B5CF6] to-[#7C3AED]',
-  general: 'from-gray-400 to-gray-500',
+const categoryColors: Record<string, { bg: string; icon: string }> = {
+  tech: { bg: 'linear-gradient(135deg, #3B82F6, #6366F1)', icon: '#3B82F6' },
+  finance: { bg: 'linear-gradient(135deg, #10B981, #059669)', icon: '#10B981' },
+  health: { bg: 'linear-gradient(135deg, #EF4444, #EC4899)', icon: '#EF4444' },
+  energy: { bg: 'linear-gradient(135deg, #F59E0B, #F97316)', icon: '#F59E0B' },
+  game: { bg: 'linear-gradient(135deg, #8B5CF6, #7C3AED)', icon: '#8B5CF6' },
+  general: { bg: 'linear-gradient(135deg, #9CA3AF, #6B7280)', icon: '#9CA3AF' },
 }
 
 const categoryBadgeColors: Record<string, string> = {
@@ -87,11 +87,14 @@ export function NewsCard({
             />
           </div>
         ) : (
-          <div className={`h-24 bg-gradient-to-br ${categoryGradients[primaryCategory] || categoryGradients.general} flex flex-col items-center justify-center gap-1.5`}>
-            <svg className="w-8 h-8 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div
+            className="h-24 flex flex-col items-center justify-center gap-1.5"
+            style={{ background: (categoryColors[primaryCategory] || categoryColors.general).bg }}
+          >
+            <svg className="w-8 h-8" fill="none" stroke="white" strokeOpacity={0.9} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={categoryIcons[primaryCategory] || categoryIcons.general} />
             </svg>
-            <span className="text-white/60 text-[10px] font-semibold uppercase tracking-widest">
+            <span className="text-[10px] font-semibold uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.7)' }}>
               {categoryLabels[primaryCategory] || 'News'}
             </span>
           </div>
