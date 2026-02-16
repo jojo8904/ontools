@@ -37,7 +37,7 @@ export default function HomePage() {
       <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-10">
         <div className="container mx-auto px-4 py-4">
           <a href="/" className="flex items-center gap-2.5">
-            <img src="/mascot.PNG" alt="ontools" className="w-10 h-10 rounded-full" />
+            <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
             <span className="text-2xl font-bold tracking-tight">ontools</span>
           </a>
         </div>
@@ -49,31 +49,9 @@ export default function HomePage() {
           <h2 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight text-gray-900">
             필요한 계산, 관련 뉴스까지 한 번에
           </h2>
-          <p className="text-lg md:text-xl text-gray-500 mb-10">
+          <p className="text-lg md:text-xl text-gray-500">
             실생활 유틸리티 도구와 AI 자동 뉴스 포털
           </p>
-
-          {/* Decorative search bar */}
-          <div className="max-w-lg mx-auto pointer-events-none select-none">
-            <div className="flex items-center gap-3 bg-white/70 border border-gray-200 rounded-full px-5 py-3.5 shadow-sm">
-              <svg
-                className="w-5 h-5 text-gray-400 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-              <span className="text-gray-400 text-sm">
-                연봉 계산기, 환율, BMI ...
-              </span>
-            </div>
-          </div>
         </div>
       </section>
 
