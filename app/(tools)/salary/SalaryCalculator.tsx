@@ -11,6 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/Card'
+import { NewsSidebar } from '@/features/news/components/NewsSidebar'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 
 export function SalaryCalculator() {
@@ -174,16 +175,7 @@ export function SalaryCalculator() {
 
       {/* Sidebar (Right 40%) */}
       <div className="space-y-6">
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">관련 뉴스</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-muted-foreground text-center py-8">
-              뉴스 시스템은 Phase 2에서 구현됩니다
-            </p>
-          </CardContent>
-        </Card>
+        <NewsSidebar toolId="salary" title="관련 뉴스" />
 
         <YouTubeSection category="salary" />
       </div>

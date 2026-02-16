@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { BmiCalculator } from './BmiCalculator'
-import { Card, CardContent } from '@/components/ui/Card'
 
 export const metadata: Metadata = {
   title: 'BMI 계산기 - ontools',
@@ -61,41 +60,6 @@ export default function BmiPage() {
 
         {/* Calculator Component */}
         <BmiCalculator />
-
-        {/* Related Tools */}
-        <div className="mt-12">
-          <h2 className="text-xl font-semibold mb-4">관련 도구</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <a href="/salary">
-              <Card className="hover:border-primary cursor-pointer transition-colors">
-                <CardContent className="p-6">
-                  <p className="font-medium">연봉 실수령액 계산기</p>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    세금과 4대보험 제외한 실수령액 계산
-                  </p>
-                </CardContent>
-              </Card>
-            </a>
-            <a href="/currency">
-              <Card className="hover:border-primary cursor-pointer transition-colors">
-                <CardContent className="p-6">
-                  <p className="font-medium">환율 계산기</p>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    실시간 환율로 통화 변환
-                  </p>
-                </CardContent>
-              </Card>
-            </a>
-            <Card className="hover:border-primary cursor-pointer transition-colors">
-              <CardContent className="p-6">
-                <p className="font-medium">칼로리 계산기</p>
-                <p className="text-sm text-muted-foreground mt-1">
-                  Phase 4에서 제공 예정
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
       </main>
 
       {/* Footer */}

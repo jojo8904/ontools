@@ -12,6 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/Card'
+import { NewsSidebar } from '@/features/news/components/NewsSidebar'
 import { CurrencyCode } from '@/types/tools'
 
 const CURRENCIES: Array<'KRW' | CurrencyCode> = ['KRW', 'USD', 'JPY', 'EUR', 'CNY']
@@ -186,16 +187,7 @@ export function CurrencyConverter() {
 
       {/* Sidebar (Right 40%) */}
       <div className="space-y-6">
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">환율 뉴스</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-muted-foreground text-center py-8">
-              뉴스 시스템은 Phase 2에서 구현됩니다
-            </p>
-          </CardContent>
-        </Card>
+        <NewsSidebar toolId="currency" title="환율 뉴스" />
 
         <YouTubeSection category="currency" />
       </div>

@@ -16,6 +16,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/Card'
+import { NewsSidebar } from '@/features/news/components/NewsSidebar'
 
 export function BmiCalculator() {
   const { input, result, calculate, updateInput, reset } = useBmiCalculator()
@@ -243,16 +244,7 @@ export function BmiCalculator() {
 
       {/* Sidebar (Right 40%) */}
       <div className="space-y-6">
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">건강 뉴스</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-muted-foreground text-center py-8">
-              뉴스 시스템은 Phase 2에서 구현됩니다
-            </p>
-          </CardContent>
-        </Card>
+        <NewsSidebar toolId="bmi" title="건강 뉴스" />
 
         <YouTubeSection category="bmi" />
       </div>

@@ -45,7 +45,20 @@ export function YouTubeSection({ category, title = '관련 영상' }: YouTubeSec
     )
   }
 
-  if (videos.length === 0) return null
+  if (videos.length === 0) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">{title}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-sm text-muted-foreground text-center py-4">
+            관련 영상이 없습니다
+          </p>
+        </CardContent>
+      </Card>
+    )
+  }
 
   return (
     <Card>
