@@ -4,7 +4,7 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: '게임 모음 - ontools',
   description:
-    '브라우저에서 바로 즐기는 하이퍼캐주얼 게임. 2048, 테트리스, 스네이크 등.',
+    '브라우저에서 바로 즐기는 하이퍼캐주얼 게임. 2048, 테트리스, 스네이크, 지뢰찾기, 솔리테어, 블랙잭, 메모리 카드.',
   openGraph: {
     title: '게임 모음 - ontools',
     description: '브라우저에서 바로 즐기는 하이퍼캐주얼 게임.',
@@ -35,6 +35,34 @@ const GAMES = [
     description: '먹이를 먹고 점점 길어지는 뱀을 조종하세요',
     color: 'from-green-400 to-emerald-500',
     icon: '🐍',
+  },
+  {
+    id: 'minesweeper',
+    title: '지뢰찾기',
+    description: '지뢰를 피해 모든 칸을 열어보세요',
+    color: 'from-gray-500 to-gray-700',
+    icon: '💣',
+  },
+  {
+    id: 'solitaire',
+    title: '솔리테어',
+    description: '클론다이크 카드를 정리하는 클래식 게임',
+    color: 'from-emerald-500 to-teal-600',
+    icon: '🃏',
+  },
+  {
+    id: 'blackjack',
+    title: '블랙잭',
+    description: '딜러와 대결! 21에 가까이 가세요',
+    color: 'from-red-600 to-rose-800',
+    icon: '🎰',
+  },
+  {
+    id: 'memory',
+    title: '메모리 카드',
+    description: '카드를 뒤집어 같은 짝을 찾아보세요',
+    color: 'from-purple-400 to-indigo-500',
+    icon: '🧠',
   },
 ]
 
@@ -73,7 +101,7 @@ export default function GamesPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
           {GAMES.map((game) => (
             <Link key={game.id} href={`/games/${game.id}`} className="group">
               <div className="rounded-xl border border-gray-100 bg-white overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
