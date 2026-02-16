@@ -67,10 +67,10 @@ export function NewsCard({
       rel="noopener noreferrer"
       className="block group"
     >
-      <article className="flex rounded-xl bg-white shadow-sm hover:shadow-lg transition-all duration-300 h-full border border-gray-100 overflow-hidden">
+      <article className="flex rounded-xl bg-white shadow-sm hover:shadow-lg hover:bg-gray-50/50 transition-all duration-300 h-full border border-gray-100 overflow-hidden">
         {/* Left category color bar */}
         <div
-          className={`w-1 shrink-0 ${categoryColors[primaryCategory] || categoryColors.general}`}
+          className={`w-[4px] shrink-0 ${categoryColors[primaryCategory] || categoryColors.general}`}
         />
 
         {/* Content */}
