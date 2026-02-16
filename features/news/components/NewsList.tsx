@@ -16,7 +16,6 @@ const CATEGORY_TABS: Array<{ key: 'all' | NewsCategory; label: string }> = [
   { key: 'all', label: '전체' },
   { key: 'tech', label: '기술/IT' },
   { key: 'finance', label: '금융' },
-  { key: 'labor', label: '노동' },
   { key: 'health', label: '건강' },
   { key: 'energy', label: '에너지' },
 ]
@@ -46,19 +45,18 @@ export function NewsList({
           {Array.from({ length: 6 }).map((_, i) => (
             <div
               key={i}
-              className="p-5 border rounded-xl animate-pulse bg-gray-50"
+              className="p-5 rounded-2xl animate-pulse bg-white shadow-sm border border-gray-100"
             >
               <div className="flex gap-2 mb-3">
-                <div className="h-5 bg-gray-200 rounded-full w-14"></div>
-                <div className="h-5 bg-gray-200 rounded-full w-10"></div>
+                <div className="h-5 bg-gray-100 rounded-full w-14"></div>
               </div>
-              <div className="h-5 bg-gray-200 rounded mb-2"></div>
-              <div className="h-5 bg-gray-200 rounded w-4/5 mb-3"></div>
-              <div className="h-4 bg-gray-200 rounded mb-1"></div>
-              <div className="h-4 bg-gray-200 rounded w-2/3 mb-4"></div>
-              <div className="flex justify-between">
-                <div className="h-3 bg-gray-200 rounded w-16"></div>
-                <div className="h-3 bg-gray-200 rounded w-12"></div>
+              <div className="h-5 bg-gray-100 rounded mb-2"></div>
+              <div className="h-5 bg-gray-100 rounded w-4/5 mb-3"></div>
+              <div className="h-4 bg-gray-50 rounded mb-1"></div>
+              <div className="h-4 bg-gray-50 rounded w-2/3 mb-4"></div>
+              <div className="flex justify-between pt-3 border-t border-gray-50">
+                <div className="h-3 bg-gray-100 rounded w-16"></div>
+                <div className="h-3 bg-gray-100 rounded w-12"></div>
               </div>
             </div>
           ))}
@@ -113,7 +111,7 @@ export function NewsList({
 
       {/* News Grid */}
       {filteredNews.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredNews.map((news) => (
             <NewsCard
               key={news.id}

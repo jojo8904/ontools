@@ -27,9 +27,6 @@ const RSS_SOURCES = [
   { url: 'https://www.hankyung.com/feed/economy', category: 'finance', source: '한국경제' },
   { url: 'https://www.mk.co.kr/rss/30100041/', category: 'finance', source: '매일경제' },
 
-  // Labor
-  { url: 'https://news.google.com/rss/search?q=%EC%B5%9C%EC%A0%80%EC%9E%84%EA%B8%88+%EC%97%B0%EB%B4%89+%EB%85%B8%EB%8F%99+%EA%B3%A0%EC%9A%A9&hl=ko&gl=KR&ceid=KR:ko', category: 'labor', source: 'Google뉴스 노동' },
-
   // Health
   { url: 'https://news.google.com/rss/search?q=%EA%B1%B4%EA%B0%95+%EC%9D%98%EB%A3%8C+%EB%B3%B4%EA%B1%B4&hl=ko&gl=KR&ceid=KR:ko', category: 'health', source: 'Google뉴스 건강' },
 
