@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { SavingsCalculator } from './SavingsCalculator'
-import { NewsSidebar } from '@/features/news/components/NewsSidebar'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 
 export const metadata: Metadata = {
@@ -64,7 +63,6 @@ export default function SavingsPage() {
           <div className="lg:col-span-2">
             <SavingsCalculator />
             <div className="mt-10 space-y-10">
-              <NewsSidebar toolId="savings" title="관련 뉴스" />
               <YouTubeSection category="savings" />
             </div>
           </div>

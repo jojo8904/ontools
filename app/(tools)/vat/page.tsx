@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { VatCalculator } from './VatCalculator'
-import { NewsSidebar } from '@/features/news/components/NewsSidebar'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 
 export const metadata: Metadata = {
@@ -64,7 +63,6 @@ export default function VatPage() {
           <div className="lg:col-span-2">
             <VatCalculator />
             <div className="mt-10 space-y-10">
-              <NewsSidebar toolId="vat" title="관련 뉴스" />
               <YouTubeSection category="vat" />
             </div>
           </div>

@@ -22,9 +22,9 @@ const SEARCH_QUERIES: Record<string, string> = {
   loan: '대출이자 계산',
   savings: '적금 이자 계산',
   calorie: '기초대사량 다이어트',
-  'weekly-holiday-pay': '주휴수당 계산 알바',
-  unemployment: '실업급여 구직급여 신청',
-  vat: '부가세 계산 세금계산서',
+  'weekly-holiday-pay': '주휴수당 계산',
+  unemployment: '실업급여 신청 방법',
+  vat: '부가세 계산',
 }
 
 const MAX_RESULTS = 5

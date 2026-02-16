@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { UnemploymentCalculator } from './UnemploymentCalculator'
-import { NewsSidebar } from '@/features/news/components/NewsSidebar'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 
 export const metadata: Metadata = {
@@ -64,7 +63,6 @@ export default function UnemploymentPage() {
           <div className="lg:col-span-2">
             <UnemploymentCalculator />
             <div className="mt-10 space-y-10">
-              <NewsSidebar toolId="unemployment" title="관련 뉴스" />
               <YouTubeSection category="unemployment" />
             </div>
           </div>
