@@ -28,6 +28,14 @@ const TOOL_CATEGORIES = [
       { href: '/electricity', label: '전기요금 계산기' },
     ],
   },
+  {
+    title: '게임',
+    description: '브라우저에서 바로 즐기는 캐주얼 게임',
+    color: 'bg-violet-500',
+    tools: [
+      { href: '/games', label: '게임 모음 보기' },
+    ],
+  },
 ]
 
 export default function HomePage() {
@@ -63,7 +71,7 @@ export default function HomePage() {
             카테고리별로 필요한 계산기를 찾아보세요
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {TOOL_CATEGORIES.map((cat) => (
               <div
                 key={cat.title}
