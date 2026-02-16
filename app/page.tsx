@@ -109,31 +109,25 @@ export default function HomePage() {
         </div>
       </header>
 
-      {/* Hero Section - animated gradient mesh */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-500 via-purple-500 to-pink-400 animate-gradient-mesh">
-        {/* Gradient overlay for depth */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(255,255,255,0.15),transparent_60%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_60%,rgba(255,255,255,0.1),transparent_50%)]" />
-
-        <div className="container mx-auto px-4 py-16 relative z-[1]">
-          <div className="flex items-center justify-between gap-8">
-            {/* Left: text */}
-            <div className="flex-1 min-w-0">
-              <h2 className="text-[3rem] md:text-[3.5rem] leading-tight font-[800] mb-4 tracking-tight text-white drop-shadow-sm">
-                당신의 <span className="text-yellow-300">스마트한</span><br />일상 도구
-              </h2>
-              <p className="text-lg md:text-xl text-white/80">
-                계산도, 뉴스도, 게임도 — 여기서 다.
-              </p>
-            </div>
-            {/* Right: mascot */}
-            <div className="hidden md:block shrink-0">
-              <img
-                src="/mascot.png"
-                alt="ontools mascot"
-                className="w-[200px] h-[200px] rounded-3xl shadow-2xl ring-4 ring-white/20"
-              />
-            </div>
+      {/* Hero Section */}
+      <section className="bg-gradient-to-br from-[#0f172a] to-[#1e3a5f]">
+        <div className="container mx-auto px-4 py-14 text-center">
+          <h2 className="text-[3rem] md:text-[3.5rem] leading-tight font-[800] mb-3 tracking-tight text-white">
+            당신의 <span className="text-[#38bdf8]">스마트한</span> 일상 도구
+          </h2>
+          <p className="text-lg md:text-xl text-white/60 mb-6">
+            계산도, 뉴스도, 게임도 — 여기서 다.
+          </p>
+          <div className="flex items-center justify-center gap-3 flex-wrap">
+            <Link href="/salary" className="px-5 py-2 rounded-full border border-white/40 text-sm font-medium text-white/90 hover:bg-white hover:text-[#0f172a] transition-all duration-200">
+              연봉 계산기
+            </Link>
+            <Link href="/currency" className="px-5 py-2 rounded-full border border-white/40 text-sm font-medium text-white/90 hover:bg-white hover:text-[#0f172a] transition-all duration-200">
+              환율 계산기
+            </Link>
+            <Link href="/loan" className="px-5 py-2 rounded-full border border-white/40 text-sm font-medium text-white/90 hover:bg-white hover:text-[#0f172a] transition-all duration-200">
+              대출이자 계산기
+            </Link>
           </div>
         </div>
       </section>
@@ -205,7 +199,7 @@ export default function HomePage() {
       {/* News Section */}
       <FadeInSection>
         <section id="news" className="bg-white scroll-mt-20">
-          <div className="container mx-auto px-4 py-20">
+          <div className="container mx-auto px-4 pt-10 pb-20">
             <NewsList limit={50} title="최신 뉴스" showCategories={true} />
           </div>
         </section>
