@@ -41,7 +41,7 @@ export function NewsTicker() {
                 href={item.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-[#333] hover:text-[#000] transition-colors shrink-0"
+                className="text-sm text-[#111] hover:text-[#000] font-medium transition-colors shrink-0"
               >
                 {item.title}
               </a>

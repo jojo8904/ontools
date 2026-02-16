@@ -127,10 +127,6 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-        {/* Scroll down arrow */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-[2]">
-          <ScrollDownButton />
-        </div>
       </section>
 
       {/* News Ticker */}
@@ -165,7 +161,7 @@ export default function HomePage() {
                     <p className="text-sm text-[#999] mb-6">
                       {cat.description}
                     </p>
-                    <ul className="space-y-3 mt-auto">
+                    <ul className="space-y-3">
                       {cat.tools.map((tool) => (
                         <li key={tool.href}>
                           <Link
@@ -202,7 +198,11 @@ export default function HomePage() {
       <FadeInSection>
         <section id="news" className="bg-white scroll-mt-20">
           <div className="container mx-auto px-4" style={{ padding: '40px 1rem' }}>
-            <NewsList limit={50} title="최신 뉴스" showCategories={true} />
+            <div className="flex items-center gap-3 mb-6">
+              <h2 className="text-[2rem] font-[800] tracking-tight text-[#111]">최신 뉴스</h2>
+              <ScrollDownButton />
+            </div>
+            <NewsList limit={50} title="" showCategories={true} />
           </div>
         </section>
       </FadeInSection>
