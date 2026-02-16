@@ -66,9 +66,6 @@ export default function HomePage() {
             <a href="#news" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
               뉴스
             </a>
-            <a href="#games" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
-              게임
-            </a>
           </nav>
         </div>
       </header>
@@ -90,7 +87,7 @@ export default function HomePage() {
 
       {/* Tool Categories Section */}
       <section id="tools" className="bg-white scroll-mt-20">
-        <div className="container mx-auto px-4 py-20">
+        <div className="container mx-auto px-4 pt-10 pb-20">
           <h2 className="text-2xl font-bold mb-2 tracking-tight">도구 모음</h2>
           <p className="text-gray-500 mb-10">
             카테고리별로 필요한 계산기를 찾아보세요
