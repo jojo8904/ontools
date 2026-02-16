@@ -1,4 +1,4 @@
-import { bkend } from '@/lib/bkend'
+import { supabase } from '@/lib/supabase'
 import { News } from '@/types/news'
 
 export interface FetchNewsParams {
@@ -6,7 +6,7 @@ export interface FetchNewsParams {
   offset?: number
   category?: string
   relatedTool?: string
-  sortBy?: 'published_at' | 'createdAt'
+  sortBy?: 'published_at' | 'created_at'
   sortOrder?: 'asc' | 'desc'
 }
 
@@ -17,7 +17,7 @@ export interface NewsListResponse {
 }
 
 /**
- * Fetch news list from bkend.ai
+ * Fetch news list from Supabase
  */
 export async function fetchNewsList(
   params: FetchNewsParams = {}
@@ -32,32 +32,27 @@ export async function fetchNewsList(
   } = params
 
   try {
-    // Build filter
-    const filter: Record<string, any> = {}
+    let query = supabase
+      .from('news')
+      .select('*', { count: 'exact' })
+
     if (category) {
-      filter.categories = { $contains: category }
+      query = query.contains('categories', [category])
     }
     if (relatedTool) {
-      filter.related_tools = { $contains: relatedTool }
+      query = query.contains('related_tools', [relatedTool])
     }
 
-    // Build query params
-    const queryParams: Record<string, string> = {
-      limit: limit.toString(),
-      offset: offset.toString(),
-      sort: sortOrder === 'desc' ? `-${sortBy}` : sortBy,
-    }
+    const { data, count, error } = await query
+      .order(sortBy, { ascending: sortOrder === 'asc' })
+      .range(offset, offset + limit - 1)
 
-    if (Object.keys(filter).length > 0) {
-      queryParams.filter = JSON.stringify(filter)
-    }
-
-    const response = await bkend.data.list('news', queryParams)
+    if (error) throw error
 
     return {
-      data: response.data || [],
-      total: response.total || 0,
-      hasMore: offset + limit < (response.total || 0),
+      data: (data as News[]) || [],
+      total: count || 0,
+      hasMore: offset + limit < (count || 0),
     }
   } catch (error) {
     console.error('Failed to fetch news:', error)
@@ -69,13 +64,14 @@ export async function fetchNewsList(
  * Fetch a single news item by ID
  */
 export async function fetchNewsById(id: string): Promise<News> {
-  try {
-    const response = await bkend.data.get('news', id)
-    return response.data
-  } catch (error) {
-    console.error('Failed to fetch news by ID:', error)
-    throw error
-  }
+  const { data, error } = await supabase
+    .from('news')
+    .select('*')
+    .eq('id', id)
+    .single()
+
+  if (error) throw error
+  return data as News
 }
 
 /**

@@ -1,17 +1,20 @@
 #!/usr/bin/env tsx
 /**
  * News Crawler Script
- * Fetches RSS feeds, summarizes with Claude Haiku, and saves to bkend.ai
+ * Fetches RSS feeds, summarizes with Claude Haiku, and saves to Supabase
  */
 
 import Parser from 'rss-parser'
 import Anthropic from '@anthropic-ai/sdk'
+import { createClient } from '@supabase/supabase-js'
 
 // Environment variables
-const BKEND_API_URL = process.env.BKEND_API_URL || 'https://api-client.bkend.ai/v1'
-const BKEND_PROJECT_ID = process.env.BKEND_PROJECT_ID!
-const BKEND_ENV = process.env.BKEND_ENV || 'production'
+const SUPABASE_URL = process.env.SUPABASE_URL!
+const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY!
 const CLAUDE_API_KEY = process.env.CLAUDE_API_KEY!
+
+// Supabase client (service_role for server-side writes)
+const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)
 
 // RSS sources
 const RSS_SOURCES = [
@@ -45,37 +48,17 @@ const TOOL_KEYWORDS: Record<string, string[]> = {
   unit: ['단위', '변환'],
 }
 
-// bkend.ai API client
-async function bkendFetch(path: string, options: RequestInit = {}) {
-  const res = await fetch(`${BKEND_API_URL}${path}`, {
-    ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      'x-project-id': BKEND_PROJECT_ID,
-      'x-environment': BKEND_ENV,
-      ...options.headers,
-    },
-  })
-
-  if (!res.ok) {
-    const errorText = await res.text()
-    throw new Error(`bkend.ai API error: ${res.status} ${errorText}`)
-  }
-
-  return res.json()
-}
-
 // Claude API client
 const claude = new Anthropic({ apiKey: CLAUDE_API_KEY })
 
 // Check if news already exists
 async function newsExists(url: string): Promise<boolean> {
-  try {
-    const response = await bkendFetch(`/data/news?filter=${encodeURIComponent(JSON.stringify({ url }))}`)
-    return response.data && response.data.length > 0
-  } catch {
-    return false
-  }
+  const { data } = await supabase
+    .from('news')
+    .select('id')
+    .eq('url', url)
+    .limit(1)
+  return (data?.length ?? 0) > 0
 }
 
 // Summarize news with Claude Haiku
@@ -118,7 +101,7 @@ async function summarizeNews(title: string, content: string): Promise<{
   return JSON.parse(jsonMatch[0])
 }
 
-// Save news to bkend.ai
+// Save news to Supabase
 async function saveNews(newsItem: {
   title: string
   summary: string
@@ -129,10 +112,8 @@ async function saveNews(newsItem: {
   related_tools: string[]
   url: string
 }) {
-  return bkendFetch('/data/news', {
-    method: 'POST',
-    body: JSON.stringify(newsItem),
-  })
+  const { error } = await supabase.from('news').insert(newsItem)
+  if (error) throw new Error(`Supabase insert error: ${error.message}`)
 }
 
 // Main crawler function
@@ -179,14 +160,14 @@ async function crawlNews() {
             item.contentSnippet || item.content || item.title
           )
 
-          // Save to bkend.ai
+          // Save to Supabase
           await saveNews({
             title: item.title,
             summary,
             original_content: item.contentSnippet || item.content || item.title,
             source,
             published_at: item.pubDate ? new Date(item.pubDate).toISOString() : new Date().toISOString(),
-            categories: [...new Set([category, ...categories])], // Merge with source category
+            categories: [...new Set([category, ...categories])],
             related_tools,
             url: item.link,
           })

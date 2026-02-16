@@ -16,8 +16,7 @@ import {
   getMockNewsByTool,
 } from '../data/mockNews'
 
-// Phase 2: Use mock data for development
-// TODO: Switch to real API when bkend.ai permissions are configured
+// Set to false to use Supabase API, true to use mock data for development
 const USE_MOCK_DATA = true
 
 /**

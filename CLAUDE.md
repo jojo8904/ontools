@@ -1,15 +1,15 @@
 # ontools - Project Guidelines
 
 > **Level**: Dynamic (Fullstack with BaaS)
-> **Framework**: Next.js 14 + bkend.ai
-> **Status**: Initial Setup Phase
+> **Framework**: Next.js 14 + Supabase
+> **Status**: Phase 2 - News System
 
 ## Project Overview
 
 ontools is a Korean utility tools portal combined with AI-powered news aggregation.
 - **Core Feature**: 8 utility calculators + automated news matching
 - **Revenue Model**: Google AdSense
-- **Infrastructure**: Next.js (Vercel) + bkend.ai (BaaS) + n8n (NAS cron jobs)
+- **Infrastructure**: Next.js (Vercel) + Supabase (BaaS) + GitHub Actions (cron)
 
 ## Architecture (Dynamic Level)
 
@@ -30,9 +30,9 @@ src/
 │   │   └── utils.ts       # getLatestRate (weekend fallback)
 │   └── news/
 │       ├── hooks/         # useNewsList
-│       └── services/      # newsApi (bkend.ai)
+│       └── services/      # newsApi (Supabase)
 ├── lib/
-│   ├── bkend.ts           # bkend.ai BaaS client
+│   ├── supabase.ts        # Supabase client
 │   └── utils.ts           # Common utilities
 └── types/                  # TypeScript types
     ├── news.ts
@@ -79,58 +79,73 @@ import type { News } from '@/types'
 - **Client-side**: `NEXT_PUBLIC_` prefix
 - **Server-side**: No prefix (n8n only)
 
-## bkend.ai Integration
+## Supabase Integration
 
-### Collections
+### Tables
 
-**News Collection**:
-- `title`, `summary` (AI 요약 200자), `source`, `published_at`
-- `categories[]`, `related_tools[]` (Claude API 추출)
+**news**:
+- `id` (UUID PK), `title`, `summary` (AI 요약 200자), `source`, `published_at`
+- `categories` (text[]), `related_tools` (text[]) - Claude API 추출
 - `url` (unique) - 중복 체크 키
+- `created_at`, `updated_at`
 
-**ExchangeRate Collection**:
-- `currency_code`, `rate`, `date`, `source`
-- Compound Index: `{currency_code: 1, date: -1}`
+**exchange_rates**:
+- `id` (UUID PK), `currency_code`, `rate` (numeric), `date`, `is_weekend`
+- Index: `(currency_code, date DESC)`
 
 ### API Usage
 
 ```typescript
+import { supabase } from '@/lib/supabase'
+
 // News 조회
-const news = await bkend.data.list('News', {
-  filter: JSON.stringify({ related_tools: 'salary' }),
-  sort: JSON.stringify({ published_at: -1 }),
-  limit: '10'
-})
+const { data } = await supabase
+  .from('news')
+  .select('*')
+  .contains('related_tools', ['salary'])
+  .order('published_at', { ascending: false })
+  .limit(10)
 
 // 환율 조회 (최신)
-const exchangeRate = await bkend.data.list('ExchangeRate', {
-  filter: JSON.stringify({ currency_code: 'USD' }),
-  sort: JSON.stringify({ date: -1 }),
-  limit: '1'
-})
+const { data } = await supabase
+  .from('exchange_rates')
+  .select('*')
+  .eq('currency_code', 'USD')
+  .order('date', { ascending: false })
+  .limit(1)
 ```
+
+### Environment Variables
+
+```bash
+# Frontend (anon key, public read)
+NEXT_PUBLIC_SUPABASE_URL=https://xxx.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...
+
+# Server-side scripts (service_role, full access)
+SUPABASE_URL=https://xxx.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=eyJ...
+```
+
+### SQL Migration
+
+`supabase/migrations/001_create_tables.sql` 참조
 
 ## Implementation Priorities
 
-### Phase 1: 기본 도구 (2주) - CURRENT
+### Phase 1: 기본 도구 (2주) - DONE
 
 1. ✅ Project setup
-2. [ ] 3개 핵심 도구
-   - [ ] 연봉 실수령액 계산기 (`features/salary/`)
-   - [ ] 환율 계산기 (`features/currency/`)
-   - [ ] BMI 계산기 (`features/bmi/`)
-3. [ ] SEO 인프라
-   - [ ] `app/sitemap.xml/route.ts`
-   - [ ] `app/robots.txt/route.ts`
-   - [ ] 각 페이지 metadata
-4. [ ] Vercel 배포
+2. ✅ 3개 핵심 도구 (연봉, 환율, BMI)
+3. ✅ SEO 인프라 (sitemap, robots, metadata)
+4. ✅ Vercel 배포
 
-### Phase 2: 뉴스 시스템 (2주)
+### Phase 2: 뉴스 시스템 (2주) - CURRENT
 
-1. [ ] bkend.ai Collections 생성 (MCP)
-2. [ ] Frontend 뉴스 기능
-3. [ ] n8n 워크플로우 (NAS)
-4. [ ] 도구-뉴스 매칭
+1. ✅ Supabase 테이블 생성 (news, exchange_rates)
+2. ✅ Frontend 뉴스 기능 (mock data)
+3. ✅ GitHub Actions 워크플로우 (뉴스 크롤러, 환율 업데이트)
+4. [ ] USE_MOCK_DATA → false 전환 (Supabase 연동 테스트 후)
 
 ### Phase 3: 수익화 (1주)
 
@@ -166,9 +181,9 @@ const exchangeRate = await bkend.data.list('ExchangeRate', {
 
 ## External Services
 
-- **bkend.ai**: Backend (Collections, Auth - 미사용 in MVP)
+- **Supabase**: Backend (PostgreSQL, RLS, Auth - 미사용 in MVP)
 - **Vercel**: Frontend hosting
-- **n8n (NAS)**: 뉴스 크롤링 + Claude API 요약
+- **GitHub Actions**: 뉴스 크롤링 + Claude API 요약 (3시간마다), 환율 업데이트 (평일 11시)
 - **Claude API**: Haiku 4.5 (`claude-haiku-4-5-20251001`)
 - **한국수출입은행 API**: 환율 데이터
 
