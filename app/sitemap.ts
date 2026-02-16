@@ -4,7 +4,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://ontools.com'
 
   // 정적 페이지
-  const routes = ['', '/salary', '/currency', '/bmi', '/severance-pay', '/loan', '/unit-converter', '/d-day', '/electricity', '/games', '/games/2048', '/games/tetris', '/games/snake', '/games/minesweeper', '/games/solitaire', '/games/blackjack', '/games/memory', '/games/flappy', '/games/typing', '/games/gomoku'].map((route) => ({
+  const routes = ['', '/salary', '/currency', '/bmi', '/severance-pay', '/loan', '/savings', '/unit-converter', '/d-day', '/electricity', '/games', '/games/2048', '/games/tetris', '/games/snake', '/games/minesweeper', '/games/solitaire', '/games/blackjack', '/games/memory', '/games/flappy', '/games/typing', '/games/gomoku'].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,

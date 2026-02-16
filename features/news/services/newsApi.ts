@@ -120,6 +120,7 @@ const TOOL_CATEGORY_MAP: Record<string, string> = {
   currency: 'finance',
   severance: 'finance',
   loan: 'finance',
+  savings: 'finance',
   bmi: 'health',
   electricity: 'energy',
   unit: 'tech',

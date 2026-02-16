@@ -11,6 +11,7 @@ const TOOL_CATEGORIES = [
       { href: '/currency', label: '환율 계산기' },
       { href: '/severance-pay', label: '퇴직금 계산기' },
       { href: '/loan', label: '대출이자 계산기' },
+      { href: '/savings', label: '적금/예금 이자 계산기' },
     ],
   },
   {
