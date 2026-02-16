@@ -110,18 +110,18 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section */}
-      <section className="bg-[#000] relative overflow-hidden" style={{ padding: '80px 0' }}>
+      <section className="bg-[#000] relative overflow-hidden" style={{ padding: '40px 0' }}>
         <div className="container mx-auto px-4 relative z-[1]">
-          <div className="flex items-center justify-between gap-8">
+          <div className="flex items-center justify-between gap-6">
             <div className="flex-1 min-w-0">
-              <h2 className="text-[3.5rem] md:text-[5rem] leading-[1.1] font-[900] tracking-[-0.03em] text-white mb-0">
+              <h2 className="text-[2.5rem] md:text-[3.5rem] leading-[1.1] font-[900] tracking-[-0.03em] text-white mb-0">
                 당신의 <span className="hero-gradient-text">스마트한</span> 일상 도구
               </h2>
-              <p className="text-[1.35rem] text-[rgba(255,255,255,0.85)] mt-6">
+              <p className="text-[1.1rem] text-[rgba(255,255,255,0.85)] mt-3">
                 계산도, 뉴스도, 게임도 — 여기서 다.
               </p>
             </div>
-            <div className="hidden md:block shrink-0 w-[320px] h-[240px]">
+            <div className="hidden md:block shrink-0 w-[200px] h-[150px]">
               <img src="/hero-bg.png" alt="" className="w-full h-full object-contain" />
             </div>
           </div>
