@@ -8,6 +8,7 @@ export interface News {
   categories: NewsCategory[]
   related_tools: ToolId[]
   url: string
+  image_url: string | null
   created_at: string
   updated_at: string
 }

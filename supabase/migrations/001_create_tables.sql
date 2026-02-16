@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS news (
   categories TEXT[] NOT NULL DEFAULT '{}',
   related_tools TEXT[] NOT NULL DEFAULT '{}',
   url TEXT NOT NULL UNIQUE,
+  image_url TEXT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );

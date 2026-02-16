@@ -8,6 +8,32 @@ import Parser from 'rss-parser'
 import Anthropic from '@anthropic-ai/sdk'
 import { createClient } from '@supabase/supabase-js'
 
+type CustomItem = {
+  title?: string
+  link?: string
+  content?: string
+  contentSnippet?: string
+  pubDate?: string
+  enclosure?: { url?: string }
+  'media:content'?: { $?: { url?: string } }
+  'media:thumbnail'?: { $?: { url?: string } }
+}
+
+// Extract image URL from RSS item
+function extractImageUrl(item: CustomItem): string | null {
+  // 1. enclosure (common in RSS 2.0)
+  if (item.enclosure?.url) return item.enclosure.url
+  // 2. media:content
+  if (item['media:content']?.$?.url) return item['media:content'].$.url
+  // 3. media:thumbnail
+  if (item['media:thumbnail']?.$?.url) return item['media:thumbnail'].$.url
+  // 4. Extract first <img> from content HTML
+  const content = item.content || ''
+  const imgMatch = content.match(/<img[^>]+src=["']([^"']+)["']/)
+  if (imgMatch?.[1]) return imgMatch[1]
+  return null
+}
+
 // Environment variables
 const SUPABASE_URL = process.env.SUPABASE_URL!
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY!
@@ -112,6 +138,7 @@ async function saveNews(newsItem: {
   categories: string[]
   related_tools: string[]
   url: string
+  image_url: string | null
 }) {
   const { error } = await supabase.from('news').insert(newsItem)
   if (error) throw new Error(`Supabase insert error: ${error.message}`)
@@ -119,7 +146,9 @@ async function saveNews(newsItem: {
 
 // Main crawler function
 async function crawlNews() {
-  const parser = new Parser()
+  const parser = new Parser<Record<string, unknown>, CustomItem>({
+    customFields: { item: [['media:content', 'media:content'], ['media:thumbnail', 'media:thumbnail']] },
+  })
   let totalProcessed = 0
   let totalSaved = 0
   let totalSkipped = 0
@@ -171,6 +200,7 @@ async function crawlNews() {
             categories: [...new Set([category, ...categories])],
             related_tools,
             url: item.link,
+            image_url: extractImageUrl(item as CustomItem),
           })
 
           console.log(`  ✅ Saved: ${item.title.substring(0, 50)}...`)
