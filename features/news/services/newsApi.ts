@@ -121,6 +121,7 @@ const TOOL_CATEGORY_MAP: Record<string, string> = {
   severance: 'finance',
   loan: 'finance',
   savings: 'finance',
+  'weekly-holiday-pay': 'finance',
   bmi: 'health',
   calorie: 'health',
   electricity: 'energy',
