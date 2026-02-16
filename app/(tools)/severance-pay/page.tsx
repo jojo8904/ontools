@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { SeveranceCalculator } from './SeveranceCalculator'
-import { NewsSidebar } from '@/features/news/components/NewsSidebar'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 
 export const metadata: Metadata = {
@@ -61,12 +60,93 @@ export default function SeverancePayPage() {
           </p>
         </div>
 
-        {/* Calculator Component */}
-        <SeveranceCalculator />
+        {/* Calculator + SEO Content */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+          <div className="lg:col-span-2">
+            <SeveranceCalculator />
+          </div>
 
-        {/* Bottom Sections */}
-        <div className="mt-12 space-y-10">
-          <NewsSidebar toolId="severance" title="관련 뉴스" />
+          <aside className="space-y-8">
+            {/* 퇴직금 계산 방법 */}
+            <section>
+              <h2 className="text-xl font-bold mb-4">퇴직금 계산 방법</h2>
+              <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-1">기본 공식</h3>
+                  <p className="bg-gray-50 rounded-lg px-3 py-2 font-mono text-xs">
+                    퇴직금 = 1일 평균임금 x 30일 x (재직일수 / 365)
+                  </p>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-1">1일 평균임금 산정</h3>
+                  <p>퇴직 전 3개월간 지급된 임금 총액을 해당 기간의 총 일수로 나눕니다. 상여금, 연차수당 등도 포함됩니다.</p>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-1">지급 조건</h3>
+                  <p>1년 이상 근무한 근로자에게 지급됩니다. 주 15시간 미만 단시간 근로자는 제외됩니다. 퇴직일로부터 14일 이내에 지급해야 합니다.</p>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-1">포함 임금 항목</h3>
+                  <p>기본급, 고정 수당, 상여금(정기), 연차수당이 포함됩니다. 실비 변상적 급여(식대, 교통비 등)는 회사 규정에 따라 다를 수 있습니다.</p>
+                </div>
+              </div>
+            </section>
+
+            {/* 퇴직소득세 계산법 */}
+            <section>
+              <h2 className="text-xl font-bold mb-4">퇴직소득세 계산법</h2>
+              <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-1">계산 순서</h3>
+                  <ol className="list-decimal list-inside space-y-1">
+                    <li>퇴직급여액에서 근속연수공제를 차감</li>
+                    <li>환산급여 산출 (공제 후 금액 x 12 / 근속연수)</li>
+                    <li>환산급여에 환산급여공제 적용</li>
+                    <li>산출세액 계산 후 근속연수로 환산</li>
+                  </ol>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-1">근속연수공제</h3>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm border-collapse">
+                      <thead>
+                        <tr className="border-b-2 border-gray-200">
+                          <th className="text-left py-1.5 pr-3 font-semibold">근속연수</th>
+                          <th className="text-right py-1.5 font-semibold">공제액</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-100">
+                        <tr>
+                          <td className="py-1.5 pr-3">5년 이하</td>
+                          <td className="py-1.5 text-right">30만원 x 근속연수</td>
+                        </tr>
+                        <tr>
+                          <td className="py-1.5 pr-3">5~10년</td>
+                          <td className="py-1.5 text-right">150만 + 50만 x (근속-5)</td>
+                        </tr>
+                        <tr>
+                          <td className="py-1.5 pr-3">10~20년</td>
+                          <td className="py-1.5 text-right">400만 + 80만 x (근속-10)</td>
+                        </tr>
+                        <tr>
+                          <td className="py-1.5 pr-3">20년 초과</td>
+                          <td className="py-1.5 text-right">1,200만 + 120만 x (근속-20)</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-1">절세 팁</h3>
+                  <p>퇴직금을 IRP(개인형 퇴직연금)로 이전하면 퇴직소득세가 이연되며, 연금으로 수령 시 퇴직소득세의 60~70%만 부과됩니다.</p>
+                </div>
+              </div>
+            </section>
+          </aside>
+        </div>
+
+        {/* Bottom Section */}
+        <div className="mt-12">
           <YouTubeSection category="severance" />
         </div>
       </main>
