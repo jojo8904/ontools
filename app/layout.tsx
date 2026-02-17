@@ -17,6 +17,7 @@ export const metadata: Metadata = {
     images: [{ url: '/mascot.png', width: 512, height: 512, alt: 'ontools' }],
   },
   verification: {
+    google: 'iotm6566LAXWYZHbVROJejB6Z7dqbA7OOS7z0ikycIU',
     other: {
       'naver-site-verification': ['63d1997b6b0f63f4df0908dab12b0fdac9f1e987'],
     },
