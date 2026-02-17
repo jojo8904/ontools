@@ -17,7 +17,7 @@ export function RentVsJeonseCalculator() {
 
   const calculate = () => {
     const jd = parseFloat(jeonseDeposit.replace(/,/g, ''))
-    const mr = parseFloat(monthlyRent.replace(/,/g, ''))
+    const mr = parseFloat(monthlyRent.replace(/,/g, '')) || 0
     const rd = parseFloat(rentDeposit.replace(/,/g, '')) || 0
     const rate = parseFloat(investRate) / 100
     const y = parseFloat(years)
