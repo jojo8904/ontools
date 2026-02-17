@@ -38,11 +38,12 @@ export function useNewsById(id: string): UseQueryResult<News> {
 /**
  * Fetch latest news (for homepage)
  */
-export function useLatestNews(limit: number = 6): UseQueryResult<News[]> {
+export function useLatestNews(limit: number = 6, initialData?: News[]): UseQueryResult<News[]> {
   return useQuery({
     queryKey: ['news', 'latest', limit],
     queryFn: () => fetchLatestNews(limit),
     staleTime: 3 * 60 * 1000,
+    initialData,
   })
 }
 

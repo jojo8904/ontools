@@ -3,7 +3,9 @@ import { NewsList } from '@/features/news/components/NewsList'
 import { NewsTicker } from './NewsTicker'
 import { FadeInSection } from './FadeInSection'
 import { ScrollDownButton } from './ScrollDownButton'
-import { fetchLatestNews } from '@/features/news/services/newsApi'
+import { fetchLatestNews, fetchNewsList } from '@/features/news/services/newsApi'
+
+export const revalidate = 3600
 
 const CATEGORY_ICONS: Record<string, React.ReactNode> = {
   'Salary & Tax': (
@@ -153,6 +155,15 @@ export default async function HomePage() {
     latestNews = news.map((n) => ({ title: n.title, url: n.url, source: n.source }))
   } catch {
     latestNews = []
+  }
+
+  // Pre-fetch news for the news section (ISR: revalidated every 3600s)
+  let newsInitialData = null
+  try {
+    const newsResponse = await fetchNewsList({ limit: 50, sortBy: 'published_at' })
+    newsInitialData = newsResponse.data
+  } catch {
+    newsInitialData = null
   }
 
   return (
@@ -331,7 +342,7 @@ export default async function HomePage() {
         <section id="news" className="bg-white scroll-mt-20">
           <div className="container mx-auto px-4" style={{ padding: '20px 1rem 40px' }}>
             <h2 className="text-[2rem] font-[800] tracking-tight text-[#111] mb-6">최신 뉴스</h2>
-            <NewsList limit={50} title="" showCategories={true} />
+            <NewsList limit={50} title="" showCategories={true} initialData={newsInitialData} />
           </div>
         </section>
       </FadeInSection>

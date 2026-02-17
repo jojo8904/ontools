@@ -3,13 +3,14 @@
 import { useState, useMemo } from 'react'
 import { useLatestNews } from '../hooks/useNews'
 import { NewsCard } from './NewsCard'
-import type { NewsCategory } from '@/types/news'
+import type { News, NewsCategory } from '@/types/news'
 
 interface NewsListProps {
   limit?: number
   showCategories?: boolean
   showRelatedTools?: boolean
   title?: string
+  initialData?: News[] | null
 }
 
 const CATEGORY_TABS: Array<{ key: 'all' | NewsCategory; label: string }> = [
@@ -26,9 +27,10 @@ export function NewsList({
   showCategories = true,
   showRelatedTools = false,
   title = '최신 뉴스',
+  initialData,
 }: NewsListProps) {
   const [activeCategory, setActiveCategory] = useState<'all' | NewsCategory>('all')
-  const { data: newsList, isLoading, error } = useLatestNews(limit)
+  const { data: newsList, isLoading, error } = useLatestNews(limit, initialData ?? undefined)
 
   const filteredNews = useMemo(() => {
     if (!newsList) return []
