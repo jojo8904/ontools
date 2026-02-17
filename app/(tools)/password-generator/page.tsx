@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { PasswordGenerator } from './PasswordGenerator'
+import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 
 export const metadata: Metadata = {
   title: '비밀번호 생성기 - ontools',
@@ -16,7 +17,12 @@ export default function PasswordGeneratorPage() {
         <div className="text-sm text-muted-foreground mb-6"><a href="/" className="hover:text-foreground">홈</a>{' > '}<span className="text-foreground">유틸리티</span>{' > '}<span className="text-foreground font-medium">비밀번호 생성기</span></div>
         <div className="mb-8"><h1 className="text-3xl font-bold mb-2">비밀번호 생성기</h1><p className="text-muted-foreground">안전한 랜덤 비밀번호를 간편하게 생성하세요.</p></div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-          <div className="lg:col-span-2"><PasswordGenerator /></div>
+          <div className="lg:col-span-2">
+            <PasswordGenerator />
+            <div className="mt-10 space-y-10">
+              <YouTubeSection category="password-generator" />
+            </div>
+          </div>
           <aside className="space-y-6">
             <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
               <h2 className="text-xl font-bold mb-4">안전한 비밀번호 가이드</h2>

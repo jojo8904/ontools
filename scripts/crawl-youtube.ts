@@ -25,6 +25,15 @@ const SEARCH_QUERIES: Record<string, string> = {
   'weekly-holiday-pay': '주휴수당 계산',
   unemployment: '실업급여 신청 방법',
   vat: '부가세 계산',
+  'freelancer-tax': '프리랜서 3.3% 세금 종합소득세',
+  'annual-leave-pay': '연차수당 계산 미사용연차',
+  'income-tax': '종합소득세 신고 방법',
+  'rent-vs-jeonse': '전세 월세 비교 어떤게 유리',
+  'used-car-tax': '중고차 취등록세 계산',
+  'youth-savings': '청년 내일채움공제 신청',
+  'capital-gains-tax': '양도소득세 계산 부동산',
+  'water-intake': '하루 물 섭취량 건강',
+  'password-generator': '안전한 비밀번호 만들기',
 }
 
 const MAX_RESULTS = 5

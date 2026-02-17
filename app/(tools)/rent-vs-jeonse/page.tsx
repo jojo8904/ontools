@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { RentVsJeonseCalculator } from './RentVsJeonseCalculator'
+import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 
 export const metadata: Metadata = {
   title: '전세 vs 월세 비교 계산기 - ontools',
@@ -16,7 +17,12 @@ export default function RentVsJeonsePage() {
         <div className="text-sm text-muted-foreground mb-6"><a href="/" className="hover:text-foreground">홈</a>{' > '}<span className="text-foreground">금융</span>{' > '}<span className="text-foreground font-medium">전세 vs 월세 비교 계산기</span></div>
         <div className="mb-8"><h1 className="text-3xl font-bold mb-2">전세 vs 월세 비교 계산기</h1><p className="text-muted-foreground">기회비용을 고려하여 전세와 월세 중 어느 것이 유리한지 비교하세요.</p></div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-          <div className="lg:col-span-2"><RentVsJeonseCalculator /></div>
+          <div className="lg:col-span-2">
+            <RentVsJeonseCalculator />
+            <div className="mt-10 space-y-10">
+              <YouTubeSection category="rent-vs-jeonse" />
+            </div>
+          </div>
           <aside className="space-y-6">
             <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
               <h2 className="text-xl font-bold mb-4">기회비용이란?</h2>

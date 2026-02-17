@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { YouthSavingsCalculator } from './YouthSavingsCalculator'
+import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 
 export const metadata: Metadata = {
   title: '청년 내일채움공제 계산기 - ontools',
@@ -16,7 +17,12 @@ export default function YouthSavingsPage() {
         <div className="text-sm text-muted-foreground mb-6"><a href="/" className="hover:text-foreground">홈</a>{' > '}<span className="text-foreground">금융</span>{' > '}<span className="text-foreground font-medium">청년 내일채움공제 계산기</span></div>
         <div className="mb-8"><h1 className="text-3xl font-bold mb-2">청년 내일채움공제 계산기</h1><p className="text-muted-foreground">내일채움공제 만기 시 총 수령액을 계산하세요.</p></div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-          <div className="lg:col-span-2"><YouthSavingsCalculator /></div>
+          <div className="lg:col-span-2">
+            <YouthSavingsCalculator />
+            <div className="mt-10 space-y-10">
+              <YouTubeSection category="youth-savings" />
+            </div>
+          </div>
           <aside className="space-y-6">
             <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
               <h2 className="text-xl font-bold mb-4">가입 대상</h2>

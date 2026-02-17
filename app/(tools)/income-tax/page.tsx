@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { IncomeTaxCalculator } from './IncomeTaxCalculator'
+import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 
 export const metadata: Metadata = {
   title: '종합소득세 계산기 - ontools',
@@ -38,6 +39,9 @@ export default function IncomeTaxPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           <div className="lg:col-span-2">
             <IncomeTaxCalculator />
+            <div className="mt-10 space-y-10">
+              <YouTubeSection category="income-tax" />
+            </div>
           </div>
           <aside className="space-y-6">
             <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">

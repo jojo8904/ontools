@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { AnnualLeavePayCalculator } from './AnnualLeavePayCalculator'
+import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 
 export const metadata: Metadata = {
   title: '연차 수당 계산기 - ontools',
@@ -38,6 +39,9 @@ export default function AnnualLeavePayPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           <div className="lg:col-span-2">
             <AnnualLeavePayCalculator />
+            <div className="mt-10 space-y-10">
+              <YouTubeSection category="annual-leave-pay" />
+            </div>
           </div>
           <aside className="space-y-6">
             <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
