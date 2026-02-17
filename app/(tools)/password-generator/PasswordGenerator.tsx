@@ -70,7 +70,7 @@ export function PasswordGenerator() {
           <label className="block text-sm font-medium text-gray-700 mb-1">비밀번호 길이: {length}자</label>
           <input type="range" min={4} max={64} value={length} onChange={(e) => setLength(parseInt(e.target.value))} className="w-full accent-blue-600" />
           <div className="flex justify-between text-xs text-gray-400">
-            <span>4</span><span>16</span><span>32</span><span>64</span>
+            <span>4</span><span>64</span>
           </div>
         </div>
 
