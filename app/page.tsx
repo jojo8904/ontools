@@ -115,7 +115,16 @@ const TOOL_CATEGORIES = [
     description: '브라우저에서 바로 즐기는 캐주얼 게임',
     color: 'bg-violet-500',
     tools: [
-      { href: '/games', label: '게임 모음 보기', badge: 'NEW' },
+      { href: '/games/2048', label: '2048' },
+      { href: '/games/tetris', label: '테트리스' },
+      { href: '/games/snake', label: '스네이크' },
+      { href: '/games/minesweeper', label: '지뢰찾기' },
+      { href: '/games/solitaire', label: '솔리테어' },
+      { href: '/games/blackjack', label: '블랙잭' },
+      { href: '/games/memory', label: '메모리 카드' },
+      { href: '/games/flappy', label: 'Flappy Bird' },
+      { href: '/games/typing', label: '타자연습' },
+      { href: '/games/gomoku', label: '오목' },
     ],
   },
 ]
@@ -249,6 +258,14 @@ export default function HomePage() {
                         </li>
                       ))}
                     </ul>
+                    {cat.title === 'Game' && (
+                      <Link
+                        href="/games"
+                        className="mt-4 pt-3 border-t border-[#eee] text-sm font-semibold text-violet-600 hover:text-violet-800 transition-colors flex items-center gap-1"
+                      >
+                        전체 게임 보기 →
+                      </Link>
+                    )}
                   </div>
                 </div>
               ))}
