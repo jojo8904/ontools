@@ -5,6 +5,11 @@ import { FadeInSection } from './FadeInSection'
 import { ScrollDownButton } from './ScrollDownButton'
 
 const CATEGORY_ICONS: Record<string, React.ReactNode> = {
+  'Salary & Tax': (
+    <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z" />
+    </svg>
+  ),
   Finance: (
     <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
@@ -23,27 +28,30 @@ const CATEGORY_ICONS: Record<string, React.ReactNode> = {
   ),
   Game: (
     <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 01-.657.643 48.491 48.491 0 01-4.163-.3c-1.18-.143-2.224-.632-2.995-1.37A3 3 0 002.25 8.25v1.5A2.25 2.25 0 004.5 12h.667c.278 0 .547.06.79.168l1.065.487c.488.223.86.637 1.07 1.114.23.525.325 1.068.325 1.606v0c0 1.183-.456 2.36-1.371 3.157A3.75 3.75 0 005.25 21h2.577c.614 0 1.22-.135 1.777-.4l1.036-.494A2.25 2.25 0 0112 19.5v0a2.25 2.25 0 011.36.606l1.036.494c.558.265 1.163.4 1.777.4h2.577a3.75 3.75 0 01-1.796-2.468C16.456 17.235 16 16.058 16 14.875v0c0-.538.095-1.081.325-1.606.21-.477.582-.891 1.07-1.114l1.065-.487c.243-.108.512-.168.79-.168h.667A2.25 2.25 0 0022.167 9.75v-1.5a3 3 0 00-1.435-2.561c-.771.738-1.815 1.227-2.995 1.37a48.474 48.474 0 01-4.163.3.64.64 0 01-.657-.643v0z" />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 01-.657.643 48.491 48.491 0 01-4.163-.3c-1.18-.143-2.224-.632-2.995-1.37A3 3 0 002.25 8.25v1.5A2.25 2.25 0 004.5 12h.667c.278 0 .547.06.79.168l1.065.487c.488.223.86.637 1.07 1.114.23.525.325 1.068.325 1.606v0c0 1.183-.456 2.36-1.371 3.157A3.75 3.75 0 005.25 21h2.577c.614 0 1.22-.135 1.777-.4l1.036-.494A2.25 2.25 0 0012 19.5v0a2.25 2.25 0 011.36.606l1.036.494c.558.265 1.163.4 1.777.4h2.577a3.75 3.75 0 01-1.796-2.468C16.456 17.235 16 16.058 16 14.875v0c0-.538.095-1.081.325-1.606.21-.477.582-.891 1.07-1.114l1.065-.487c.243-.108.512-.168.79-.168h.667A2.25 2.25 0 0022.167 9.75v-1.5a3 3 0 00-1.435-2.561c-.771.738-1.815 1.227-2.995 1.37a48.474 48.474 0 01-4.163.3.64.64 0 01-.657-.643v0z" />
     </svg>
   ),
 }
 
 const CATEGORY_ICON_COLORS: Record<string, string> = {
-  Finance: 'text-emerald-500',
+  'Salary & Tax': 'text-emerald-500',
+  Finance: 'text-blue-500',
   Health: 'text-rose-500',
   Utility: 'text-blue-500',
   Game: 'text-violet-500',
 }
 
 const CATEGORY_GLOW: Record<string, string> = {
-  Finance: 'glow-emerald',
+  'Salary & Tax': 'glow-emerald',
+  Finance: 'glow-blue',
   Health: 'glow-rose',
   Utility: 'glow-blue',
   Game: 'glow-violet',
 }
 
 const CATEGORY_LINK_HOVER: Record<string, string> = {
-  Finance: 'hover:text-emerald-600',
+  'Salary & Tax': 'hover:text-emerald-600',
+  Finance: 'hover:text-blue-600',
   Health: 'hover:text-rose-600',
   Utility: 'hover:text-blue-600',
   Game: 'hover:text-violet-600',
@@ -51,18 +59,32 @@ const CATEGORY_LINK_HOVER: Record<string, string> = {
 
 const TOOL_CATEGORIES = [
   {
-    title: 'Finance',
-    description: '연봉, 환율, 퇴직금 등 금융 관련 계산',
+    title: 'Salary & Tax',
+    description: '연봉, 퇴직금, 세금 관련 계산',
     color: 'bg-emerald-500',
     tools: [
       { href: '/salary', label: '연봉 실수령액 계산기', badge: '인기' },
-      { href: '/currency', label: '환율 계산기', badge: '인기' },
       { href: '/severance-pay', label: '퇴직금 계산기' },
-      { href: '/loan', label: '대출이자 계산기' },
-      { href: '/savings', label: '적금/예금 이자 계산기' },
       { href: '/weekly-holiday-pay', label: '주휴수당 계산기' },
       { href: '/unemployment', label: '실업급여 계산기' },
       { href: '/vat', label: '부가세(VAT) 계산기' },
+      { href: '/freelancer-tax', label: '프리랜서 세금 계산기 (3.3%)', badge: 'NEW' },
+      { href: '/annual-leave-pay', label: '연차 수당 계산기', badge: 'NEW' },
+      { href: '/income-tax', label: '종합소득세 계산기', badge: 'NEW' },
+    ],
+  },
+  {
+    title: 'Finance',
+    description: '환율, 대출, 투자 관련 금융 계산',
+    color: 'bg-blue-500',
+    tools: [
+      { href: '/currency', label: '환율 계산기', badge: '인기' },
+      { href: '/loan', label: '대출이자 계산기' },
+      { href: '/savings', label: '적금/예금 이자 계산기' },
+      { href: '/rent-vs-jeonse', label: '전세 vs 월세 비교 계산기', badge: 'NEW' },
+      { href: '/used-car-tax', label: '중고차 취등록세 계산기', badge: 'NEW' },
+      { href: '/youth-savings', label: '청년 내일채움공제 계산기', badge: 'NEW' },
+      { href: '/capital-gains-tax', label: '양도소득세 계산기', badge: 'NEW' },
     ],
   },
   {
@@ -72,6 +94,7 @@ const TOOL_CATEGORIES = [
     tools: [
       { href: '/bmi', label: 'BMI 계산기' },
       { href: '/calorie', label: '일일 칼로리(TDEE) 계산기', badge: '인기' },
+      { href: '/water-intake', label: '물 섭취량 계산기', badge: 'NEW' },
     ],
   },
   {
@@ -84,6 +107,7 @@ const TOOL_CATEGORIES = [
       { href: '/electricity', label: '전기요금 계산기' },
       { href: '/character-counter', label: '글자수 세기', badge: '인기' },
       { href: '/qr-generator', label: 'QR코드 생성기' },
+      { href: '/password-generator', label: '비밀번호 생성기', badge: 'NEW' },
     ],
   },
   {
@@ -97,6 +121,9 @@ const TOOL_CATEGORIES = [
 ]
 
 export default function HomePage() {
+  const topCategories = TOOL_CATEGORIES.slice(0, 3)
+  const bottomCategories = TOOL_CATEGORIES.slice(3)
+
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
@@ -148,26 +175,20 @@ export default function HomePage() {
               카테고리별로 필요한 계산기를 찾아보세요
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {TOOL_CATEGORIES.map((cat) => (
+            {/* Top row: 3 cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+              {topCategories.map((cat) => (
                 <div
                   key={cat.title}
-                  id={cat.title === 'Game' ? 'games' : undefined}
                   className="tool-card overflow-hidden flex flex-col"
-                  style={{ minHeight: '420px' }}
                 >
-                  {/* Color accent bar */}
                   <div className={`h-[5px] ${cat.color}`} />
-
                   <div className="p-8 flex-1 flex flex-col">
-                    {/* Icon */}
                     <div className={`mb-5 icon-glow ${CATEGORY_GLOW[cat.title] || ''} ${CATEGORY_ICON_COLORS[cat.title] || 'text-gray-400'}`}>
                       {CATEGORY_ICONS[cat.title]}
                     </div>
                     <h3 className="text-xl font-bold mb-1 text-[#111]">{cat.title}</h3>
-                    <p className="text-sm text-[#999] mb-6">
-                      {cat.description}
-                    </p>
+                    <p className="text-sm text-[#999] mb-6">{cat.description}</p>
                     <ul className="space-y-3">
                       {cat.tools.map((tool) => (
                         <li key={tool.href}>
@@ -175,18 +196,48 @@ export default function HomePage() {
                             href={tool.href}
                             className={`flex items-center gap-2 text-[#333] ${CATEGORY_LINK_HOVER[cat.title] || 'hover:text-blue-600'} transition-colors`}
                           >
-                            <svg
-                              className="w-3.5 h-3.5 text-[#ccc] shrink-0"
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M9 5l7 7-7 7"
-                              />
+                            <svg className="w-3.5 h-3.5 text-[#ccc] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                            <span className="text-[15px]">{tool.label}</span>
+                            {tool.badge && (
+                              <span className={`ml-1 px-1.5 py-0.5 text-[10px] font-bold text-white rounded-full leading-none ${tool.badge === 'NEW' ? 'bg-blue-500' : 'bg-orange-500'}`}>
+                                {tool.badge}
+                              </span>
+                            )}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Bottom row: 2 cards centered */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+              {bottomCategories.map((cat) => (
+                <div
+                  key={cat.title}
+                  id={cat.title === 'Game' ? 'games' : undefined}
+                  className="tool-card overflow-hidden flex flex-col"
+                >
+                  <div className={`h-[5px] ${cat.color}`} />
+                  <div className="p-8 flex-1 flex flex-col">
+                    <div className={`mb-5 icon-glow ${CATEGORY_GLOW[cat.title] || ''} ${CATEGORY_ICON_COLORS[cat.title] || 'text-gray-400'}`}>
+                      {CATEGORY_ICONS[cat.title]}
+                    </div>
+                    <h3 className="text-xl font-bold mb-1 text-[#111]">{cat.title}</h3>
+                    <p className="text-sm text-[#999] mb-6">{cat.description}</p>
+                    <ul className="space-y-3">
+                      {cat.tools.map((tool) => (
+                        <li key={tool.href}>
+                          <Link
+                            href={tool.href}
+                            className={`flex items-center gap-2 text-[#333] ${CATEGORY_LINK_HOVER[cat.title] || 'hover:text-blue-600'} transition-colors`}
+                          >
+                            <svg className="w-3.5 h-3.5 text-[#ccc] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                             </svg>
                             <span className="text-[15px]">{tool.label}</span>
                             {tool.badge && (
