@@ -31,6 +31,11 @@ const CATEGORY_ICONS: Record<string, React.ReactNode> = {
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 01-.657.643 48.491 48.491 0 01-4.163-.3c-1.18-.143-2.224-.632-2.995-1.37A3 3 0 002.25 8.25v1.5A2.25 2.25 0 004.5 12h.667c.278 0 .547.06.79.168l1.065.487c.488.223.86.637 1.07 1.114.23.525.325 1.068.325 1.606v0c0 1.183-.456 2.36-1.371 3.157A3.75 3.75 0 005.25 21h2.577c.614 0 1.22-.135 1.777-.4l1.036-.494A2.25 2.25 0 0012 19.5v0a2.25 2.25 0 011.36.606l1.036.494c.558.265 1.163.4 1.777.4h2.577a3.75 3.75 0 01-1.796-2.468C16.456 17.235 16 16.058 16 14.875v0c0-.538.095-1.081.325-1.606.21-.477.582-.891 1.07-1.114l1.065-.487c.243-.108.512-.168.79-.168h.667A2.25 2.25 0 0022.167 9.75v-1.5a3 3 0 00-1.435-2.561c-.771.738-1.815 1.227-2.995 1.37a48.474 48.474 0 01-4.163.3.64.64 0 01-.657-.643v0z" />
     </svg>
   ),
+  News: (
+    <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
+    </svg>
+  ),
 }
 
 const CATEGORY_ICON_COLORS: Record<string, string> = {
@@ -39,6 +44,7 @@ const CATEGORY_ICON_COLORS: Record<string, string> = {
   Health: 'text-rose-500',
   Utility: 'text-blue-500',
   Game: 'text-violet-500',
+  News: 'text-red-500',
 }
 
 const CATEGORY_GLOW: Record<string, string> = {
@@ -47,6 +53,7 @@ const CATEGORY_GLOW: Record<string, string> = {
   Health: 'glow-rose',
   Utility: 'glow-blue',
   Game: 'glow-violet',
+  News: 'glow-red',
 }
 
 const CATEGORY_LINK_HOVER: Record<string, string> = {
@@ -55,6 +62,7 @@ const CATEGORY_LINK_HOVER: Record<string, string> = {
   Health: 'hover:text-rose-600',
   Utility: 'hover:text-blue-600',
   Game: 'hover:text-violet-600',
+  News: 'hover:text-red-600',
 }
 
 const TOOL_CATEGORIES = [
@@ -127,6 +135,12 @@ const TOOL_CATEGORIES = [
       { href: '/games/gomoku', label: '오목' },
     ],
   },
+  {
+    title: 'News',
+    description: 'AI가 매칭한 도구 관련 최신 뉴스',
+    color: 'bg-red-500',
+    tools: [],
+  },
 ]
 
 export default function HomePage() {
@@ -174,6 +188,11 @@ export default function HomePage() {
 
       {/* News Ticker */}
       <NewsTicker />
+
+      {/* Scroll Down */}
+      <div className="flex justify-center bg-[#151525] pt-8 pb-2">
+        <ScrollDownButton />
+      </div>
 
       {/* Tool Categories Section */}
       <FadeInSection>
@@ -223,8 +242,8 @@ export default function HomePage() {
               ))}
             </div>
 
-            {/* Bottom row: 2 cards centered */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {/* Bottom row: 3 cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {bottomCategories.map((cat) => (
                 <div
                   key={cat.title}
@@ -266,6 +285,17 @@ export default function HomePage() {
                         전체 게임 보기 →
                       </Link>
                     )}
+                    {cat.title === 'News' && (
+                      <div className="flex-1 flex flex-col justify-center items-center text-center py-4">
+                        <p className="text-[#666] text-sm mb-4">도구별 관련 뉴스를 AI가 자동으로 매칭해드립니다</p>
+                        <Link
+                          href="#news"
+                          className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-red-500 text-white text-sm font-semibold rounded-lg hover:bg-red-600 transition-colors"
+                        >
+                          최신 뉴스 보기 →
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}
@@ -278,9 +308,6 @@ export default function HomePage() {
       <FadeInSection>
         <section id="news" className="bg-white scroll-mt-20">
           <div className="container mx-auto px-4" style={{ padding: '20px 1rem 40px' }}>
-            <div className="flex justify-center mb-3">
-              <ScrollDownButton />
-            </div>
             <h2 className="text-[2rem] font-[800] tracking-tight text-[#111] mb-6">최신 뉴스</h2>
             <NewsList limit={50} title="" showCategories={true} />
           </div>

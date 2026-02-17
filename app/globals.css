@@ -103,6 +103,7 @@
 .tool-card:hover .glow-rose { filter: drop-shadow(0 0 8px rgba(244, 63, 94, 0.6)); }
 .tool-card:hover .glow-blue { filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.6)); }
 .tool-card:hover .glow-violet { filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.6)); }
+.tool-card:hover .glow-red { filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.6)); }
 
 /* News card */
 .news-card {
