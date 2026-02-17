@@ -245,6 +245,11 @@ export default async function HomePage() {
               ))}
             </div>
 
+            {/* Scroll Down to News */}
+            <div className="flex justify-center py-8">
+              <ScrollDownButton />
+            </div>
+
             {/* Bottom row: 3 cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {bottomCategories.map((cat) => (
@@ -321,11 +326,6 @@ export default async function HomePage() {
                   </div>
                 </div>
               ))}
-            </div>
-
-            {/* Scroll Down to News */}
-            <div className="flex justify-center pt-10">
-              <ScrollDownButton />
             </div>
           </div>
         </section>

@@ -1,10 +1,27 @@
 'use client'
 
+import { useEffect, useState } from 'react'
+
 export function ScrollDownButton() {
+  const [visible, setVisible] = useState(true)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setVisible(window.scrollY < 600)
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
     <button
       onClick={() => document.getElementById('news')?.scrollIntoView({ behavior: 'smooth' })}
       className="scroll-down-btn"
+      style={{
+        opacity: visible ? 1 : 0,
+        pointerEvents: visible ? 'auto' : 'none',
+        transition: 'opacity 0.4s ease',
+      }}
       aria-label="최신 뉴스로 스크롤"
     >
       <svg
