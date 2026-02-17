@@ -17,7 +17,6 @@ export default async function NewsPage() {
     const response = await fetchNewsList({
       limit: 100,
       sortBy: 'published_at',
-      columns: 'id,title,summary,source,published_at,categories,related_tools,url,image_url',
     })
     news = response.data
   } catch {
