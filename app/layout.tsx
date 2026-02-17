@@ -16,6 +16,11 @@ export const metadata: Metadata = {
     type: 'website',
     images: [{ url: '/mascot.png', width: 512, height: 512, alt: 'ontools' }],
   },
+  verification: {
+    other: {
+      'naver-site-verification': ['63d1997b6b0f63f4df0908dab12b0fdac9f1e987'],
+    },
+  },
 };
 
 export default function RootLayout({
