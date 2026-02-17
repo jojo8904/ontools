@@ -62,13 +62,14 @@ export function PasswordGenerator() {
   }
 
   const strength = getStrength()
+  const sliderPercent = ((length - 4) / (64 - 4)) * 100
 
   return (
     <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
       <div className="space-y-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">비밀번호 길이: {length}자</label>
-          <input type="range" min={4} max={64} value={length} onChange={(e) => setLength(parseInt(e.target.value))} className="w-full accent-blue-600" />
+          <input type="range" min={4} max={64} value={length} onChange={(e) => setLength(parseInt(e.target.value))} className="w-full custom-slider" style={{ background: `linear-gradient(to right, #2563eb ${sliderPercent}%, #e5e7eb ${sliderPercent}%)` }} />
           <div className="flex justify-between text-xs text-gray-400">
             <span>4</span><span>64</span>
           </div>
