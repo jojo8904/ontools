@@ -29,6 +29,7 @@ export interface FetchNewsParams {
   relatedTool?: string
   sortBy?: 'published_at' | 'created_at'
   sortOrder?: 'asc' | 'desc'
+  columns?: string
 }
 
 export interface NewsListResponse {
@@ -50,12 +51,13 @@ export async function fetchNewsList(
     relatedTool,
     sortBy = 'published_at',
     sortOrder = 'desc',
+    columns = '*',
   } = params
 
   try {
     let query = supabase
       .from('news')
-      .select('*', { count: 'exact' })
+      .select(columns, { count: 'exact' })
 
     if (category) {
       query = query.like('categories', `%${category}%`)
@@ -71,7 +73,7 @@ export async function fetchNewsList(
     if (error) throw error
 
     return {
-      data: (data || []).map(normalizeNews),
+      data: ((data || []) as unknown as Record<string, unknown>[]).map(normalizeNews),
       total: count || 0,
       hasMore: offset + limit < (count || 0),
     }

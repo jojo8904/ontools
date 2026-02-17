@@ -160,7 +160,11 @@ export default async function HomePage() {
   // Pre-fetch news for the news section (ISR: revalidated every 3600s)
   let newsInitialData = null
   try {
-    const newsResponse = await fetchNewsList({ limit: 50, sortBy: 'published_at' })
+    const newsResponse = await fetchNewsList({
+      limit: 50,
+      sortBy: 'published_at',
+      columns: 'id,title,summary,source,published_at,categories,related_tools,url,image_url',
+    })
     newsInitialData = newsResponse.data
   } catch {
     newsInitialData = null
@@ -342,7 +346,7 @@ export default async function HomePage() {
         <section id="news" className="bg-white scroll-mt-20">
           <div className="container mx-auto px-4" style={{ padding: '20px 1rem 40px' }}>
             <h2 className="text-[2rem] font-[800] tracking-tight text-[#111] mb-6">최신 뉴스</h2>
-            <NewsList limit={50} title="" showCategories={true} initialData={newsInitialData} />
+            <NewsList news={newsInitialData ?? []} title="" showCategories={true} />
           </div>
         </section>
       </FadeInSection>
