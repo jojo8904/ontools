@@ -3,6 +3,7 @@ import { NewsList } from '@/features/news/components/NewsList'
 import { NewsTicker } from './NewsTicker'
 import { FadeInSection } from './FadeInSection'
 import { ScrollDownButton } from './ScrollDownButton'
+import { fetchLatestNews } from '@/features/news/services/newsApi'
 
 const CATEGORY_ICONS: Record<string, React.ReactNode> = {
   'Salary & Tax': (
@@ -143,9 +144,16 @@ const TOOL_CATEGORIES = [
   },
 ]
 
-export default function HomePage() {
+export default async function HomePage() {
   const topCategories = TOOL_CATEGORIES.slice(0, 3)
   const bottomCategories = TOOL_CATEGORIES.slice(3)
+  let latestNews: { title: string; url: string; source: string }[] = []
+  try {
+    const news = await fetchLatestNews(6)
+    latestNews = news.map((n) => ({ title: n.title, url: n.url, source: n.source }))
+  } catch {
+    latestNews = []
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -189,15 +197,10 @@ export default function HomePage() {
       {/* News Ticker */}
       <NewsTicker />
 
-      {/* Scroll Down */}
-      <div className="flex justify-center bg-[#151525] pt-8 pb-2">
-        <ScrollDownButton />
-      </div>
-
       {/* Tool Categories Section */}
       <FadeInSection>
         <section id="tools" className="bg-[#151525] scroll-mt-20">
-          <div className="container mx-auto px-4 pt-16 pb-10">
+          <div className="container mx-auto px-4 pt-10 pb-10">
             <h2 className="text-[2rem] font-[800] mb-2 tracking-tight text-white">도구 모음</h2>
             <p className="text-[#888] mb-10">
               카테고리별로 필요한 계산기를 찾아보세요
@@ -286,19 +289,43 @@ export default function HomePage() {
                       </Link>
                     )}
                     {cat.title === 'News' && (
-                      <div className="flex-1 flex flex-col justify-center items-center text-center py-4">
-                        <p className="text-[#666] text-sm mb-4">도구별 관련 뉴스를 AI가 자동으로 매칭해드립니다</p>
+                      <>
+                        <ul className="space-y-3">
+                          {latestNews.map((news) => (
+                            <li key={news.url}>
+                              <a
+                                href={news.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-2 text-[#333] hover:text-red-600 transition-colors"
+                              >
+                                <svg className="w-3.5 h-3.5 text-[#ccc] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                </svg>
+                                <span className="text-[15px] line-clamp-1">{news.title}</span>
+                              </a>
+                            </li>
+                          ))}
+                          {latestNews.length === 0 && (
+                            <li className="text-sm text-[#666]">뉴스를 불러오는 중...</li>
+                          )}
+                        </ul>
                         <Link
-                          href="#news"
-                          className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-red-500 text-white text-sm font-semibold rounded-lg hover:bg-red-600 transition-colors"
+                          href="/news"
+                          className="mt-4 pt-3 border-t border-[#eee] text-sm font-semibold text-red-500 hover:text-red-700 transition-colors flex items-center gap-1"
                         >
-                          최신 뉴스 보기 →
+                          더 많은 뉴스 보기 →
                         </Link>
-                      </div>
+                      </>
                     )}
                   </div>
                 </div>
               ))}
+            </div>
+
+            {/* Scroll Down to News */}
+            <div className="flex justify-center pt-10">
+              <ScrollDownButton />
             </div>
           </div>
         </section>
