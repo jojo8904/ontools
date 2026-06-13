@@ -4,6 +4,8 @@ import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
 import { FaqSection } from '@/components/FaqSection'
 import { ToolGuide } from '@/components/ToolGuide'
+import { AdUnit } from '@/components/AdUnit'
+import { ResponsiveAdFit } from '@/components/ResponsiveAdFit'
 
 const CAPITAL_GAINS_GUIDE = [
   { h: '양도소득세란?', p: ['양도소득세는 부동산·주식 등 자산을 팔아 차익(양도차익)이 생겼을 때 그 이익에 부과하는 세금입니다.'] },
@@ -31,6 +33,8 @@ export default function CapitalGainsTaxPage() {
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="text-sm text-muted-foreground mb-6"><a href="/" className="hover:text-foreground">홈</a>{' > '}<span className="text-foreground">금융</span>{' > '}<span className="text-foreground font-medium">양도소득세 계산기</span></div>
         <div className="mb-8"><h1 className="text-3xl font-bold mb-2">양도소득세 계산기</h1><p className="text-muted-foreground">부동산 매도 시 예상 양도소득세를 계산하세요.</p></div>
+        {/* 제목 밑 광고 (카카오 애드핏) */}
+        <ResponsiveAdFit />
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           <div className="lg:col-span-2">
             <CapitalGainsTaxCalculator />
@@ -39,6 +43,10 @@ export default function CapitalGainsTaxPage() {
             </div>
           </div>
           <aside className="space-y-6">
+            {/* 사이드바 고정 광고 (PC 전용) */}
+            <div className="hidden lg:block sticky top-20">
+              <AdUnit slot="0000000000" />
+            </div>
             <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
               <h2 className="text-xl font-bold mb-4">1세대 1주택 비과세</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
@@ -55,7 +63,7 @@ export default function CapitalGainsTaxPage() {
             </section>
           </aside>
         </div>
-        <ToolGuide sections={CAPITAL_GAINS_GUIDE} />
+        <ToolGuide sections={CAPITAL_GAINS_GUIDE} hideAd />
         <FaqSection items={CAPITAL_GAINS_FAQ} />
         <RelatedTools current="/capital-gains-tax" />
       </main>

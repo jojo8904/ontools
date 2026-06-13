@@ -4,6 +4,8 @@ import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
 import { FaqSection } from '@/components/FaqSection'
 import { ToolGuide } from '@/components/ToolGuide'
+import { AdUnit } from '@/components/AdUnit'
+import { ResponsiveAdFit } from '@/components/ResponsiveAdFit'
 
 const INCOME_TAX_GUIDE = [
   { h: '종합소득세란?', p: ['종합소득세는 1년간 발생한 종합소득(사업·프리랜서·임대·이자·배당·근로 외 소득 등)을 합산해 부과하는 세금으로, 매년 5월에 신고·납부합니다.'] },
@@ -52,6 +54,8 @@ export default function IncomeTaxPage() {
           <h1 className="text-3xl font-bold mb-2">종합소득세 계산기</h1>
           <p className="text-muted-foreground">총 수입금액과 공제액을 입력하면 예상 종합소득세를 계산합니다.</p>
         </div>
+        {/* 제목 밑 광고 (카카오 애드핏) */}
+        <ResponsiveAdFit />
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           <div className="lg:col-span-2">
             <IncomeTaxCalculator />
@@ -60,6 +64,10 @@ export default function IncomeTaxPage() {
             </div>
           </div>
           <aside className="space-y-6">
+            {/* 사이드바 고정 광고 (PC 전용) */}
+            <div className="hidden lg:block sticky top-20">
+              <AdUnit slot="0000000000" />
+            </div>
             <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
               <h2 className="text-xl font-bold mb-4">종합소득세 세율 (2025)</h2>
               <div className="overflow-x-auto">
@@ -92,7 +100,7 @@ export default function IncomeTaxPage() {
             </section>
           </aside>
         </div>
-        <ToolGuide sections={INCOME_TAX_GUIDE} />
+        <ToolGuide sections={INCOME_TAX_GUIDE} hideAd />
         <FaqSection items={INCOME_TAX_FAQ} />
         <RelatedTools current="/income-tax" />
       </main>

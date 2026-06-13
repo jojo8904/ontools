@@ -4,6 +4,8 @@ import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
 import { FaqSection } from '@/components/FaqSection'
 import { ToolGuide } from '@/components/ToolGuide'
+import { AdUnit } from '@/components/AdUnit'
+import { ResponsiveAdFit } from '@/components/ResponsiveAdFit'
 
 const SEVERANCE_GUIDE = [
   { h: '퇴직금이란?', p: ['퇴직금은 1년 이상 계속 근무한 근로자가 퇴직할 때 받는 급여로, 근로자퇴직급여보장법에 따라 지급됩니다.'] },
@@ -77,6 +79,8 @@ export default function SeverancePayPage() {
         </div>
 
         {/* Calculator + SEO Content */}
+        {/* 제목 밑 광고 (카카오 애드핏) */}
+        <ResponsiveAdFit />
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           <div className="lg:col-span-2">
             <SeveranceCalculator />
@@ -86,6 +90,10 @@ export default function SeverancePayPage() {
           </div>
 
           <aside className="space-y-6">
+            {/* 사이드바 고정 광고 (PC 전용) */}
+            <div className="hidden lg:block sticky top-20">
+              <AdUnit slot="0000000000" />
+            </div>
             {/* 퇴직금 계산 방법 */}
             <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
               <h2 className="text-xl font-bold mb-4">퇴직금 계산 방법</h2>
@@ -164,7 +172,7 @@ export default function SeverancePayPage() {
           </aside>
         </div>
 
-        <ToolGuide sections={SEVERANCE_GUIDE} />
+        <ToolGuide sections={SEVERANCE_GUIDE} hideAd />
         <FaqSection items={SEVERANCE_FAQ} />
         <RelatedTools current="/severance-pay" />
       </main>

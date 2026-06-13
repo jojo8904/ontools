@@ -5,6 +5,8 @@ import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
 import { FaqSection } from '@/components/FaqSection'
 import { ToolGuide } from '@/components/ToolGuide'
+import { AdUnit } from '@/components/AdUnit'
+import { ResponsiveAdFit } from '@/components/ResponsiveAdFit'
 
 const CURRENCY_GUIDE = [
   { h: '환율 계산기란?', p: ['입력한 금액을 현재 환율 기준으로 원화↔외화로 환산해주는 도구입니다. 해외여행 예산, 해외직구 결제금액, 해외송금액을 가늠할 때 유용합니다.'] },
@@ -91,6 +93,8 @@ export default function CurrencyPage() {
         </div>
 
         {/* Converter + SEO Content */}
+        {/* 제목 밑 광고 (카카오 애드핏) */}
+        <ResponsiveAdFit />
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           <div className="lg:col-span-2">
             <CurrencyConverter />
@@ -101,6 +105,10 @@ export default function CurrencyPage() {
           </div>
 
           <aside className="space-y-6">
+            {/* 사이드바 고정 광고 (PC 전용) */}
+            <div className="hidden lg:block sticky top-20">
+              <AdUnit slot="0000000000" />
+            </div>
             {/* 환전 수수료 절약 팁 */}
             <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
               <h2 className="text-xl font-bold mb-4">환전 수수료 절약 팁</h2>
@@ -149,7 +157,7 @@ export default function CurrencyPage() {
           </aside>
         </div>
 
-        <ToolGuide sections={CURRENCY_GUIDE} />
+        <ToolGuide sections={CURRENCY_GUIDE} hideAd />
         <FaqSection items={CURRENCY_FAQ} />
         <RelatedTools current="/currency" />
       </main>

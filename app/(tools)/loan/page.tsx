@@ -4,6 +4,8 @@ import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
 import { FaqSection } from '@/components/FaqSection'
 import { ToolGuide } from '@/components/ToolGuide'
+import { AdUnit } from '@/components/AdUnit'
+import { ResponsiveAdFit } from '@/components/ResponsiveAdFit'
 
 const LOAN_GUIDE = [
   { h: '대출이자 계산기란?', p: ['대출 원금, 금리, 기간을 입력하면 매달 갚을 금액과 총이자를 계산해주는 도구입니다. 주택담보대출·신용대출·전세자금대출의 상환 계획을 세울 때 유용합니다.'] },
@@ -89,6 +91,8 @@ export default function LoanPage() {
         </div>
 
         {/* Calculator + SEO Content */}
+        {/* 제목 밑 광고 (카카오 애드핏) */}
+        <ResponsiveAdFit />
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           <div className="lg:col-span-2">
             <LoanCalculator />
@@ -98,6 +102,10 @@ export default function LoanPage() {
           </div>
 
           <aside className="space-y-6">
+            {/* 사이드바 고정 광고 (PC 전용) */}
+            <div className="hidden lg:block sticky top-20">
+              <AdUnit slot="0000000000" />
+            </div>
             {/* 대출 상환방식 비교 */}
             <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
               <h2 className="text-xl font-bold mb-4">대출 상환방식 비교</h2>
@@ -156,7 +164,7 @@ export default function LoanPage() {
             </section>
           </aside>
         </div>
-        <ToolGuide sections={LOAN_GUIDE} />
+        <ToolGuide sections={LOAN_GUIDE} hideAd />
         <FaqSection items={LOAN_FAQ} />
         <RelatedTools current="/loan" />
       </main>

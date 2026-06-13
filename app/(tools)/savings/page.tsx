@@ -4,6 +4,8 @@ import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
 import { FaqSection } from '@/components/FaqSection'
 import { ToolGuide } from '@/components/ToolGuide'
+import { AdUnit } from '@/components/AdUnit'
+import { ResponsiveAdFit } from '@/components/ResponsiveAdFit'
 
 const SAVINGS_GUIDE = [
   { h: '적금과 예금의 차이', p: ['적금은 매달 일정액을 나눠 납입하는 상품이고, 예금은 목돈을 한 번에 맡겨두는 상품입니다. 같은 금리라도 적금은 각 회차가 예치된 기간만큼만 이자가 붙어, 표시 금리에 비해 실제 받는 이자가 적게 느껴질 수 있습니다.'] },
@@ -74,6 +76,8 @@ export default function SavingsPage() {
         </div>
 
         {/* Calculator + SEO Content */}
+        {/* 제목 밑 광고 (카카오 애드핏) */}
+        <ResponsiveAdFit />
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           <div className="lg:col-span-2">
             <SavingsCalculator />
@@ -83,6 +87,10 @@ export default function SavingsPage() {
           </div>
 
           <aside className="space-y-6">
+            {/* 사이드바 고정 광고 (PC 전용) */}
+            <div className="hidden lg:block sticky top-20">
+              <AdUnit slot="0000000000" />
+            </div>
             {/* 단리 vs 복리 */}
             <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
               <h2 className="text-xl font-bold mb-4">단리 vs 복리 차이</h2>
@@ -167,7 +175,7 @@ export default function SavingsPage() {
             </section>
           </aside>
         </div>
-        <ToolGuide sections={SAVINGS_GUIDE} />
+        <ToolGuide sections={SAVINGS_GUIDE} hideAd />
         <FaqSection items={SAVINGS_FAQ} />
         <RelatedTools current="/savings" />
       </main>
