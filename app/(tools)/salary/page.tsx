@@ -4,6 +4,7 @@ import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
 import { FaqSection } from '@/components/FaqSection'
 import { ToolGuide } from '@/components/ToolGuide'
+import { AdUnit } from '@/components/AdUnit'
 
 const SALARY_GUIDE = [
   { h: '연봉 실수령액이란?', p: ['연봉 실수령액은 세전 연봉에서 4대보험(국민연금·건강보험·장기요양보험·고용보험)과 소득세·지방소득세를 공제한 뒤 실제로 통장에 입금되는 금액입니다. 채용공고의 연봉과 매달 체감하는 월급이 다른 이유가 바로 이 공제 때문입니다.'] },
@@ -101,6 +102,10 @@ export default function SalaryCalculatorPage() {
           </div>
 
           <aside className="space-y-6">
+            {/* 사이드바 고정 광고 (PC 전용) */}
+            <div className="hidden lg:block sticky top-20">
+              <AdUnit slot="0000000000" />
+            </div>
             {/* 4대보험 요율표 */}
             <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
               <h2 className="text-xl font-bold mb-4">2026년 4대보험 요율표</h2>

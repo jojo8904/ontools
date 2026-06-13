@@ -4,6 +4,7 @@ import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
 import { FaqSection } from '@/components/FaqSection'
 import { ToolGuide } from '@/components/ToolGuide'
+import { AdUnit } from '@/components/AdUnit'
 
 const CALORIE_GUIDE = [
   { h: 'TDEE(하루 총 에너지 소비량)란?', p: ['TDEE는 하루 동안 소비하는 총 칼로리로, 기초대사량(BMR)에 활동량을 반영한 값입니다. 다이어트나 체중 증량 시 하루에 얼마나 먹어야 하는지의 기준이 됩니다.'] },
@@ -84,6 +85,10 @@ export default function CaloriePage() {
           </div>
 
           <aside className="space-y-6">
+            {/* 사이드바 고정 광고 (PC 전용) */}
+            <div className="hidden lg:block sticky top-20">
+              <AdUnit slot="0000000000" />
+            </div>
             {/* BMR 계산 공식 */}
             <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
               <h2 className="text-xl font-bold mb-4">BMR 계산 공식</h2>

@@ -1,4 +1,5 @@
 import { ResponsiveAdFit } from './ResponsiveAdFit'
+import { ScrollMoreButton } from './ScrollMoreButton'
 
 export interface GuideSection {
   h: string
@@ -19,6 +20,8 @@ export function ToolGuide({
 
   return (
     <>
+      {/* 결과 직후 "더 보기" 유도 → 아래 광고·콘텐츠로 스크롤 유도 */}
+      <ScrollMoreButton />
       {/* 계산 결과 바로 아래 광고 — 시선이 머무는 명당(애드핏). AdSense는 하단 관련도구에 별도 배치 */}
       <ResponsiveAdFit />
       <section className="mt-4">
