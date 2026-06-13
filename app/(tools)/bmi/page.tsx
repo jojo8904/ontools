@@ -4,6 +4,14 @@ import { NewsSidebar } from '@/features/news/components/NewsSidebar'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
 import { FaqSection } from '@/components/FaqSection'
+import { ToolGuide } from '@/components/ToolGuide'
+
+const BMI_GUIDE = [
+  { h: 'BMI(체질량지수)란?', p: ['BMI는 체중(kg)을 키(m)의 제곱으로 나눈 값으로, 키 대비 체중이 적정한지 간단히 가늠하는 지표입니다. 비만도를 빠르게 확인할 때 널리 사용됩니다.'] },
+  { h: '판정 기준', p: ['대한비만학회 기준으로 18.5 미만은 저체중, 18.5~22.9는 정상, 23~24.9는 과체중, 25 이상은 비만으로 봅니다. 아시아인은 같은 BMI에서도 대사질환 위험이 높아 WHO 기준(25 이상 과체중)보다 엄격하게 설정되어 있습니다.'] },
+  { h: 'BMI의 한계', p: ['BMI는 근육량과 체지방을 구분하지 못합니다. 운동선수처럼 근육이 많으면 높게 나올 수 있고, 반대로 마른 비만은 정상으로 보일 수 있습니다. 허리둘레·체지방률 등과 함께 종합적으로 판단하는 것이 좋습니다.'] },
+  { h: '건강 체중 관리', p: ['적정 체중 유지를 위해서는 균형 잡힌 식사와 규칙적인 운동이 기본입니다. 급격한 체중 변화보다 꾸준한 생활습관 개선이 건강에 이롭습니다.'] },
+]
 
 const BMI_FAQ = [
   {
@@ -90,6 +98,7 @@ export default function BmiPage() {
           <NewsSidebar toolId="bmi" title="건강 뉴스" />
           <YouTubeSection category="bmi" />
         </div>
+        <ToolGuide sections={BMI_GUIDE} />
         <FaqSection items={BMI_FAQ} />
         <RelatedTools current="/bmi" />
       </main>

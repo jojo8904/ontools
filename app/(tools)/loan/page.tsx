@@ -3,6 +3,14 @@ import { LoanCalculator } from './LoanCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
 import { FaqSection } from '@/components/FaqSection'
+import { ToolGuide } from '@/components/ToolGuide'
+
+const LOAN_GUIDE = [
+  { h: '대출이자 계산기란?', p: ['대출 원금, 금리, 기간을 입력하면 매달 갚을 금액과 총이자를 계산해주는 도구입니다. 주택담보대출·신용대출·전세자금대출의 상환 계획을 세울 때 유용합니다.'] },
+  { h: '원리금균등 vs 원금균등', p: ['원리금균등상환은 매달 같은 금액(원금+이자)을 갚아 가계 계획을 세우기 쉽습니다. 원금균등상환은 매달 같은 원금에 이자가 점점 줄어 초기 부담은 크지만 총이자는 더 적습니다. 같은 조건이라면 보통 원금균등 방식의 총이자가 적습니다.'] },
+  { h: '총이자를 줄이는 방법', p: ['상환기간을 줄이거나, 여윳돈이 생길 때 중도상환으로 원금을 빨리 갚으면 총이자가 줄어듭니다. 다만 중도상환수수료가 있는 상품은 수수료와 절감되는 이자를 비교해보는 것이 좋습니다.'] },
+  { h: '주의사항', p: ['본 계산기는 고정금리 단순 계산입니다. 변동금리, 거치기간, 중도상환수수료, 보증료 등 실제 조건은 반영되지 않으므로 정확한 금액은 금융기관에 확인하세요.'] },
+]
 
 const LOAN_FAQ = [
   {
@@ -148,6 +156,7 @@ export default function LoanPage() {
             </section>
           </aside>
         </div>
+        <ToolGuide sections={LOAN_GUIDE} />
         <FaqSection items={LOAN_FAQ} />
         <RelatedTools current="/loan" />
       </main>

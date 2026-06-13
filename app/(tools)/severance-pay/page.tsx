@@ -3,6 +3,14 @@ import { SeveranceCalculator } from './SeveranceCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
 import { FaqSection } from '@/components/FaqSection'
+import { ToolGuide } from '@/components/ToolGuide'
+
+const SEVERANCE_GUIDE = [
+  { h: '퇴직금이란?', p: ['퇴직금은 1년 이상 계속 근무한 근로자가 퇴직할 때 받는 급여로, 근로자퇴직급여보장법에 따라 지급됩니다.'] },
+  { h: '계산 방법', p: ['퇴직금은 "1일 평균임금 × 30일 × (재직일수 ÷ 365)"로 계산합니다. 평균임금은 퇴직 직전 3개월간 받은 임금 총액을 그 기간의 날짜 수로 나눈 값으로, 기본급뿐 아니라 정기 상여금·수당이 포함됩니다.'] },
+  { h: '지급 요건과 기한', p: ['1주 평균 15시간 이상, 계속근로 1년 이상이면 퇴직금이 발생합니다. 사용자는 퇴직일로부터 14일 이내에 지급해야 하며, 미지급 시 지연이자가 붙을 수 있습니다.'] },
+  { h: '주의사항', p: ['평균임금 산정 항목은 회사마다 차이가 있을 수 있습니다. 본 계산기는 근사치이며, 정확한 금액은 회사 또는 노무 전문가에게 확인하세요.'] },
+]
 
 const SEVERANCE_FAQ = [
   { q: '퇴직금은 어떻게 계산되나요?', a: '1일 평균임금 × 30일 × (재직일수 ÷ 365)로 계산합니다. 평균임금은 퇴직 직전 3개월간 받은 임금을 그 기간의 일수로 나눈 값입니다.' },
@@ -156,6 +164,7 @@ export default function SeverancePayPage() {
           </aside>
         </div>
 
+        <ToolGuide sections={SEVERANCE_GUIDE} />
         <FaqSection items={SEVERANCE_FAQ} />
         <RelatedTools current="/severance-pay" />
       </main>

@@ -3,6 +3,14 @@ import { CalorieCalculator } from './CalorieCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
 import { FaqSection } from '@/components/FaqSection'
+import { ToolGuide } from '@/components/ToolGuide'
+
+const CALORIE_GUIDE = [
+  { h: 'TDEE(하루 총 에너지 소비량)란?', p: ['TDEE는 하루 동안 소비하는 총 칼로리로, 기초대사량(BMR)에 활동량을 반영한 값입니다. 다이어트나 체중 증량 시 하루에 얼마나 먹어야 하는지의 기준이 됩니다.'] },
+  { h: '계산 방법', p: ['먼저 Mifflin-St Jeor 공식으로 기초대사량을 구합니다(남성: 10×체중 + 6.25×키 − 5×나이 + 5, 여성은 마지막에 −161). 여기에 활동 계수(거의 안 움직임 1.2 ~ 매우 활동적 1.9)를 곱하면 TDEE가 됩니다.'] },
+  { h: '다이어트·증량 활용', p: ['체중 감량은 보통 TDEE보다 약 500kcal 적게 먹어 주당 0.5kg 감량을 목표로 합니다. 증량은 반대로 약간의 잉여 칼로리를 섭취합니다. 충분한 단백질 섭취와 근력운동을 병행하면 효과적입니다.'] },
+  { h: '주의사항', p: ['계산값은 추정치입니다. 개인의 근육량·대사·건강 상태에 따라 실제 필요량은 다를 수 있으니, 무리한 감량보다 꾸준한 관리를 권장합니다.'] },
+]
 
 const CALORIE_FAQ = [
   { q: 'TDEE가 무엇인가요?', a: '하루 총 에너지 소비량입니다. 기초대사량(BMR)에 활동량 계수를 곱해 구합니다.' },
@@ -170,6 +178,7 @@ export default function CaloriePage() {
             </section>
           </aside>
         </div>
+        <ToolGuide sections={CALORIE_GUIDE} />
         <FaqSection items={CALORIE_FAQ} />
         <RelatedTools current="/calorie" />
       </main>

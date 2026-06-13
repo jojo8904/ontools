@@ -4,6 +4,14 @@ import { NewsSidebar } from '@/features/news/components/NewsSidebar'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
 import { FaqSection } from '@/components/FaqSection'
+import { ToolGuide } from '@/components/ToolGuide'
+
+const CURRENCY_GUIDE = [
+  { h: '환율 계산기란?', p: ['입력한 금액을 현재 환율 기준으로 원화↔외화로 환산해주는 도구입니다. 해외여행 예산, 해외직구 결제금액, 해외송금액을 가늠할 때 유용합니다.'] },
+  { h: '매매기준율과 실제 환전 환율의 차이', p: ['본 계산기는 매매기준율(은행 간 거래 기준 환율)을 사용합니다. 실제로 은행·환전소에서 돈을 바꿀 때는 여기에 스프레드(수수료)가 붙어, 살 때는 더 비싸고 팔 때는 더 싸게 적용됩니다. 환전 우대를 받으면 이 차이를 줄일 수 있습니다.'] },
+  { h: '엔화 표기 주의', p: ['일본 엔화는 은행 고시에서 100엔 단위로 표기되는 경우가 많습니다. 본 계산기는 1엔 기준으로 환산해 보여주므로 은행 고시 숫자와 달라 보일 수 있습니다.'] },
+  { h: '활용 팁', p: ['환율은 평일에 수시로 변동하고 주말·공휴일에는 직전 영업일 기준이 유지됩니다. 큰 금액을 환전한다면 며칠간 환율 추이를 지켜보고, 주거래은행의 환전 우대를 활용하는 것이 유리합니다.'] },
+]
 
 const CURRENCY_FAQ = [
   {
@@ -141,6 +149,7 @@ export default function CurrencyPage() {
           </aside>
         </div>
 
+        <ToolGuide sections={CURRENCY_GUIDE} />
         <FaqSection items={CURRENCY_FAQ} />
         <RelatedTools current="/currency" />
       </main>

@@ -4,6 +4,14 @@ import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
 import { ShareButtons } from '@/components/ShareButtons'
 import { FaqSection } from '@/components/FaqSection'
+import { ToolGuide } from '@/components/ToolGuide'
+
+const SALARY_GUIDE = [
+  { h: '연봉 실수령액이란?', p: ['연봉 실수령액은 세전 연봉에서 4대보험(국민연금·건강보험·장기요양보험·고용보험)과 소득세·지방소득세를 공제한 뒤 실제로 통장에 입금되는 금액입니다. 채용공고의 연봉과 매달 체감하는 월급이 다른 이유가 바로 이 공제 때문입니다.'] },
+  { h: '계산 방법', p: ['총 연봉을 12로 나눈 세전 월급에서 4대보험료(근로자 부담 약 9.4%)와 소득세·지방소득세를 뺍니다. 소득세는 과세표준에 따라 6~45% 누진세율이 적용되며, 부양가족 수에 따른 인적공제로 줄어듭니다.', '예를 들어 연봉 4,000만원(본인 1인 기준)이면 세전 월급 약 333만원에서 공제 후 월 실수령액은 대략 288만원 수준입니다.'] },
+  { h: '실수령액을 높이는 팁', p: ['식대·자가운전보조금 등 비과세 수당을 활용하면 과세 대상 금액이 줄어 실수령액이 늘어납니다. 부양가족 등록과 연말정산 시 신용카드·의료비·기부금 공제도 환급에 도움이 됩니다.'] },
+  { h: '주의사항', p: ['본 계산기는 2026년 기준 근사치입니다. 실제 금액은 회사 급여 규정, 비과세 항목, 성과급·상여금 지급 방식에 따라 달라질 수 있으니 참고용으로 활용하세요.'] },
+]
 
 const SALARY_FAQ = [
   {
@@ -267,6 +275,7 @@ export default function SalaryCalculatorPage() {
           </aside>
         </div>
 
+        <ToolGuide sections={SALARY_GUIDE} />
         <FaqSection items={SALARY_FAQ} />
         <RelatedTools current="/salary" />
       </main>
