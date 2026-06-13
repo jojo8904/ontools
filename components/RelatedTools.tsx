@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { getRelatedTools } from '@/lib/tools'
+import { AdUnit } from './AdUnit'
 
 interface RelatedToolsProps {
   /** 현재 도구의 href (예: '/salary') */
@@ -17,7 +18,10 @@ export function RelatedTools({ current, limit = 4 }: RelatedToolsProps) {
   if (related.length === 0) return null
 
   return (
-    <section className="mt-10">
+    <>
+      {/* 계산기 페이지 공통 광고 (관련 도구 섹션이 모든 계산기에 들어가므로 여기에 두면 전 계산기에 노출) */}
+      <AdUnit slot="0000000000" />
+      <section className="mt-10">
       <h2 className="text-lg font-bold mb-3 text-[#241a33]">함께 보면 좋은 계산기</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {related.map((tool) => (
@@ -35,6 +39,7 @@ export function RelatedTools({ current, limit = 4 }: RelatedToolsProps) {
           </Link>
         ))}
       </div>
-    </section>
+      </section>
+    </>
   )
 }
