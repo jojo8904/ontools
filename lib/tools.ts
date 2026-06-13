@@ -1,0 +1,83 @@
+/**
+ * 전체 도구 레지스트리 — 검색, 관련 도구 추천, 사이트맵 등에서 공통 사용
+ */
+export type ToolCategory = 'salary-tax' | 'finance' | 'health' | 'utility'
+
+export interface ToolMeta {
+  href: string
+  label: string
+  category: ToolCategory
+  keywords?: string[]
+  badge?: 'NEW' | '인기'
+}
+
+export const CATEGORY_LABELS: Record<ToolCategory, string> = {
+  'salary-tax': '연봉·세금',
+  finance: '금융',
+  health: '건강',
+  utility: '생활·유틸',
+}
+
+export const TOOLS: ToolMeta[] = [
+  // 연봉·세금
+  { href: '/salary', label: '연봉 실수령액 계산기', category: 'salary-tax', badge: '인기', keywords: ['월급', '실수령', '세후'] },
+  { href: '/severance-pay', label: '퇴직금 계산기', category: 'salary-tax', keywords: ['퇴직', '근속'] },
+  { href: '/weekly-holiday-pay', label: '주휴수당 계산기', category: 'salary-tax', keywords: ['주휴', '알바'] },
+  { href: '/annual-leave-pay', label: '연차 수당 계산기', category: 'salary-tax', keywords: ['연차', '미사용'] },
+  { href: '/unemployment', label: '실업급여 계산기', category: 'salary-tax', keywords: ['실업', '구직급여'] },
+  { href: '/income-tax', label: '종합소득세 계산기', category: 'salary-tax', keywords: ['종소세', '소득세'] },
+  { href: '/vat', label: '부가세(VAT) 계산기', category: 'salary-tax', keywords: ['부가가치세', '세금계산서'] },
+  { href: '/freelancer-tax', label: '프리랜서 세금 계산기 (3.3%)', category: 'salary-tax', keywords: ['프리랜서', '원천징수', '3.3'] },
+
+  // 금융
+  { href: '/currency', label: '환율 계산기', category: 'finance', badge: '인기', keywords: ['달러', '엔화', '유로'] },
+  { href: '/loan', label: '대출이자 계산기', category: 'finance', keywords: ['대출', '원리금', '이자'] },
+  { href: '/savings', label: '적금/예금 이자 계산기', category: 'finance', keywords: ['적금', '예금', '이자'] },
+  { href: '/capital-gains-tax', label: '양도소득세 계산기', category: 'finance', keywords: ['양도세', '부동산', '주식'] },
+  { href: '/used-car-tax', label: '중고차 취등록세 계산기', category: 'finance', keywords: ['취득세', '자동차'] },
+  { href: '/rent-vs-jeonse', label: '전세 vs 월세 비교 계산기', category: 'finance', keywords: ['전세', '월세', '보증금'] },
+
+  // 건강
+  { href: '/bmi', label: 'BMI 계산기', category: 'health', keywords: ['비만', '체질량'] },
+  { href: '/calorie', label: '일일 칼로리(TDEE) 계산기', category: 'health', badge: '인기', keywords: ['칼로리', '기초대사량', '다이어트'] },
+  { href: '/water-intake', label: '물 섭취량 계산기', category: 'health', keywords: ['수분', '하루'] },
+
+  // 생활·유틸
+  { href: '/unit-converter', label: '단위 변환기', category: 'utility', keywords: ['단위', '변환', '길이', '무게'] },
+  { href: '/d-day', label: 'D-day 계산기', category: 'utility', keywords: ['디데이', '날짜'] },
+  { href: '/electricity', label: '전기요금 계산기', category: 'utility', keywords: ['전기세', '누진제'] },
+  { href: '/character-counter', label: '글자수 세기', category: 'utility', keywords: ['글자', '바이트', '자소서'] },
+  { href: '/password-generator', label: '비밀번호 생성기', category: 'utility', keywords: ['패스워드', '보안'] },
+  { href: '/qr-generator', label: 'QR 코드 생성기', category: 'utility', keywords: ['큐알', 'QR'] },
+
+  // 생활·유틸 (신규)
+  { href: '/age', label: '만 나이 계산기', category: 'utility', badge: 'NEW', keywords: ['나이', '만나이', '연령'] },
+  { href: '/pyeong', label: '평수 ↔ ㎡ 변환기', category: 'utility', badge: 'NEW', keywords: ['평', '제곱미터', '면적'] },
+  { href: '/hourly-wage', label: '시급 ↔ 월급 환산기', category: 'salary-tax', badge: 'NEW', keywords: ['시급', '월급', '연봉환산'] },
+  { href: '/discount', label: '할인율 계산기', category: 'utility', badge: 'NEW', keywords: ['할인', '세일', '퍼센트'] },
+  { href: '/brokerage-fee', label: '부동산 중개수수료 계산기', category: 'finance', badge: 'NEW', keywords: ['복비', '중개보수', '부동산'] },
+]
+
+export function getToolByHref(href: string): ToolMeta | undefined {
+  return TOOLS.find((t) => t.href === href)
+}
+
+export function getRelatedTools(href: string, limit = 4): ToolMeta[] {
+  const current = getToolByHref(href)
+  if (!current) return TOOLS.slice(0, limit)
+  const sameCategory = TOOLS.filter((t) => t.category === current.category && t.href !== href)
+  if (sameCategory.length >= limit) return sameCategory.slice(0, limit)
+  // 같은 카테고리가 부족하면 다른 카테고리로 채움
+  const others = TOOLS.filter((t) => t.category !== current.category && t.href !== href)
+  return [...sameCategory, ...others].slice(0, limit)
+}
+
+export function searchTools(query: string): ToolMeta[] {
+  const q = query.trim().toLowerCase()
+  if (!q) return []
+  return TOOLS.filter(
+    (t) =>
+      t.label.toLowerCase().includes(q) ||
+      t.keywords?.some((k) => k.toLowerCase().includes(q))
+  )
+}

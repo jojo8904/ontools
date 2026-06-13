@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { UnitConverterCalculator } from './UnitConverterCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
+import { RelatedTools } from '@/components/RelatedTools'
 
 export const metadata: Metadata = {
   title: '단위 변환기 - ontools',
@@ -67,6 +68,7 @@ export default function UnitConverterPage() {
         <div className="mt-12 space-y-10">
           <YouTubeSection category="unit" />
         </div>
+        <RelatedTools current="/unit-converter" />
       </main>
 
       {/* Footer */}

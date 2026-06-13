@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { SavingsCalculator } from './SavingsCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
+import { RelatedTools } from '@/components/RelatedTools'
 
 export const metadata: Metadata = {
   title: '적금/예금 이자 계산기 - ontools',
@@ -152,6 +153,7 @@ export default function SavingsPage() {
             </section>
           </aside>
         </div>
+        <RelatedTools current="/savings" />
       </main>
 
       {/* Footer */}

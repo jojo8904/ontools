@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { BmiCalculator } from './BmiCalculator'
 import { NewsSidebar } from '@/features/news/components/NewsSidebar'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
+import { RelatedTools } from '@/components/RelatedTools'
 
 export const metadata: Metadata = {
   title: 'BMI 계산기 - ontools',
@@ -69,6 +70,7 @@ export default function BmiPage() {
           <NewsSidebar toolId="bmi" title="건강 뉴스" />
           <YouTubeSection category="bmi" />
         </div>
+        <RelatedTools current="/bmi" />
       </main>
 
       {/* Footer */}

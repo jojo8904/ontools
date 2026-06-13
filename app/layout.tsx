@@ -43,15 +43,20 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // AdSense 클라이언트 ID는 환경변수로 관리 (NEXT_PUBLIC_ADSENSE_CLIENT_ID)
+  // 미설정 시 스크립트를 로드하지 않음 (개발/프리뷰 환경)
+  const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID;
   return (
     <html lang="ko">
       <head>
         <meta name="theme-color" content="#0f0f1a" />
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8367801233123288"
-          crossOrigin="anonymous"
-        />
+        {adsenseClientId && (
+          <script
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClientId}`}
+            crossOrigin="anonymous"
+          />
+        )}
       </head>
       <body className="min-h-screen bg-background font-sans antialiased">
         <script

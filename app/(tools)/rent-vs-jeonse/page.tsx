@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { RentVsJeonseCalculator } from './RentVsJeonseCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
+import { RelatedTools } from '@/components/RelatedTools'
 
 export const metadata: Metadata = {
   title: '전세 vs 월세 비교 계산기 - ontools',
@@ -41,6 +42,7 @@ export default function RentVsJeonsePage() {
             </section>
           </aside>
         </div>
+        <RelatedTools current="/rent-vs-jeonse" />
       </main>
       <footer className="border-t mt-auto"><div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">&copy; 2026 ontools. All rights reserved.</div></footer>
     </div>

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { CharacterCounter } from './CharacterCounter'
+import { RelatedTools } from '@/components/RelatedTools'
 
 export const metadata: Metadata = {
   title: '글자수 세기 - ontools',
@@ -171,6 +172,7 @@ export default function CharacterCounterPage() {
             </section>
           </aside>
         </div>
+        <RelatedTools current="/character-counter" />
       </main>
 
       {/* Footer */}

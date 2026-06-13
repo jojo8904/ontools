@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { SalaryCalculator } from './SalaryCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
+import { RelatedTools } from '@/components/RelatedTools'
+import { ShareButtons } from '@/components/ShareButtons'
 
 export const metadata: Metadata = {
   title: '연봉 실수령액 계산기 - ontools',
@@ -54,12 +56,15 @@ export default function SalaryCalculatorPage() {
         </div>
 
         {/* Title */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">연봉 실수령액 계산기</h1>
-          <p className="text-muted-foreground">
-            2026년 최신 세율 적용. 연봉에서 세금과 4대보험을 제외한 실수령액을
-            계산합니다.
-          </p>
+        <div className="mb-8 flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <h1 className="text-3xl font-bold mb-2">연봉 실수령액 계산기</h1>
+            <p className="text-muted-foreground">
+              2026년 최신 세율 적용. 연봉에서 세금과 4대보험을 제외한 실수령액을
+              계산합니다.
+            </p>
+          </div>
+          <ShareButtons title="연봉 실수령액 계산기 - ontools" />
         </div>
 
         {/* Calculator + SEO Content */}
@@ -242,6 +247,7 @@ export default function SalaryCalculatorPage() {
           </aside>
         </div>
 
+        <RelatedTools current="/salary" />
       </main>
 
       {/* Footer */}

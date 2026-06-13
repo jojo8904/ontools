@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { CalorieCalculator } from './CalorieCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
+import { RelatedTools } from '@/components/RelatedTools'
 
 export const metadata: Metadata = {
   title: '일일 칼로리(TDEE) 계산기 - ontools',
@@ -162,6 +163,7 @@ export default function CaloriePage() {
             </section>
           </aside>
         </div>
+        <RelatedTools current="/calorie" />
       </main>
 
       {/* Footer */}

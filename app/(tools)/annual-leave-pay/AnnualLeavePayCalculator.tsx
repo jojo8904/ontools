@@ -9,7 +9,6 @@ export function AnnualLeavePayCalculator() {
     dailyWage: number
     unusedDays: number
     totalPay: number
-    afterTax: number
   } | null>(null)
 
   const calculate = () => {
@@ -18,11 +17,7 @@ export function AnnualLeavePayCalculator() {
     if (isNaN(wage) || isNaN(days) || wage <= 0 || days <= 0) return
 
     const totalPay = Math.floor(wage * days)
-    // 연차수당은 근로소득으로 소득세+지방소득세 약 3.3% 원천징수 (간이)
-    const tax = Math.floor(totalPay * 0.033)
-    const afterTax = totalPay - tax
-
-    setResult({ dailyWage: wage, unusedDays: days, totalPay, afterTax })
+    setResult({ dailyWage: wage, unusedDays: days, totalPay })
   }
 
   const fmt = (n: number) => n.toLocaleString('ko-KR')
@@ -75,10 +70,11 @@ export function AnnualLeavePayCalculator() {
                 <p className="text-lg font-semibold text-gray-900">{result.unusedDays}일</p>
               </div>
             </div>
-            <div className="bg-gray-50 rounded-lg p-4">
-              <p className="text-sm text-gray-500 mb-1">예상 실수령액 (세후)</p>
-              <p className="text-lg font-semibold text-gray-900">약 {fmt(result.afterTax)}원</p>
-            </div>
+            <p className="text-xs text-gray-400 leading-relaxed">
+              연차수당은 <b>근로소득</b>으로 급여에 합산되어 근로소득세가 부과됩니다.
+              실제 공제액은 총급여·부양가족 수에 따라 달라지므로(근로소득 간이세액표 적용),
+              세후 금액은 연봉 계산기로 전체 급여 기준 확인을 권장합니다.
+            </p>
           </div>
         )}
       </div>

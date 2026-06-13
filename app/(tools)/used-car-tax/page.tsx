@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { UsedCarTaxCalculator } from './UsedCarTaxCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
+import { RelatedTools } from '@/components/RelatedTools'
 
 export const metadata: Metadata = {
   title: '중고차 취등록세 계산기 - ontools',
@@ -42,6 +43,7 @@ export default function UsedCarTaxPage() {
             </section>
           </aside>
         </div>
+        <RelatedTools current="/used-car-tax" />
       </main>
       <footer className="border-t mt-auto"><div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">&copy; 2026 ontools. All rights reserved.</div></footer>
     </div>

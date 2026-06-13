@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/Card'
 
 export function SalaryCalculator() {
-  const { input, result, calculate, updateInput, reset } = useSalaryCalculator()
+  const { input, result, error, calculate, updateInput, reset } = useSalaryCalculator()
 
   return (
     <div className="space-y-6">
@@ -76,6 +76,13 @@ export function SalaryCalculator() {
                 장애인 공제 적용
               </label>
             </div>
+
+            {/* 입력 검증 에러 */}
+            {error && (
+              <p className="text-sm text-red-600" role="alert">
+                {error}
+              </p>
+            )}
 
             {/* Buttons */}
             <div className="flex gap-2 pt-4">

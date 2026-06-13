@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { FreelancerTaxCalculator } from './FreelancerTaxCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
+import { RelatedTools } from '@/components/RelatedTools'
 
 export const metadata: Metadata = {
   title: '프리랜서 세금 계산기 (3.3%) - ontools',
@@ -60,6 +61,7 @@ export default function FreelancerTaxPage() {
             </section>
           </aside>
         </div>
+        <RelatedTools current="/freelancer-tax" />
       </main>
       <footer className="border-t mt-auto">
         <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">&copy; 2026 ontools. All rights reserved.</div>

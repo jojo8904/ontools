@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { VatCalculator } from './VatCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
+import { RelatedTools } from '@/components/RelatedTools'
 
 export const metadata: Metadata = {
   title: '부가세(VAT) 계산기 - ontools',
@@ -194,6 +195,7 @@ export default function VatPage() {
             </section>
           </aside>
         </div>
+        <RelatedTools current="/vat" />
       </main>
 
       {/* Footer */}

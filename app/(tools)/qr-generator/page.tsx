@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { QrGenerator } from './QrGenerator'
+import { RelatedTools } from '@/components/RelatedTools'
 
 export const metadata: Metadata = {
   title: 'QR코드 생성기 - ontools',
@@ -112,6 +113,7 @@ export default function QrGeneratorPage() {
             </section>
           </aside>
         </div>
+        <RelatedTools current="/qr-generator" />
       </main>
 
       {/* Footer */}

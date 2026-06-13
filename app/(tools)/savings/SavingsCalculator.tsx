@@ -37,9 +37,10 @@ function calculateInstallment(
   let grossInterest = 0
 
   if (interestType === 'simple') {
-    // 단리: 각 회차 납입금에 대해 잔여 개월수만큼 이자
+    // 단리: 각 회차 납입금은 납입한 달 포함 (months - i + 1)개월간 이자가 붙는다
+    // (1회차는 months개월, 마지막 회차는 1개월)
     for (let i = 1; i <= months; i++) {
-      const remainMonths = months - i
+      const remainMonths = months - i + 1
       grossInterest += monthly * (annualRate / 100) * (remainMonths / 12)
     }
   } else {

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { WeeklyHolidayPayCalculator } from './WeeklyHolidayPayCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
+import { RelatedTools } from '@/components/RelatedTools'
 
 export const metadata: Metadata = {
   title: '주휴수당 계산기 - ontools',
@@ -169,6 +170,7 @@ export default function WeeklyHolidayPayPage() {
             </section>
           </aside>
         </div>
+        <RelatedTools current="/weekly-holiday-pay" />
       </main>
 
       {/* Footer */}

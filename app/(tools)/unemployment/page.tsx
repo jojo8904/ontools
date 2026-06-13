@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { UnemploymentCalculator } from './UnemploymentCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
+import { RelatedTools } from '@/components/RelatedTools'
 
 export const metadata: Metadata = {
   title: '실업급여 계산기 - ontools',
@@ -180,6 +181,7 @@ export default function UnemploymentPage() {
             </section>
           </aside>
         </div>
+        <RelatedTools current="/unemployment" />
       </main>
 
       {/* Footer */}

@@ -3,8 +3,11 @@ name: Exchange Rate Updater
 on:
   schedule:
     # Run at 11:00 KST (02:00 UTC) on weekdays
+    # 주의: 60일 무활동 시 schedule 자동 비활성화 → 외부 스케줄러가 repository_dispatch로 백업 트리거.
     - cron: '0 2 * * 1-5'
   workflow_dispatch: # Manual trigger
+  repository_dispatch: # 외부 스케줄러 트리거
+    types: [update-exchange-rate]
 
 jobs:
   update-exchange-rates:

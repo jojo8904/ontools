@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { LoanCalculator } from './LoanCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
+import { RelatedTools } from '@/components/RelatedTools'
 
 export const metadata: Metadata = {
   title: '대출이자 계산기 - ontools',
@@ -127,6 +128,7 @@ export default function LoanPage() {
             </section>
           </aside>
         </div>
+        <RelatedTools current="/loan" />
       </main>
 
       {/* Footer */}

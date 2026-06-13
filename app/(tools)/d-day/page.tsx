@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { DdayCalculator } from './DdayCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
+import { RelatedTools } from '@/components/RelatedTools'
 
 export const metadata: Metadata = {
   title: 'D-day 계산기 - ontools',
@@ -61,6 +62,7 @@ export default function DdayPage() {
         <div className="mt-12 space-y-10">
           <YouTubeSection category="dday" />
         </div>
+        <RelatedTools current="/d-day" />
       </main>
 
       <footer className="border-t mt-auto">

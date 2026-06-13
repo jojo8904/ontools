@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { SeveranceCalculator } from './SeveranceCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
+import { RelatedTools } from '@/components/RelatedTools'
 
 export const metadata: Metadata = {
   title: '퇴직금 계산기 - ontools',
@@ -148,6 +149,7 @@ export default function SeverancePayPage() {
           </aside>
         </div>
 
+        <RelatedTools current="/severance-pay" />
       </main>
 
       {/* Footer */}

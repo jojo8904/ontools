@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { CurrencyConverter } from './CurrencyConverter'
 import { NewsSidebar } from '@/features/news/components/NewsSidebar'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
+import { RelatedTools } from '@/components/RelatedTools'
 
 export const metadata: Metadata = {
   title: '환율 계산기 - ontools',
@@ -120,6 +121,7 @@ export default function CurrencyPage() {
           </aside>
         </div>
 
+        <RelatedTools current="/currency" />
       </main>
 
       {/* Footer */}

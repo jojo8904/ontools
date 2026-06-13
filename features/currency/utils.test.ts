@@ -3,15 +3,17 @@ import { convertCurrency, isWeekend, getCurrencySymbol } from './utils'
 import { CurrencyInput } from '@/types/tools'
 
 describe('convertCurrency', () => {
+  // 폴백 환율 기준 (1단위 기준): USD 1380, JPY 9.2(1엔), EUR 1490, CNY 190
   it('should convert KRW to USD', () => {
     const input: CurrencyInput = {
-      amount: 1320500,
+      amount: 1380000,
       fromCurrency: 'KRW',
       toCurrency: 'USD',
     }
 
     const result = convertCurrency(input)
 
+    // 1,380,000원 / 1380 = 1000 USD
     expect(result.convertedAmount).toBeCloseTo(1000, 1)
     expect(result.fromCurrency).toBe('KRW')
     expect(result.toCurrency).toBe('USD')
@@ -26,10 +28,11 @@ describe('convertCurrency', () => {
 
     const result = convertCurrency(input)
 
-    expect(result.convertedAmount).toBeCloseTo(1320500, 1)
+    // 1000 USD * 1380 = 1,380,000원
+    expect(result.convertedAmount).toBeCloseTo(1380000, 1)
   })
 
-  it('should convert JPY to KRW (100 yen basis)', () => {
+  it('should convert JPY to KRW (1 yen basis)', () => {
     const input: CurrencyInput = {
       amount: 10000, // 1만 엔
       fromCurrency: 'JPY',
@@ -38,8 +41,8 @@ describe('convertCurrency', () => {
 
     const result = convertCurrency(input)
 
-    // 10,000엔 / 100 * 8.85 = 885
-    expect(result.convertedAmount).toBeCloseTo(885, 1)
+    // 10,000엔 * 9.2 = 92,000원 (1엔 기준 환율)
+    expect(result.convertedAmount).toBeCloseTo(92000, 1)
   })
 
   it('should convert EUR to USD', () => {
