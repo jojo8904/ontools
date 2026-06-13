@@ -58,8 +58,7 @@ const RSS_SOURCES = [
   // Energy
   { url: 'https://news.google.com/rss/search?q=%EC%97%90%EB%84%88%EC%A7%80+%EC%A0%84%EA%B8%B0%EC%9A%94%EA%B8%88+%EC%A0%84%EB%A0%A5&hl=ko&gl=KR&ceid=KR:ko', category: 'energy', source: 'Google뉴스 에너지' },
 
-  // Game
-  { url: 'https://www.gamemeca.com/rss.xml', category: 'game', source: '게임메카' },
+  // Game (게임메카 RSS는 폐기됨(404/malformed) → Google뉴스 게임으로 대체)
   { url: 'https://news.google.com/rss/search?q=%EA%B2%8C%EC%9E%84+%EC%8B%A0%EC%9E%91+%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8&hl=ko&gl=KR&ceid=KR:ko', category: 'game', source: 'Google뉴스 게임' },
 ]
 
@@ -223,6 +222,16 @@ async function crawlNews() {
   console.log(`  Saved: ${totalSaved}`)
   console.log(`  Skipped (duplicates): ${totalSkipped}`)
   console.log(`  Errors: ${totalErrors}`)
+
+  // 재발 방지: 새로 저장한 게 0건인데 에러만 발생했다면 심각한 장애(Claude 크레딧/키 만료,
+  // Supabase 연결 등)로 간주하고 명시적으로 실패 처리한다.
+  // (이전에는 try-catch로 에러를 삼켜 "성공(초록불)"으로 끝나 4개월간 방치됨)
+  if (totalSaved === 0 && totalErrors > 0) {
+    throw new Error(
+      `크롤링 이상: 신규 저장 0건 / 에러 ${totalErrors}건. ` +
+      `Claude API 크레딧·키 또는 Supabase 연결을 확인하세요.`
+    )
+  }
 }
 
 // Run crawler
