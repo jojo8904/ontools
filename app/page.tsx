@@ -5,6 +5,7 @@ import { FadeInSection } from './FadeInSection'
 import { ScrollDownButton } from './ScrollDownButton'
 import { PromoBanner } from '@/components/PromoBanner'
 import { AdUnit } from '@/components/AdUnit'
+import { AdFitUnit } from '@/components/AdFitUnit'
 import { ToolSearch } from './ToolSearch'
 import { RecentTools } from './RecentTools'
 import { FavoritesList } from './FavoritesList'
@@ -214,6 +215,9 @@ export default async function HomePage() {
             <div className="mb-10">
               <PromoBanner />
             </div>
+
+            {/* 카카오 애드핏 광고 */}
+            <AdFitUnit />
 
             <h2 className="text-[2rem] font-[800] mb-2 tracking-tight text-[#241a33]">도구 모음</h2>
             <p className="text-[#6b6276] mb-10">
