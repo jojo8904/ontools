@@ -2,7 +2,8 @@
 
 import { useEffect, useRef } from 'react'
 
-const DEFAULT_UNIT = process.env.NEXT_PUBLIC_ADFIT_UNIT_ID
+// 환경변수로 덮어쓸 수 있으나, 기본값으로 발급받은 광고단위 ID 사용 (애드핏 ID는 공개값)
+const DEFAULT_UNIT = process.env.NEXT_PUBLIC_ADFIT_UNIT_ID || 'DAN-YmhVtuLiN5Q2MJ3K'
 
 interface AdFitUnitProps {
   /** 카카오 애드핏 광고 단위 ID (예: DAN-xxxxxxxx). 미지정 시 환경변수 사용 */
@@ -35,7 +36,7 @@ export function AdFitUnit({ unit, width = 728, height = 90, className = '' }: Ad
 
     const script = document.createElement('script')
     script.async = true
-    script.src = '//t1.daumcdn.net/kas/static/ba.min.js'
+    script.src = '//t1.kakaocdn.net/kas/static/ba.min.js'
 
     el.appendChild(ins)
     el.appendChild(script)
