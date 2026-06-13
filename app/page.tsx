@@ -6,7 +6,6 @@ import { ScrollDownButton } from './ScrollDownButton'
 import { PromoBanner } from '@/components/PromoBanner'
 import { AdUnit } from '@/components/AdUnit'
 import { AdFitUnit } from '@/components/AdFitUnit'
-import { ToolSearch } from './ToolSearch'
 import { FavoriteStar } from './FavoriteStar'
 import { fetchLatestNews, fetchNewsList } from '@/features/news/services/newsApi'
 
@@ -206,11 +205,6 @@ export default async function HomePage() {
           style={{ background: 'linear-gradient(180deg, #FBF7F2 0%, #F4EFFA 100%)' }}
         >
           <div className="container mx-auto px-4 pt-10 pb-10">
-            {/* 도구 검색 */}
-            <div className="mb-8">
-              <ToolSearch />
-            </div>
-
             {/* 행운연구소 크로스 프로모션 */}
             <div className="mb-10">
               <PromoBanner />
