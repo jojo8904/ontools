@@ -7,8 +7,6 @@ import { PromoBanner } from '@/components/PromoBanner'
 import { AdUnit } from '@/components/AdUnit'
 import { AdFitUnit } from '@/components/AdFitUnit'
 import { ToolSearch } from './ToolSearch'
-import { RecentTools } from './RecentTools'
-import { FavoritesList } from './FavoritesList'
 import { FavoriteStar } from './FavoriteStar'
 import { fetchLatestNews, fetchNewsList } from '@/features/news/services/newsApi'
 
@@ -212,10 +210,6 @@ export default async function HomePage() {
             <div className="mb-8">
               <ToolSearch />
             </div>
-
-            {/* 즐겨찾기 + 최근 본 계산기 */}
-            <FavoritesList />
-            <RecentTools />
 
             {/* 행운연구소 크로스 프로모션 */}
             <div className="mb-10">
