@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { RelatedTools } from './RelatedTools'
-import { ShareButtons } from './ShareButtons'
 
 interface ToolShellProps {
   title: string
@@ -46,12 +45,9 @@ export function ToolShell({ title, description, breadcrumb, current, children }:
           )}
         </div>
 
-        <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
-          <div>
-            <h1 className="text-3xl font-bold mb-2 text-[#241a33]">{title}</h1>
-            {description && <p className="text-[#6b6276]">{description}</p>}
-          </div>
-          <ShareButtons title={`${title} - ontools`} />
+        <div className="mb-6">
+          <h1 className="text-3xl font-bold mb-2 text-[#241a33]">{title}</h1>
+          {description && <p className="text-[#6b6276]">{description}</p>}
         </div>
 
         {children}

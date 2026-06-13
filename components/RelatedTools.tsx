@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { getRelatedTools } from '@/lib/tools'
 import { AdUnit } from './AdUnit'
+import { ShareButtons } from './ShareButtons'
 
 interface RelatedToolsProps {
   /** 현재 도구의 href (예: '/salary') */
@@ -19,6 +20,10 @@ export function RelatedTools({ current, limit = 4 }: RelatedToolsProps) {
 
   return (
     <>
+      {/* 공유 버튼 (모든 계산기 공통) */}
+      <div className="mt-8 pt-6 border-t border-[#ece6f2]">
+        <ShareButtons />
+      </div>
       {/* 계산기 페이지 공통 광고 (관련 도구 섹션이 모든 계산기에 들어가므로 여기에 두면 전 계산기에 노출) */}
       <AdUnit slot="0000000000" />
       <section className="mt-10">
