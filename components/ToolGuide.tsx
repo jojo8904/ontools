@@ -1,3 +1,5 @@
+import { ResponsiveAdFit } from './ResponsiveAdFit'
+
 export interface GuideSection {
   h: string
   p: string[]
@@ -30,6 +32,8 @@ export function ToolGuide({
           </div>
         ))}
       </div>
+      {/* 계산기 페이지 공통 애드핏 광고 (가이드와 FAQ 사이, AdSense는 하단 관련도구에 별도 배치) */}
+      <ResponsiveAdFit />
     </section>
   )
 }
