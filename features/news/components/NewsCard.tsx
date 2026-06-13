@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { News } from '@/types/news'
 import { formatDistanceToNow } from 'date-fns'
 import { ko } from 'date-fns/locale'
@@ -61,6 +62,7 @@ export function NewsCard({
   showCategories = true,
   showRelatedTools = false,
 }: NewsCardProps) {
+  const [imgError, setImgError] = useState(false)
   const publishedDate = new Date(news.published_at)
   const timeAgo = formatDistanceToNow(publishedDate, {
     addSuffix: true,
@@ -78,13 +80,14 @@ export function NewsCard({
     >
       <article className="news-card h-full overflow-hidden flex flex-col">
         {/* Thumbnail or gradient header */}
-        {news.image_url ? (
+        {news.image_url && !imgError ? (
           <div className="h-36 overflow-hidden">
             <img
               src={news.image_url}
               alt=""
               loading="lazy"
               decoding="async"
+              onError={() => setImgError(true)}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
           </div>

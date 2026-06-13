@@ -19,8 +19,34 @@ type CustomItem = {
   'media:thumbnail'?: { $?: { url?: string } }
 }
 
-// Extract image URL from RSS item
-function extractImageUrl(item: CustomItem): string | null {
+// 기사 페이지에서 대표 이미지(og:image)를 스크래핑 (RSS에 이미지가 없을 때 폴백)
+export async function fetchOgImage(link: string): Promise<string | null> {
+  try {
+    const controller = new AbortController()
+    const timer = setTimeout(() => controller.abort(), 8000)
+    const res = await fetch(link, {
+      redirect: 'follow',
+      signal: controller.signal,
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; ontools-bot/1.0)' },
+    })
+    clearTimeout(timer)
+    if (!res.ok) return null
+    const html = await res.text()
+    const m =
+      html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i) ||
+      html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i) ||
+      html.match(/<meta[^>]+name=["']twitter:image["'][^>]+content=["']([^"']+)["']/i)
+    const url = m?.[1]
+    // 상대경로/데이터URI 등은 제외, http(s) 절대경로만 채택
+    if (url && /^https?:\/\//i.test(url)) return url
+    return null
+  } catch {
+    return null // 타임아웃/차단/파싱 실패 시 조용히 폴백
+  }
+}
+
+// Extract image URL from RSS item (없으면 og:image 시도)
+async function extractImageUrl(item: CustomItem, link?: string): Promise<string | null> {
   // 1. enclosure (common in RSS 2.0)
   if (item.enclosure?.url) return item.enclosure.url
   // 2. media:content
@@ -31,6 +57,11 @@ function extractImageUrl(item: CustomItem): string | null {
   const content = item.content || ''
   const imgMatch = content.match(/<img[^>]+src=["']([^"']+)["']/)
   if (imgMatch?.[1]) return imgMatch[1]
+  // 5. RSS에 이미지가 없으면 기사 페이지의 og:image 스크래핑
+  if (link) {
+    const og = await fetchOgImage(link)
+    if (og) return og
+  }
   return null
 }
 
@@ -198,7 +229,7 @@ async function crawlNews() {
             categories: [...new Set([category, ...categories])],
             related_tools,
             url: item.link,
-            image_url: extractImageUrl(item as CustomItem),
+            image_url: await extractImageUrl(item as CustomItem, item.link),
           })
 
           console.log(`  ✅ Saved: ${item.title.substring(0, 50)}...`)
