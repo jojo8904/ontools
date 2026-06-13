@@ -1,6 +1,7 @@
 import Script from 'next/script'
 
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID
+// 환경변수로 덮어쓸 수 있으나, 기본값으로 발급받은 GA4 측정 ID 사용
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-JMXBEHHQ4K'
 
 /**
  * Google Analytics 4 (gtag.js)
