@@ -43,7 +43,7 @@ export function ScrollMoreButton({ label = '아래로 더 많은 정보' }: { la
       <button
         type="button"
         onClick={scrollDown}
-        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#2563eb] text-white text-sm font-bold shadow-lg hover:bg-[#1d4ed8] transition-colors"
+        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#2563eb] text-white text-sm font-bold shadow-[0_6px_16px_rgba(37,99,235,0.45)] hover:bg-[#1d4ed8] hover:scale-105 transition-all"
       >
         {label}
         <svg className="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -123,23 +123,24 @@
   50% { transform: translateY(6px); }
 }
 .scroll-down-btn {
-  width: 60px;
-  height: 60px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
-  border: 2.5px solid #333;
-  background: transparent;
-  color: #111;
+  border: none;
+  background: #2563eb;
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
   animation: bounce-subtle 2s ease-in-out infinite;
-  transition: border-color 0.3s, color 0.3s, background 0.3s;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
 }
 .scroll-down-btn:hover {
-  border-color: #000;
-  color: #000;
-  background: #f5f5f5;
+  background: #1d4ed8;
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.5);
 }
 
 /* Custom range slider */
