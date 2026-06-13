@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from "./providers";
 import { RouteTracker } from "./RouteTracker";
+import { FloatingSearch } from "./FloatingSearch";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://ontools.co.kr'),
@@ -67,6 +68,7 @@ export default function RootLayout({
         />
         <RouteTracker />
         <Providers>{children}</Providers>
+        <FloatingSearch />
       </body>
     </html>
   );

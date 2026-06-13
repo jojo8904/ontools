@@ -48,6 +48,7 @@ const TOOL_CATEGORIES = [
       { href: '/annual-leave-pay', label: '연차 수당 계산기', badge: 'NEW' },
       { href: '/income-tax', label: '종합소득세 계산기', badge: 'NEW' },
       { href: '/hourly-wage', label: '시급 ↔ 월급 환산기', badge: 'NEW' },
+      { href: '/four-insurances', label: '4대보험 계산기', badge: 'NEW' },
     ],
   },
   {
@@ -62,6 +63,9 @@ const TOOL_CATEGORIES = [
       { href: '/used-car-tax', label: '중고차 취등록세 계산기', badge: 'NEW' },
       { href: '/capital-gains-tax', label: '양도소득세 계산기', badge: 'NEW' },
       { href: '/brokerage-fee', label: '부동산 중개수수료 계산기', badge: 'NEW' },
+      { href: '/car-tax', label: '자동차세 계산기', badge: 'NEW' },
+      { href: '/gift-tax', label: '증여세 계산기', badge: 'NEW' },
+      { href: '/compound-interest', label: '복리 계산기', badge: 'NEW' },
     ],
   },
   {
@@ -74,6 +78,7 @@ const TOOL_CATEGORIES = [
       { href: '/ideal-weight', label: '적정체중 계산기', badge: 'NEW' },
       { href: '/sleep', label: '수면 시간 계산기', badge: 'NEW' },
       { href: '/alcohol', label: '음주 알코올 분해 계산기', badge: 'NEW' },
+      { href: '/due-date', label: '출산예정일 계산기', badge: 'NEW' },
       { href: '/water-intake', label: '물 섭취량 계산기' },
     ],
   },
@@ -88,6 +93,7 @@ const TOOL_CATEGORIES = [
       { href: '/d-day', label: 'D-day 계산기' },
       { href: '/electricity', label: '전기요금 계산기' },
       { href: '/discount', label: '할인율 계산기', badge: 'NEW' },
+      { href: '/date-calc', label: '날짜 계산기', badge: 'NEW' },
       { href: '/character-counter', label: '글자수 세기', badge: '인기' },
       { href: '/qr-generator', label: 'QR코드 생성기' },
       { href: '/password-generator', label: '비밀번호 생성기' },

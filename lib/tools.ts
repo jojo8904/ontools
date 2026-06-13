@@ -59,6 +59,14 @@ export const TOOLS: ToolMeta[] = [
   { href: '/hourly-wage', label: '시급 ↔ 월급 환산기', category: 'salary-tax', badge: 'NEW', keywords: ['시급', '월급', '연봉환산'] },
   { href: '/discount', label: '할인율 계산기', category: 'utility', badge: 'NEW', keywords: ['할인', '세일', '퍼센트'] },
   { href: '/brokerage-fee', label: '부동산 중개수수료 계산기', category: 'finance', badge: 'NEW', keywords: ['복비', '중개보수', '부동산'] },
+
+  // 추가 배치
+  { href: '/four-insurances', label: '4대보험 계산기', category: 'salary-tax', badge: 'NEW', keywords: ['국민연금', '건강보험', '고용보험', '4대보험'] },
+  { href: '/car-tax', label: '자동차세 계산기', category: 'finance', badge: 'NEW', keywords: ['자동차세', '차량세금', '배기량', '연납'] },
+  { href: '/gift-tax', label: '증여세 계산기', category: 'finance', badge: 'NEW', keywords: ['증여세', '증여', '자녀증여', '증여공제'] },
+  { href: '/compound-interest', label: '복리 계산기', category: 'finance', badge: 'NEW', keywords: ['복리', '복리이자', '투자', '72의법칙'] },
+  { href: '/date-calc', label: '날짜 계산기', category: 'utility', badge: 'NEW', keywords: ['날짜계산', '며칠후', '일수'] },
+  { href: '/due-date', label: '출산예정일 계산기', category: 'health', badge: 'NEW', keywords: ['출산예정일', '임신주수', '분만'] },
 ]
 
 export function getToolByHref(href: string): ToolMeta | undefined {
