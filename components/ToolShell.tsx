@@ -61,6 +61,11 @@ export function ToolShell({ title, description, breadcrumb, current, children }:
 
       <footer className="mt-auto border-t border-[#ece6f2]" style={{ backgroundColor: '#F7F3FB' }}>
         <div className="container mx-auto px-4 py-6 text-center text-sm text-[#8a8290]">
+          <div className="flex items-center justify-center gap-4 mb-3">
+            <Link href="/privacy" className="hover:text-[#241a33] transition-colors">개인정보처리방침</Link>
+            <span className="text-[#ddd]">|</span>
+            <Link href="/terms" className="hover:text-[#241a33] transition-colors">이용약관</Link>
+          </div>
           &copy; 2026 ontools. All rights reserved.
         </div>
       </footer>

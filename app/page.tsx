@@ -369,6 +369,13 @@ export default async function HomePage() {
       {/* Footer */}
       <footer className="mt-auto border-t border-[#ece6f2]" style={{ backgroundColor: '#F7F3FB' }}>
         <div className="container mx-auto px-4 py-8 text-center text-sm text-[#8a8290]">
+          <div className="flex items-center justify-center gap-4 mb-3">
+            <Link href="/privacy" className="hover:text-[#241a33] transition-colors">개인정보처리방침</Link>
+            <span className="text-[#ddd]">|</span>
+            <Link href="/terms" className="hover:text-[#241a33] transition-colors">이용약관</Link>
+            <span className="text-[#ddd]">|</span>
+            <a href="https://getluckylab.com/" target="_blank" rel="noopener noreferrer" className="hover:text-[#241a33] transition-colors">행운연구소</a>
+          </div>
           &copy; 2026 ontools. All rights reserved.
         </div>
       </footer>
