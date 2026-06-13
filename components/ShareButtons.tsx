@@ -8,7 +8,7 @@ interface ShareButtonsProps {
   url?: string
 }
 
-const KAKAO_JS_KEY = process.env.NEXT_PUBLIC_KAKAO_JS_KEY || 'c32853143253944c41066cbedf7cb248'
+const KAKAO_JS_KEY = process.env.NEXT_PUBLIC_KAKAO_JS_KEY || '03120f5849190844457b510f457232ee'
 
 // 카카오 JS SDK 로드 + 초기화 (1회)
 function ensureKakao(): Promise<unknown> {
