@@ -3,6 +3,7 @@ import "./globals.css";
 import { Providers } from "./providers";
 import { RouteTracker } from "./RouteTracker";
 import { FloatingSearch } from "./FloatingSearch";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://ontools.co.kr'),
@@ -66,6 +67,7 @@ export default function RootLayout({
             __html: `if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('/sw.js')})}`,
           }}
         />
+        <GoogleAnalytics />
         <RouteTracker />
         <Providers>{children}</Providers>
         <FloatingSearch />
