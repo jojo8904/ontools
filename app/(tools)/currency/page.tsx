@@ -3,6 +3,26 @@ import { CurrencyConverter } from './CurrencyConverter'
 import { NewsSidebar } from '@/features/news/components/NewsSidebar'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
+import { FaqSection } from '@/components/FaqSection'
+
+const CURRENCY_FAQ = [
+  {
+    q: '환율은 어느 시점 기준인가요?',
+    a: '평일 오전에 업데이트되는 매매기준율 근사치입니다. 주말·공휴일에는 직전 영업일의 환율이 적용됩니다.',
+  },
+  {
+    q: '실제 환전 금액과 다른 이유는 무엇인가요?',
+    a: '은행·환전소는 매매기준율에 스프레드(수수료)를 더하기 때문에 "살 때"와 "팔 때" 환율이 다릅니다. 본 계산기는 기준율 참고용입니다.',
+  },
+  {
+    q: '엔화(JPY)는 100엔 기준인가요?',
+    a: '본 계산기는 1엔 기준으로 환산해 보여줍니다. 은행 고시는 100엔 단위로 표기되는 경우가 많아 숫자가 달라 보일 수 있습니다.',
+  },
+  {
+    q: '어떤 통화를 지원하나요?',
+    a: '미국 달러(USD), 일본 엔(JPY), 유로(EUR), 중국 위안(CNY)과 원화(KRW) 간 변환을 지원합니다.',
+  },
+]
 
 export const metadata: Metadata = {
   title: '환율 계산기 - ontools',
@@ -121,6 +141,7 @@ export default function CurrencyPage() {
           </aside>
         </div>
 
+        <FaqSection items={CURRENCY_FAQ} />
         <RelatedTools current="/currency" />
       </main>
 

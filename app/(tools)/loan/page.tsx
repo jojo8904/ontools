@@ -2,6 +2,26 @@ import type { Metadata } from 'next'
 import { LoanCalculator } from './LoanCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
+import { FaqSection } from '@/components/FaqSection'
+
+const LOAN_FAQ = [
+  {
+    q: '원리금균등과 원금균등 상환의 차이는?',
+    a: '원리금균등은 매달 같은 금액(원금+이자)을 갚아 초기 부담이 일정합니다. 원금균등은 매달 같은 원금에 이자가 점점 줄어 초기 부담은 크지만 총이자는 더 적습니다.',
+  },
+  {
+    q: '총이자를 줄이는 방법은?',
+    a: '상환기간을 줄이거나, 원금균등 방식을 선택하거나, 여윳돈으로 중도상환해 원금을 빨리 줄이면 총이자가 감소합니다.',
+  },
+  {
+    q: '거치기간이 무엇인가요?',
+    a: '원금 상환 없이 이자만 내는 기간입니다. 거치 중에는 월 납입액이 적지만, 그만큼 원금이 안 줄어 총이자는 늘어납니다.',
+  },
+  {
+    q: '실제 대출 이자와 다를 수 있나요?',
+    a: '본 계산기는 고정금리 단순 계산입니다. 변동금리, 중도상환수수료, 보증료 등은 반영되지 않으므로 참고용으로 활용하세요.',
+  },
+]
 
 export const metadata: Metadata = {
   title: '대출이자 계산기 - ontools',
@@ -128,6 +148,7 @@ export default function LoanPage() {
             </section>
           </aside>
         </div>
+        <FaqSection items={LOAN_FAQ} />
         <RelatedTools current="/loan" />
       </main>
 

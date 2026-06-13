@@ -3,6 +3,26 @@ import { SalaryCalculator } from './SalaryCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
 import { ShareButtons } from '@/components/ShareButtons'
+import { FaqSection } from '@/components/FaqSection'
+
+const SALARY_FAQ = [
+  {
+    q: '연봉 실수령액은 어떻게 계산되나요?',
+    a: '총 연봉에서 4대보험(국민연금·건강보험·장기요양보험·고용보험)과 소득세·지방소득세를 공제한 금액이 실수령액입니다. 본 계산기는 2026년 요율을 기준으로 월 실수령액을 계산합니다.',
+  },
+  {
+    q: '4대보험 요율은 얼마인가요?',
+    a: '근로자 부담 기준으로 국민연금 4.5%, 건강보험 3.545%, 장기요양보험(건강보험료의 12.95%), 고용보험 0.9%입니다. 합계 약 9.4% 수준입니다.',
+  },
+  {
+    q: '부양가족 수가 실수령액에 영향을 주나요?',
+    a: '네. 부양가족이 많을수록 인적공제가 커져 과세표준이 줄고 소득세가 감소하므로 실수령액이 늘어납니다.',
+  },
+  {
+    q: '계산 결과가 실제 급여와 다른 이유는?',
+    a: '식대 등 비과세 수당, 회사별 급여 규정, 연말정산 등에 따라 달라질 수 있습니다. 본 계산기는 기본 과세 기준의 근사치이므로 참고용으로 활용하세요.',
+  },
+]
 
 export const metadata: Metadata = {
   title: '연봉 실수령액 계산기 - ontools',
@@ -247,6 +267,7 @@ export default function SalaryCalculatorPage() {
           </aside>
         </div>
 
+        <FaqSection items={SALARY_FAQ} />
         <RelatedTools current="/salary" />
       </main>
 

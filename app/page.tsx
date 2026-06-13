@@ -6,6 +6,7 @@ import { ScrollDownButton } from './ScrollDownButton'
 import { PromoBanner } from '@/components/PromoBanner'
 import { AdUnit } from '@/components/AdUnit'
 import { ToolSearch } from './ToolSearch'
+import { RecentTools } from './RecentTools'
 import { fetchLatestNews, fetchNewsList } from '@/features/news/services/newsApi'
 
 export const revalidate = 3600
@@ -199,6 +200,9 @@ export default async function HomePage() {
             <div className="mb-8">
               <ToolSearch />
             </div>
+
+            {/* 최근 본 계산기 */}
+            <RecentTools />
 
             {/* 행운연구소 크로스 프로모션 */}
             <div className="mb-10">

@@ -3,6 +3,26 @@ import { BmiCalculator } from './BmiCalculator'
 import { NewsSidebar } from '@/features/news/components/NewsSidebar'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
+import { FaqSection } from '@/components/FaqSection'
+
+const BMI_FAQ = [
+  {
+    q: 'BMI는 어떻게 계산하나요?',
+    a: '체중(kg)을 키(m)의 제곱으로 나눕니다. 예: 70kg, 175cm → 70 ÷ (1.75 × 1.75) ≈ 22.9.',
+  },
+  {
+    q: '정상 BMI 범위는 얼마인가요?',
+    a: '대한비만학회 기준 18.5~22.9는 정상, 23~24.9는 과체중, 25 이상은 비만입니다. (WHO 기준은 25 이상 과체중, 30 이상 비만으로 다소 다릅니다.)',
+  },
+  {
+    q: '한국 기준과 WHO 기준이 왜 다른가요?',
+    a: '아시아인은 같은 BMI에서도 대사질환 위험이 더 높은 것으로 알려져, 한국·아시아 기준이 더 엄격하게 설정되어 있습니다.',
+  },
+  {
+    q: 'BMI의 한계는 무엇인가요?',
+    a: '근육량과 체지방을 구분하지 못해 근육이 많은 사람은 높게 나올 수 있습니다. 체성분·허리둘레 등과 함께 참고 지표로만 활용하세요.',
+  },
+]
 
 export const metadata: Metadata = {
   title: 'BMI 계산기 - ontools',
@@ -70,6 +90,7 @@ export default function BmiPage() {
           <NewsSidebar toolId="bmi" title="건강 뉴스" />
           <YouTubeSection category="bmi" />
         </div>
+        <FaqSection items={BMI_FAQ} />
         <RelatedTools current="/bmi" />
       </main>
 

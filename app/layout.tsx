@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from "./providers";
+import { RouteTracker } from "./RouteTracker";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://ontools.co.kr'),
@@ -64,6 +65,7 @@ export default function RootLayout({
             __html: `if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('/sw.js')})}`,
           }}
         />
+        <RouteTracker />
         <Providers>{children}</Providers>
       </body>
     </html>
