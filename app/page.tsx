@@ -5,7 +5,7 @@ import { FadeInSection } from './FadeInSection'
 import { ScrollDownButton } from './ScrollDownButton'
 import { PromoBanner } from '@/components/PromoBanner'
 import { AdUnit } from '@/components/AdUnit'
-import { AdFitUnit } from '@/components/AdFitUnit'
+import { ResponsiveAdFit } from '@/components/ResponsiveAdFit'
 import { FavoriteStar } from './FavoriteStar'
 import { fetchLatestNews, fetchNewsList } from '@/features/news/services/newsApi'
 
@@ -210,8 +210,8 @@ export default async function HomePage() {
               <PromoBanner />
             </div>
 
-            {/* 카카오 애드핏 광고 */}
-            <AdFitUnit />
+            {/* 카카오 애드핏 광고 (PC/모바일 자동 전환) */}
+            <ResponsiveAdFit />
 
             <h2 className="text-[2rem] font-[800] mb-2 tracking-tight text-[#241a33]">도구 모음</h2>
             <p className="text-[#6b6276] mb-10">
