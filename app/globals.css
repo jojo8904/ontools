@@ -127,20 +127,20 @@
   height: 56px;
   border-radius: 50%;
   border: none;
-  background: #2563eb;
+  background: #f97316;
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+  box-shadow: 0 6px 16px rgba(249, 115, 22, 0.4);
   animation: bounce-subtle 2s ease-in-out infinite;
   transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
 }
 .scroll-down-btn:hover {
-  background: #1d4ed8;
+  background: #ea580c;
   transform: scale(1.05);
-  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.5);
+  box-shadow: 0 8px 20px rgba(249, 115, 22, 0.5);
 }
 
 /* Custom range slider */

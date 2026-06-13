@@ -26,9 +26,8 @@ export function ScrollDownButton() {
         width: '52px',
         height: '52px',
         borderRadius: '50%',
-        border: '2px solid rgba(255,255,255,0.3)',
-        background: 'rgba(0,0,0,0.5)',
-        backdropFilter: 'blur(8px)',
+        border: 'none',
+        background: '#f97316',
         color: '#fff',
         display: 'flex',
         alignItems: 'center',
@@ -37,11 +36,11 @@ export function ScrollDownButton() {
         opacity: visible ? 1 : 0,
         pointerEvents: visible ? 'auto' : 'none',
         transition: 'opacity 0.4s ease, background 0.3s ease',
-        boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+        boxShadow: '0 6px 16px rgba(249,115,22,0.45)',
         animation: 'bounce-subtle 2s ease-in-out infinite',
       }}
-      onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(0,0,0,0.7)' }}
-      onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(0,0,0,0.5)' }}
+      onMouseEnter={(e) => { e.currentTarget.style.background = '#ea580c' }}
+      onMouseLeave={(e) => { e.currentTarget.style.background = '#f97316' }}
     >
       <svg
         className="w-6 h-6"
