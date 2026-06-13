@@ -12,7 +12,7 @@ ontools는 2026-02-17 마지막 커밋 이후 이 규칙에 걸려 뉴스 크롤
 
 | 워크플로우 | event_type | 권장 주기 |
 |---|---|---|
-| News Crawler | `crawl-news` | 3시간마다 |
+| News Crawler | `crawl-news` | 6시간마다 |
 | Exchange Rate Updater | `update-exchange-rate` | 평일 1회 (오전) |
 | YouTube Crawler | `crawl-youtube` | 주 1회 |
 
@@ -64,9 +64,9 @@ https://cron-job.org 가입 후 **Create cronjob** — 아래 3개를 각각 등
   ```
   > `User-Agent`는 GitHub API 필수 헤더다. 빠지면 403이 난다.
 
-### 작업 ① 뉴스 크롤러 (3시간마다)
+### 작업 ① 뉴스 크롤러 (6시간마다)
 
-- **Schedule**: Every 3 hours (분: 0 / 시: `*/3` / 요일·일: every)
+- **Schedule**: Every 6 hours (분: 0 / 시: `*/6` / 요일·일: every)
 - **Request body**:
   ```json
   {"event_type": "crawl-news"}

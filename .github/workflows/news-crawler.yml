@@ -2,11 +2,10 @@ name: News Crawler
 
 on:
   schedule:
-    # Run every 3 hours (0, 3, 6, 9, 12, 15, 18, 21 UTC)
-    # KST = UTC + 9 → 09:00, 12:00, 15:00, 18:00, 21:00, 00:00, 03:00, 06:00 KST
+    # Run every 6 hours (0, 6, 12, 18 UTC) → KST 09:00, 15:00, 21:00, 03:00
     # 주의: GitHub은 60일간 저장소 활동이 없으면 schedule 트리거를 자동 비활성화함.
     # 이를 우회하기 위해 외부 스케줄러(cron-job.org)가 아래 repository_dispatch로 깨움.
-    - cron: '0 */3 * * *'
+    - cron: '0 */6 * * *'
   workflow_dispatch: # Manual trigger
   repository_dispatch: # 외부 스케줄러 트리거 (자동 비활성화 영향 없음)
     types: [crawl-news]
