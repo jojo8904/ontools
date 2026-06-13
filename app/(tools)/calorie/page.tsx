@@ -2,6 +2,13 @@ import type { Metadata } from 'next'
 import { CalorieCalculator } from './CalorieCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
+import { FaqSection } from '@/components/FaqSection'
+
+const CALORIE_FAQ = [
+  { q: 'TDEE가 무엇인가요?', a: '하루 총 에너지 소비량입니다. 기초대사량(BMR)에 활동량 계수를 곱해 구합니다.' },
+  { q: '기초대사량은 어떻게 구하나요?', a: 'Mifflin-St Jeor 공식을 사용합니다. (남성: 10×체중 + 6.25×키 − 5×나이 + 5, 여성: 마지막에 −161)' },
+  { q: '다이어트하려면 얼마나 먹어야 하나요?', a: '보통 TDEE보다 약 500kcal 적게 먹으면 주당 약 0.5kg 감량을 목표로 할 수 있습니다. 과도한 감량은 권장되지 않습니다.' },
+]
 
 export const metadata: Metadata = {
   title: '일일 칼로리(TDEE) 계산기 - ontools',
@@ -163,6 +170,7 @@ export default function CaloriePage() {
             </section>
           </aside>
         </div>
+        <FaqSection items={CALORIE_FAQ} />
         <RelatedTools current="/calorie" />
       </main>
 

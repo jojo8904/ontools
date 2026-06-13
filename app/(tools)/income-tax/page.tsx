@@ -2,6 +2,13 @@ import type { Metadata } from 'next'
 import { IncomeTaxCalculator } from './IncomeTaxCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
+import { FaqSection } from '@/components/FaqSection'
+
+const INCOME_TAX_FAQ = [
+  { q: '종합소득세는 누가 내나요?', a: '사업·프리랜서·임대·금융 등 종합소득이 있는 사람이 매년 5월에 신고·납부합니다.' },
+  { q: '세율은 어떻게 되나요?', a: '과세표준에 따라 6%~45%의 누진세율이 적용되며, 여기에 지방소득세 10%가 추가됩니다.' },
+  { q: '계산 결과가 실제와 다를 수 있나요?', a: '각종 소득공제·세액공제·필요경비에 따라 달라집니다. 본 계산기는 과세표준 기준 근사치이니 참고용으로 활용하세요.' },
+]
 
 export const metadata: Metadata = {
   title: '종합소득세 계산기 - ontools',
@@ -77,6 +84,7 @@ export default function IncomeTaxPage() {
             </section>
           </aside>
         </div>
+        <FaqSection items={INCOME_TAX_FAQ} />
         <RelatedTools current="/income-tax" />
       </main>
       <footer className="border-t mt-auto">

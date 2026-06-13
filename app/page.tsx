@@ -7,6 +7,8 @@ import { PromoBanner } from '@/components/PromoBanner'
 import { AdUnit } from '@/components/AdUnit'
 import { ToolSearch } from './ToolSearch'
 import { RecentTools } from './RecentTools'
+import { FavoritesList } from './FavoritesList'
+import { FavoriteStar } from './FavoriteStar'
 import { fetchLatestNews, fetchNewsList } from '@/features/news/services/newsApi'
 
 export const revalidate = 3600
@@ -201,7 +203,8 @@ export default async function HomePage() {
               <ToolSearch />
             </div>
 
-            {/* 최근 본 계산기 */}
+            {/* 즐겨찾기 + 최근 본 계산기 */}
+            <FavoritesList />
             <RecentTools />
 
             {/* 행운연구소 크로스 프로모션 */}
@@ -236,10 +239,10 @@ export default async function HomePage() {
                     <p className="text-sm text-[#999] mb-6">{cat.description}</p>
                     <ul className="space-y-3">
                       {cat.tools.map((tool) => (
-                        <li key={tool.href}>
+                        <li key={tool.href} className="flex items-center justify-between gap-2">
                           <Link
                             href={tool.href}
-                            className={`flex items-center gap-2 text-[#333] ${CATEGORY_LINK_HOVER[cat.title] || 'hover:text-blue-600'} transition-colors`}
+                            className={`flex items-center gap-2 text-[#333] ${CATEGORY_LINK_HOVER[cat.title] || 'hover:text-blue-600'} transition-colors min-w-0 flex-1`}
                           >
                             <svg className="w-3.5 h-3.5 text-[#ccc] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -251,6 +254,7 @@ export default async function HomePage() {
                               </span>
                             )}
                           </Link>
+                          <FavoriteStar href={tool.href} />
                         </li>
                       ))}
                     </ul>
@@ -282,10 +286,10 @@ export default async function HomePage() {
                     <p className="text-sm text-[#999] mb-6">{cat.description}</p>
                     <ul className="space-y-3">
                       {cat.tools.map((tool) => (
-                        <li key={tool.href}>
+                        <li key={tool.href} className="flex items-center justify-between gap-2">
                           <Link
                             href={tool.href}
-                            className={`flex items-center gap-2 text-[#333] ${CATEGORY_LINK_HOVER[cat.title] || 'hover:text-blue-600'} transition-colors`}
+                            className={`flex items-center gap-2 text-[#333] ${CATEGORY_LINK_HOVER[cat.title] || 'hover:text-blue-600'} transition-colors min-w-0 flex-1`}
                           >
                             <svg className="w-3.5 h-3.5 text-[#ccc] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -297,6 +301,7 @@ export default async function HomePage() {
                               </span>
                             )}
                           </Link>
+                          <FavoriteStar href={tool.href} />
                         </li>
                       ))}
                     </ul>

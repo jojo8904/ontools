@@ -2,6 +2,13 @@ import type { Metadata } from 'next'
 import { VatCalculator } from './VatCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
+import { FaqSection } from '@/components/FaqSection'
+
+const VAT_FAQ = [
+  { q: '부가가치세는 얼마인가요?', a: '일반과세 기준 공급가액의 10%입니다.' },
+  { q: '공급가액과 합계금액의 차이는?', a: '공급가액은 부가세를 뺀 금액, 합계금액은 공급가액 + 부가세입니다. 본 계산기는 양방향(공급가액→합계, 합계→공급가액) 계산을 지원합니다.' },
+  { q: '간이과세자도 10%인가요?', a: '간이과세자는 업종별 부가가치율을 적용해 실제 부담이 더 낮습니다. 본 계산기는 일반과세 기준입니다.' },
+]
 
 export const metadata: Metadata = {
   title: '부가세(VAT) 계산기 - ontools',
@@ -195,6 +202,7 @@ export default function VatPage() {
             </section>
           </aside>
         </div>
+        <FaqSection items={VAT_FAQ} />
         <RelatedTools current="/vat" />
       </main>
 

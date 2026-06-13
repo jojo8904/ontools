@@ -2,6 +2,13 @@ import type { Metadata } from 'next'
 import { UnemploymentCalculator } from './UnemploymentCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
+import { FaqSection } from '@/components/FaqSection'
+
+const UNEMPLOYMENT_FAQ = [
+  { q: '실업급여는 얼마를 받나요?', a: '퇴직 전 평균임금의 60%를 소정급여일수만큼 받습니다. 단 1일 상한액과 하한액이 적용됩니다.' },
+  { q: '며칠 동안 받을 수 있나요?', a: '연령과 고용보험 가입기간에 따라 120일~270일입니다.' },
+  { q: '누구나 받을 수 있나요?', a: '비자발적 이직 등 수급요건을 충족하고 적극적으로 재취업 활동을 해야 합니다. 자발적 퇴사는 원칙적으로 제외됩니다.' },
+]
 
 export const metadata: Metadata = {
   title: '실업급여 계산기 - ontools',
@@ -181,6 +188,7 @@ export default function UnemploymentPage() {
             </section>
           </aside>
         </div>
+        <FaqSection items={UNEMPLOYMENT_FAQ} />
         <RelatedTools current="/unemployment" />
       </main>
 

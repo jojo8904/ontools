@@ -1,6 +1,13 @@
 import type { Metadata } from 'next'
 import { ToolShell } from '@/components/ToolShell'
+import { FaqSection } from '@/components/FaqSection'
 import { HourlyWageCalculator } from './HourlyWageCalculator'
+
+const HOURLY_WAGE_FAQ = [
+  { q: '시급을 월급으로 어떻게 환산하나요?', a: '주 근로시간에 주휴시간을 더한 월 환산시간(주 40시간이면 약 209시간)을 시급에 곱합니다.' },
+  { q: '209시간은 어떻게 나오나요?', a: '(주 40시간 + 주휴 8시간) × 약 4.345주 ≈ 209시간입니다.' },
+  { q: '결과가 실수령액인가요?', a: '아니요, 세전 기준입니다. 4대보험·세금 공제 후 실수령액은 연봉 계산기를 이용하세요.' },
+]
 
 export const metadata: Metadata = {
   title: '시급 ↔ 월급 환산기 - ontools',
@@ -17,6 +24,7 @@ export default function HourlyWagePage() {
       current="/hourly-wage"
     >
       <HourlyWageCalculator />
+      <FaqSection items={HOURLY_WAGE_FAQ} />
     </ToolShell>
   )
 }

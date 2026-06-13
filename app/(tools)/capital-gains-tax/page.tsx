@@ -2,6 +2,13 @@ import type { Metadata } from 'next'
 import { CapitalGainsTaxCalculator } from './CapitalGainsTaxCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
+import { FaqSection } from '@/components/FaqSection'
+
+const CAPITAL_GAINS_FAQ = [
+  { q: '양도소득세는 언제 내나요?', a: '부동산·주식 등을 팔아 양도차익(이익)이 생기면 냅니다.' },
+  { q: '어떻게 계산되나요?', a: '양도차익에서 기본공제(250만원)·장기보유특별공제 등을 뺀 과세표준에 누진세율을 적용한 뒤 지방소득세 10%를 더합니다.' },
+  { q: '계산 결과가 실제와 다를 수 있나요?', a: '1세대1주택 비과세, 다주택 중과 등 변수가 많습니다. 본 계산기는 간이 추정이니 정확한 신고는 세무 전문가와 상담하세요.' },
+]
 
 export const metadata: Metadata = {
   title: '양도소득세 계산기 - ontools',
@@ -41,6 +48,7 @@ export default function CapitalGainsTaxPage() {
             </section>
           </aside>
         </div>
+        <FaqSection items={CAPITAL_GAINS_FAQ} />
         <RelatedTools current="/capital-gains-tax" />
       </main>
       <footer className="border-t mt-auto"><div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">&copy; 2026 ontools. All rights reserved.</div></footer>

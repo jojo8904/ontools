@@ -3,6 +3,13 @@ import { ElectricityCalculator } from './ElectricityCalculator'
 import { NewsSidebar } from '@/features/news/components/NewsSidebar'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
+import { FaqSection } from '@/components/FaqSection'
+
+const ELECTRICITY_FAQ = [
+  { q: '전기요금은 어떻게 계산되나요?', a: '사용량에 따라 누진 3단계 구간별 단가를 적용하고, 기본요금·기후환경요금·연료비조정액을 더한 뒤 부가세 10%와 전력산업기반기금 3.7%를 합산합니다.' },
+  { q: '누진제가 무엇인가요?', a: '사용량이 많을수록 높은 단가가 적용되는 제도로, 주택용은 200kWh·400kWh를 경계로 3단계입니다.' },
+  { q: '실제 고지서와 다를 수 있나요?', a: '한전 단가는 개정될 수 있고 계절·계약종별에 따라 달라집니다. 본 계산기는 주택용 저압 기준 추정치입니다.' },
+]
 
 export const metadata: Metadata = {
   title: '전기요금 계산기 - ontools',
@@ -65,6 +72,7 @@ export default function ElectricityPage() {
           <NewsSidebar toolId="electricity" title="관련 뉴스" />
           <YouTubeSection category="electricity" />
         </div>
+        <FaqSection items={ELECTRICITY_FAQ} />
         <RelatedTools current="/electricity" />
       </main>
 

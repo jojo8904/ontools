@@ -2,6 +2,13 @@ import type { Metadata } from 'next'
 import { FreelancerTaxCalculator } from './FreelancerTaxCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
+import { FaqSection } from '@/components/FaqSection'
+
+const FREELANCER_FAQ = [
+  { q: '3.3%는 무엇인가요?', a: '사업소득 원천징수로, 소득세 3% + 지방소득세 0.3%(소득세의 10%)를 합한 비율입니다.' },
+  { q: '3.3% 떼고 끝인가요?', a: '아닙니다. 다음해 5월 종합소득세 신고로 정산하며, 경비·공제에 따라 환급받거나 추가 납부할 수 있습니다.' },
+  { q: '누가 3.3% 대상인가요?', a: '프리랜서·인적용역 사업소득자입니다. 4대보험에 가입하는 근로소득과는 과세 방식이 다릅니다.' },
+]
 
 export const metadata: Metadata = {
   title: '프리랜서 세금 계산기 (3.3%) - ontools',
@@ -61,6 +68,7 @@ export default function FreelancerTaxPage() {
             </section>
           </aside>
         </div>
+        <FaqSection items={FREELANCER_FAQ} />
         <RelatedTools current="/freelancer-tax" />
       </main>
       <footer className="border-t mt-auto">

@@ -2,6 +2,13 @@ import type { Metadata } from 'next'
 import { SavingsCalculator } from './SavingsCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
+import { FaqSection } from '@/components/FaqSection'
+
+const SAVINGS_FAQ = [
+  { q: '적금과 예금 이자는 어떻게 다른가요?', a: '적금은 매달 납입해 각 회차가 예치된 개월 수만큼 이자가 붙고, 예금은 목돈을 한 번에 맡겨 전체 기간 동안 이자가 붙습니다.' },
+  { q: '이자에 세금이 붙나요?', a: '이자소득세 15.4%가 원천징수됩니다. 본 계산기는 세후 이자도 함께 보여줍니다.' },
+  { q: '단리와 복리의 차이는?', a: '단리는 원금에만, 복리는 이자에도 이자가 붙습니다. 기간이 길수록 복리가 유리합니다.' },
+]
 
 export const metadata: Metadata = {
   title: '적금/예금 이자 계산기 - ontools',
@@ -153,6 +160,7 @@ export default function SavingsPage() {
             </section>
           </aside>
         </div>
+        <FaqSection items={SAVINGS_FAQ} />
         <RelatedTools current="/savings" />
       </main>
 
