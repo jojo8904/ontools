@@ -5,6 +5,7 @@ import { RelatedTools } from '@/components/RelatedTools'
 import { FaqSection } from '@/components/FaqSection'
 import { ToolGuide } from '@/components/ToolGuide'
 import { AdUnit } from '@/components/AdUnit'
+import { ResponsiveAdFit } from '@/components/ResponsiveAdFit'
 
 const SALARY_GUIDE = [
   { h: '연봉 실수령액이란?', p: ['연봉 실수령액은 세전 연봉에서 4대보험(국민연금·건강보험·장기요양보험·고용보험)과 소득세·지방소득세를 공제한 뒤 실제로 통장에 입금되는 금액입니다. 채용공고의 연봉과 매달 체감하는 월급이 다른 이유가 바로 이 공제 때문입니다.'] },
@@ -91,6 +92,9 @@ export default function SalaryCalculatorPage() {
             계산합니다.
           </p>
         </div>
+
+        {/* 제목 밑 광고 (카카오 애드핏) */}
+        <ResponsiveAdFit />
 
         {/* Calculator + SEO Content */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
@@ -276,7 +280,7 @@ export default function SalaryCalculatorPage() {
           </aside>
         </div>
 
-        <ToolGuide sections={SALARY_GUIDE} />
+        <ToolGuide sections={SALARY_GUIDE} hideAd />
         <FaqSection items={SALARY_FAQ} />
         <RelatedTools current="/salary" />
       </main>

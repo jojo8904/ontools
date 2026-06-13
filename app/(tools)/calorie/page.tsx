@@ -5,6 +5,7 @@ import { RelatedTools } from '@/components/RelatedTools'
 import { FaqSection } from '@/components/FaqSection'
 import { ToolGuide } from '@/components/ToolGuide'
 import { AdUnit } from '@/components/AdUnit'
+import { ResponsiveAdFit } from '@/components/ResponsiveAdFit'
 
 const CALORIE_GUIDE = [
   { h: 'TDEE(하루 총 에너지 소비량)란?', p: ['TDEE는 하루 동안 소비하는 총 칼로리로, 기초대사량(BMR)에 활동량을 반영한 값입니다. 다이어트나 체중 증량 시 하루에 얼마나 먹어야 하는지의 기준이 됩니다.'] },
@@ -74,6 +75,9 @@ export default function CaloriePage() {
             기초대사량(BMR)과 활동량을 기반으로 하루 권장 칼로리를 계산하세요.
           </p>
         </div>
+
+        {/* 제목 밑 광고 (카카오 애드핏) */}
+        <ResponsiveAdFit />
 
         {/* Calculator + SEO Content */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
@@ -183,7 +187,7 @@ export default function CaloriePage() {
             </section>
           </aside>
         </div>
-        <ToolGuide sections={CALORIE_GUIDE} />
+        <ToolGuide sections={CALORIE_GUIDE} hideAd />
         <FaqSection items={CALORIE_FAQ} />
         <RelatedTools current="/calorie" />
       </main>
