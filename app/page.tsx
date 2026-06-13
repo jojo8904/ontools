@@ -70,7 +70,10 @@ const TOOL_CATEGORIES = [
     tools: [
       { href: '/bmi', label: 'BMI 계산기' },
       { href: '/calorie', label: '일일 칼로리(TDEE) 계산기', badge: '인기' },
-      { href: '/water-intake', label: '물 섭취량 계산기', badge: 'NEW' },
+      { href: '/ideal-weight', label: '적정체중 계산기', badge: 'NEW' },
+      { href: '/sleep', label: '수면 시간 계산기', badge: 'NEW' },
+      { href: '/alcohol', label: '음주 알코올 분해 계산기', badge: 'NEW' },
+      { href: '/water-intake', label: '물 섭취량 계산기' },
     ],
   },
   {

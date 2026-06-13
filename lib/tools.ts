@@ -41,6 +41,9 @@ export const TOOLS: ToolMeta[] = [
   { href: '/bmi', label: 'BMI 계산기', category: 'health', keywords: ['비만', '체질량'] },
   { href: '/calorie', label: '일일 칼로리(TDEE) 계산기', category: 'health', badge: '인기', keywords: ['칼로리', '기초대사량', '다이어트'] },
   { href: '/water-intake', label: '물 섭취량 계산기', category: 'health', keywords: ['수분', '하루'] },
+  { href: '/ideal-weight', label: '적정체중 계산기', category: 'health', badge: 'NEW', keywords: ['표준체중', '정상체중', '비만도'] },
+  { href: '/sleep', label: '수면 시간 계산기', category: 'health', badge: 'NEW', keywords: ['취침시간', '기상시간', '수면주기', '꿀잠'] },
+  { href: '/alcohol', label: '음주 알코올 분해 계산기', category: 'health', badge: 'NEW', keywords: ['술 깨는 시간', '혈중알코올', '위드마크', '음주운전'] },
 
   // 생활·유틸
   { href: '/unit-converter', label: '단위 변환기', category: 'utility', keywords: ['단위', '변환', '길이', '무게'] },
