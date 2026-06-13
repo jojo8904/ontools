@@ -8,7 +8,6 @@ export const metadata: Metadata = {
 }
 
 const UPDATED = '2026년 6월 13일'
-const CONTACT = '[연락처 이메일을 입력하세요]' // TODO: 실제 문의 이메일로 교체
 
 export default function PrivacyPage() {
   return (
@@ -98,7 +97,13 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="text-xl font-bold mb-3 text-[#241a33]">6. 문의</h2>
-            <p>개인정보 관련 문의: {CONTACT}</p>
+            <p className="mb-3">개인정보 및 서비스 관련 문의는 아래 버튼으로 보내주세요.</p>
+            <a
+              href="mailto:830508jo@gmail.com?subject=%5Bontools%5D%20%EB%AC%B8%EC%9D%98"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#2563eb] text-white font-medium hover:bg-[#1d4ed8] transition-colors"
+            >
+              ✉️ 문의 메일 보내기
+            </a>
           </section>
 
           <section>
