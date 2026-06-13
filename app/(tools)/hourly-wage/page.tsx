@@ -1,6 +1,13 @@
 import type { Metadata } from 'next'
 import { ToolShell } from '@/components/ToolShell'
 import { FaqSection } from '@/components/FaqSection'
+import { ToolGuide } from '@/components/ToolGuide'
+
+const HOURLY_WAGE_GUIDE = [
+  { h: '시급과 월급, 어떻게 환산하나', p: ['시급을 월급으로 바꾸려면 주 근로시간에 주휴시간을 더한 "월 환산 근로시간"을 시급에 곱합니다. 주 40시간 근무라면 주휴수당을 포함해 월 약 209시간이 기준이 됩니다.'] },
+  { h: '209시간의 유래', p: ['(주 40시간 + 주휴 8시간) × 한 달 평균 약 4.345주 ≈ 209시간입니다. 그래서 최저시급 × 209가 월 환산 최저임금으로 자주 쓰입니다.'] },
+  { h: '주의사항', p: ['본 계산기 결과는 세전 기준입니다. 4대보험과 세금을 공제한 실수령액은 연봉 계산기에서 확인할 수 있습니다. 주 15시간 미만은 주휴수당이 발생하지 않습니다.'] },
+]
 import { HourlyWageCalculator } from './HourlyWageCalculator'
 
 const HOURLY_WAGE_FAQ = [
@@ -24,6 +31,7 @@ export default function HourlyWagePage() {
       current="/hourly-wage"
     >
       <HourlyWageCalculator />
+      <ToolGuide sections={HOURLY_WAGE_GUIDE} />
       <FaqSection items={HOURLY_WAGE_FAQ} />
     </ToolShell>
   )

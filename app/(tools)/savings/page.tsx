@@ -3,6 +3,13 @@ import { SavingsCalculator } from './SavingsCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
 import { FaqSection } from '@/components/FaqSection'
+import { ToolGuide } from '@/components/ToolGuide'
+
+const SAVINGS_GUIDE = [
+  { h: '적금과 예금의 차이', p: ['적금은 매달 일정액을 나눠 납입하는 상품이고, 예금은 목돈을 한 번에 맡겨두는 상품입니다. 같은 금리라도 적금은 각 회차가 예치된 기간만큼만 이자가 붙어, 표시 금리에 비해 실제 받는 이자가 적게 느껴질 수 있습니다.'] },
+  { h: '이자와 세금 계산', p: ['이자는 단리(원금에만)와 복리(이자에도 이자) 방식이 있으며, 기간이 길수록 복리가 유리합니다. 이자에는 이자소득세 15.4%가 원천징수되며, 본 계산기는 세후 이자도 함께 보여줍니다.'] },
+  { h: '활용 팁', p: ['우대금리 조건(급여이체, 카드실적 등)을 충족하면 실수령 이자를 높일 수 있습니다. 만기·중도해지 조건도 가입 전 확인하세요.'] },
+]
 
 const SAVINGS_FAQ = [
   { q: '적금과 예금 이자는 어떻게 다른가요?', a: '적금은 매달 납입해 각 회차가 예치된 개월 수만큼 이자가 붙고, 예금은 목돈을 한 번에 맡겨 전체 기간 동안 이자가 붙습니다.' },
@@ -160,6 +167,7 @@ export default function SavingsPage() {
             </section>
           </aside>
         </div>
+        <ToolGuide sections={SAVINGS_GUIDE} />
         <FaqSection items={SAVINGS_FAQ} />
         <RelatedTools current="/savings" />
       </main>

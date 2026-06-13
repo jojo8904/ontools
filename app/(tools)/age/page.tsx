@@ -1,6 +1,13 @@
 import type { Metadata } from 'next'
 import { ToolShell } from '@/components/ToolShell'
 import { FaqSection } from '@/components/FaqSection'
+import { ToolGuide } from '@/components/ToolGuide'
+
+const AGE_GUIDE = [
+  { h: '만 나이 통일, 무엇이 바뀌었나', p: ['2023년 6월부터 법적·사회적 나이가 만 나이로 통일됐습니다. 그동안 쓰던 "세는 나이"(태어나면 1살, 매년 1살 추가)는 일상에서 더 이상 공식 기준이 아닙니다.'] },
+  { h: '만 나이 계산법', p: ['생일이 지났으면 (올해 − 출생연도), 생일이 아직 안 지났으면 거기서 1을 뺍니다. 예를 들어 2000년 5월생이 오늘 기준 생일이 지났다면 만 나이는 올해에서 2000을 뺀 값입니다.'] },
+  { h: '어디에 쓰이나요', p: ['대부분의 법령·계약·의료 기준이 만 나이를 따릅니다. 다만 청소년보호법의 일부 규정처럼 "연 나이"(올해 − 출생연도)를 쓰는 예외도 있으니 상황에 맞게 확인하세요.'] },
+]
 import { AgeCalculator } from './AgeCalculator'
 
 const AGE_FAQ = [
@@ -24,6 +31,7 @@ export default function AgePage() {
       current="/age"
     >
       <AgeCalculator />
+      <ToolGuide sections={AGE_GUIDE} />
       <FaqSection items={AGE_FAQ} />
     </ToolShell>
   )

@@ -2,6 +2,13 @@ import type { Metadata } from 'next'
 import { WeeklyHolidayPayCalculator } from './WeeklyHolidayPayCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
+import { ToolGuide } from '@/components/ToolGuide'
+
+const WEEKLY_HOLIDAY_GUIDE = [
+  { h: '주휴수당이란?', p: ['주휴수당은 1주 소정근로시간이 15시간 이상이고 약속한 근무일을 모두 개근한 근로자에게 주어지는 유급 주휴일에 대한 임금입니다. 정규직뿐 아니라 아르바이트·단시간 근로자도 조건을 충족하면 받을 수 있습니다.'] },
+  { h: '계산 방법', p: ['주휴시간은 "(주 소정근로시간 ÷ 40) × 8"로 계산하며 최대 8시간입니다. 여기에 시급을 곱한 금액이 주휴수당입니다. 예를 들어 주 20시간 일하면 주휴시간은 4시간, 시급 1만원이면 주휴수당은 4만원입니다.'] },
+  { h: '주의사항', p: ['주휴수당을 포함하면 실질 시급이 최저임금 이상이어야 합니다. 결근이 있으면 그 주의 주휴수당은 발생하지 않을 수 있습니다.'] },
+]
 
 export const metadata: Metadata = {
   title: '주휴수당 계산기 - ontools',
@@ -170,6 +177,7 @@ export default function WeeklyHolidayPayPage() {
             </section>
           </aside>
         </div>
+        <ToolGuide sections={WEEKLY_HOLIDAY_GUIDE} />
         <RelatedTools current="/weekly-holiday-pay" />
       </main>
 

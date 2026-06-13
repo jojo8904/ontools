@@ -3,6 +3,14 @@ import { IncomeTaxCalculator } from './IncomeTaxCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
 import { FaqSection } from '@/components/FaqSection'
+import { ToolGuide } from '@/components/ToolGuide'
+
+const INCOME_TAX_GUIDE = [
+  { h: '종합소득세란?', p: ['종합소득세는 1년간 발생한 종합소득(사업·프리랜서·임대·이자·배당·근로 외 소득 등)을 합산해 부과하는 세금으로, 매년 5월에 신고·납부합니다.'] },
+  { h: '세율과 계산 구조', p: ['과세표준(소득에서 각종 공제를 뺀 금액)에 6%~45%의 누진세율을 적용하고, 산출세액에 지방소득세 10%가 더해집니다. 누진공제액을 빼는 방식으로 간편하게 계산할 수 있습니다.'] },
+  { h: '절세 팁', p: ['필요경비를 빠짐없이 반영하고, 소득공제·세액공제(연금저축, 노란우산공제 등)를 활용하면 세금을 줄일 수 있습니다. 5월 신고를 놓치면 무신고가산세가 부과되니 기한을 지키세요.'] },
+  { h: '주의사항', p: ['본 계산기는 과세표준 기준 근사치입니다. 실제 세액은 소득 종류·공제 항목에 따라 달라지므로 정확한 신고는 홈택스 또는 세무사를 통해 확인하세요.'] },
+]
 
 const INCOME_TAX_FAQ = [
   { q: '종합소득세는 누가 내나요?', a: '사업·프리랜서·임대·금융 등 종합소득이 있는 사람이 매년 5월에 신고·납부합니다.' },
@@ -84,6 +92,7 @@ export default function IncomeTaxPage() {
             </section>
           </aside>
         </div>
+        <ToolGuide sections={INCOME_TAX_GUIDE} />
         <FaqSection items={INCOME_TAX_FAQ} />
         <RelatedTools current="/income-tax" />
       </main>

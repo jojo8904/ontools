@@ -2,6 +2,13 @@ import type { Metadata } from 'next'
 import { RentVsJeonseCalculator } from './RentVsJeonseCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
+import { ToolGuide } from '@/components/ToolGuide'
+
+const RENT_JEONSE_GUIDE = [
+  { h: '전세 vs 월세, 무엇이 유리할까?', p: ['전세는 큰 보증금을 맡기는 대신 월 임대료가 없고, 월세는 적은 보증금에 매달 임대료를 냅니다. 어느 쪽이 유리한지는 보증금을 다른 곳에 투자했을 때의 수익(기회비용)과 월세를 비교해 판단합니다.'] },
+  { h: '비교 원리', p: ['전세는 "보증금 × 기대수익률(또는 대출이자율)"이 연간 비용이 되고, 월세는 "연 월세 + 월세보증금 × 기대수익률"이 연간 비용이 됩니다. 두 값을 비교해 더 적은 쪽이 유리합니다.'] },
+  { h: '주의사항', p: ['결과는 가정한 금리·수익률에 따라 달라집니다. 전월세전환율, 대출 가능 여부, 보증금 안정성(전세사기 위험) 등도 함께 고려하세요.'] },
+]
 
 export const metadata: Metadata = {
   title: '전세 vs 월세 비교 계산기 - ontools',
@@ -42,6 +49,7 @@ export default function RentVsJeonsePage() {
             </section>
           </aside>
         </div>
+        <ToolGuide sections={RENT_JEONSE_GUIDE} />
         <RelatedTools current="/rent-vs-jeonse" />
       </main>
       <footer className="border-t mt-auto"><div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">&copy; 2026 ontools. All rights reserved.</div></footer>

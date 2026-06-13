@@ -2,6 +2,13 @@ import type { Metadata } from 'next'
 import { DdayCalculator } from './DdayCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
+import { ToolGuide } from '@/components/ToolGuide'
+
+const DDAY_GUIDE = [
+  { h: 'D-day란?', p: ['D-day는 목표한 날까지 남은(또는 지난) 일수를 뜻합니다. 목표일 당일은 D-day, 그 전은 D-숫자(예: D-30), 그 후는 D+숫자로 표시합니다.'] },
+  { h: '어떻게 계산하나요', p: ['오늘 날짜와 목표 날짜 사이의 일수 차이를 계산합니다. 본 계산기는 시험일, 기념일, 전역일, 출산 예정일 등 다양한 목표일까지의 날짜를 한눈에 보여줍니다.'] },
+  { h: '활용 팁', p: ['시험·자격증 준비, 커플 기념일, 여행, 프로젝트 마감 관리 등에 활용하면 동기 부여와 일정 관리에 도움이 됩니다.'] },
+]
 
 export const metadata: Metadata = {
   title: 'D-day 계산기 - ontools',
@@ -62,6 +69,7 @@ export default function DdayPage() {
         <div className="mt-12 space-y-10">
           <YouTubeSection category="dday" />
         </div>
+        <ToolGuide sections={DDAY_GUIDE} />
         <RelatedTools current="/d-day" />
       </main>
 

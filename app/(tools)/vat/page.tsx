@@ -3,6 +3,14 @@ import { VatCalculator } from './VatCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
 import { FaqSection } from '@/components/FaqSection'
+import { ToolGuide } from '@/components/ToolGuide'
+
+const VAT_GUIDE = [
+  { h: '부가가치세(VAT)란?', p: ['부가가치세는 상품·서비스 거래 단계에서 만들어지는 부가가치에 부과되는 세금으로, 일반과세 기준 세율은 10%입니다. 최종 소비자가 부담하고 사업자가 대신 신고·납부합니다.'] },
+  { h: '공급가액과 합계금액', p: ['공급가액은 부가세를 뺀 순수 금액이고, 합계금액은 공급가액에 부가세 10%를 더한 금액입니다. 본 계산기는 공급가액→합계, 합계→공급가액 양방향으로 계산할 수 있어 견적서·세금계산서 작성에 편리합니다.'] },
+  { h: '신고와 간이과세', p: ['일반과세자는 보통 반기마다 부가세를 신고합니다. 간이과세자는 업종별 부가가치율을 적용해 실제 부담이 더 낮습니다.'] },
+  { h: '주의사항', p: ['본 계산기는 일반과세 10% 기준입니다. 영세율·면세 대상이나 간이과세는 별도 기준이 적용됩니다.'] },
+]
 
 const VAT_FAQ = [
   { q: '부가가치세는 얼마인가요?', a: '일반과세 기준 공급가액의 10%입니다.' },
@@ -202,6 +210,7 @@ export default function VatPage() {
             </section>
           </aside>
         </div>
+        <ToolGuide sections={VAT_GUIDE} />
         <FaqSection items={VAT_FAQ} />
         <RelatedTools current="/vat" />
       </main>

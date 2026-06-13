@@ -3,6 +3,13 @@ import { CapitalGainsTaxCalculator } from './CapitalGainsTaxCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
 import { FaqSection } from '@/components/FaqSection'
+import { ToolGuide } from '@/components/ToolGuide'
+
+const CAPITAL_GAINS_GUIDE = [
+  { h: '양도소득세란?', p: ['양도소득세는 부동산·주식 등 자산을 팔아 차익(양도차익)이 생겼을 때 그 이익에 부과하는 세금입니다.'] },
+  { h: '계산 구조', p: ['양도차익(양도가액 − 취득가액 − 필요경비)에서 기본공제(연 250만원)와 장기보유특별공제 등을 뺀 과세표준에 누진세율을 적용하고, 여기에 지방소득세 10%가 더해집니다. 보유·거주 기간이 길수록 장기보유특별공제로 세금이 줄어듭니다.'] },
+  { h: '주의사항', p: ['1세대 1주택 비과세, 다주택자 중과세 등 변수가 많고 부동산 정책에 따라 자주 바뀝니다. 본 계산기는 간이 추정이므로, 실제 신고는 반드시 세무 전문가와 상담하세요.'] },
+]
 
 const CAPITAL_GAINS_FAQ = [
   { q: '양도소득세는 언제 내나요?', a: '부동산·주식 등을 팔아 양도차익(이익)이 생기면 냅니다.' },
@@ -48,6 +55,7 @@ export default function CapitalGainsTaxPage() {
             </section>
           </aside>
         </div>
+        <ToolGuide sections={CAPITAL_GAINS_GUIDE} />
         <FaqSection items={CAPITAL_GAINS_FAQ} />
         <RelatedTools current="/capital-gains-tax" />
       </main>

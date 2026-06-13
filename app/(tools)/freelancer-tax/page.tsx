@@ -3,6 +3,14 @@ import { FreelancerTaxCalculator } from './FreelancerTaxCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
 import { FaqSection } from '@/components/FaqSection'
+import { ToolGuide } from '@/components/ToolGuide'
+
+const FREELANCER_GUIDE = [
+  { h: '프리랜서 3.3% 원천징수란?', p: ['프리랜서·인적용역 사업소득자는 대금을 받을 때 소득세 3%와 지방소득세 0.3%(소득세의 10%)를 합한 3.3%를 떼고 받습니다. 이를 원천징수라고 합니다.'] },
+  { h: '3.3% 떼면 끝일까?', p: ['아닙니다. 미리 떼인 3.3%는 일종의 선납이며, 다음 해 5월 종합소득세 신고로 최종 정산합니다. 경비가 많거나 소득이 적으면 환급받고, 소득이 크면 추가로 납부할 수 있습니다.'] },
+  { h: '경비 처리와 절세', p: ['업무에 쓴 비용(필요경비)을 증빙과 함께 인정받으면 과세 대상 소득이 줄어 세금이 줄거나 환급이 늘어납니다. 영수증·계좌내역 등 증빙을 잘 보관하세요.'] },
+  { h: '주의사항', p: ['본 계산기는 원천징수 금액 계산용입니다. 최종 세액은 연간 총소득·경비·공제에 따라 달라집니다.'] },
+]
 
 const FREELANCER_FAQ = [
   { q: '3.3%는 무엇인가요?', a: '사업소득 원천징수로, 소득세 3% + 지방소득세 0.3%(소득세의 10%)를 합한 비율입니다.' },
@@ -68,6 +76,7 @@ export default function FreelancerTaxPage() {
             </section>
           </aside>
         </div>
+        <ToolGuide sections={FREELANCER_GUIDE} />
         <FaqSection items={FREELANCER_FAQ} />
         <RelatedTools current="/freelancer-tax" />
       </main>

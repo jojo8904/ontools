@@ -2,6 +2,13 @@ import type { Metadata } from 'next'
 import { AnnualLeavePayCalculator } from './AnnualLeavePayCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
+import { ToolGuide } from '@/components/ToolGuide'
+
+const ANNUAL_LEAVE_GUIDE = [
+  { h: '연차수당이란?', p: ['연차수당은 발생한 연차 유급휴가를 사용하지 못하고 퇴직하거나 휴가가 소멸할 때, 사용하지 못한 일수만큼 보상하는 수당입니다.'] },
+  { h: '계산 방법', p: ['연차수당은 "1일 통상임금 × 미사용 연차일수"로 계산합니다. 1일 통상임금은 보통 "월 통상임금 ÷ 209시간 × 8시간"으로 구합니다.'] },
+  { h: '주의사항', p: ['연차수당은 근로소득으로 급여에 합산되어 근로소득세가 부과됩니다. 통상임금 산정 항목은 사업장마다 다를 수 있으니, 정확한 금액은 회사 또는 노무 전문가에게 확인하세요.'] },
+]
 
 export const metadata: Metadata = {
   title: '연차 수당 계산기 - ontools',
@@ -62,6 +69,7 @@ export default function AnnualLeavePayPage() {
             </section>
           </aside>
         </div>
+        <ToolGuide sections={ANNUAL_LEAVE_GUIDE} />
         <RelatedTools current="/annual-leave-pay" />
       </main>
       <footer className="border-t mt-auto">

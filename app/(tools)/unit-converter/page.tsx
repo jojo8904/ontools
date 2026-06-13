@@ -2,6 +2,13 @@ import type { Metadata } from 'next'
 import { UnitConverterCalculator } from './UnitConverterCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
+import { ToolGuide } from '@/components/ToolGuide'
+
+const UNIT_GUIDE = [
+  { h: '단위 변환기란?', p: ['길이(m·cm·인치·피트), 무게(kg·g·파운드·온스), 온도(℃·℉), 시간 등 서로 다른 단위를 빠르게 환산해주는 도구입니다. 해외직구, 요리, 학습 등에서 유용합니다.'] },
+  { h: '온도 변환 공식', p: ['섭씨를 화씨로 바꿀 때는 "℉ = ℃ × 9/5 + 32", 화씨를 섭씨로 바꿀 때는 "℃ = (℉ − 32) × 5/9"를 사용합니다. 예를 들어 25℃는 77℉입니다.'] },
+  { h: '자주 쓰는 환산', p: ['1인치 = 2.54cm, 1피트 = 30.48cm, 1마일 ≈ 1.609km, 1파운드 ≈ 453.6g, 1온스 ≈ 28.35g입니다.'] },
+]
 
 export const metadata: Metadata = {
   title: '단위 변환기 - ontools',
@@ -68,6 +75,7 @@ export default function UnitConverterPage() {
         <div className="mt-12 space-y-10">
           <YouTubeSection category="unit" />
         </div>
+        <ToolGuide sections={UNIT_GUIDE} />
         <RelatedTools current="/unit-converter" />
       </main>
 

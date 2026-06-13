@@ -2,6 +2,13 @@ import type { Metadata } from 'next'
 import { UsedCarTaxCalculator } from './UsedCarTaxCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
+import { ToolGuide } from '@/components/ToolGuide'
+
+const USED_CAR_GUIDE = [
+  { h: '중고차 취득세란?', p: ['자동차를 취득(구매)할 때 내는 지방세입니다. 승용차는 보통 취득가액의 7%이며, 경차·승합·화물차 등은 요율이 다릅니다.'] },
+  { h: '과세표준', p: ['취득세는 실제 신고가액과 차령(연식)에 따른 기준시가 중 더 높은 금액을 기준으로 부과됩니다. 지나치게 낮은 금액으로 신고하면 기준시가로 과세될 수 있습니다.'] },
+  { h: '주의사항', p: ['취득세 외에 공채 매입 비용 등이 추가될 수 있고, 장애인·국가유공자 등은 감면 대상이 될 수 있습니다. 본 계산기는 승용차 기준 추정치입니다.'] },
+]
 
 export const metadata: Metadata = {
   title: '중고차 취등록세 계산기 - ontools',
@@ -43,6 +50,7 @@ export default function UsedCarTaxPage() {
             </section>
           </aside>
         </div>
+        <ToolGuide sections={USED_CAR_GUIDE} />
         <RelatedTools current="/used-car-tax" />
       </main>
       <footer className="border-t mt-auto"><div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">&copy; 2026 ontools. All rights reserved.</div></footer>

@@ -3,6 +3,14 @@ import { UnemploymentCalculator } from './UnemploymentCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
 import { FaqSection } from '@/components/FaqSection'
+import { ToolGuide } from '@/components/ToolGuide'
+
+const UNEMPLOYMENT_GUIDE = [
+  { h: '실업급여란?', p: ['실업급여(구직급여)는 고용보험에 가입한 근로자가 비자발적으로 실직했을 때, 재취업을 준비하는 기간 동안 생계를 지원하는 제도입니다.'] },
+  { h: '얼마를 얼마 동안 받나요?', p: ['1일 지급액은 퇴직 전 평균임금의 60%이며, 1일 상한액과 하한액이 적용됩니다. 받는 기간(소정급여일수)은 나이와 고용보험 가입기간에 따라 120일에서 270일까지입니다.'] },
+  { h: '신청 조건과 방법', p: ['비자발적 이직이어야 하고, 워크넷 구직 등록 후 거주지 고용센터에 수급 신청을 합니다. 이후 적극적인 재취업 활동을 증명해야 계속 받을 수 있습니다. 자발적 퇴사는 원칙적으로 제외되나 정당한 사유가 인정되면 예외가 됩니다.'] },
+  { h: '주의사항', p: ['상한·하한액과 소정급여일수 기준은 매년 바뀔 수 있습니다. 본 계산기는 추정치이며 정확한 수급액은 고용센터에서 확인하세요.'] },
+]
 
 const UNEMPLOYMENT_FAQ = [
   { q: '실업급여는 얼마를 받나요?', a: '퇴직 전 평균임금의 60%를 소정급여일수만큼 받습니다. 단 1일 상한액과 하한액이 적용됩니다.' },
@@ -188,6 +196,7 @@ export default function UnemploymentPage() {
             </section>
           </aside>
         </div>
+        <ToolGuide sections={UNEMPLOYMENT_GUIDE} />
         <FaqSection items={UNEMPLOYMENT_FAQ} />
         <RelatedTools current="/unemployment" />
       </main>

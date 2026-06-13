@@ -2,6 +2,13 @@ import type { Metadata } from 'next'
 import { WaterIntakeCalculator } from './WaterIntakeCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
+import { ToolGuide } from '@/components/ToolGuide'
+
+const WATER_GUIDE = [
+  { h: '하루 물 섭취량, 얼마나?', p: ['일반적으로 체중 1kg당 약 30~35ml가 권장됩니다. 예를 들어 70kg 성인은 하루 약 2.1~2.5L가 기준이 됩니다.'] },
+  { h: '상황에 따른 조절', p: ['운동량이 많거나 더운 환경, 임신·수유 중에는 더 많은 수분이 필요합니다. 반대로 신장·심장 질환이 있으면 섭취량을 제한해야 할 수 있으니 의사와 상담하세요.'] },
+  { h: '참고', p: ['물뿐 아니라 음식·음료에 포함된 수분도 섭취량에 포함됩니다. 한 번에 많이 마시기보다 하루 동안 나눠 마시는 것이 좋고, 과도한 수분 섭취는 오히려 해로울 수 있습니다.'] },
+]
 
 export const metadata: Metadata = {
   title: '물 섭취량 계산기 - ontools',
@@ -43,6 +50,7 @@ export default function WaterIntakePage() {
             </section>
           </aside>
         </div>
+        <ToolGuide sections={WATER_GUIDE} />
         <RelatedTools current="/water-intake" />
       </main>
       <footer className="border-t mt-auto"><div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">&copy; 2026 ontools. All rights reserved.</div></footer>

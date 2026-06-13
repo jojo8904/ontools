@@ -1,6 +1,13 @@
 import type { Metadata } from 'next'
 import { CharacterCounter } from './CharacterCounter'
 import { RelatedTools } from '@/components/RelatedTools'
+import { ToolGuide } from '@/components/ToolGuide'
+
+const CHARCOUNT_GUIDE = [
+  { h: '글자수 세기란?', p: ['입력한 텍스트의 글자수(공백 포함/제외), 바이트수, 단어수 등을 실시간으로 세어주는 도구입니다. 자기소개서, 이력서, SNS 게시글의 글자 제한을 확인할 때 유용합니다.'] },
+  { h: '바이트수가 중요한 이유', p: ['일부 입력란은 글자수가 아닌 바이트수로 제한합니다. 한글은 보통 글자당 2~3바이트, 영문·숫자는 1바이트로 계산되므로, 자소서 "2000바이트 이내" 같은 제한을 맞출 때 바이트수 확인이 필요합니다.'] },
+  { h: '활용', p: ['공백 포함/제외 글자수가 함께 표시되어 다양한 제출처의 기준에 맞춰 글을 다듬을 수 있습니다.'] },
+]
 
 export const metadata: Metadata = {
   title: '글자수 세기 - ontools',
@@ -172,6 +179,7 @@ export default function CharacterCounterPage() {
             </section>
           </aside>
         </div>
+        <ToolGuide sections={CHARCOUNT_GUIDE} />
         <RelatedTools current="/character-counter" />
       </main>
 

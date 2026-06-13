@@ -2,6 +2,13 @@ import type { Metadata } from 'next'
 import { PasswordGenerator } from './PasswordGenerator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
+import { ToolGuide } from '@/components/ToolGuide'
+
+const PASSWORD_GUIDE = [
+  { h: '안전한 비밀번호의 조건', p: ['비밀번호는 길이가 길수록, 대문자·소문자·숫자·특수문자를 고루 섞을수록 안전합니다. 최소 12자 이상을 권장하며, 생일·전화번호·연속된 숫자 등 추측하기 쉬운 조합은 피해야 합니다.'] },
+  { h: '어떻게 생성되나요', p: ['본 생성기는 이용자의 브라우저에서 무작위로 비밀번호를 만들며, 생성된 값은 서버로 전송되지 않습니다. 길이와 포함할 문자 종류를 선택할 수 있습니다.'] },
+  { h: '보관 팁', p: ['사이트마다 다른 비밀번호를 사용하고, 비밀번호 관리자(패스워드 매니저)를 이용하면 안전하게 관리할 수 있습니다. 2단계 인증을 함께 설정하면 더욱 안전합니다.'] },
+]
 
 export const metadata: Metadata = {
   title: '비밀번호 생성기 - ontools',
@@ -43,6 +50,7 @@ export default function PasswordGeneratorPage() {
             </section>
           </aside>
         </div>
+        <ToolGuide sections={PASSWORD_GUIDE} />
         <RelatedTools current="/password-generator" />
       </main>
       <footer className="border-t mt-auto"><div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">&copy; 2026 ontools. All rights reserved.</div></footer>

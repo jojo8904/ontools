@@ -1,6 +1,13 @@
 import type { Metadata } from 'next'
 import { QrGenerator } from './QrGenerator'
 import { RelatedTools } from '@/components/RelatedTools'
+import { ToolGuide } from '@/components/ToolGuide'
+
+const QR_GUIDE = [
+  { h: 'QR코드란?', p: ['QR코드는 URL·텍스트 등의 정보를 담는 2차원 바코드로, 스마트폰 카메라로 비추면 즉시 인식됩니다. 본 생성기는 입력한 내용으로 QR코드를 만들고 이미지로 내려받을 수 있습니다.'] },
+  { h: '어디에 활용하나요', p: ['명함, 홍보 전단, 식당 메뉴판, 행사 안내, 결제·송금 링크, SNS·웹사이트 연결 등 다양하게 쓰입니다.'] },
+  { h: '활용 팁', p: ['인쇄해서 쓸 때는 충분한 크기와 여백을 확보해야 인식이 잘 됩니다. 생성한 QR코드는 사용 전 직접 스캔해 정상 작동하는지 확인하세요.'] },
+]
 
 export const metadata: Metadata = {
   title: 'QR코드 생성기 - ontools',
@@ -113,6 +120,7 @@ export default function QrGeneratorPage() {
             </section>
           </aside>
         </div>
+        <ToolGuide sections={QR_GUIDE} />
         <RelatedTools current="/qr-generator" />
       </main>
 
