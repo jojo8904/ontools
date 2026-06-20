@@ -5,6 +5,7 @@ import { PromoBanner } from '@/components/PromoBanner'
 import { AdUnit } from '@/components/AdUnit'
 import { ResponsiveAdFit } from '@/components/ResponsiveAdFit'
 import { FavoriteStar } from './FavoriteStar'
+import { CatRunner } from './CatRunner'
 
 export const revalidate = 3600
 
@@ -176,6 +177,13 @@ export default function HomePage() {
               계산도, 게임도 — 여기서 다.
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* 고양이 러너 게임 — 쉬어가기 (뉴스 티커 자리) */}
+      <section className="bg-white">
+        <div className="container mx-auto px-4 py-5">
+          <CatRunner />
         </div>
       </section>
 
