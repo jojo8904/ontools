@@ -1,13 +1,10 @@
 import Link from 'next/link'
-import { NewsList } from '@/features/news/components/NewsList'
-import { NewsTicker } from './NewsTicker'
 import { FadeInSection } from './FadeInSection'
 import { ScrollDownButton } from './ScrollDownButton'
 import { PromoBanner } from '@/components/PromoBanner'
 import { AdUnit } from '@/components/AdUnit'
 import { ResponsiveAdFit } from '@/components/ResponsiveAdFit'
 import { FavoriteStar } from './FavoriteStar'
-import { fetchLatestNews, fetchNewsList } from '@/features/news/services/newsApi'
 
 export const revalidate = 3600
 
@@ -17,7 +14,7 @@ const CATEGORY_LINK_HOVER: Record<string, string> = {
   Health: 'hover:text-rose-600',
   Utility: 'hover:text-blue-600',
   Game: 'hover:text-violet-600',
-  News: 'hover:text-red-600',
+  Image: 'hover:text-teal-600',
 }
 
 // 카테고리별 마스코트 일러스트 배너 (AI 생성, 캐릭터 일관성 유지)
@@ -27,7 +24,7 @@ const CATEGORY_IMAGES: Record<string, string> = {
   Health: '/images/cat-health.webp',
   Utility: '/images/cat-utility.webp',
   Game: '/images/cat-game.webp',
-  News: '/images/cat-news.webp',
+  Image: '/images/cat-image.webp',
 }
 
 const TOOL_CATEGORIES = [
@@ -114,37 +111,25 @@ const TOOL_CATEGORIES = [
     ],
   },
   {
-    title: 'News',
-    description: 'AI가 매칭한 도구 관련 최신 뉴스',
-    color: 'bg-red-500',
-    tools: [],
+    title: 'Image',
+    description: '사진 용량·캡처·변환을 브라우저에서 바로 (서버 전송 없음)',
+    color: 'bg-teal-500',
+    tools: [
+      { href: '/image-compress', label: '사진 용량 줄이기', badge: 'NEW' },
+      { href: '/image-stitch', label: '카톡 캡처 이어붙이기', badge: 'NEW' },
+      { href: '/image-mask', label: '민감정보 가리기 (모자이크)', badge: 'NEW' },
+      { href: '/id-photo', label: '증명사진 만들기', badge: 'NEW' },
+      { href: '/heic-to-jpg', label: 'HEIC → JPG 변환', badge: 'NEW' },
+      { href: '/image-to-pdf', label: '이미지 PDF 변환', badge: 'NEW' },
+      { href: '/text-image', label: '텍스트 이미지 생성기', badge: 'NEW' },
+      { href: '/watermark', label: '워터마크 넣기', badge: 'NEW' },
+    ],
   },
 ]
 
-export default async function HomePage() {
+export default function HomePage() {
   const topCategories = TOOL_CATEGORIES.slice(0, 3)
   const bottomCategories = TOOL_CATEGORIES.slice(3)
-  let latestNews: { title: string; url: string; source: string }[] = []
-  try {
-    const news = await fetchLatestNews(6)
-    latestNews = news.map((n) => ({ title: n.title, url: n.url, source: n.source }))
-  } catch (error) {
-    console.error('[HomePage] 최신 뉴스 티커 로딩 실패:', error)
-    latestNews = []
-  }
-
-  // Pre-fetch news for the news section (ISR: revalidated every 3600s)
-  let newsInitialData = null
-  try {
-    const newsResponse = await fetchNewsList({
-      limit: 50,
-      sortBy: 'published_at',
-    })
-    newsInitialData = newsResponse.data
-  } catch (error) {
-    console.error('[HomePage] 뉴스 목록 프리페치 실패:', error)
-    newsInitialData = null
-  }
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -159,8 +144,8 @@ export default async function HomePage() {
             <a href="#tools" className="text-sm font-medium text-[#666] hover:text-[#111] transition-colors">
               도구
             </a>
-            <a href="#news" className="text-sm font-medium text-[#666] hover:text-[#111] transition-colors">
-              뉴스
+            <a href="#games" className="text-sm font-medium text-[#666] hover:text-[#111] transition-colors">
+              게임
             </a>
             <a
               href="https://getluckylab.com/"
@@ -188,14 +173,11 @@ export default async function HomePage() {
               당신의 <span className="hero-gradient-text">스마트한</span> 일상 도구
             </h2>
             <p className="text-[1.1rem] text-[#6b6276] mt-3 font-medium">
-              계산도, 뉴스도, 게임도 — 여기서 다.
+              계산도, 게임도 — 여기서 다.
             </p>
           </div>
         </div>
       </section>
-
-      {/* News Ticker */}
-      <NewsTicker />
 
       {/* Tool Categories Section */}
       <FadeInSection>
@@ -314,36 +296,6 @@ export default async function HomePage() {
                         전체 게임 보기 →
                       </Link>
                     )}
-                    {cat.title === 'News' && (
-                      <>
-                        <ul className="space-y-3">
-                          {latestNews.map((news) => (
-                            <li key={news.url}>
-                              <a
-                                href={news.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center gap-2 text-[#333] hover:text-red-600 transition-colors"
-                              >
-                                <svg className="w-3.5 h-3.5 text-[#ccc] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                </svg>
-                                <span className="text-[15px] line-clamp-1">{news.title}</span>
-                              </a>
-                            </li>
-                          ))}
-                          {latestNews.length === 0 && (
-                            <li className="text-sm text-[#666]">뉴스를 불러오는 중...</li>
-                          )}
-                        </ul>
-                        <Link
-                          href="/news"
-                          className="mt-4 pt-3 border-t border-[#eee] text-sm font-semibold text-red-500 hover:text-red-700 transition-colors flex items-center gap-1"
-                        >
-                          더 많은 뉴스 보기 →
-                        </Link>
-                      </>
-                    )}
                   </div>
                 </div>
               ))}
@@ -356,16 +308,6 @@ export default async function HomePage() {
       <div className="container mx-auto px-4">
         <AdUnit slot="0000000000" />
       </div>
-
-      {/* News Section */}
-      <FadeInSection>
-        <section id="news" className="bg-white scroll-mt-20">
-          <div className="container mx-auto px-4" style={{ padding: '20px 1rem 40px' }}>
-            <h2 className="text-[2rem] font-[800] tracking-tight text-[#111] mb-6">최신 뉴스</h2>
-            <NewsList news={newsInitialData ?? []} title="" showCategories={true} />
-          </div>
-        </section>
-      </FadeInSection>
 
       {/* Footer */}
       <footer className="mt-auto border-t border-[#ece6f2]" style={{ backgroundColor: '#F7F3FB' }}>

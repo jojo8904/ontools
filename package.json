@@ -8,7 +8,6 @@
     "start": "next start",
     "lint": "next lint",
     "test": "vitest",
-    "crawl-news": "tsx scripts/crawl-news.ts",
     "update-exchange-rate": "tsx scripts/update-exchange-rate.ts"
   },
   "dependencies": {
@@ -19,6 +18,8 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "date-fns": "^3.0.0",
+    "heic2any": "^0.0.4",
+    "jspdf": "^4.2.1",
     "next": "^14.2.0",
     "qrcode": "^1.5.4",
     "react": "^18.3.0",

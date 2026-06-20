@@ -1,7 +1,7 @@
 /**
  * 전체 도구 레지스트리 — 검색, 관련 도구 추천, 사이트맵 등에서 공통 사용
  */
-export type ToolCategory = 'salary-tax' | 'finance' | 'health' | 'utility'
+export type ToolCategory = 'salary-tax' | 'finance' | 'health' | 'utility' | 'image'
 
 export interface ToolMeta {
   href: string
@@ -16,6 +16,7 @@ export const CATEGORY_LABELS: Record<ToolCategory, string> = {
   finance: '금융',
   health: '건강',
   utility: '생활·유틸',
+  image: '이미지·파일',
 }
 
 export const TOOLS: ToolMeta[] = [
@@ -67,6 +68,16 @@ export const TOOLS: ToolMeta[] = [
   { href: '/compound-interest', label: '복리 계산기', category: 'finance', badge: 'NEW', keywords: ['복리', '복리이자', '투자', '72의법칙'] },
   { href: '/date-calc', label: '날짜 계산기', category: 'utility', badge: 'NEW', keywords: ['날짜계산', '며칠후', '일수'] },
   { href: '/due-date', label: '출산예정일 계산기', category: 'health', badge: 'NEW', keywords: ['출산예정일', '임신주수', '분만'] },
+
+  // 이미지·파일 도구 (브라우저 처리, 서버 전송 없음)
+  { href: '/image-compress', label: '사진 용량 줄이기', category: 'image', badge: 'NEW', keywords: ['사진용량', '이미지압축', '용량줄이기', 'KB', '200kb', '용량맞추기'] },
+  { href: '/image-stitch', label: '카톡 캡처 이어붙이기', category: 'image', badge: 'NEW', keywords: ['캡처합치기', '이미지합치기', '사진합치기', '스크린샷합치기', '세로결합'] },
+  { href: '/image-mask', label: '민감정보 가리기 (모자이크)', category: 'image', badge: 'NEW', keywords: ['신분증가리기', '주민번호가리기', '모자이크', '통장마스킹', 'exif제거', '계좌번호가리기'] },
+  { href: '/id-photo', label: '증명사진 만들기', category: 'image', badge: 'NEW', keywords: ['증명사진', '여권사진', '반명함', '증명사진규격', '비자사진'] },
+  { href: '/heic-to-jpg', label: 'HEIC → JPG 변환', category: 'image', badge: 'NEW', keywords: ['heic변환', 'heic jpg', '아이폰사진변환', 'heif', 'heic안열림'] },
+  { href: '/image-to-pdf', label: '이미지 PDF 변환', category: 'image', badge: 'NEW', keywords: ['이미지pdf', '사진pdf', 'jpg pdf', '사진여러장pdf', 'pdf만들기'] },
+  { href: '/text-image', label: '텍스트 이미지 생성기', category: 'image', badge: 'NEW', keywords: ['명언이미지', '글귀이미지', '코드이미지', '카드뉴스', '텍스트이미지'] },
+  { href: '/watermark', label: '워터마크 넣기', category: 'image', badge: 'NEW', keywords: ['워터마크', '사진워터마크', '로고삽입', '저작권표시', '도용방지'] },
 ]
 
 export function getToolByHref(href: string): ToolMeta | undefined {

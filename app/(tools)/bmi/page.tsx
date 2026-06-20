@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { BmiCalculator } from './BmiCalculator'
-import { NewsSidebar } from '@/features/news/components/NewsSidebar'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
 import { FaqSection } from '@/components/FaqSection'
@@ -95,7 +94,6 @@ export default function BmiPage() {
 
         {/* Bottom Sections */}
         <div className="mt-12 space-y-10">
-          <NewsSidebar toolId="bmi" title="건강 뉴스" />
           <YouTubeSection category="bmi" />
         </div>
         <ToolGuide sections={BMI_GUIDE} />

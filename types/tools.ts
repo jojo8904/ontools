@@ -1,4 +1,11 @@
-import { ToolId } from './news'
+export type ToolId =
+  | 'salary'
+  | 'currency'
+  | 'retirement'
+  | 'bmi'
+  | 'unit'
+  | 'dday'
+  | 'electricity'
 
 export interface ToolMetadata {
   id: ToolId

@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { CurrencyConverter } from './CurrencyConverter'
-import { NewsSidebar } from '@/features/news/components/NewsSidebar'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
 import { FaqSection } from '@/components/FaqSection'
@@ -99,7 +98,6 @@ export default function CurrencyPage() {
           <div className="lg:col-span-2">
             <CurrencyConverter />
             <div className="mt-10 space-y-10">
-              <NewsSidebar toolId="currency" title="환율 뉴스" />
               <YouTubeSection category="currency" />
             </div>
           </div>

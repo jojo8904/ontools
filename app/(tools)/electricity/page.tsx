@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { ElectricityCalculator } from './ElectricityCalculator'
-import { NewsSidebar } from '@/features/news/components/NewsSidebar'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
 import { RelatedTools } from '@/components/RelatedTools'
 import { FaqSection } from '@/components/FaqSection'
@@ -77,7 +76,6 @@ export default function ElectricityPage() {
 
         {/* Bottom Sections */}
         <div className="mt-12 space-y-10">
-          <NewsSidebar toolId="electricity" title="관련 뉴스" />
           <YouTubeSection category="electricity" />
         </div>
         <ToolGuide sections={ELECTRICITY_GUIDE} />
