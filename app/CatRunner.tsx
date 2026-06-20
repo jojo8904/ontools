@@ -229,11 +229,14 @@ export function CatRunner() {
       }
     }
 
-    // 점수
-    ctx.fillStyle = night > 0.5 ? 'rgba(255,255,255,0.85)' : 'rgba(90,80,100,0.85)'
-    ctx.font = 'bold 15px sans-serif'
+    // 점수 + 속도
     ctx.textAlign = 'right'
-    ctx.fillText(`${Math.floor(g.distance / 10)}`, W - 14, 26)
+    ctx.fillStyle = night > 0.5 ? 'rgba(255,255,255,0.9)' : 'rgba(90,80,100,0.9)'
+    ctx.font = 'bold 16px sans-serif'
+    ctx.fillText(`${Math.floor(g.distance / 10)}`, W - 14, 24)
+    ctx.font = 'bold 11px sans-serif'
+    ctx.fillStyle = night > 0.5 ? 'rgba(255,210,110,0.95)' : 'rgba(249,115,22,0.92)'
+    ctx.fillText(`속도 x${(g.speed / 4.2).toFixed(1)}`, W - 14, 40)
   }, [])
 
   const stepWorld = (g: Game) => {
@@ -300,16 +303,32 @@ export function CatRunner() {
     g.distance += g.speed
     g.speed = 4.2 + g.distance / 2200
 
-    // 스폰
+    // 스폰 (간격 변주 + 가끔 2개 붙여서)
     g.spawnIn -= 1
     if (g.spawnIn <= 0) {
-      const types: ObsType[] = ['cactus', 'rock', 'log']
-      const type = types[Math.floor(Math.random() * types.length)]
-      const [lo, hi] = OBS_SIZE[type]
-      const size = lo + Math.floor(Math.random() * (hi - lo))
-      g.obstacles.push({ x: g.width + 10, type, size })
-      const base = 72 + Math.floor(Math.random() * 55)
-      g.spawnIn = Math.max(40, base - Math.floor(g.distance / 380))
+      const pick = (): Obstacle => {
+        const types: ObsType[] = ['cactus', 'rock', 'log']
+        const type = types[Math.floor(Math.random() * types.length)]
+        const [lo, hi] = OBS_SIZE[type]
+        return { x: g.width + 10, type, size: lo + Math.floor(Math.random() * (hi - lo)) }
+      }
+      const first = pick()
+      g.obstacles.push(first)
+      // 바로 옆에 하나 더 붙여 한 번에 뛰어넘게 (속도 빠르면 확률 낮춤)
+      const doubleChance = g.speed < 7 ? 0.28 : 0.14
+      let wasDouble = false
+      if (Math.random() < doubleChance) {
+        const second = pick()
+        second.size = Math.min(second.size, 46) // 붙는 건 작게 → 점프로 넘을 수 있게
+        second.x = first.x + first.size + 3 + Math.floor(Math.random() * 6)
+        g.obstacles.push(second)
+        wasDouble = true
+      }
+      // 다음 간격: 넓게 변주 + 가끔 긴 휴식 + 완만한 난이도 램프
+      let base = 60 + Math.floor(Math.random() * 95)
+      if (Math.random() < 0.18) base += 70 // 가끔 숨 돌릴 긴 간격
+      if (wasDouble) base += 22 // 2개 뒤엔 여유
+      g.spawnIn = Math.max(44, base - Math.floor(g.distance / 420))
     }
 
     // 이동 + 충돌
