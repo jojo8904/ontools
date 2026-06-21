@@ -32,7 +32,7 @@ export function ToolGuide({
       {!hideAd && <ResponsiveAdFit />}
       <section className="mt-4">
         <h2 className="text-lg font-bold mb-3 text-[#241a33]">{title}</h2>
-        <div className={`rounded-2xl border p-6 space-y-5 text-[15px] leading-relaxed text-[#444] ${muted ? 'bg-black/[0.035] border-black/5' : 'bg-white border-[#ece6f2]'}`}>
+        <div className={`rounded-2xl border p-6 space-y-5 text-[15px] leading-relaxed text-[#444] ${muted ? 'bg-[#F2EEE6] border-[#ece6f2]' : 'bg-white border-[#ece6f2]'}`}>
           {sections.map((s, i) => (
             <div key={i}>
               <h3 className="font-bold text-[#241a33] mb-1.5">{s.h}</h3>

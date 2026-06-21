@@ -53,9 +53,9 @@ export const metadata: Metadata = {
 
 export default function ImageCompressPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#F1EADD]">
+    <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <header className="border-b bg-white">
+      <header className="border-b">
         <div className="container mx-auto px-4 py-4">
           <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
             <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
@@ -86,13 +86,11 @@ export default function ImageCompressPage() {
         {/* Tool + SEO Content */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           <div className="lg:col-span-2">
-            <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-md sm:p-6">
-              <ImageCompress />
-            </div>
+            <ImageCompress />
           </div>
 
           <aside className="space-y-6">
-            <section className="rounded-xl border border-black/5 bg-black/[0.035] p-6">
+            <section className="rounded-xl border border-gray-200/70 bg-[#F2EEE6] p-6">
               <h2 className="text-xl font-bold mb-4">이런 곳에 쓰여요</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <div>
@@ -110,7 +108,7 @@ export default function ImageCompressPage() {
               </div>
             </section>
 
-            <section className="rounded-xl border border-black/5 bg-black/[0.035] p-6">
+            <section className="rounded-xl border border-gray-200/70 bg-[#F2EEE6] p-6">
               <h2 className="text-xl font-bold mb-4">개인정보 안심</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <p>
