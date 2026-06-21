@@ -13,11 +13,14 @@ export function ToolGuide({
   title = '알아두기',
   sections,
   hideAd = false,
+  muted = false,
 }: {
   title?: string
   sections: GuideSection[]
   /** 페이지 상단(제목 밑)에 애드핏을 따로 둔 경우 true → 중복 방지 */
   hideAd?: boolean
+  /** 보조 콘텐츠로 차분하게(배경 톤다운) 표시 — 본 기능 강조용 */
+  muted?: boolean
 }) {
   if (!sections || sections.length === 0) return null
 
@@ -29,7 +32,7 @@ export function ToolGuide({
       {!hideAd && <ResponsiveAdFit />}
       <section className="mt-4">
         <h2 className="text-lg font-bold mb-3 text-[#241a33]">{title}</h2>
-        <div className="bg-white rounded-2xl border border-[#ece6f2] p-6 space-y-5 text-[15px] leading-relaxed text-[#444]">
+        <div className={`rounded-2xl border p-6 space-y-5 text-[15px] leading-relaxed text-[#444] ${muted ? 'bg-black/[0.035] border-black/5' : 'bg-white border-[#ece6f2]'}`}>
           {sections.map((s, i) => (
             <div key={i}>
               <h3 className="font-bold text-[#241a33] mb-1.5">{s.h}</h3>

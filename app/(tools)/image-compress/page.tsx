@@ -53,7 +53,7 @@ export const metadata: Metadata = {
 
 export default function ImageCompressPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAF8F4]">
+    <div className="min-h-screen flex flex-col bg-[#F1EADD]">
       {/* Header */}
       <header className="border-b bg-white">
         <div className="container mx-auto px-4 py-4">
@@ -92,7 +92,7 @@ export default function ImageCompressPage() {
           </div>
 
           <aside className="space-y-6">
-            <section className="rounded-xl border border-gray-200/70 bg-[#F4F1EB] p-6">
+            <section className="rounded-xl border border-black/5 bg-black/[0.035] p-6">
               <h2 className="text-xl font-bold mb-4">이런 곳에 쓰여요</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <div>
@@ -110,7 +110,7 @@ export default function ImageCompressPage() {
               </div>
             </section>
 
-            <section className="rounded-xl border border-gray-200/70 bg-[#F4F1EB] p-6">
+            <section className="rounded-xl border border-black/5 bg-black/[0.035] p-6">
               <h2 className="text-xl font-bold mb-4">개인정보 안심</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <p>
@@ -122,7 +122,7 @@ export default function ImageCompressPage() {
           </aside>
         </div>
 
-        <ToolGuide sections={GUIDE} />
+        <ToolGuide sections={GUIDE} muted />
         <RelatedTools current="/image-compress" />
       </main>
 
