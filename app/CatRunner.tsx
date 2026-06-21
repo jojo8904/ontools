@@ -319,9 +319,12 @@ export function CatRunner() {
     }
 
     g.distance += g.speed
-    g.speed = 4.2 + g.distance / 2200
+    // 속도: 점점 빨라지되 상한선 (말도 안 되게 빨라지지 않게) — 최대 약 x2.5
+    g.speed = 4.2 + Math.min(g.distance / 2600, 6.3)
 
-    // 스폰 (간격 변주 + 가끔 2개 붙여서)
+    // 스폰: 간격을 '픽셀' 기준으로 항상 크게 변주.
+    //  → 속도가 오르면 시간 간격이 자연히 짧아져 진짜 압박이 되고,
+    //    랜덤 폭이 살아 있어 '같은 박자' 반복 점프로는 못 피한다.
     g.spawnIn -= 1
     if (g.spawnIn <= 0) {
       const pick = (): Obstacle => {
@@ -332,7 +335,7 @@ export function CatRunner() {
       }
       const first = pick()
       g.obstacles.push(first)
-      const doubleChance = g.speed < 7 ? 0.28 : 0.14
+      const doubleChance = g.speed < 7 ? 0.26 : 0.16
       let wasDouble = false
       if (Math.random() < doubleChance) {
         const second = pick()
@@ -341,10 +344,10 @@ export function CatRunner() {
         g.obstacles.push(second)
         wasDouble = true
       }
-      let base = 60 + Math.floor(Math.random() * 95)
-      if (Math.random() < 0.18) base += 70
-      if (wasDouble) base += 22
-      g.spawnIn = Math.max(44, base - Math.floor(g.distance / 420))
+      let gapPx = 260 + Math.random() * 380 // 260~640px (항상 들쭉날쭉)
+      if (Math.random() < 0.14) gapPx += 220 // 가끔 긴 숨 고르기
+      if (wasDouble) gapPx += 120
+      g.spawnIn = Math.max(26, Math.round(gapPx / g.speed))
     }
 
     const catX = 46
