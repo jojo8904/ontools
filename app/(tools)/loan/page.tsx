@@ -107,7 +107,7 @@ export default function LoanPage() {
               <AdUnit slot="0000000000" />
             </div>
             {/* 대출 상환방식 비교 */}
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">대출 상환방식 비교</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <div>
@@ -126,7 +126,7 @@ export default function LoanPage() {
             </section>
 
             {/* 주택담보대출 금리 안내 */}
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">주택담보대출 금리 안내</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <div>
@@ -145,7 +145,7 @@ export default function LoanPage() {
             </section>
 
             {/* LTV/DTI 설명 */}
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">LTV / DTI / DSR 이란?</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <div>

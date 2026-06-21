@@ -92,7 +92,7 @@ export default function SavingsPage() {
               <AdUnit slot="0000000000" />
             </div>
             {/* 단리 vs 복리 */}
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">단리 vs 복리 차이</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <div>
@@ -137,7 +137,7 @@ export default function SavingsPage() {
             </section>
 
             {/* 이자소득세 안내 */}
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">이자소득세 안내</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <div>
@@ -156,7 +156,7 @@ export default function SavingsPage() {
             </section>
 
             {/* 비과세 저축 안내 */}
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">비과세/세금우대 저축</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <div>

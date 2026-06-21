@@ -83,7 +83,7 @@ export default function IdPhotoPage() {
           </div>
 
           <aside className="space-y-6">
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">규격 안내</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <div>
@@ -101,7 +101,7 @@ export default function IdPhotoPage() {
               </div>
             </section>
 
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">개인정보 안심</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <p>

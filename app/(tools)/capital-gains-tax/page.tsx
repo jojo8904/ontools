@@ -47,14 +47,14 @@ export default function CapitalGainsTaxPage() {
             <div className="hidden lg:block sticky top-20">
               <AdUnit slot="0000000000" />
             </div>
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">1세대 1주택 비과세</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <p>2년 이상 보유 (조정대상지역은 2년 거주 필요) 시 양도차익 12억원까지 비과세</p>
                 <p>12억 초과분에 대해서만 과세</p>
               </div>
             </section>
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">신고 기한</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <p>양도일(잔금일)이 속하는 달의 말일부터 2개월 이내 예정신고</p>

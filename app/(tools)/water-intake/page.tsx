@@ -32,7 +32,7 @@ export default function WaterIntakePage() {
             </div>
           </div>
           <aside className="space-y-6">
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">물 섭취 팁</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <p>기상 후 공복에 물 1잔(250ml)을 마시면 신진대사 활성화에 도움됩니다.</p>
@@ -40,7 +40,7 @@ export default function WaterIntakePage() {
                 <p>카페인 음료(커피, 차)는 이뇨작용이 있어 물 섭취량에 포함하지 않는 것이 좋습니다.</p>
               </div>
             </section>
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">탈수 증상</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <p><strong>초기:</strong> 갈증, 소변 색 진해짐, 입 마름</p>

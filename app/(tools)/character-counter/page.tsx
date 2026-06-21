@@ -72,7 +72,7 @@ export default function CharacterCounterPage() {
 
           <aside className="space-y-6">
             {/* 자소서 글자수 가이드 */}
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">자소서 글자수 제한</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <div className="overflow-x-auto">
@@ -112,7 +112,7 @@ export default function CharacterCounterPage() {
             </section>
 
             {/* 플랫폼별 글자수 제한 */}
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">플랫폼별 글자수 제한</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <div>

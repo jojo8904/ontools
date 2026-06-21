@@ -77,7 +77,7 @@ export default function WeeklyHolidayPayPage() {
 
           <aside className="space-y-6">
             {/* 주휴수당 지급 조건 */}
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">주휴수당 지급 조건</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <div>
@@ -96,7 +96,7 @@ export default function WeeklyHolidayPayPage() {
             </section>
 
             {/* 2026년 최저시급 */}
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">2026년 최저시급</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <div className="bg-blue-50 rounded-lg p-4 text-center">
@@ -132,7 +132,7 @@ export default function WeeklyHolidayPayPage() {
             </section>
 
             {/* 계산 공식 */}
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">주휴수당 계산 공식</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <div>
@@ -158,7 +158,7 @@ export default function WeeklyHolidayPayPage() {
             </section>
 
             {/* 알바 급여 팁 */}
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">알바 급여 체크리스트</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <div>

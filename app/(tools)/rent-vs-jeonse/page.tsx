@@ -32,14 +32,14 @@ export default function RentVsJeonsePage() {
             </div>
           </div>
           <aside className="space-y-6">
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">기회비용이란?</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <p>전세 보증금을 투자했을 때 얻을 수 있는 수익을 의미합니다. 전세가 월세보다 보증금이 크므로, 그 차액을 투자했을 때의 수익을 비교합니다.</p>
                 <p>예: 3억 전세 보증금 × 연 3.5% = 연 1,050만원의 기회비용</p>
               </div>
             </section>
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">월세 세액공제</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <p>총급여 7,000만원 이하 무주택 세대주는 월세의 15~17% 세액공제 가능 (연 최대 750만원 한도).</p>

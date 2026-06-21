@@ -32,7 +32,7 @@ export default function PasswordGeneratorPage() {
             </div>
           </div>
           <aside className="space-y-6">
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">안전한 비밀번호 가이드</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <p><strong>12자 이상</strong>을 권장합니다. 길이가 길수록 무차별 대입 공격에 강합니다.</p>
@@ -40,7 +40,7 @@ export default function PasswordGeneratorPage() {
                 <p>개인정보(이름, 생년월일, 전화번호)는 절대 비밀번호에 사용하지 마세요.</p>
               </div>
             </section>
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">비밀번호 관리 팁</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <p>사이트마다 서로 다른 비밀번호를 사용하세요.</p>

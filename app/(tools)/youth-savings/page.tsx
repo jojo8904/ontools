@@ -24,7 +24,7 @@ export default function YouthSavingsPage() {
             </div>
           </div>
           <aside className="space-y-6">
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">가입 대상</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <p><strong>청년:</strong> 만 15~34세 (병역기간 최대 6년 추가 인정)</p>
@@ -32,7 +32,7 @@ export default function YouthSavingsPage() {
                 <p>정규직 채용 후 6개월 이내 가입 가능</p>
               </div>
             </section>
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">2년형 vs 3년형</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <p><strong>2년형:</strong> 본인 300만 + 기업 800만 + 정부 800만 = 1,900만원</p>

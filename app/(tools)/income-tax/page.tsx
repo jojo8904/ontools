@@ -68,7 +68,7 @@ export default function IncomeTaxPage() {
             <div className="hidden lg:block sticky top-20">
               <AdUnit slot="0000000000" />
             </div>
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">종합소득세 세율 (2025)</h2>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm border-collapse">
@@ -91,7 +91,7 @@ export default function IncomeTaxPage() {
                 </table>
               </div>
             </section>
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">신고 기간</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <p>매년 5월 1일 ~ 5월 31일 (성실신고확인 대상자는 6월 30일)</p>

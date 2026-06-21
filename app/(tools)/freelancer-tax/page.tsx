@@ -60,14 +60,14 @@ export default function FreelancerTaxPage() {
             </div>
           </div>
           <aside className="space-y-6">
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">3.3% 원천징수란?</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <p>프리랜서(사업소득자)에게 대가를 지급할 때, 지급자가 소득세 3%와 지방소득세 0.3%를 미리 원천징수하여 국세청에 납부하는 제도입니다.</p>
                 <p>프리랜서는 다음 해 5월 종합소득세 신고 시 이미 납부한 3.3%를 기납부세액으로 공제받을 수 있습니다.</p>
               </div>
             </section>
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">종합소득세 신고</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <p>프리랜서 수입이 연 2,400만원 이하이면 단순경비율 적용 가능. 필요경비를 공제하면 실제 세금이 줄어들거나 환급받을 수 있습니다.</p>

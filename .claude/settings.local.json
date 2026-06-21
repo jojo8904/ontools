@@ -28,7 +28,15 @@
       "Bash(ls:*)",
       "Bash(node -e:*)",
       "Bash(source:*)",
-      "Bash(npx sharp-cli:*)"
+      "Bash(npx sharp-cli:*)",
+      "Bash(xargs head -100)",
+      "Bash(npx tsc *)",
+      "Bash(echo \"\\(tsc 종료코드 $?\\)\")",
+      "mcp__claude_ai_Higgsfield__generate_image",
+      "mcp__claude_ai_Higgsfield__job_status"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\83050\\.claude\\projects\\c--Users-83050-ontools\\memory"
     ]
   }
 }

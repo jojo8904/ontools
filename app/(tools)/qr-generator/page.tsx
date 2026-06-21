@@ -71,7 +71,7 @@ export default function QrGeneratorPage() {
 
           <aside className="space-y-6">
             {/* QR코드 활용 방법 */}
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">QR코드 활용 방법</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <div>
@@ -97,7 +97,7 @@ export default function QrGeneratorPage() {
             </section>
 
             {/* 명함/홍보물 팁 */}
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">명함/홍보물 활용 팁</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <div>

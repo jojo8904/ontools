@@ -13,7 +13,7 @@ export function ToolGuide({
   title = '알아두기',
   sections,
   hideAd = false,
-  muted = false,
+  muted = true,
 }: {
   title?: string
   sections: GuideSection[]

@@ -85,7 +85,7 @@ export default function VatPage() {
 
           <aside className="space-y-6">
             {/* 부가세 신고 기간 */}
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">부가세 신고 기간</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <div>
@@ -123,7 +123,7 @@ export default function VatPage() {
             </section>
 
             {/* 간이과세자 vs 일반과세자 */}
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">간이과세자 vs 일반과세자</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <div className="overflow-x-auto">
@@ -169,7 +169,7 @@ export default function VatPage() {
             </section>
 
             {/* 매입세액공제 */}
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">매입세액공제 안내</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <div>
@@ -191,7 +191,7 @@ export default function VatPage() {
             </section>
 
             {/* 전자세금계산서 */}
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">전자세금계산서 발행</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <div>

@@ -32,7 +32,7 @@ export default function UsedCarTaxPage() {
             </div>
           </div>
           <aside className="space-y-6">
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">취등록세 세율</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <p><strong>승용차:</strong> 취득세 7%</p>
@@ -41,7 +41,7 @@ export default function UsedCarTaxPage() {
                 <p><strong>장애인:</strong> 취득세 면제 (2,000cc 이하 비영업용)</p>
               </div>
             </section>
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">등록 시 필요 서류</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <p>매매계약서, 자동차등록증, 자동차세 완납증명서, 보험가입증명서, 신분증</p>

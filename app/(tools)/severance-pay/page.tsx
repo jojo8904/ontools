@@ -95,7 +95,7 @@ export default function SeverancePayPage() {
               <AdUnit slot="0000000000" />
             </div>
             {/* 퇴직금 계산 방법 */}
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">퇴직금 계산 방법</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <div>
@@ -120,7 +120,7 @@ export default function SeverancePayPage() {
             </section>
 
             {/* 퇴직소득세 계산법 */}
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">퇴직소득세 계산법</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <div>

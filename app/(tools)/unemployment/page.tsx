@@ -85,7 +85,7 @@ export default function UnemploymentPage() {
 
           <aside className="space-y-6">
             {/* 수급 조건 */}
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">실업급여 수급 조건</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <div>
@@ -105,7 +105,7 @@ export default function UnemploymentPage() {
             </section>
 
             {/* 비자발적 퇴사 기준 */}
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">비자발적 퇴사 기준</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <div>
@@ -131,7 +131,7 @@ export default function UnemploymentPage() {
             </section>
 
             {/* 소정급여일수 표 */}
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">소정급여일수</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <div className="overflow-x-auto">
@@ -177,7 +177,7 @@ export default function UnemploymentPage() {
             </section>
 
             {/* 신청 절차 */}
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">실업급여 신청 절차</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <ol className="list-decimal list-inside space-y-2">

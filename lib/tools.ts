@@ -8,7 +8,7 @@ export interface ToolMeta {
   label: string
   category: ToolCategory
   keywords?: string[]
-  badge?: 'NEW' | '인기'
+  badge?: 'NEW' | 'HOT'
 }
 
 export const CATEGORY_LABELS: Record<ToolCategory, string> = {
@@ -21,7 +21,7 @@ export const CATEGORY_LABELS: Record<ToolCategory, string> = {
 
 export const TOOLS: ToolMeta[] = [
   // 연봉·세금
-  { href: '/salary', label: '연봉 실수령액 계산기', category: 'salary-tax', badge: '인기', keywords: ['월급', '실수령', '세후'] },
+  { href: '/salary', label: '연봉 실수령액 계산기', category: 'salary-tax', badge: 'HOT', keywords: ['월급', '실수령', '세후'] },
   { href: '/severance-pay', label: '퇴직금 계산기', category: 'salary-tax', keywords: ['퇴직', '근속'] },
   { href: '/weekly-holiday-pay', label: '주휴수당 계산기', category: 'salary-tax', keywords: ['주휴', '알바'] },
   { href: '/annual-leave-pay', label: '연차 수당 계산기', category: 'salary-tax', keywords: ['연차', '미사용'] },
@@ -31,7 +31,7 @@ export const TOOLS: ToolMeta[] = [
   { href: '/freelancer-tax', label: '프리랜서 세금 계산기 (3.3%)', category: 'salary-tax', keywords: ['프리랜서', '원천징수', '3.3'] },
 
   // 금융
-  { href: '/currency', label: '환율 계산기', category: 'finance', badge: '인기', keywords: ['달러', '엔화', '유로'] },
+  { href: '/currency', label: '환율 계산기', category: 'finance', badge: 'HOT', keywords: ['달러', '엔화', '유로'] },
   { href: '/loan', label: '대출이자 계산기', category: 'finance', keywords: ['대출', '원리금', '이자'] },
   { href: '/savings', label: '적금/예금 이자 계산기', category: 'finance', keywords: ['적금', '예금', '이자'] },
   { href: '/capital-gains-tax', label: '양도소득세 계산기', category: 'finance', keywords: ['양도세', '부동산', '주식'] },
@@ -40,7 +40,7 @@ export const TOOLS: ToolMeta[] = [
 
   // 건강
   { href: '/bmi', label: 'BMI 계산기', category: 'health', keywords: ['비만', '체질량'] },
-  { href: '/calorie', label: '일일 칼로리(TDEE) 계산기', category: 'health', badge: '인기', keywords: ['칼로리', '기초대사량', '다이어트'] },
+  { href: '/calorie', label: '일일 칼로리(TDEE) 계산기', category: 'health', badge: 'HOT', keywords: ['칼로리', '기초대사량', '다이어트'] },
   { href: '/water-intake', label: '물 섭취량 계산기', category: 'health', keywords: ['수분', '하루'] },
   { href: '/ideal-weight', label: '적정체중 계산기', category: 'health', badge: 'NEW', keywords: ['표준체중', '정상체중', '비만도'] },
   { href: '/sleep', label: '수면 시간 계산기', category: 'health', badge: 'NEW', keywords: ['취침시간', '기상시간', '수면주기', '꿀잠'] },

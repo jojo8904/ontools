@@ -52,7 +52,7 @@ export default function AnnualLeavePayPage() {
             </div>
           </div>
           <aside className="space-y-6">
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">연차 발생 기준</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <p><strong>1년 미만:</strong> 1개월 개근 시 1일 (최대 11일)</p>
@@ -60,7 +60,7 @@ export default function AnnualLeavePayPage() {
                 <p><strong>3년 이상:</strong> 2년마다 1일 추가 (최대 25일)</p>
               </div>
             </section>
-            <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">연차수당 계산 공식</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <p className="bg-gray-50 rounded-lg px-3 py-2 font-mono text-xs">연차수당 = 1일 통상임금 × 미사용 연차 일수</p>
