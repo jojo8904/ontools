@@ -149,6 +149,14 @@ export default function HomePage() {
               게임
             </a>
             <a
+              href="https://mallang-jo.tistory.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-medium text-[#666] hover:text-[#111] transition-colors"
+            >
+              블로그
+            </a>
+            <a
               href="https://getluckylab.com/"
               target="_blank"
               rel="noopener noreferrer"
@@ -328,6 +336,8 @@ export default function HomePage() {
             <Link href="/terms" className="hover:text-[#241a33] transition-colors">이용약관</Link>
             <span className="text-[#ddd]">|</span>
             <a href="https://getluckylab.com/" target="_blank" rel="noopener noreferrer" className="hover:text-[#241a33] transition-colors">행운연구소</a>
+            <span className="text-[#ddd]">|</span>
+            <a href="https://mallang-jo.tistory.com/" target="_blank" rel="noopener noreferrer" className="hover:text-[#241a33] transition-colors">블로그</a>
           </div>
           &copy; 2026 ontools. All rights reserved.
         </div>
