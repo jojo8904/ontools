@@ -64,11 +64,11 @@ const OBS_SIZE: Record<ObsType, [number, number]> = {
 
 // 기본 순위(가짜) — 새 방문자에게 도전 목표를 보여주기 위한 시드
 const SEED: Score[] = [
-  { name: '야옹대장', score: 2480, id: -1 },
-  { name: '츄르도둑', score: 1760, id: -2 },
-  { name: '점프왕', score: 1190, id: -3 },
-  { name: '골골송', score: 720, id: -4 },
-  { name: '발냥이', score: 410, id: -5 },
+  { name: '야옹대장', score: 9870, id: -1 },
+  { name: '츄르도둑', score: 6320, id: -2 },
+  { name: '점프왕', score: 3940, id: -3 },
+  { name: '골골송', score: 1880, id: -4 },
+  { name: '발냥이', score: 760, id: -5 },
 ]
 
 function lerp(a: number, b: number, t: number) {
