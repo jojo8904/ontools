@@ -152,14 +152,13 @@ export function CatRunner() {
     })
     try {
       const raw = localStorage.getItem('catRunnerBoard')
-      if (raw) {
-        setBoard(JSON.parse(raw))
-      } else {
-        const oldBest = parseInt(localStorage.getItem('catRunnerBest') || '0', 10)
-        const seed = [...SEED]
-        if (oldBest > 0) seed.push({ name: '나', score: oldBest, id: 1 })
-        setBoard(seed.sort((a, b) => b.score - a.score).slice(0, LB_KEEP))
-      }
+      const loaded: Score[] = raw ? JSON.parse(raw) : []
+      // 가짜 기본 순위(시드)는 항상 베이스라인으로 보충 (기존 기록 있어도 함께 표시)
+      const ids = new Set(loaded.map((e) => e.id))
+      for (const s of SEED) if (!ids.has(s.id)) loaded.push(s)
+      const oldBest = parseInt(localStorage.getItem('catRunnerBest') || '0', 10)
+      if (oldBest > 0 && !loaded.some((e) => e.id === 1)) loaded.push({ name: '나', score: oldBest, id: 1 })
+      setBoard(loaded.sort((a, b) => b.score - a.score).slice(0, LB_KEEP))
     } catch {
       setBoard([...SEED])
     }
