@@ -14,12 +14,12 @@ interface Mask {
 
 const DISPLAY_MAX = 760
 
-/** 한 영역을 모자이크(픽셀화) 처리 — 이미 그려진 캔버스 픽셀을 블록 단위로 뭉갬 */
-function pixelate(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number) {
+/** 한 영역을 모자이크(픽셀화) 처리 — 이미 그려진 캔버스 픽셀을 블록 단위로 뭉갬.
+ *  block = 한 모자이크 칸의 픽셀 크기(클수록 더 강하게 뭉개짐). */
+function pixelate(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, block: number) {
   if (w < 2 || h < 2) return
-  const blocks = Math.max(3, Math.floor(w / 14))
-  const tw = blocks
-  const th = Math.max(1, Math.round((blocks * h) / w))
+  const tw = Math.max(1, Math.round(w / block))
+  const th = Math.max(1, Math.round(h / block))
   const tmp = document.createElement('canvas')
   tmp.width = tw
   tmp.height = th
@@ -39,6 +39,7 @@ function renderAll(
   scale: number,
   watermark: string,
   dragRect: Mask | null,
+  mosaicBlock: number,
 ) {
   const w = ctx.canvas.width
   const h = ctx.canvas.height
@@ -54,7 +55,7 @@ function renderAll(
       ctx.fillStyle = '#000000'
       ctx.fillRect(x, y, mw, mh)
     } else {
-      pixelate(ctx, x, y, mw, mh)
+      pixelate(ctx, x, y, mw, mh, Math.max(2, mosaicBlock * scale))
     }
   }
 
@@ -92,7 +93,8 @@ export function ImageMask() {
   const [img, setImg] = useState<HTMLImageElement | null>(null)
   const [fileName, setFileName] = useState('')
   const [masks, setMasks] = useState<Mask[]>([])
-  const [mode, setMode] = useState<Mode>('black')
+  const [mode, setMode] = useState<Mode>('mosaic')
+  const [mosaicBlock, setMosaicBlock] = useState(12)
   const [watermark, setWatermark] = useState('')
   const [resultUrl, setResultUrl] = useState<string | null>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -134,8 +136,8 @@ export function ImageMask() {
     canvas.height = Math.round(img.naturalHeight * scale)
     const ctx = canvas.getContext('2d')!
     // 디스플레이에서는 마스크가 이미 디스플레이 좌표라 scale=1로 렌더
-    renderAll(ctx, img, masks, 1, watermark, dragRect.current)
-  }, [img, masks, watermark])
+    renderAll(ctx, img, masks, 1, watermark, dragRect.current, mosaicBlock)
+  }, [img, masks, watermark, mosaicBlock])
 
   const toCanvasCoords = (e: React.PointerEvent) => {
     const canvas = canvasRef.current!
@@ -169,7 +171,7 @@ export function ImageMask() {
     }
     dragRect.current = r
     const ctx = canvasRef.current!.getContext('2d')!
-    renderAll(ctx, img, masks, 1, watermark, r)
+    renderAll(ctx, img, masks, 1, watermark, r, mosaicBlock)
   }
 
   const onPointerUp = () => {
@@ -181,7 +183,7 @@ export function ImageMask() {
       setMasks((prev) => [...prev, r])
     } else if (img) {
       const ctx = canvasRef.current!.getContext('2d')!
-      renderAll(ctx, img, masks, 1, watermark, null)
+      renderAll(ctx, img, masks, 1, watermark, null, mosaicBlock)
     }
   }
 
@@ -196,12 +198,12 @@ export function ImageMask() {
     const ctx = out.getContext('2d')!
     // 마스크는 디스플레이 좌표 → 실제 해상도로 확대
     const exportScale = 1 / displayScale.current
-    renderAll(ctx, img, masks, exportScale, watermark, null)
+    renderAll(ctx, img, masks, exportScale, watermark, null, mosaicBlock)
     out.toBlob((blob) => {
       if (!blob) return
       setResultUrl(URL.createObjectURL(blob))
     }, 'image/png')
-  }, [img, masks, watermark])
+  }, [img, masks, watermark, mosaicBlock])
 
   const handleDownload = () => {
     if (!resultUrl) return
@@ -249,19 +251,34 @@ export function ImageMask() {
         <div className="space-y-4">
           {/* 도구 바 */}
           <div className="flex flex-wrap items-center gap-3 rounded-xl border border-gray-200 bg-white p-3">
-            <div className="flex gap-2">
-              <button
-                onClick={() => setMode('black')}
-                className={`rounded-lg px-3 py-1.5 text-sm font-medium ${mode === 'black' ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-600'}`}
-              >
-                ⬛ 검은칠
-              </button>
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-xs font-medium text-gray-400">가리기 방식</span>
               <button
                 onClick={() => setMode('mosaic')}
                 className={`rounded-lg px-3 py-1.5 text-sm font-medium ${mode === 'mosaic' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600'}`}
               >
                 ▦ 모자이크
               </button>
+              <button
+                onClick={() => setMode('black')}
+                className={`rounded-lg px-3 py-1.5 text-sm font-medium ${mode === 'black' ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-600'}`}
+              >
+                ⬛ 검은칠
+              </button>
+              {mode === 'mosaic' && (
+                <div className="flex items-center gap-0.5 rounded-lg bg-gray-100 p-0.5">
+                  <span className="px-1.5 text-xs text-gray-400">강도</span>
+                  {([['약', 8], ['보통', 12], ['강', 20]] as const).map(([label, v]) => (
+                    <button
+                      key={v}
+                      onClick={() => setMosaicBlock(v)}
+                      className={`rounded-md px-2.5 py-1 text-xs font-medium ${mosaicBlock === v ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-500'}`}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
             <div className="ml-auto flex gap-2">
               <button onClick={undo} disabled={masks.length === 0} className="rounded-lg bg-gray-100 px-3 py-1.5 text-sm text-gray-600 disabled:opacity-40">
@@ -277,7 +294,7 @@ export function ImageMask() {
           </div>
 
           <p className="text-sm text-gray-500">
-            가릴 부분을 <strong>마우스(또는 손가락)로 드래그</strong>하세요. 주민번호·계좌번호 등을 가린 뒤 내보내면 사진의 위치정보(EXIF)도 함께 제거됩니다.
+            가릴 부분을 <strong>마우스(또는 손가락)로 드래그</strong>하세요. <strong>모자이크</strong>(흐리게)와 <strong>검은칠</strong> 중 고를 수 있고, 모자이크는 강도(약·보통·강)를 조절할 수 있어요. 내보내면 사진의 위치정보(EXIF)도 함께 제거됩니다.
           </p>
 
           {/* 캔버스 */}
