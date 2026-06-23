@@ -78,6 +78,10 @@ export const TOOLS: ToolMeta[] = [
   { href: '/image-to-pdf', label: '이미지 PDF 변환', category: 'image', badge: 'NEW', keywords: ['이미지pdf', '사진pdf', 'jpg pdf', '사진여러장pdf', 'pdf만들기'] },
   { href: '/text-image', label: '텍스트 이미지 생성기', category: 'image', badge: 'NEW', keywords: ['명언이미지', '글귀이미지', '코드이미지', '카드뉴스', '텍스트이미지'] },
   { href: '/watermark', label: '워터마크 넣기', category: 'image', badge: 'NEW', keywords: ['워터마크', '사진워터마크', '로고삽입', '저작권표시', '도용방지'] },
+  { href: '/image-resize', label: '이미지 크기 조절', category: 'image', badge: 'NEW', keywords: ['이미지크기조절', '사진크기변경', '리사이즈', '사진px변경', '해상도변경'] },
+  { href: '/image-convert', label: '이미지 형식 변환', category: 'image', badge: 'NEW', keywords: ['webp jpg 변환', 'png jpg 변환', '이미지형식변환', 'webp안열림', 'webp변환'] },
+  { href: '/pdf-to-image', label: 'PDF를 이미지로', category: 'image', badge: 'NEW', keywords: ['pdf 이미지 변환', 'pdf jpg', 'pdf png', 'pdf그림으로', 'pdf사진변환'] },
+  { href: '/image-crop', label: '이미지 자르기', category: 'image', badge: 'NEW', keywords: ['사진자르기', '이미지크롭', '인스타정사각', '썸네일크기', '사진비율자르기'] },
 ]
 
 export function getToolByHref(href: string): ToolMeta | undefined {
