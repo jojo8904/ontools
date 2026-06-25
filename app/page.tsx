@@ -117,6 +117,7 @@ const TOOL_CATEGORIES = [
     color: 'bg-teal-500',
     tools: [
       { href: '/image-compress', label: '사진 용량 줄이기', badge: 'HOT' },
+      { href: '/bg-remove', label: '배경 제거 (누끼)', badge: 'NEW' },
       { href: '/image-resize', label: '이미지 크기 조절', badge: 'NEW' },
       { href: '/image-convert', label: '이미지 형식 변환 (WEBP·PNG·JPG)', badge: 'NEW' },
       { href: '/image-crop', label: '이미지 자르기 (크롭)' },
