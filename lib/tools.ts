@@ -83,6 +83,9 @@ export const TOOLS: ToolMeta[] = [
   { href: '/image-convert', label: '이미지 형식 변환', category: 'image', badge: 'NEW', keywords: ['webp jpg 변환', 'png jpg 변환', '이미지형식변환', 'webp안열림', 'webp변환'] },
   { href: '/pdf-to-image', label: 'PDF를 이미지로', category: 'image', badge: 'NEW', keywords: ['pdf 이미지 변환', 'pdf jpg', 'pdf png', 'pdf그림으로', 'pdf사진변환'] },
   { href: '/image-crop', label: '이미지 자르기', category: 'image', badge: 'NEW', keywords: ['사진자르기', '이미지크롭', '인스타정사각', '썸네일크기', '사진비율자르기'] },
+  { href: '/exif-remove', label: '위치정보(EXIF) 제거', category: 'image', keywords: ['사진위치정보제거', 'exif제거', '사진gps제거', '메타데이터제거', '위치정보삭제'] },
+  { href: '/image-split', label: '긴 이미지 분할', category: 'image', keywords: ['긴사진자르기', '이미지분할', '인스타파노라마', '사진여러장으로', '긴캡처자르기'] },
+  { href: '/favicon', label: '파비콘 만들기', category: 'image', keywords: ['파비콘만들기', 'favicon만들기', 'ico변환', '사이트아이콘', 'png ico'] },
 ]
 
 export function getToolByHref(href: string): ToolMeta | undefined {
