@@ -186,11 +186,15 @@ export default function HomePage() {
       >
         <div className="container mx-auto px-4 h-full relative z-[1]">
           <div className="flex flex-col justify-center h-full">
+            <span className="inline-flex items-center gap-1.5 self-start rounded-full bg-white/70 px-3 py-1 text-[0.8rem] font-semibold text-[#6b6276] ring-1 ring-[#e6def0] mb-3">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              계산기 · 게임 · 이미지 도구 50+
+            </span>
             <h2 className="text-[2.5rem] md:text-[3.5rem] leading-[1.1] font-[900] tracking-[-0.03em] text-[#241a33] mb-0">
               당신의 <span className="hero-gradient-text">스마트한</span> 일상 도구
             </h2>
             <p className="text-[1.1rem] text-[#6b6276] mt-3 font-medium">
-              계산도, 게임도 — 여기서 다.
+              연봉 계산부터 이미지 변환, 잠깐의 게임까지 — 필요한 도구를 한 곳에서.
             </p>
           </div>
         </div>
