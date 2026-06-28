@@ -116,6 +116,10 @@ export default function BgRemovePage() {
         </div>
 
         <ToolGuide sections={GUIDE} />
+        <div className="mt-8 rounded-xl border border-blue-100 bg-blue-50/50 p-4">
+          <span className="text-sm text-gray-600">더 알아보기 — </span>
+          <a href="/guide/remove-background" className="text-sm font-semibold text-blue-700 hover:underline">사진 배경 제거(누끼) 무료로 하는 방법</a>
+        </div>
         <RelatedTools current="/bg-remove" />
       </main>
 

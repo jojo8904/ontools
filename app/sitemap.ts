@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next'
 import fs from 'fs'
 import path from 'path'
+import { GUIDES } from '@/lib/guides'
 
 function getPages(dir: string, base = ''): string[] {
   const routes: string[] = []
@@ -15,6 +16,8 @@ function getPages(dir: string, base = ''): string[] {
     if (!entry.isDirectory()) continue
     // skip private folders, api, _next
     if (entry.name.startsWith('_') || entry.name === 'api') continue
+    // 동적 라우트 폴더([slug] 등)는 건너뛰고 아래에서 실제 경로를 직접 추가
+    if (entry.name.startsWith('[')) continue
 
     let segment = entry.name
     // route groups: (tools) → strip parentheses, no segment added
@@ -32,6 +35,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://ontools.co.kr'
   const appDir = path.join(process.cwd(), 'app')
   const routes = getPages(appDir)
+
+  // 가이드 동적 글 경로 추가
+  for (const g of GUIDES) routes.push(`/guide/${g.slug}`)
 
   return routes.map((route) => ({
     url: `${baseUrl}${route === '/' ? '' : route}`,

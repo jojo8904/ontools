@@ -33,6 +33,10 @@ export default function AgePage() {
       <AgeCalculator />
       <ToolGuide sections={AGE_GUIDE} />
       <FaqSection items={AGE_FAQ} />
+      <div className="mt-8 rounded-xl border border-blue-100 bg-blue-50/50 p-4">
+        <span className="text-sm text-gray-600">더 알아보기 — </span>
+        <a href="/guide/korean-age" className="text-sm font-semibold text-blue-700 hover:underline">만 나이 계산법과 만 나이 통일 (2023년 변경 정리)</a>
+      </div>
     </ToolShell>
   )
 }

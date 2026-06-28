@@ -156,6 +156,9 @@ export default function HomePage() {
             <a href="#games" className="text-sm font-medium text-[#666] hover:text-[#111] transition-colors">
               게임
             </a>
+            <a href="/guide" className="text-sm font-medium text-[#666] hover:text-[#111] transition-colors">
+              가이드
+            </a>
             <a
               href="https://mallang-jo.tistory.com/"
               target="_blank"
@@ -346,6 +349,8 @@ export default function HomePage() {
             <Link href="/privacy" className="hover:text-[#241a33] transition-colors">개인정보처리방침</Link>
             <span className="text-[#ddd]">|</span>
             <Link href="/terms" className="hover:text-[#241a33] transition-colors">이용약관</Link>
+            <span className="text-[#ddd]">|</span>
+            <a href="/guide" className="hover:text-[#241a33] transition-colors">가이드</a>
             <span className="text-[#ddd]">|</span>
             <a href="https://getluckylab.com/" target="_blank" rel="noopener noreferrer" className="hover:text-[#241a33] transition-colors">행운연구소</a>
             <span className="text-[#ddd]">|</span>

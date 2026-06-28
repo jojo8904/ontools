@@ -282,6 +282,10 @@ export default function SalaryCalculatorPage() {
 
         <ToolGuide sections={SALARY_GUIDE} hideAd />
         <FaqSection items={SALARY_FAQ} />
+        <div className="mt-8 rounded-xl border border-blue-100 bg-blue-50/50 p-4">
+          <span className="text-sm text-gray-600">더 알아보기 — </span>
+          <a href="/guide/salary-take-home" className="text-sm font-semibold text-blue-700 hover:underline">연봉 실수령액이 생각보다 적은 이유 (세금·4대보험 구조)</a>
+        </div>
         <RelatedTools current="/salary" />
       </main>
 

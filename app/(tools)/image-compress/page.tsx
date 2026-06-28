@@ -121,6 +121,10 @@ export default function ImageCompressPage() {
         </div>
 
         <ToolGuide sections={GUIDE} muted />
+        <div className="mt-8 rounded-xl border border-blue-100 bg-blue-50/50 p-4">
+          <span className="text-sm text-gray-600">더 알아보기 — </span>
+          <a href="/guide/photo-size-reduce" className="text-sm font-semibold text-blue-700 hover:underline">사진 용량을 200KB·1MB 이하로 줄이는 방법</a>
+        </div>
         <RelatedTools current="/image-compress" />
       </main>
 
