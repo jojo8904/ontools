@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { GameGuide } from '@/components/GameGuide'
 import { GameMemory } from './GameMemory'
 
 export const metadata: Metadata = {
@@ -35,6 +36,7 @@ export default function MemoryPage() {
           <p className="text-muted-foreground">카드를 뒤집어 같은 짝을 찾으세요! 최소 이동으로 클리어하세요.</p>
         </div>
         <GameMemory />
+        <GameGuide slug="memory" />
       </main>
       <footer className="border-t mt-auto">
         <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">&copy; 2026 ontools. All rights reserved.</div>

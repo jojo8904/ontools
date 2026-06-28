@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { GameGuide } from '@/components/GameGuide'
 import { GameTetris } from './GameTetris'
 
 export const metadata: Metadata = {
@@ -53,6 +54,7 @@ export default function TetrisPage() {
         </div>
 
         <GameTetris />
+        <GameGuide slug="tetris" />
       </main>
 
       <footer className="border-t mt-auto">

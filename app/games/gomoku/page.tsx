@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { GameGuide } from '@/components/GameGuide'
 import { GameGomoku } from './GameGomoku'
 
 export const metadata: Metadata = {
@@ -35,6 +36,7 @@ export default function GomokuPage() {
           <p className="text-muted-foreground">AI와 대결! 먼저 돌 다섯 개를 연속으로 놓으면 승리합니다.</p>
         </div>
         <GameGomoku />
+        <GameGuide slug="gomoku" />
       </main>
       <footer className="border-t mt-auto">
         <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">&copy; 2026 ontools. All rights reserved.</div>

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { GameGuide } from '@/components/GameGuide'
 import { GameFlappy } from './GameFlappy'
 
 export const metadata: Metadata = {
@@ -35,6 +36,7 @@ export default function FlappyPage() {
           <p className="text-muted-foreground">탭해서 장애물을 피하며 최대한 멀리 날아가세요!</p>
         </div>
         <GameFlappy />
+        <GameGuide slug="flappy" />
       </main>
       <footer className="border-t mt-auto">
         <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">&copy; 2026 ontools. All rights reserved.</div>

@@ -352,6 +352,10 @@ export default function HomePage() {
             <span className="text-[#ddd]">|</span>
             <a href="/guide" className="hover:text-[#241a33] transition-colors">가이드</a>
             <span className="text-[#ddd]">|</span>
+            <a href="/about" className="hover:text-[#241a33] transition-colors">소개</a>
+            <span className="text-[#ddd]">|</span>
+            <a href="/contact" className="hover:text-[#241a33] transition-colors">문의</a>
+            <span className="text-[#ddd]">|</span>
             <a href="https://getluckylab.com/" target="_blank" rel="noopener noreferrer" className="hover:text-[#241a33] transition-colors">행운연구소</a>
             <span className="text-[#ddd]">|</span>
             <a href="https://mallang-jo.tistory.com/" target="_blank" rel="noopener noreferrer" className="hover:text-[#241a33] transition-colors">블로그</a>

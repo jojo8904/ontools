@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { GameGuide } from '@/components/GameGuide'
 import { GameMinesweeper } from './GameMinesweeper'
 
 export const metadata: Metadata = {
@@ -35,6 +36,7 @@ export default function MinesweeperPage() {
           <p className="text-muted-foreground">지뢰를 피해 모든 칸을 열어보세요. 9x9, 지뢰 10개.</p>
         </div>
         <GameMinesweeper />
+        <GameGuide slug="minesweeper" />
       </main>
       <footer className="border-t mt-auto">
         <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">&copy; 2026 ontools. All rights reserved.</div>

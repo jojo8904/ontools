@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { GameGuide } from '@/components/GameGuide'
 import { GameTyping } from './GameTyping'
 
 export const metadata: Metadata = {
@@ -35,6 +36,7 @@ export default function TypingPage() {
           <p className="text-muted-foreground">떨어지는 한글/영어 단어를 빠르게 타이핑하세요! 레벨이 올라갈수록 빨라집니다.</p>
         </div>
         <GameTyping />
+        <GameGuide slug="typing" />
       </main>
       <footer className="border-t mt-auto">
         <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">&copy; 2026 ontools. All rights reserved.</div>

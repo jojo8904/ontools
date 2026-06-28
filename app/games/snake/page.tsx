@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { GameGuide } from '@/components/GameGuide'
 import { GameSnake } from './GameSnake'
 
 export const metadata: Metadata = {
@@ -54,6 +55,7 @@ export default function SnakePage() {
         </div>
 
         <GameSnake />
+        <GameGuide slug="snake" />
       </main>
 
       <footer className="border-t mt-auto">

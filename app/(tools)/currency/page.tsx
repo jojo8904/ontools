@@ -157,6 +157,10 @@ export default function CurrencyPage() {
 
         <ToolGuide sections={CURRENCY_GUIDE} hideAd />
         <FaqSection items={CURRENCY_FAQ} />
+        <div className="mt-8 rounded-xl border border-blue-100 bg-blue-50/50 p-4">
+          <span className="text-sm text-gray-600">더 알아보기 — </span>
+          <a href="/guide/exchange-rate" className="text-sm font-semibold text-blue-700 hover:underline">환율 계산기 보는 법과 환전 수수료 아끼는 팁</a>
+        </div>
         <RelatedTools current="/currency" />
       </main>
 

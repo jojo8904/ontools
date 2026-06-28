@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { GameGuide } from '@/components/GameGuide'
 import { GameSolitaire } from './GameSolitaire'
 
 export const metadata: Metadata = {
@@ -35,6 +36,7 @@ export default function SolitairePage() {
           <p className="text-muted-foreground">클론다이크 카드게임. 모든 카드를 기둥으로 옮기세요.</p>
         </div>
         <GameSolitaire />
+        <GameGuide slug="solitaire" />
       </main>
       <footer className="border-t mt-auto">
         <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">&copy; 2026 ontools. All rights reserved.</div>

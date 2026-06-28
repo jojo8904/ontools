@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { GameGuide } from '@/components/GameGuide'
 import { GameBlackjack } from './GameBlackjack'
 
 export const metadata: Metadata = {
@@ -35,6 +36,7 @@ export default function BlackjackPage() {
           <p className="text-muted-foreground">딜러와 대결! 21에 가까이 가되, 넘지 마세요.</p>
         </div>
         <GameBlackjack />
+        <GameGuide slug="blackjack" />
       </main>
       <footer className="border-t mt-auto">
         <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">&copy; 2026 ontools. All rights reserved.</div>

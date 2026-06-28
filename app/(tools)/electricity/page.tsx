@@ -80,6 +80,10 @@ export default function ElectricityPage() {
         </div>
         <ToolGuide sections={ELECTRICITY_GUIDE} />
         <FaqSection items={ELECTRICITY_FAQ} />
+        <div className="mt-8 rounded-xl border border-blue-100 bg-blue-50/50 p-4">
+          <span className="text-sm text-gray-600">더 알아보기 — </span>
+          <a href="/guide/electricity-bill" className="text-sm font-semibold text-blue-700 hover:underline">전기요금 누진제 이해하고 여름 전기세 줄이기</a>
+        </div>
         <RelatedTools current="/electricity" />
       </main>
 

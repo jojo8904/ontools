@@ -98,6 +98,10 @@ export default function BmiPage() {
         </div>
         <ToolGuide sections={BMI_GUIDE} />
         <FaqSection items={BMI_FAQ} />
+        <div className="mt-8 rounded-xl border border-blue-100 bg-blue-50/50 p-4">
+          <span className="text-sm text-gray-600">더 알아보기 — </span>
+          <a href="/guide/bmi-guide" className="text-sm font-semibold text-blue-700 hover:underline">BMI(체질량지수) 보는 법과 한국 기준</a>
+        </div>
         <RelatedTools current="/bmi" />
       </main>
 
