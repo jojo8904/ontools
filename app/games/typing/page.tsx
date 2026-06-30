@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: '타자연습 - ontools',
     description: '떨어지는 단어를 빠르게 타이핑하세요!',
-    url: 'https://ontools.com/games/typing',
+    url: 'https://ontools.co.kr/games/typing',
     siteName: 'ontools',
     type: 'website',
   },

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: '메모리 카드 - ontools',
     description: '카드를 뒤집어 같은 짝을 찾으세요!',
-    url: 'https://ontools.com/games/memory',
+    url: 'https://ontools.co.kr/games/memory',
     siteName: 'ontools',
     type: 'website',
   },

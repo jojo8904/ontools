@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: '블랙잭 - ontools',
     description: '딜러와 21 카드 대결.',
-    url: 'https://ontools.com/games/blackjack',
+    url: 'https://ontools.co.kr/games/blackjack',
     siteName: 'ontools',
     type: 'website',
   },

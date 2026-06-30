@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'BMI 계산기 - ontools',
     description: 'BMI 지수로 당신의 건강 상태를 확인하세요.',
-    url: 'https://ontools.com/bmi',
+    url: 'https://ontools.co.kr/bmi',
     siteName: 'ontools',
     type: 'website',
   },

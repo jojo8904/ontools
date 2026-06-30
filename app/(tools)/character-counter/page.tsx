@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: '글자수 세기 - ontools',
     description: '글자수, 바이트수, 단어수를 실시간으로 세어보세요.',
-    url: 'https://ontools.com/character-counter',
+    url: 'https://ontools.co.kr/character-counter',
     siteName: 'ontools',
     type: 'website',
   },

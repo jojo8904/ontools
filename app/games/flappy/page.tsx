@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Flappy Bird - ontools',
     description: '탭해서 장애물을 피하며 날아가세요!',
-    url: 'https://ontools.com/games/flappy',
+    url: 'https://ontools.co.kr/games/flappy',
     siteName: 'ontools',
     type: 'website',
   },

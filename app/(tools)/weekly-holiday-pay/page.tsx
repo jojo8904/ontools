@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: '주휴수당 계산기 - ontools',
     description: '주휴수당과 월 예상 급여를 계산하세요.',
-    url: 'https://ontools.com/weekly-holiday-pay',
+    url: 'https://ontools.co.kr/weekly-holiday-pay',
     siteName: 'ontools',
     type: 'website',
   },

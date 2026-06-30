@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: '퇴직금 계산기 - ontools',
     description: '입사일, 퇴사일, 월 평균임금으로 퇴직금을 간편하게 계산하세요.',
-    url: 'https://ontools.com/severance-pay',
+    url: 'https://ontools.co.kr/severance-pay',
     siteName: 'ontools',
     type: 'website',
   },

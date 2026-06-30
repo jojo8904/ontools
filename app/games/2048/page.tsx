@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: '2048 게임 - ontools',
     description: '숫자 타일을 합쳐 2048을 만들어보세요.',
-    url: 'https://ontools.com/games/2048',
+    url: 'https://ontools.co.kr/games/2048',
     siteName: 'ontools',
     type: 'website',
   },

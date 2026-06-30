@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: '연봉 실수령액 계산기 - ontools',
     description: '연봉에서 세금 제외한 실수령액을 간편하게 계산하세요.',
-    url: 'https://ontools.com/salary',
+    url: 'https://ontools.co.kr/salary',
     siteName: 'ontools',
     type: 'website',
   },

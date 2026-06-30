@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: '실업급여 계산기 - ontools',
     description: '실업급여(구직급여) 예상 수급액을 계산하세요.',
-    url: 'https://ontools.com/unemployment',
+    url: 'https://ontools.co.kr/unemployment',
     siteName: 'ontools',
     type: 'website',
   },

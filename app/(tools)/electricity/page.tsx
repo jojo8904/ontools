@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: '전기요금 계산기 - ontools',
     description: '전기 사용량으로 예상 요금 계산, 금액으로 사용량 역계산.',
-    url: 'https://ontools.com/electricity',
+    url: 'https://ontools.co.kr/electricity',
     siteName: 'ontools',
     type: 'website',
   },

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: '솔리테어 - ontools',
     description: '클론다이크 솔리테어 카드게임.',
-    url: 'https://ontools.com/games/solitaire',
+    url: 'https://ontools.co.kr/games/solitaire',
     siteName: 'ontools',
     type: 'website',
   },

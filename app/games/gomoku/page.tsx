@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: '오목 - ontools',
     description: 'AI와 대결하는 오목 게임.',
-    url: 'https://ontools.com/games/gomoku',
+    url: 'https://ontools.co.kr/games/gomoku',
     siteName: 'ontools',
     type: 'website',
   },

@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'D-day 계산기 - ontools',
     description: '목표 날짜까지 남은 일수, 두 날짜 사이 기간을 간편하게 계산하세요.',
-    url: 'https://ontools.com/d-day',
+    url: 'https://ontools.co.kr/d-day',
     siteName: 'ontools',
     type: 'website',
   },

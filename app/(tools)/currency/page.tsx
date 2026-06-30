@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: '환율 계산기 - ontools',
     description: '실시간 환율로 통화를 간편하게 변환하세요.',
-    url: 'https://ontools.com/currency',
+    url: 'https://ontools.co.kr/currency',
     siteName: 'ontools',
     type: 'website',
   },

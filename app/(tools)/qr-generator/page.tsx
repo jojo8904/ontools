@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'QR코드 생성기 - ontools',
     description: 'QR코드를 무료로 생성하고 다운로드하세요.',
-    url: 'https://ontools.com/qr-generator',
+    url: 'https://ontools.co.kr/qr-generator',
     siteName: 'ontools',
     type: 'website',
   },

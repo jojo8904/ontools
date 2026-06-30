@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: '일일 칼로리(TDEE) 계산기 - ontools',
     description: '기초대사량과 일일 권장 칼로리를 계산하세요.',
-    url: 'https://ontools.com/calorie',
+    url: 'https://ontools.co.kr/calorie',
     siteName: 'ontools',
     type: 'website',
   },

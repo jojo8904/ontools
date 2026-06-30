@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: '게임 모음 - ontools',
     description: '브라우저에서 바로 즐기는 하이퍼캐주얼 게임.',
-    url: 'https://ontools.com/games',
+    url: 'https://ontools.co.kr/games',
     siteName: 'ontools',
     type: 'website',
   },

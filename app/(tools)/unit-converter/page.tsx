@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: '단위 변환기 - ontools',
     description: '길이, 무게, 온도, 시간 단위를 간편하게 변환하세요.',
-    url: 'https://ontools.com/unit-converter',
+    url: 'https://ontools.co.kr/unit-converter',
     siteName: 'ontools',
     type: 'website',
   },

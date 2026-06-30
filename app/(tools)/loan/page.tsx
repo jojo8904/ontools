@@ -52,7 +52,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: '대출이자 계산기 - ontools',
     description: '대출 상환방식별 월 상환금과 총 이자를 간편하게 계산하세요.',
-    url: 'https://ontools.com/loan',
+    url: 'https://ontools.co.kr/loan',
     siteName: 'ontools',
     type: 'website',
   },

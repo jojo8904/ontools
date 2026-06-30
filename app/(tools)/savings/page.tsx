@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: '적금/예금 이자 계산기 - ontools',
     description: '적금, 예금 이자를 단리/복리로 계산하세요.',
-    url: 'https://ontools.com/savings',
+    url: 'https://ontools.co.kr/savings',
     siteName: 'ontools',
     type: 'website',
   },

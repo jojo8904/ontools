@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: '부가세(VAT) 계산기 - ontools',
     description: '부가세 계산 및 역산을 간편하게 하세요.',
-    url: 'https://ontools.com/vat',
+    url: 'https://ontools.co.kr/vat',
     siteName: 'ontools',
     type: 'website',
   },

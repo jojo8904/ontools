@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: '스네이크 게임 - ontools',
     description: '클래식 스네이크 게임.',
-    url: 'https://ontools.com/games/snake',
+    url: 'https://ontools.co.kr/games/snake',
     siteName: 'ontools',
     type: 'website',
   },

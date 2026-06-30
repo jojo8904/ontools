@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: '지뢰찾기 - ontools',
     description: '클래식 지뢰찾기 게임.',
-    url: 'https://ontools.com/games/minesweeper',
+    url: 'https://ontools.co.kr/games/minesweeper',
     siteName: 'ontools',
     type: 'website',
   },

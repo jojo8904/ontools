@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: '테트리스 - ontools',
     description: '클래식 테트리스 게임. 블록을 쌓아 줄을 완성하세요.',
-    url: 'https://ontools.com/games/tetris',
+    url: 'https://ontools.co.kr/games/tetris',
     siteName: 'ontools',
     type: 'website',
   },
