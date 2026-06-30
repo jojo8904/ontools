@@ -50,6 +50,10 @@ export default function RentVsJeonsePage() {
           </aside>
         </div>
         <ToolGuide sections={RENT_JEONSE_GUIDE} />
+        <div className="mt-8 rounded-xl border border-blue-100 bg-blue-50/50 p-4">
+          <span className="text-sm text-gray-600">더 알아보기 — </span>
+          <a href="/guide/rent-vs-jeonse" className="text-sm font-semibold text-blue-700 hover:underline">월세 vs 전세, 무엇이 이득일까? (금리로 갈리는 계산)</a>
+        </div>
         <RelatedTools current="/rent-vs-jeonse" />
       </main>
       <footer className="border-t mt-auto"><div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">&copy; 2026 ontools. All rights reserved.</div></footer>

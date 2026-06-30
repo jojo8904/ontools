@@ -174,6 +174,10 @@ export default function SeverancePayPage() {
 
         <ToolGuide sections={SEVERANCE_GUIDE} hideAd />
         <FaqSection items={SEVERANCE_FAQ} />
+        <div className="mt-8 rounded-xl border border-blue-100 bg-blue-50/50 p-4">
+          <span className="text-sm text-gray-600">더 알아보기 — </span>
+          <a href="/guide/severance-pay" className="text-sm font-semibold text-blue-700 hover:underline">퇴직금 계산법 — 평균임금·상여금 포함 여부까지</a>
+        </div>
         <RelatedTools current="/severance-pay" />
       </main>
 

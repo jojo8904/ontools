@@ -113,6 +113,10 @@ export default function IdPhotoPage() {
         </div>
 
         <ToolGuide sections={GUIDE} />
+        <div className="mt-8 rounded-xl border border-blue-100 bg-blue-50/50 p-4">
+          <span className="text-sm text-gray-600">더 알아보기 — </span>
+          <a href="/id-photo-size" className="text-sm font-semibold text-blue-700 hover:underline">증명사진 규격 정리 (여권·운전면허·이력서·비자)</a>
+        </div>
         <RelatedTools current="/id-photo" />
       </main>
 

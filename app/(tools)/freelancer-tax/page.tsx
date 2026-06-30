@@ -78,6 +78,10 @@ export default function FreelancerTaxPage() {
         </div>
         <ToolGuide sections={FREELANCER_GUIDE} />
         <FaqSection items={FREELANCER_FAQ} />
+        <div className="mt-8 rounded-xl border border-blue-100 bg-blue-50/50 p-4">
+          <span className="text-sm text-gray-600">더 알아보기 — </span>
+          <a href="/guide/freelancer-tax-refund" className="text-sm font-semibold text-blue-700 hover:underline">프리랜서 3.3%, 세금 다 낸 게 아니에요 (환급받는 법)</a>
+        </div>
         <RelatedTools current="/freelancer-tax" />
       </main>
       <footer className="border-t mt-auto">
