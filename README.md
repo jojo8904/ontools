@@ -39,7 +39,7 @@ npm run dev
 ## 배포 순서
 
 1. 운영 DB를 백업하고 현재 RLS/GRANT를 확인합니다. 운영 DB는 이번 로컬 작업에서 변경하지 않았습니다.
-2. 기존 DB에는 `supabase/migrations/004_secure_public_data.sql`을 한 번 적용합니다. 새 DB는 001~004 순서입니다.
+2. 기존 DB에는 `supabase/migrations/004_secure_public_data.sql`, `005_align_legacy_schema.sql` 순서로 한 번씩 적용합니다. 새 DB는 001~005 순서입니다. 운영 DB에는 2026-09-19 두 변경을 적용했으므로 중복 실행하지 않습니다.
 3. 새 마이그레이션의 SELECT 전용 공개 권한, service_role 전용 RPC, 환율 출처 컬럼을 검증합니다.
 4. 프런트엔드와 수집기를 배포한 후 GitHub Actions에서 환율·영상 수집을 수동 실행합니다.
 5. 실제 환율 날짜/출처와 실패 알림, GA4 이벤트 수신을 확인합니다.

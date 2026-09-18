@@ -57,6 +57,7 @@ test('salary policy date changes invalidate the previous result', async ({ page 
 })
 
 test('currency fallback is clearly identified', async ({ page }) => {
+  await page.route('**/rest/v1/exchange_rates?**', (route) => route.abort())
   await page.goto('/currency')
   await page.getByRole('button', { name: '환율 계산', exact: true }).click()
   await expect(page.getByText(/기준일 미확인/).first()).toBeVisible()
@@ -110,7 +111,7 @@ test('PDF conversion uses the local worker and produces a nonblank image', async
   })
   expect(pixels.width).toBe(320)
   expect(pixels.pixel).toEqual([255, 0, 0, 255])
-  expect(workers.some((url) => url.startsWith('http://127.0.0.1:4127/pdf.worker-'))).toBe(true)
+  expect(workers.some((url) => url.startsWith(`${new URL(page.url()).origin}/pdf.worker-`))).toBe(true)
   expect(errors).toEqual([])
   await page.screenshot({ path: testInfo.outputPath('pdf.png'), fullPage: true })
 })

@@ -62,6 +62,8 @@ Commit the intended changes and push `main`. Wait for both the Vercel production
 
 ## Live Verification
 
+Run the browser suite against the deployed origin by setting `PLAYWRIGHT_BASE_URL=https://ontools.co.kr` when running `npm run test:e2e`. This skips the local server and stores screenshots in `test-results/production`. The fallback test deliberately blocks rate requests; check real rate freshness separately.
+
 - Check desktop/mobile home rendering, navigation and layout overflow.
 - Exercise salary policy selection and PDF conversion with the local worker.
 - Check tool canonical URLs, `/sitemap.xml`, `/robots.txt` and the Open Graph image.
