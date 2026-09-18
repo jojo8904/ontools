@@ -18,6 +18,7 @@ Before releasing the September 2026 maintenance changes:
 1. Back up the affected tables and schema outside this repository.
 2. Inspect the existing schema, policies and migration history.
 3. Apply `supabase/migrations/004_secure_public_data.sql` once. Do not rerun the earlier table-creation migrations against production.
+   Then apply `005_align_legacy_schema.sql` to preserve full exchange-rate timestamps and enforce the required fields on legacy tables. Check for null values before applying it; do not delete invalid rows to force a migration through.
 4. Confirm that `anon` and `authenticated` can read, but cannot modify, the three public data tables. Only `service_role` may execute `replace_youtube_category`.
 5. Confirm that exchange rates have the `source` and `fetched_at` columns and videos have the category/video unique constraint.
 

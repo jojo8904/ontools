@@ -6,6 +6,7 @@ GRANT USAGE ON SCHEMA public TO anon, authenticated, service_role;
 \ir ../migrations/002_add_image_url.sql
 \ir ../migrations/003_create_youtube_videos.sql
 \ir ../migrations/004_secure_public_data.sql
+\ir ../migrations/005_align_legacy_schema.sql
 
 DO $$
 DECLARE r text; t text; action text;
