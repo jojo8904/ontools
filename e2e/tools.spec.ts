@@ -25,6 +25,67 @@ test('home renders assets and fits the viewport', async ({ page }, testInfo) => 
   expect(errors).toEqual([])
 })
 
+test('home keeps the runner and partner banner above the tool directory', async ({ page }, testInfo) => {
+  const viewports = testInfo.project.name === 'mobile'
+    ? [{ width: 390, height: 844 }, { width: 320, height: 740 }]
+    : [{ width: 1440, height: 1000 }, { width: 1366, height: 768 }]
+  for (const viewport of viewports) {
+    await page.setViewportSize(viewport)
+    await page.goto('/')
+    const runner = page.getByRole('button', { name: '고양이 점프 게임', exact: true })
+    const promo = page.getByRole('link', { name: '행운연구소 - 로또·연금복권 당첨번호 통계 분석', exact: true })
+    await expect(runner).toHaveCount(1)
+    await expect(promo).toHaveCount(1)
+    await expect(runner).toBeInViewport()
+    await expect(promo).toBeInViewport()
+    const headerBox = (await page.locator('header').boundingBox())!
+    const intro = page.locator('section').filter({ has: page.locator('h1') })
+    const introBox = (await intro.boundingBox())!
+    const copyBox = (await intro.locator('p').boundingBox())!
+    const runnerBox = (await runner.boundingBox())!
+    const promoBox = (await promo.boundingBox())!
+    const toolsBox = (await page.locator('#tools').boundingBox())!
+    const scrollButtonBox = (await page.getByRole('button', { name: '도구 모음으로 스크롤' }).boundingBox())!
+    const titleBox = (await page.getByRole('heading', { name: '도구 모음', exact: true }).boundingBox())!
+    expect(introBox.y).toBeGreaterThanOrEqual(headerBox.y + headerBox.height)
+    expect(copyBox.y + copyBox.height).toBeLessThanOrEqual(introBox.y + introBox.height)
+    expect(runnerBox.y).toBeGreaterThanOrEqual(introBox.y + introBox.height)
+    expect(promoBox.y).toBeGreaterThanOrEqual(runnerBox.y + runnerBox.height)
+    expect(toolsBox.y).toBeGreaterThanOrEqual(promoBox.y + promoBox.height)
+    expect(scrollButtonBox.y).toBeGreaterThanOrEqual(promoBox.y + promoBox.height)
+    expect(scrollButtonBox.y + scrollButtonBox.height).toBeLessThanOrEqual(titleBox.y)
+    for (const link of await page.getByRole('navigation', { name: '주 메뉴' }).getByRole('link').all()) {
+      const box = (await link.boundingBox())!
+      expect(box.x).toBeGreaterThanOrEqual(0)
+      expect(box.x + box.width).toBeLessThanOrEqual(viewport.width)
+      expect(box.y + box.height).toBeLessThanOrEqual(headerBox.y + headerBox.height)
+    }
+    for (const url of ['/images/hero.webp', '/images/lucky-promo.webp', '/game/cat.png']) {
+      expect(await page.evaluate(async (src) => {
+        const image = new Image()
+        image.src = src
+        await image.decode()
+        return image.naturalWidth > 0
+      }, url)).toBe(true)
+    }
+    const canvas = runner.locator('canvas')
+    expect(await canvas.evaluate((element) => {
+      const c = element as HTMLCanvasElement
+      return new Set(c.getContext('2d')!.getImageData(0, 0, c.width, c.height).data).size
+    })).toBeGreaterThan(5)
+    await page.screenshot({ path: testInfo.outputPath(`home-top-${viewport.width}.png`) })
+    await runner.click()
+    await expect(runner.getByText('PRESS START', { exact: false })).toHaveCount(0)
+    const initial = await canvas.evaluate((c) => (c as HTMLCanvasElement).toDataURL())
+    await expect.poll(() => canvas.evaluate((c) => (c as HTMLCanvasElement).toDataURL())).not.toBe(initial)
+    await page.getByRole('navigation', { name: '주 메뉴' }).getByRole('link', { name: '도구', exact: true }).click()
+    const toolsTitle = page.getByRole('heading', { name: '도구 모음', exact: true })
+    await expect(toolsTitle).toBeInViewport()
+    await expect.poll(async () => (await toolsTitle.boundingBox())!.y).toBeGreaterThanOrEqual(headerBox.height)
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
+  }
+})
+
 test('all registered routes respond with their own canonical URL', async ({ request }, testInfo) => {
   test.skip(testInfo.project.name !== 'desktop')
   for (const tool of TOOLS) {

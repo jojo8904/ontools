@@ -1,28 +1,20 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { ChevronDown } from 'lucide-react'
 
 export function ScrollDownButton() {
-  const [visible, setVisible] = useState(true)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setVisible(window.scrollY < 600)
-    }
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
   return (
     <button
+      type="button"
       onClick={() => document.getElementById('tools')?.scrollIntoView({ behavior: 'smooth' })}
       aria-label="도구 모음으로 스크롤"
+      title="도구 모음으로 스크롤"
       style={{
-        position: 'fixed',
-        bottom: '32px',
+        position: 'absolute',
+        bottom: '-26px',
         left: '50%',
         transform: 'translateX(-50%)',
-        zIndex: 50,
+        zIndex: 1,
         width: '52px',
         height: '52px',
         borderRadius: '50%',
@@ -33,27 +25,13 @@ export function ScrollDownButton() {
         alignItems: 'center',
         justifyContent: 'center',
         cursor: 'pointer',
-        opacity: visible ? 1 : 0,
-        pointerEvents: visible ? 'auto' : 'none',
-        transition: 'opacity 0.4s ease, background 0.3s ease',
+        transition: 'background 0.3s ease',
         boxShadow: '0 6px 16px rgba(249,115,22,0.45)',
       }}
       onMouseEnter={(e) => { e.currentTarget.style.background = '#ea580c' }}
       onMouseLeave={(e) => { e.currentTarget.style.background = '#f97316' }}
     >
-      <svg
-        className="w-6 h-6"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M19 9l-7 7-7-7"
-        />
-      </svg>
+      <ChevronDown className="w-6 h-6" aria-hidden="true" />
     </button>
   )
 }

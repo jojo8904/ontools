@@ -48,12 +48,12 @@ export default function HomePage() {
     <div className="min-h-screen flex flex-col">
       {/* Header */}
       <header className="bg-white border-b border-[#eee] sticky top-0 z-10 backdrop-blur-md bg-white/90">
-        <div className="container mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-3">
+        <div className="container mx-auto px-4 py-4 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
           <Link href="/" className="flex items-center gap-2.5">
             <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
             <span className="text-2xl font-bold tracking-tight text-[#111]">ontools</span>
           </Link>
-          <nav className="flex flex-wrap items-center gap-3 sm:gap-5">
+          <nav aria-label="주 메뉴" className="flex w-full flex-wrap items-center justify-between gap-3 sm:w-auto sm:justify-start sm:gap-5">
             <a href="#tools" className="text-sm font-medium text-[#666] hover:text-[#111] transition-colors">
               도구
             </a>
@@ -87,14 +87,14 @@ export default function HomePage() {
       <section
         className="relative overflow-hidden"
         style={{
-          height: '180px',
+          minHeight: '180px',
           backgroundImage: 'url(/images/hero.webp)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       >
-        <div className="container mx-auto px-4 h-full relative z-[1]">
-          <div className="flex flex-col justify-center h-full">
+        <div className="container mx-auto px-4 py-5 min-h-[180px] flex items-center relative z-[1]">
+          <div className="flex flex-col justify-center">
             <span className="inline-flex items-center gap-1.5 self-start rounded-full bg-white/70 px-3 py-1 text-[0.8rem] font-semibold text-[#6b6276] ring-1 ring-[#e6def0] mb-3">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
               계산기 · 게임 · 이미지 도구 50+
@@ -107,11 +107,20 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Keep the game and partner banner above the growing tool directory. */}
+      <section aria-label="게임과 행운연구소" className="relative bg-white">
+        <div className="container mx-auto px-4 pt-5 pb-8 space-y-6">
+          <CatRunner />
+          <PromoBanner />
+        </div>
+        <ScrollDownButton />
+      </section>
+
       {/* Tool Categories Section */}
       <FadeInSection>
         <section
           id="tools"
-          className="scroll-mt-20"
+          className="scroll-mt-32 sm:scroll-mt-20"
           style={{ background: 'linear-gradient(180deg, #FBF7F2 0%, #F4EFFA 100%)' }}
         >
           <div className="container mx-auto px-4 pt-10 pb-10">
@@ -172,7 +181,7 @@ export default function HomePage() {
                 <div
                   key={cat.title}
                   id={cat.title === 'Game' ? 'games' : undefined}
-                  className="tool-card overflow-hidden flex flex-col"
+                  className="tool-card scroll-mt-32 sm:scroll-mt-20 overflow-hidden flex flex-col"
                 >
                   <div className="relative h-36 overflow-hidden">
                     <img
@@ -225,8 +234,6 @@ export default function HomePage() {
       </FadeInSection>
       <section className="bg-white">
         <div className="container mx-auto px-4 py-5 space-y-6">
-          <CatRunner />
-          <PromoBanner />
           <ResponsiveAdFit />
         </div>
       </section>
@@ -260,8 +267,6 @@ export default function HomePage() {
         </div>
       </footer>
 
-      {/* Floating Scroll Down Button */}
-      <ScrollDownButton />
     </div>
   )
 }
