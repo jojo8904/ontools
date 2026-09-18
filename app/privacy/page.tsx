@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 }
 
-const UPDATED = '2026년 6월 13일'
+const UPDATED = '2026년 9월 19일'
 
 export default function PrivacyPage() {
   return (
@@ -36,6 +36,12 @@ export default function PrivacyPage() {
               개인정보를 수집하거나 서버에 저장하지 않습니다. 계산기에 입력하는 값(연봉, 키·몸무게 등)은
               이용자의 브라우저에서만 처리되며 서버로 전송·저장되지 않습니다.
             </p>
+            <p className="mt-3">
+              사진 제출, 증빙 PDF, 상품 사진 일괄 가공, 표 OCR의 사진과 인식된 내용도 브라우저에서
+              처리합니다. 파일명·파일 내용·계산 입력값을 도구 이용 분석 이벤트에 포함하지 않습니다.
+              신규 도구의 작업 내용과 근무 기록은 새로고침하거나 페이지를 떠나면 사라지지만,
+              직접 내려받은 파일과 복사한 클립보드 내용은 이용자 기기에 남습니다.
+            </p>
           </section>
 
           <section>
@@ -45,12 +51,18 @@ export default function PrivacyPage() {
               <b> 기기(브라우저)에만</b> 저장되며 서버로 전송되지 않습니다. 브라우저 설정에서 언제든
               삭제할 수 있습니다.
             </p>
+            <p className="mt-3">
+              표 OCR의 한국어·영어 인식 모델은 재다운로드를 줄이기 위해 브라우저의 IndexedDB에
+              캐시될 수 있습니다. 여기에 사진이나 인식 결과를 저장하지 않습니다. 모델 캐시는
+              브라우저 설정의 이 사이트 데이터 삭제로 제거할 수 있습니다.
+            </p>
           </section>
 
           <section>
             <h2 className="text-xl font-bold mb-3 text-[#241a33]">3. 쿠키 및 광고</h2>
             <p>
-              본 서비스는 Google AdSense를 통해 광고를 게재합니다. Google 등 제3자 광고 사업자는 쿠키를
+              본 서비스는 승인·운영 설정에 따라 Google AdSense 또는 카카오 애드핏 광고를 게재할 수 있습니다.
+              Google 등 제3자 광고 사업자는 쿠키를
               사용하여 이용자의 이전 방문 기록을 바탕으로 맞춤형 광고를 제공할 수 있습니다.
             </p>
             <ul className="list-disc pl-5 mt-3 space-y-1.5">
@@ -77,8 +89,11 @@ export default function PrivacyPage() {
             <p>본 서비스는 다음의 외부 서비스를 이용합니다.</p>
             <ul className="list-disc pl-5 mt-3 space-y-1.5">
               <li><b>Google AdSense</b> — 광고 게재 (쿠키 사용)</li>
+              <li><b>카카오 애드핏</b>: 운영 설정에 따른 광고 제공</li>
+              <li><b>Google Analytics</b>: 방문 페이지와 도구 이용 이벤트 분석. 쿠키, 브라우저·기기 정보 등은 해당 서비스 정책에 따라 처리됩니다.</li>
               <li><b>Vercel</b> — 웹사이트 호스팅</li>
               <li><b>Supabase</b> — 뉴스·환율 등 공개 데이터 제공 (개인정보 미포함)</li>
+              <li><b>jsDelivr</b>: 표 OCR의 언어 모델 다운로드. 파일 내용은 전송하지 않지만 다운로드 요청에 수반되는 IP 주소·브라우저 정보는 CDN에 전달될 수 있습니다.</li>
             </ul>
           </section>
 

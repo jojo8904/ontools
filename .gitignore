@@ -13,6 +13,7 @@
 # production
 /build
 /public/pdf.worker-*.min.mjs
+/public/ocr/
 /playwright-report/
 /test-results/
 

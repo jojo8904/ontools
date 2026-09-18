@@ -41,7 +41,11 @@ export const TOOLS: ToolMeta[] = [
   { href: '/vat', label: '부가세(VAT) 계산기', category: 'salary-tax', keywords: ['부가가치세', '세금계산서'] },
   { href: '/freelancer-tax', label: '프리랜서 세금 계산기 (3.3%)', category: 'salary-tax', keywords: ['프리랜서', '원천징수', '3.3'] },
 
+  { href: '/shift-pay-calendar', label: '교대근무 급여 달력', category: 'salary-tax', badge: 'NEW', keywords: ['교대근무', '근무표', '알바급여', '야간수당', '휴일수당', '급여달력'] },
+  { href: '/resignation-compare', label: '퇴사일 비교표', category: 'salary-tax', badge: 'NEW', keywords: ['퇴사일', '퇴직일비교', '연차정산', '퇴직금비교'] },
+
   // 금융
+  { href: '/selling-price', label: '목표 마진 판매가 계산기', category: 'finance', badge: 'NEW', keywords: ['판매가', '마진율', '쇼핑몰마진', '순이익', '손익분기'] },
   { href: '/currency', label: '환율 계산기', category: 'finance', badge: 'HOT', keywords: ['달러', '엔화', '유로'] },
   { href: '/loan', label: '대출이자 계산기', category: 'finance', keywords: ['대출', '원리금', '이자'] },
   { href: '/savings', label: '적금/예금 이자 계산기', category: 'finance', keywords: ['적금', '예금', '이자'] },
@@ -81,6 +85,10 @@ export const TOOLS: ToolMeta[] = [
   { href: '/due-date', label: '출산예정일 계산기', category: 'health', keywords: ['출산예정일', '임신주수', '분만'] },
 
   // 이미지·파일 도구 (브라우저 처리, 서버 전송 없음)
+  { href: '/photo-submit', label: '사진 제출 도우미', category: 'image', badge: 'NEW', keywords: ['사진제출', '사진규격', '픽셀KB', '지원서사진', '200kb'] },
+  { href: '/receipt-pdf', label: '영수증·증빙사진 묶기', category: 'image', badge: 'NEW', keywords: ['영수증pdf', '증빙사진', '경비증빙', '민감정보가리기'] },
+  { href: '/table-to-excel', label: '표 사진 → 엑셀 변환', category: 'image', badge: 'NEW', keywords: ['표사진엑셀', 'OCR', '표인식', 'csv', 'tsv', '이미지엑셀'] },
+  { href: '/product-photo-batch', label: '쇼핑몰 사진 일괄 가공', category: 'image', badge: 'NEW', keywords: ['상품사진', '일괄가공', '일괄리사이즈', '워터마크zip', '쇼핑몰이미지'] },
   { href: '/image-compress', label: '사진 용량 줄이기', category: 'image', keywords: ['사진용량', '이미지압축', '용량줄이기', 'KB', '200kb', '용량맞추기'] },
   { href: '/image-stitch', label: '카톡 캡처 이어붙이기', category: 'image', keywords: ['캡처합치기', '이미지합치기', '사진합치기', '스크린샷합치기', '세로결합'] },
   { href: '/image-mask', label: '민감정보 가리기 (모자이크)', category: 'image', keywords: ['신분증가리기', '주민번호가리기', '모자이크', '통장마스킹', 'exif제거', '계좌번호가리기'] },

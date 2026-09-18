@@ -14,6 +14,7 @@ export function ToolGuide({
   sections,
   hideAd = false,
   muted = true,
+  showScrollHint = true,
 }: {
   title?: string
   sections: GuideSection[]
@@ -21,13 +22,14 @@ export function ToolGuide({
   hideAd?: boolean
   /** 보조 콘텐츠로 차분하게(배경 톤다운) 표시 — 본 기능 강조용 */
   muted?: boolean
+  showScrollHint?: boolean
 }) {
   if (!sections || sections.length === 0) return null
 
   return (
     <>
       {/* 결과 직후 "더 보기" 유도 (플로팅) → 아래 광고·콘텐츠로 스크롤 유도 */}
-      <ScrollMoreButton />
+      {showScrollHint && <ScrollMoreButton />}
       {/* 계산 결과 바로 아래 광고 (애드핏). 상단에 별도 배치한 페이지는 hideAd로 생략 */}
       {!hideAd && <ResponsiveAdFit />}
       <section className="mt-4">
