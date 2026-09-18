@@ -1,5 +1,7 @@
 'use client'
 
+import { useObjectUrls } from '@/lib/useObjectUrls'
+
 import { useState, useRef, useCallback } from 'react'
 import { Button } from '@/components/ui/Button'
 
@@ -50,6 +52,8 @@ function buildIco(pngs: { size: number; bytes: Uint8Array }[]): Blob {
 }
 
 export function FaviconMaker() {
+  const { createObjectUrl, clearObjectUrls } = useObjectUrls()
+
   const [img, setImg] = useState<HTMLImageElement | null>(null)
   const [fileName, setFileName] = useState('')
   const [preview, setPreview] = useState<{ s16: string; s32: string; s64: string } | null>(null)
@@ -64,7 +68,7 @@ export function FaviconMaker() {
     }
     setFileName(file.name)
     setPreview(null)
-    const url = URL.createObjectURL(file)
+    const url = createObjectUrl(file)
     const image = new Image()
     image.onload = () => {
       setImg(image)
@@ -80,7 +84,7 @@ export function FaviconMaker() {
       URL.revokeObjectURL(url)
     }
     image.src = url
-  }, [])
+  }, [createObjectUrl])
 
   const downloadIco = useCallback(async () => {
     if (!img) return
@@ -92,12 +96,12 @@ export function FaviconMaker() {
       const blob = buildIco(pngs)
       const a = document.createElement('a')
       a.download = 'favicon.ico'
-      a.href = URL.createObjectURL(blob)
+      a.href = createObjectUrl(blob)
       a.click()
     } finally {
       setBusy(false)
     }
-  }, [img])
+  }, [createObjectUrl, img])
 
   const downloadPng = useCallback(
     (size: number) => {
@@ -106,14 +110,15 @@ export function FaviconMaker() {
         if (!b) return
         const a = document.createElement('a')
         a.download = size >= 180 ? 'apple-touch-icon.png' : `favicon-${size}.png`
-        a.href = URL.createObjectURL(b)
+        a.href = createObjectUrl(b)
         a.click()
       }, 'image/png')
     },
-    [img],
+    [createObjectUrl, img],
   )
 
   const reset = () => {
+    clearObjectUrls()
     setImg(null)
     setFileName('')
     setPreview(null)

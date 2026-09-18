@@ -1,3 +1,6 @@
+import { TOOLS } from '@/lib/tools'
+import type { Metadata } from 'next'
+export const metadata: Metadata = { alternates: { canonical: '/' } }
 import Link from 'next/link'
 import { FadeInSection } from './FadeInSection'
 import { ScrollDownButton } from './ScrollDownButton'
@@ -29,119 +32,12 @@ const CATEGORY_IMAGES: Record<string, string> = {
 }
 
 const TOOL_CATEGORIES = [
-  {
-    title: 'Salary & Tax',
-    description: '연봉, 퇴직금, 세금 관련 계산',
-    color: 'bg-emerald-500',
-    tools: [
-      { href: '/salary', label: '연봉 실수령액 계산기', badge: 'HOT' },
-      { href: '/severance-pay', label: '퇴직금 계산기' },
-      { href: '/weekly-holiday-pay', label: '주휴수당 계산기' },
-      { href: '/unemployment', label: '실업급여 계산기' },
-      { href: '/vat', label: '부가세(VAT) 계산기' },
-      { href: '/freelancer-tax', label: '프리랜서 세금 계산기 (3.3%)' },
-      { href: '/annual-leave-days', label: '연차 개수 계산기', badge: 'NEW' },
-      { href: '/annual-leave-pay', label: '연차 수당 계산기' },
-      { href: '/income-tax', label: '종합소득세 계산기' },
-      { href: '/hourly-wage', label: '시급 ↔ 월급 환산기' },
-      { href: '/four-insurances', label: '4대보험 계산기' },
-    ],
-  },
-  {
-    title: 'Finance',
-    description: '환율, 대출, 투자 관련 금융 계산',
-    color: 'bg-blue-500',
-    tools: [
-      { href: '/currency', label: '환율 계산기', badge: 'HOT' },
-      { href: '/loan', label: '대출이자 계산기' },
-      { href: '/savings', label: '적금/예금 이자 계산기' },
-      { href: '/rent-vs-jeonse', label: '전세 vs 월세 비교 계산기' },
-      { href: '/used-car-tax', label: '중고차 취등록세 계산기' },
-      { href: '/capital-gains-tax', label: '양도소득세 계산기' },
-      { href: '/brokerage-fee', label: '부동산 중개수수료 계산기' },
-      { href: '/car-tax', label: '자동차세 계산기' },
-      { href: '/gift-tax', label: '증여세 계산기', badge: 'NEW' },
-      { href: '/compound-interest', label: '복리 계산기', badge: 'NEW' },
-    ],
-  },
-  {
-    title: 'Health',
-    description: '건강 지표를 간편하게 확인',
-    color: 'bg-rose-500',
-    tools: [
-      { href: '/bmi', label: 'BMI 계산기' },
-      { href: '/calorie', label: '일일 칼로리(TDEE) 계산기', badge: 'HOT' },
-      { href: '/ideal-weight', label: '적정체중 계산기' },
-      { href: '/sleep', label: '수면 시간 계산기', badge: 'NEW' },
-      { href: '/alcohol', label: '음주 알코올 분해 계산기' },
-      { href: '/due-date', label: '출산예정일 계산기', badge: 'NEW' },
-      { href: '/water-intake', label: '물 섭취량 계산기' },
-    ],
-  },
-  {
-    title: 'Utility',
-    description: '일상에서 자주 쓰는 변환/계산 도구',
-    color: 'bg-blue-500',
-    tools: [
-      { href: '/ladder', label: '사다리타기', badge: 'NEW' },
-      { href: '/kor-eng', label: '한/영타 변환기', badge: 'NEW' },
-      { href: '/age', label: '만 나이 계산기' },
-      { href: '/lunar', label: '음력 ↔ 양력 변환기' },
-      { href: '/special-chars', label: '특수문자 모음' },
-      { href: '/gpa', label: '학점 계산기' },
-      { href: '/unit-converter', label: '단위 변환기' },
-      { href: '/pyeong', label: '평수 ↔ ㎡ 변환기' },
-      { href: '/d-day', label: 'D-day 계산기' },
-      { href: '/electricity', label: '전기요금 계산기' },
-      { href: '/discount', label: '할인율 계산기' },
-      { href: '/date-calc', label: '날짜 계산기' },
-      { href: '/character-counter', label: '글자수 세기', badge: 'HOT' },
-      { href: '/qr-generator', label: 'QR코드 생성기' },
-      { href: '/password-generator', label: '비밀번호 생성기' },
-    ],
-  },
-  {
-    title: 'Game',
-    description: '브라우저에서 바로 즐기는 캐주얼 게임',
-    color: 'bg-violet-500',
-    tools: [
-      { href: '/games/2048', label: '2048', badge: 'HOT' },
-      { href: '/games/tetris', label: '테트리스' },
-      { href: '/games/snake', label: '스네이크' },
-      { href: '/games/minesweeper', label: '지뢰찾기' },
-      { href: '/games/solitaire', label: '솔리테어' },
-      { href: '/games/blackjack', label: '블랙잭' },
-      { href: '/games/memory', label: '메모리 카드' },
-      { href: '/games/flappy', label: 'Flappy Bird' },
-      { href: '/games/typing', label: '타자연습' },
-      { href: '/games/gomoku', label: '오목' },
-    ],
-  },
-  {
-    title: 'Image',
-    description: '사진 용량·캡처·변환을 브라우저에서 바로 (서버 전송 없음)',
-    color: 'bg-teal-500',
-    tools: [
-      { href: '/image-compress', label: '사진 용량 줄이기', badge: 'HOT' },
-      { href: '/pdf-merge', label: 'PDF 합치기·분할', badge: 'NEW' },
-      { href: '/gif-maker', label: 'GIF 만들기 (움짤)', badge: 'NEW' },
-      { href: '/bg-remove', label: '배경 제거 (누끼)' },
-      { href: '/image-resize', label: '이미지 크기 조절' },
-      { href: '/image-convert', label: '이미지 형식 변환 (WEBP·PNG·JPG)' },
-      { href: '/image-crop', label: '이미지 자르기 (크롭)' },
-      { href: '/pdf-to-image', label: 'PDF를 이미지로' },
-      { href: '/image-stitch', label: '카톡 캡처 이어붙이기' },
-      { href: '/image-mask', label: '민감정보 가리기 (모자이크)' },
-      { href: '/exif-remove', label: '위치정보(GPS) 제거' },
-      { href: '/image-split', label: '긴 이미지 분할' },
-      { href: '/id-photo', label: '증명사진 만들기' },
-      { href: '/heic-to-jpg', label: 'HEIC → JPG 변환' },
-      { href: '/image-to-pdf', label: '이미지 PDF 변환' },
-      { href: '/favicon', label: '파비콘 만들기' },
-      { href: '/text-image', label: '텍스트 이미지 생성기' },
-      { href: '/watermark', label: '워터마크 넣기' },
-    ],
-  },
+  { title: "Salary & Tax", description: "연봉, 퇴직금, 세금 관련 계산", color: "bg-emerald-500", tools: TOOLS.filter((tool) => tool.category === 'salary-tax') },
+  { title: "Finance", description: "환율, 대출, 투자 관련 금융 계산", color: "bg-blue-500", tools: TOOLS.filter((tool) => tool.category === 'finance') },
+  { title: "Health", description: "건강 지표를 간편하게 확인", color: "bg-rose-500", tools: TOOLS.filter((tool) => tool.category === 'health') },
+  { title: "Utility", description: "일상에서 자주 쓰는 변환/계산 도구", color: "bg-blue-500", tools: TOOLS.filter((tool) => tool.category === 'utility') },
+  { title: "Game", description: "브라우저에서 바로 즐기는 캐주얼 게임", color: "bg-violet-500", tools: TOOLS.filter((tool) => tool.category === 'game') },
+  { title: "Image", description: "사진 용량·캡처·변환을 브라우저에서 바로 (서버 전송 없음)", color: "bg-teal-500", tools: TOOLS.filter((tool) => tool.category === 'image') }
 ]
 
 export default function HomePage() {
@@ -152,21 +48,21 @@ export default function HomePage() {
     <div className="min-h-screen flex flex-col">
       {/* Header */}
       <header className="bg-white border-b border-[#eee] sticky top-0 z-10 backdrop-blur-md bg-white/90">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <a href="/" className="flex items-center gap-2.5">
+        <div className="container mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-3">
+          <Link href="/" className="flex items-center gap-2.5">
             <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
             <span className="text-2xl font-bold tracking-tight text-[#111]">ontools</span>
-          </a>
-          <nav className="flex items-center gap-5">
+          </Link>
+          <nav className="flex flex-wrap items-center gap-3 sm:gap-5">
             <a href="#tools" className="text-sm font-medium text-[#666] hover:text-[#111] transition-colors">
               도구
             </a>
             <a href="#games" className="text-sm font-medium text-[#666] hover:text-[#111] transition-colors">
               게임
             </a>
-            <a href="/guide" className="text-sm font-medium text-[#666] hover:text-[#111] transition-colors">
+            <Link href="/guide" className="text-sm font-medium text-[#666] hover:text-[#111] transition-colors">
               가이드
-            </a>
+            </Link>
             <a
               href="https://mallang-jo.tistory.com/"
               target="_blank"
@@ -187,12 +83,14 @@ export default function HomePage() {
         </div>
       </header>
 
-      {/* Hero Section — 텍스트 중심의 깔끔한 그라데이션 (고양이는 카테고리 카드에 등장) */}
+      {/* Existing brand artwork */}
       <section
         className="relative overflow-hidden"
         style={{
-          height: '220px',
-          background: 'linear-gradient(120deg, #FFF6EE 0%, #F6F0FB 55%, #EDE7FA 100%)',
+          height: '180px',
+          backgroundImage: 'url(/images/hero.webp)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
         }}
       >
         <div className="container mx-auto px-4 h-full relative z-[1]">
@@ -201,20 +99,11 @@ export default function HomePage() {
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
               계산기 · 게임 · 이미지 도구 50+
             </span>
-            <h2 className="text-[2.5rem] md:text-[3.5rem] leading-[1.1] font-[900] tracking-[-0.03em] text-[#241a33] mb-0">
-              당신의 <span className="hero-gradient-text">스마트한</span> 일상 도구
-            </h2>
+            <h1 className="text-4xl sm:text-5xl leading-tight font-black tracking-normal text-[#241a33] mb-0">ontools</h1>
             <p className="text-[1.1rem] text-[#6b6276] mt-3 font-medium">
               연봉 계산부터 이미지 변환, 잠깐의 게임까지 — 필요한 도구를 한 곳에서.
             </p>
           </div>
-        </div>
-      </section>
-
-      {/* 고양이 러너 게임 — 쉬어가기 (뉴스 티커 자리) */}
-      <section className="bg-white">
-        <div className="container mx-auto px-4 py-5">
-          <CatRunner />
         </div>
       </section>
 
@@ -226,14 +115,6 @@ export default function HomePage() {
           style={{ background: 'linear-gradient(180deg, #FBF7F2 0%, #F4EFFA 100%)' }}
         >
           <div className="container mx-auto px-4 pt-10 pb-10">
-            {/* 행운연구소 크로스 프로모션 */}
-            <div className="mb-10">
-              <PromoBanner />
-            </div>
-
-            {/* 카카오 애드핏 광고 (PC/모바일 자동 전환) */}
-            <ResponsiveAdFit />
-
             <h2 className="text-[2rem] font-[800] mb-2 tracking-tight text-[#241a33]">도구 모음</h2>
             <p className="text-[#6b6276] mb-10">
               카테고리별로 필요한 계산기를 찾아보세요
@@ -342,10 +223,17 @@ export default function HomePage() {
           </div>
         </section>
       </FadeInSection>
+      <section className="bg-white">
+        <div className="container mx-auto px-4 py-5 space-y-6">
+          <CatRunner />
+          <PromoBanner />
+          <ResponsiveAdFit />
+        </div>
+      </section>
 
       {/* 광고 (AdSense 승인 후 슬롯 ID 입력) */}
       <div className="container mx-auto px-4">
-        <AdUnit slot="0000000000" />
+        <AdUnit placement="home" />
       </div>
 
       {/* Footer */}
@@ -358,11 +246,11 @@ export default function HomePage() {
             <span className="text-[#ddd]">|</span>
             <Link href="/terms" className="hover:text-[#241a33] transition-colors">이용약관</Link>
             <span className="text-[#ddd]">|</span>
-            <a href="/guide" className="hover:text-[#241a33] transition-colors">가이드</a>
+            <Link href="/guide" className="hover:text-[#241a33] transition-colors">가이드</Link>
             <span className="text-[#ddd]">|</span>
-            <a href="/about" className="hover:text-[#241a33] transition-colors">소개</a>
+            <Link href="/about" className="hover:text-[#241a33] transition-colors">소개</Link>
             <span className="text-[#ddd]">|</span>
-            <a href="/contact" className="hover:text-[#241a33] transition-colors">문의</a>
+            <Link href="/contact" className="hover:text-[#241a33] transition-colors">문의</Link>
             <span className="text-[#ddd]">|</span>
             <a href="https://getluckylab.com/" target="_blank" rel="noopener noreferrer" className="hover:text-[#241a33] transition-colors">행운연구소</a>
             <span className="text-[#ddd]">|</span>

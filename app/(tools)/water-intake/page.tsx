@@ -1,3 +1,7 @@
+
+import Link from 'next/link'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import { WaterIntakeCalculator } from './WaterIntakeCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
@@ -11,6 +15,7 @@ const WATER_GUIDE = [
 ]
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/water-intake' },
   title: '물 섭취량 계산기 - ontools',
   description: '체중과 활동량에 맞는 하루 권장 물 섭취량을 계산하세요.',
   keywords: ['물섭취량계산기', '하루물섭취량', '수분섭취', '물마시기', '건강물섭취'],
@@ -20,9 +25,9 @@ export const metadata: Metadata = {
 export default function WaterIntakePage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b"><div className="container mx-auto px-4 py-4"><a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity"><img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" /><span className="text-xl font-bold">ontools</span></a></div></header>
+      <SiteHeader />
       <main className="flex-1 container mx-auto px-4 py-8">
-        <div className="text-sm text-muted-foreground mb-6"><a href="/" className="hover:text-foreground">홈</a>{' > '}<span className="text-foreground">건강</span>{' > '}<span className="text-foreground font-medium">물 섭취량 계산기</span></div>
+        <div className="text-sm text-muted-foreground mb-6"><Link href="/" className="hover:text-foreground">홈</Link>{' > '}<span className="text-foreground">건강</span>{' > '}<span className="text-foreground font-medium">물 섭취량 계산기</span></div>
         <div className="mb-8"><h1 className="text-3xl font-bold mb-2">물 섭취량 계산기</h1><p className="text-muted-foreground">체중과 활동량에 맞는 하루 권장 물 섭취량을 확인하세요.</p></div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           <div className="lg:col-span-2">
@@ -53,7 +58,7 @@ export default function WaterIntakePage() {
         <ToolGuide sections={WATER_GUIDE} />
         <RelatedTools current="/water-intake" />
       </main>
-      <footer className="border-t mt-auto"><div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">&copy; 2026 ontools. All rights reserved.</div></footer>
+      <SiteFooter />
     </div>
   )
 }

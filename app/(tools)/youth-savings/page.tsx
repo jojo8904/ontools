@@ -1,49 +1,30 @@
+import Link from 'next/link'
 import type { Metadata } from 'next'
-import { YouthSavingsCalculator } from './YouthSavingsCalculator'
-import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 
 export const metadata: Metadata = {
-  title: '청년 내일채움공제 계산기 - ontools',
-  description: '청년 내일채움공제 만기 수령액을 계산하세요. 2년형/3년형 별 기업·정부 지원금을 포함한 총 수령액 확인.',
-  keywords: ['내일채움공제', '청년내일채움공제계산기', '내일채움공제수령액', '청년지원금'],
-  openGraph: { title: '청년 내일채움공제 계산기 - ontools', description: '내일채움공제 수령액 계산', url: 'https://ontools.co.kr/youth-savings', siteName: 'ontools', type: 'website' },
+  alternates: { canonical: '/youth-savings' },
+  robots: { index: false, follow: true },
+  title: '청년내일채움공제 안내 - ontools',
+  description: '신규 신청 중단 안내와 기존 가입자 공식 확인 경로입니다.',
 }
 
 export default function YouthSavingsPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b"><div className="container mx-auto px-4 py-4"><a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity"><img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" /><span className="text-xl font-bold">ontools</span></a></div></header>
-      <main className="flex-1 container mx-auto px-4 py-8">
-        <div className="text-sm text-muted-foreground mb-6"><a href="/" className="hover:text-foreground">홈</a>{' > '}<span className="text-foreground">금융</span>{' > '}<span className="text-foreground font-medium">청년 내일채움공제 계산기</span></div>
-        <div className="mb-8"><h1 className="text-3xl font-bold mb-2">청년 내일채움공제 계산기</h1><p className="text-muted-foreground">내일채움공제 만기 시 총 수령액을 계산하세요.</p></div>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-          <div className="lg:col-span-2">
-            <YouthSavingsCalculator />
-            <div className="mt-10 space-y-10">
-              <YouTubeSection category="youth-savings" />
-            </div>
-          </div>
-          <aside className="space-y-6">
-            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
-              <h2 className="text-xl font-bold mb-4">가입 대상</h2>
-              <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
-                <p><strong>청년:</strong> 만 15~34세 (병역기간 최대 6년 추가 인정)</p>
-                <p><strong>기업:</strong> 중소·중견기업 (5인 이상)</p>
-                <p>정규직 채용 후 6개월 이내 가입 가능</p>
-              </div>
-            </section>
-            <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
-              <h2 className="text-xl font-bold mb-4">2년형 vs 3년형</h2>
-              <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
-                <p><strong>2년형:</strong> 본인 300만 + 기업 800만 + 정부 800만 = 1,900만원</p>
-                <p><strong>3년형:</strong> 본인 600만 + 기업 1,800만 + 정부 600만 = 3,000만원</p>
-                <p>만기 전 중도 퇴사 시 적립금 일부만 수령 가능</p>
-              </div>
-            </section>
-          </aside>
-        </div>
+      <SiteHeader />
+      <main className="flex-1 container mx-auto max-w-2xl px-4 py-10 space-y-5">
+        <h1 className="text-2xl font-bold">청년내일채움공제 안내</h1>
+        <p>청년내일채움공제는 2024년부터 신규 신청이 중단되었습니다.</p>
+        <p className="text-gray-600 leading-relaxed">
+          기존 계산기는 가입연도별 지원 조건을 구분하지 않아 제공을 중단했습니다.
+          기존 가입자의 만기금·중도해지금은 가입 약정과 납입 이력을 기준으로 운영기관에 확인해주세요.
+        </p>
+        <a className="block text-blue-700 underline" href="https://1350.moel.go.kr/rtmview.do?id=1000298780" target="_blank" rel="noopener noreferrer">고용노동부 공식 안내</a>
+        <Link className="inline-block text-blue-700 underline" href="/savings">일반 적금·예금 계산기</Link>
       </main>
-      <footer className="border-t mt-auto"><div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">&copy; 2026 ontools. All rights reserved.</div></footer>
+      <SiteFooter />
     </div>
   )
 }

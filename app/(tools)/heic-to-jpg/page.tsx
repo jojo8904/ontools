@@ -1,3 +1,7 @@
+
+import Link from 'next/link'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import { HeicToJpg } from './HeicToJpg'
 import { RelatedTools } from '@/components/RelatedTools'
@@ -28,6 +32,7 @@ const GUIDE = [
 ]
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/heic-to-jpg' },
   title: 'HEIC → JPG 변환 (아이폰 사진) - ontools',
   description:
     '아이폰 HEIC/HEIF 사진을 JPG 또는 PNG로 변환합니다. 여러 장 일괄 변환 지원. 브라우저에서 처리되어 서버로 전송되지 않습니다.',
@@ -52,18 +57,11 @@ export const metadata: Metadata = {
 export default function HeicToJpgPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4">
-          <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-            <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
-            <span className="text-xl font-bold">ontools</span>
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="text-sm text-muted-foreground mb-6">
-          <a href="/" className="hover:text-foreground">홈</a>
+          <Link href="/" className="hover:text-foreground">홈</Link>
           {' > '}
           <span className="text-foreground">이미지·파일</span>
           {' > '}
@@ -115,16 +113,12 @@ export default function HeicToJpgPage() {
         <ToolGuide sections={GUIDE} />
         <div className="mt-8 rounded-xl border border-blue-100 bg-blue-50/50 p-4">
           <span className="text-sm text-gray-600">더 알아보기 — </span>
-          <a href="/guide/heic-to-jpg" className="text-sm font-semibold text-blue-700 hover:underline">아이폰 HEIC 사진을 JPG로 바꾸는 방법</a>
+          <Link href="/guide/heic-to-jpg" className="text-sm font-semibold text-blue-700 hover:underline">아이폰 HEIC 사진을 JPG로 바꾸는 방법</Link>
         </div>
         <RelatedTools current="/heic-to-jpg" />
       </main>
 
-      <footer className="border-t mt-auto">
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          &copy; 2026 ontools. All rights reserved.
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

@@ -1,3 +1,5 @@
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -8,10 +10,11 @@ export function generateStaticParams() {
   return GUIDES.map((g) => ({ slug: g.slug }))
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const g = getGuide(params.slug)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const g = getGuide((await params).slug)
   if (!g) return { title: '가이드 - ontools' }
   return {
+    alternates: { canonical: `/guide/${g.slug}` },
     title: `${g.title} - ontools`,
     description: g.description,
     keywords: g.keywords,
@@ -25,24 +28,17 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   }
 }
 
-export default function GuideArticlePage({ params }: { params: { slug: string } }) {
-  const g = getGuide(params.slug)
+export default async function GuideArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+  const g = getGuide((await params).slug)
   if (!g) notFound()
 
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4">
-          <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-            <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
-            <span className="text-xl font-bold">ontools</span>
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="flex-1 container mx-auto px-4 py-8 max-w-3xl">
         <div className="text-sm text-muted-foreground mb-6">
-          <a href="/" className="hover:text-foreground">홈</a>
+          <Link href="/" className="hover:text-foreground">홈</Link>
           {' > '}
           <Link href="/guide" className="hover:text-foreground">가이드</Link>
           {' > '}
@@ -97,11 +93,7 @@ export default function GuideArticlePage({ params }: { params: { slug: string } 
         {g.tool && <RelatedTools current={g.tool.href} />}
       </main>
 
-      <footer className="border-t mt-auto">
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          &copy; 2026 ontools. All rights reserved.
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

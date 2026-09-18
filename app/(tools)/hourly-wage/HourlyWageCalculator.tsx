@@ -55,7 +55,7 @@ export function HourlyWageCalculator() {
             type="number"
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            placeholder={mode === 'h2m' ? '예: 10030' : '예: 2096270'}
+            placeholder={mode === 'h2m' ? '예: 10320' : '예: 2156880'}
             className="w-full px-4 py-3 rounded-xl border border-[#e8e2f0] focus:outline-none focus:border-[#c9b8e6] focus:ring-2 focus:ring-[#ede7f7] transition-all"
           />
         </div>

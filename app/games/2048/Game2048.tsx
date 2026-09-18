@@ -1,5 +1,7 @@
 'use client'
 
+import { useStoredNumber } from '@/lib/useStoredNumber'
+
 import { useCallback, useEffect, useState } from 'react'
 
 type Board = number[][]
@@ -118,14 +120,10 @@ export function Game2048() {
     addRandom(addRandom(createEmpty()))
   )
   const [score, setScore] = useState(0)
-  const [highScore, setHighScore] = useState(0)
+  const [highScore, setHighScore] = useStoredNumber(HS_KEY)
   const [gameOver, setGameOver] = useState(false)
   const [won, setWon] = useState(false)
 
-  useEffect(() => {
-    const stored = localStorage.getItem(HS_KEY)
-    if (stored) setHighScore(parseInt(stored, 10))
-  }, [])
 
   const updateHighScore = useCallback(
     (newScore: number) => {
@@ -134,7 +132,7 @@ export function Game2048() {
         localStorage.setItem(HS_KEY, String(newScore))
       }
     },
-    [highScore]
+    [highScore, setHighScore]
   )
 
   const handleMove = useCallback(

@@ -1,3 +1,7 @@
+
+import Link from 'next/link'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import { GifMaker } from './GifMaker'
 import { RelatedTools } from '@/components/RelatedTools'
@@ -29,6 +33,7 @@ const GUIDE = [
 ]
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/gif-maker' },
   title: 'GIF 만들기 (사진으로 움짤 제작) - ontools',
   description:
     '사진 여러 장으로 움직이는 GIF(움짤)를 만듭니다. 프레임 순서·속도·크기 조절, 설치 없이 브라우저에서 처리되어 서버로 전송되지 않습니다.',
@@ -45,18 +50,11 @@ export const metadata: Metadata = {
 export default function GifMakerPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4">
-          <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-            <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
-            <span className="text-xl font-bold">ontools</span>
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="text-sm text-muted-foreground mb-6">
-          <a href="/" className="hover:text-foreground">홈</a>
+          <Link href="/" className="hover:text-foreground">홈</Link>
           {' > '}
           <span className="text-foreground">이미지·파일</span>
           {' > '}
@@ -110,11 +108,7 @@ export default function GifMakerPage() {
         <RelatedTools current="/gif-maker" />
       </main>
 
-      <footer className="border-t mt-auto">
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          &copy; 2026 ontools. All rights reserved.
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

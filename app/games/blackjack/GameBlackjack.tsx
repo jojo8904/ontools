@@ -1,6 +1,7 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
+import { useStoredNumber } from '@/lib/useStoredNumber'
 
 type Suit = '♠' | '♥' | '♦' | '♣'
 type Card = { suit: Suit; rank: number; faceUp: boolean }
@@ -88,24 +89,16 @@ export function GameBlackjack() {
   const [chips, setChips] = useState(1000)
   const [bet, setBet] = useState(100)
   const [message, setMessage] = useState('')
-  const [bestChips, setBestChips] = useState(1000)
-
-  useEffect(() => {
-    const stored = localStorage.getItem(HS_KEY)
-    if (stored) {
-      const val = parseInt(stored, 10)
-      setBestChips(val)
-    }
-  }, [])
+  const [storedBest, setBestChips] = useStoredNumber(HS_KEY)
+  const bestChips = Math.max(1000, storedBest)
 
   const updateBest = useCallback(
     (newChips: number) => {
       if (newChips > bestChips) {
         setBestChips(newChips)
-        localStorage.setItem(HS_KEY, String(newChips))
       }
     },
-    [bestChips]
+    [bestChips, setBestChips]
   )
 
   const deal = useCallback(() => {

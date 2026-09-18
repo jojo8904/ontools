@@ -1,5 +1,7 @@
 'use client'
 
+import { useStoredNumber } from '@/lib/useStoredNumber'
+
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 const COLS = 10
@@ -114,7 +116,7 @@ const HS_KEY = 'ontools-tetris-highscore'
 export function GameTetris() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [score, setScore] = useState(0)
-  const [highScore, setHighScore] = useState(0)
+  const [highScore, setHighScore] = useStoredNumber(HS_KEY)
   const [level, setLevel] = useState(1)
   const [lines, setLines] = useState(0)
   const [gameOver, setGameOver] = useState(false)
@@ -129,10 +131,6 @@ export function GameTetris() {
   const gameOverRef = useRef(false)
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
-  useEffect(() => {
-    const stored = localStorage.getItem(HS_KEY)
-    if (stored) setHighScore(parseInt(stored, 10))
-  }, [])
 
   const draw = useCallback(() => {
     const canvas = canvasRef.current
@@ -204,7 +202,7 @@ export function GameTetris() {
     }
     pieceRef.current = piece
     posRef.current = { row: 0, col }
-  }, [])
+  }, [setHighScore])
 
   const lock = useCallback(() => {
     const piece = pieceRef.current
@@ -224,9 +222,6 @@ export function GameTetris() {
       if (newLevel !== levelRef.current) {
         levelRef.current = newLevel
         setLevel(newLevel)
-        // Restart interval with new speed
-        if (intervalRef.current) clearInterval(intervalRef.current)
-        intervalRef.current = setInterval(tick, Math.max(100, 800 - (newLevel - 1) * 70))
       }
     }
 
@@ -244,6 +239,12 @@ export function GameTetris() {
     }
     draw()
   }, [draw, lock])
+  useEffect(() => {
+    if (!started || gameOver) return
+    if (intervalRef.current) clearInterval(intervalRef.current)
+    intervalRef.current = setInterval(tick, Math.max(100, 800 - (level - 1) * 70))
+    return () => { if (intervalRef.current) clearInterval(intervalRef.current) }
+  }, [level, started, gameOver, tick])
 
   const moveDir = useCallback(
     (dc: number) => {

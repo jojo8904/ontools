@@ -1,6 +1,9 @@
 'use client'
 
+import { useObjectUrls } from '@/lib/useObjectUrls'
+
 import { useState, useRef, useCallback } from 'react'
+import { parseRanges } from '@/lib/pdf-ranges'
 import { Button } from '@/components/ui/Button'
 
 type Mode = 'merge' | 'split'
@@ -15,25 +18,11 @@ interface Item {
 let _seq = 0
 
 /** "1-3,5,7-8" → [0,2,4,6,7] (0-based, 중복 제거·정렬) */
-function parseRanges(text: string, max: number): number[] {
-  const out = new Set<number>()
-  for (const part of text.split(',')) {
-    const p = part.trim()
-    if (!p) continue
-    const m = p.match(/^(\d+)\s*-\s*(\d+)$/)
-    if (m) {
-      const a = parseInt(m[1], 10)
-      const b = parseInt(m[2], 10)
-      for (let i = Math.min(a, b); i <= Math.max(a, b); i++) if (i >= 1 && i <= max) out.add(i - 1)
-    } else if (/^\d+$/.test(p)) {
-      const n = parseInt(p, 10)
-      if (n >= 1 && n <= max) out.add(n - 1)
-    }
-  }
-  return [...out].sort((a, b) => a - b)
-}
+
 
 export function PdfMerge() {
+  const { createObjectUrl, clearObjectUrls } = useObjectUrls()
+
   const [mode, setMode] = useState<Mode>('merge')
   const [items, setItems] = useState<Item[]>([])
   const [busy, setBusy] = useState(false)
@@ -81,16 +70,17 @@ export function PdfMerge() {
   }
   const remove = (id: string) => setItems((prev) => prev.filter((it) => it.id !== id))
   const reset = () => {
+    clearObjectUrls()
     setItems([])
     setRangeText('')
   }
 
-  const download = (bytes: Uint8Array, name: string) => {
+  const download = useCallback((bytes: Uint8Array, name: string) => {
     const a = document.createElement('a')
     a.download = name
-    a.href = URL.createObjectURL(new Blob([bytes as unknown as BlobPart], { type: 'application/pdf' }))
+    a.href = createObjectUrl(new Blob([bytes as unknown as BlobPart], { type: 'application/pdf' }))
     a.click()
-  }
+  }, [createObjectUrl])
 
   const handleMerge = useCallback(async () => {
     if (items.length < 2) return
@@ -113,7 +103,7 @@ export function PdfMerge() {
       setBusy(false)
       setProgress('')
     }
-  }, [items])
+  }, [download, items])
 
   const handleSplitAll = useCallback(async () => {
     const item = items[0]
@@ -135,7 +125,7 @@ export function PdfMerge() {
       const blob = await zip.generateAsync({ type: 'blob' })
       const a = document.createElement('a')
       a.download = `${base}_분할.zip`
-      a.href = URL.createObjectURL(blob)
+      a.href = createObjectUrl(blob)
       a.click()
     } catch (e) {
       console.error('split failed', e)
@@ -144,12 +134,14 @@ export function PdfMerge() {
       setBusy(false)
       setProgress('')
     }
-  }, [items])
+  }, [createObjectUrl, items])
 
   const handleExtract = useCallback(async () => {
     const item = items[0]
     if (!item) return
-    const indices = parseRanges(rangeText, item.pages)
+    let indices: number[]
+    try { indices = parseRanges(rangeText, item.pages) }
+    catch (error) { alert(error instanceof Error ? error.message : '페이지 범위를 확인해주세요.'); return }
     if (indices.length === 0) {
       alert('추출할 페이지를 입력하세요. 예: 1-3, 5')
       return
@@ -171,7 +163,7 @@ export function PdfMerge() {
       setBusy(false)
       setProgress('')
     }
-  }, [items, rangeText])
+  }, [download, items, rangeText])
 
   const single = mode === 'split'
 

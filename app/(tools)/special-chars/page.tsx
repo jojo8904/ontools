@@ -1,3 +1,7 @@
+
+import Link from 'next/link'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import { SpecialChars } from './SpecialChars'
 import { RelatedTools } from '@/components/RelatedTools'
@@ -28,6 +32,7 @@ const GUIDE = [
 ]
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/special-chars' },
   title: '특수문자 모음 (클릭 복사) - ontools',
   description:
     '별·하트·화살표·도형·원문자·수학기호 등 자주 쓰는 특수문자 모음. 클릭 한 번으로 복사해서 바로 붙여넣으세요.',
@@ -44,18 +49,11 @@ export const metadata: Metadata = {
 export default function SpecialCharsPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4">
-          <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-            <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
-            <span className="text-xl font-bold">ontools</span>
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="text-sm text-muted-foreground mb-6">
-          <a href="/" className="hover:text-foreground">홈</a>
+          <Link href="/" className="hover:text-foreground">홈</Link>
           {' > '}
           <span className="text-foreground">생활·유틸</span>
           {' > '}
@@ -96,8 +94,8 @@ export default function SpecialCharsPage() {
             <section className="rounded-xl border border-gray-200/70 bg-[#F2EEE6] p-6">
               <h2 className="text-xl font-bold mb-4">함께 쓰면 좋아요</h2>
               <div className="space-y-2 text-sm leading-relaxed">
-                <p><a href="/character-counter" className="font-semibold text-blue-700 hover:underline">글자수 세기</a> — 자소서·트윗 글자 수 확인</p>
-                <p><a href="/text-image" className="font-semibold text-blue-700 hover:underline">텍스트 이미지 생성기</a> — 글귀를 이미지로</p>
+                <p><Link href="/character-counter" className="font-semibold text-blue-700 hover:underline">글자수 세기</Link> — 자소서·트윗 글자 수 확인</p>
+                <p><Link href="/text-image" className="font-semibold text-blue-700 hover:underline">텍스트 이미지 생성기</Link> — 글귀를 이미지로</p>
               </div>
             </section>
           </aside>
@@ -107,11 +105,7 @@ export default function SpecialCharsPage() {
         <RelatedTools current="/special-chars" />
       </main>
 
-      <footer className="border-t mt-auto">
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          &copy; 2026 ontools. All rights reserved.
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

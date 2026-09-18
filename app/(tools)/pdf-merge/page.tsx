@@ -1,3 +1,7 @@
+
+import Link from 'next/link'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import { PdfMerge } from './PdfMerge'
 import { RelatedTools } from '@/components/RelatedTools'
@@ -29,6 +33,7 @@ const GUIDE = [
 ]
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/pdf-merge' },
   title: 'PDF 합치기·분할 (무료, 서버 전송 없음) - ontools',
   description:
     '여러 PDF를 하나로 합치거나, 원하는 페이지만 추출·분할합니다. 파일이 서버로 전송되지 않고 브라우저에서 처리되어 계약서 등 민감한 서류도 안전합니다.',
@@ -45,18 +50,11 @@ export const metadata: Metadata = {
 export default function PdfMergePage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4">
-          <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-            <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
-            <span className="text-xl font-bold">ontools</span>
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="text-sm text-muted-foreground mb-6">
-          <a href="/" className="hover:text-foreground">홈</a>
+          <Link href="/" className="hover:text-foreground">홈</Link>
           {' > '}
           <span className="text-foreground">이미지·파일</span>
           {' > '}
@@ -110,11 +108,7 @@ export default function PdfMergePage() {
         <RelatedTools current="/pdf-merge" />
       </main>
 
-      <footer className="border-t mt-auto">
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          &copy; 2026 ontools. All rights reserved.
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

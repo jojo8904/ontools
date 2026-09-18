@@ -1,3 +1,7 @@
+
+import Link from 'next/link'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import { VatCalculator } from './VatCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
@@ -19,6 +23,7 @@ const VAT_FAQ = [
 ]
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/vat' },
   title: '부가세(VAT) 계산기 - ontools',
   description:
     '공급가액에서 부가세와 합계를 계산하거나, 합계금액에서 공급가액과 부가세를 역산합니다. 10% 일반세율, 영세율(0%) 지원.',
@@ -46,20 +51,13 @@ export default function VatPage() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4">
-          <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-            <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
-            <span className="text-xl font-bold">ontools</span>
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       {/* Main Content */}
       <main className="flex-1 container mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <div className="text-sm text-muted-foreground mb-6">
-          <a href="/" className="hover:text-foreground">홈</a>
+          <Link href="/" className="hover:text-foreground">홈</Link>
           {' > '}
           <span className="text-foreground">금융</span>
           {' > '}
@@ -216,11 +214,7 @@ export default function VatPage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t mt-auto">
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          &copy; 2026 ontools. All rights reserved.
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

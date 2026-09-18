@@ -1,7 +1,10 @@
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/privacy' },
   title: '개인정보처리방침 - ontools',
   description: 'ontools 개인정보처리방침. 수집하는 정보, 쿠키 및 광고, 제3자 서비스, 이용자 권리를 안내합니다.',
   robots: { index: true, follow: true },
@@ -12,14 +15,7 @@ const UPDATED = '2026년 6월 13일'
 export default function PrivacyPage() {
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#faf8fc' }}>
-      <header className="bg-white border-b border-[#eee]">
-        <div className="container mx-auto px-4 py-4">
-          <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-            <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
-            <span className="text-xl font-bold text-[#111]">ontools</span>
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="flex-1 container mx-auto px-4 py-10 w-full max-w-3xl">
         <h1 className="text-3xl font-bold mb-2 text-[#241a33]">개인정보처리방침</h1>
@@ -119,11 +115,7 @@ export default function PrivacyPage() {
         </div>
       </main>
 
-      <footer className="mt-auto border-t border-[#ece6f2]" style={{ backgroundColor: '#F7F3FB' }}>
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-[#8a8290]">
-          &copy; 2026 ontools. All rights reserved.
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

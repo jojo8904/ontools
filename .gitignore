@@ -12,6 +12,9 @@
 
 # production
 /build
+/public/pdf.worker-*.min.mjs
+/playwright-report/
+/test-results/
 
 # misc
 .DS_Store

@@ -1,3 +1,7 @@
+
+import Link from 'next/link'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import { ExifRemove } from './ExifRemove'
 import { RelatedTools } from '@/components/RelatedTools'
@@ -29,6 +33,7 @@ const GUIDE = [
 ]
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/exif-remove' },
   title: '사진 위치정보(GPS·EXIF) 제거 - ontools',
   description:
     '사진에 숨어 있는 GPS 위치·촬영정보(EXIF)를 제거합니다. 위치정보 포함 여부 자동 확인. 브라우저에서 처리되어 사진이 서버로 전송되지 않습니다.',
@@ -54,18 +59,11 @@ export const metadata: Metadata = {
 export default function ExifRemovePage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4">
-          <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-            <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
-            <span className="text-xl font-bold">ontools</span>
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="text-sm text-muted-foreground mb-6">
-          <a href="/" className="hover:text-foreground">홈</a>
+          <Link href="/" className="hover:text-foreground">홈</Link>
           {' > '}
           <span className="text-foreground">이미지·파일</span>
           {' > '}
@@ -119,11 +117,7 @@ export default function ExifRemovePage() {
         <RelatedTools current="/exif-remove" />
       </main>
 
-      <footer className="border-t mt-auto">
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          &copy; 2026 ontools. All rights reserved.
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

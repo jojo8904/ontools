@@ -1,6 +1,11 @@
+
+import Link from 'next/link'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/contact' },
   title: '문의하기 - ontools',
   description: 'ontools 도구 오류 제보, 기능 제안, 제휴 문의는 이메일로 보내주세요.',
   openGraph: {
@@ -15,18 +20,11 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4">
-          <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-            <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
-            <span className="text-xl font-bold">ontools</span>
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="flex-1 container mx-auto px-4 py-8 max-w-2xl">
         <div className="text-sm text-muted-foreground mb-6">
-          <a href="/" className="hover:text-foreground">홈</a>
+          <Link href="/" className="hover:text-foreground">홈</Link>
           {' > '}
           <span className="text-foreground font-medium">문의하기</span>
         </div>
@@ -47,7 +45,7 @@ export default function ContactPage() {
             <h2 className="font-bold text-gray-900 mb-2">이런 내용을 보내주세요</h2>
             <ul className="list-disc pl-5 space-y-1.5 text-gray-600 text-[15px] leading-relaxed">
               <li>도구가 제대로 동작하지 않거나 결과가 이상할 때 (오류 제보)</li>
-              <li>"이런 계산기·도구가 있으면 좋겠다" 같은 기능 제안</li>
+              <li>&quot;이런 계산기·도구가 있으면 좋겠다&quot; 같은 기능 제안</li>
               <li>광고·제휴·콘텐츠 관련 문의</li>
               <li>개인정보·저작권 관련 요청</li>
             </ul>
@@ -61,19 +59,15 @@ export default function ContactPage() {
         </div>
 
         <div className="mt-6 text-sm text-gray-500">
-          <a href="/privacy" className="hover:text-gray-800 underline">개인정보처리방침</a>
+          <Link href="/privacy" className="hover:text-gray-800 underline">개인정보처리방침</Link>
           <span className="mx-2 text-gray-300">·</span>
-          <a href="/terms" className="hover:text-gray-800 underline">이용약관</a>
+          <Link href="/terms" className="hover:text-gray-800 underline">이용약관</Link>
           <span className="mx-2 text-gray-300">·</span>
-          <a href="/about" className="hover:text-gray-800 underline">소개</a>
+          <Link href="/about" className="hover:text-gray-800 underline">소개</Link>
         </div>
       </main>
 
-      <footer className="border-t mt-auto">
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          &copy; 2026 ontools. All rights reserved.
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

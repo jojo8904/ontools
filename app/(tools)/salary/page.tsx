@@ -1,3 +1,9 @@
+import { calculateSalaryTakeHome } from '@/features/salary/utils'
+import { PolicySources } from '@/components/PolicySources'
+
+import Link from 'next/link'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import { SalaryCalculator } from './SalaryCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
@@ -21,7 +27,7 @@ const SALARY_FAQ = [
   },
   {
     q: '4대보험 요율은 얼마인가요?',
-    a: '근로자 부담 기준으로 국민연금 4.5%, 건강보험 3.545%, 장기요양보험(건강보험료의 12.95%), 고용보험 0.9%입니다. 합계 약 9.4% 수준입니다.',
+    a: '근로자 부담 기준으로 국민연금 4.75%, 건강보험 3.595%, 장기요양보험(건강보험료의 13.14%), 고용보험 0.9%입니다. 합계 약 9.72% 수준입니다.',
   },
   {
     q: '부양가족 수가 실수령액에 영향을 주나요?',
@@ -34,6 +40,7 @@ const SALARY_FAQ = [
 ]
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/salary' },
   title: '연봉 실수령액 계산기 - ontools',
   description:
     '2026년 최신 세율 적용. 연봉, 부양가족 수 입력으로 세금과 4대보험을 제외한 실수령액을 계산하세요. 최저임금, 연말정산 뉴스 제공.',
@@ -60,22 +67,15 @@ export default function SalaryCalculatorPage() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4">
-          <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-            <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
-            <span className="text-xl font-bold">ontools</span>
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       {/* Main Content */}
       <main className="flex-1 container mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <div className="text-sm text-muted-foreground mb-6">
-          <a href="/" className="hover:text-foreground">
+          <Link href="/" className="hover:text-foreground">
             홈
-          </a>
+          </Link>
           {' > '}
           <span className="text-foreground">금융</span>
           {' > '}
@@ -100,6 +100,7 @@ export default function SalaryCalculatorPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           <div className="lg:col-span-2">
             <SalaryCalculator />
+              <PolicySources />
             <div className="mt-10">
               <YouTubeSection category="salary" />
             </div>
@@ -108,13 +109,13 @@ export default function SalaryCalculatorPage() {
           <aside className="space-y-6">
             {/* 사이드바 고정 광고 (PC 전용) */}
             <div className="hidden lg:block sticky top-20">
-              <AdUnit slot="0000000000" />
+              <AdUnit placement="tool" />
             </div>
             {/* 4대보험 요율표 */}
             <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">2026년 4대보험 요율표</h2>
               <p className="text-sm text-gray-500 mb-3">
-                근로자 부담분 기준. 사업주도 동일 비율을 부담합니다.
+                근로자 부담분 기준. 사업주의 고용보험 추가 부담과 산재보험은 제외합니다.
               </p>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm border-collapse">
@@ -127,15 +128,15 @@ export default function SalaryCalculatorPage() {
                   <tbody className="divide-y divide-gray-100">
                     <tr>
                       <td className="py-2 pr-4">국민연금</td>
-                      <td className="py-2 text-right font-medium">4.5%</td>
+                      <td className="py-2 text-right font-medium">4.75%</td>
                     </tr>
                     <tr>
                       <td className="py-2 pr-4">건강보험</td>
-                      <td className="py-2 text-right font-medium">3.545%</td>
+                      <td className="py-2 text-right font-medium">3.595%</td>
                     </tr>
                     <tr>
                       <td className="py-2 pr-4">장기요양보험</td>
-                      <td className="py-2 text-right font-medium">0.4591%</td>
+                      <td className="py-2 text-right font-medium">0.4724%</td>
                     </tr>
                     <tr>
                       <td className="py-2 pr-4">고용보험</td>
@@ -143,7 +144,7 @@ export default function SalaryCalculatorPage() {
                     </tr>
                     <tr className="border-t-2 border-gray-200 font-bold">
                       <td className="py-2 pr-4">합계</td>
-                      <td className="py-2 text-right">9.4041%</td>
+                      <td className="py-2 text-right">9.7174% (상·하한 전)</td>
                     </tr>
                   </tbody>
                 </table>
@@ -166,15 +167,15 @@ export default function SalaryCalculatorPage() {
                   </thead>
                   <tbody className="divide-y divide-gray-100">
                     <tr>
-                      <td className="py-2 pr-4">1,200만원 이하</td>
+                      <td className="py-2 pr-4">1,400만원 이하</td>
                       <td className="py-2 text-right font-medium">6%</td>
                     </tr>
                     <tr>
-                      <td className="py-2 pr-4">1,200만 ~ 4,600만</td>
+                      <td className="py-2 pr-4">1,400만 ~ 5,000만</td>
                       <td className="py-2 text-right font-medium">15%</td>
                     </tr>
                     <tr>
-                      <td className="py-2 pr-4">4,600만 ~ 8,800만</td>
+                      <td className="py-2 pr-4">5,000만 ~ 8,800만</td>
                       <td className="py-2 text-right font-medium">24%</td>
                     </tr>
                     <tr>
@@ -206,7 +207,7 @@ export default function SalaryCalculatorPage() {
             <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">연봉별 실수령액 비교표</h2>
               <h3 className="text-sm font-semibold text-gray-500 mb-3">
-                부양가족 1인(본인) 기준 월 실수령액 (근사치)
+                2026년 7~12월 · 본인 1인 기준 월 예상 실수령액
               </h3>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm border-collapse">
@@ -217,63 +218,10 @@ export default function SalaryCalculatorPage() {
                       <th className="text-right py-2 font-semibold">공제율</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-100">
-                    <tr>
-                      <td className="py-2 pr-4">3,000만원</td>
-                      <td className="py-2 pr-4 text-right font-medium">~221만원</td>
-                      <td className="py-2 text-right text-gray-500">~11.5%</td>
-                    </tr>
-                    <tr>
-                      <td className="py-2 pr-4">3,500만원</td>
-                      <td className="py-2 pr-4 text-right font-medium">~255만원</td>
-                      <td className="py-2 text-right text-gray-500">~12.5%</td>
-                    </tr>
-                    <tr>
-                      <td className="py-2 pr-4">4,000만원</td>
-                      <td className="py-2 pr-4 text-right font-medium">~288만원</td>
-                      <td className="py-2 text-right text-gray-500">~13.5%</td>
-                    </tr>
-                    <tr>
-                      <td className="py-2 pr-4">4,500만원</td>
-                      <td className="py-2 pr-4 text-right font-medium">~320만원</td>
-                      <td className="py-2 text-right text-gray-500">~14.5%</td>
-                    </tr>
-                    <tr>
-                      <td className="py-2 pr-4">5,000만원</td>
-                      <td className="py-2 pr-4 text-right font-medium">~351만원</td>
-                      <td className="py-2 text-right text-gray-500">~15.7%</td>
-                    </tr>
-                    <tr>
-                      <td className="py-2 pr-4">5,500만원</td>
-                      <td className="py-2 pr-4 text-right font-medium">~381만원</td>
-                      <td className="py-2 text-right text-gray-500">~16.8%</td>
-                    </tr>
-                    <tr>
-                      <td className="py-2 pr-4">6,000만원</td>
-                      <td className="py-2 pr-4 text-right font-medium">~411만원</td>
-                      <td className="py-2 text-right text-gray-500">~17.8%</td>
-                    </tr>
-                    <tr>
-                      <td className="py-2 pr-4">7,000만원</td>
-                      <td className="py-2 pr-4 text-right font-medium">~469만원</td>
-                      <td className="py-2 text-right text-gray-500">~19.6%</td>
-                    </tr>
-                    <tr>
-                      <td className="py-2 pr-4">8,000만원</td>
-                      <td className="py-2 pr-4 text-right font-medium">~524만원</td>
-                      <td className="py-2 text-right text-gray-500">~21.4%</td>
-                    </tr>
-                    <tr>
-                      <td className="py-2 pr-4">9,000만원</td>
-                      <td className="py-2 pr-4 text-right font-medium">~578만원</td>
-                      <td className="py-2 text-right text-gray-500">~22.9%</td>
-                    </tr>
-                    <tr>
-                      <td className="py-2 pr-4">1억원</td>
-                      <td className="py-2 pr-4 text-right font-medium">~630만원</td>
-                      <td className="py-2 text-right text-gray-500">~24.4%</td>
-                    </tr>
-                  </tbody>
+                  <tbody className="divide-y divide-gray-100">{[3000,3500,4000,4500,5000,5500,6000,7000,8000,9000,10000].map((salary) => {
+        const result = calculateSalaryTakeHome({ annualSalary: salary * 10000, dependents: 0, hasDisability: false })
+        return <tr key={salary}><td className="py-2 pr-4">{salary.toLocaleString()}만원</td><td className="py-2 pr-4 text-right">{result.monthlyTakeHome.toLocaleString()}원</td><td className="py-2 text-right">{((1-result.monthlyTakeHome/result.monthlySalary)*100).toFixed(1)}%</td></tr>
+      })}</tbody>
                 </table>
               </div>
             </section>
@@ -285,22 +233,18 @@ export default function SalaryCalculatorPage() {
         <div className="mt-8 rounded-xl border border-blue-100 bg-blue-50/50 p-4 space-y-1.5">
           <div>
             <span className="text-sm text-gray-600">표로 한눈에 — </span>
-            <a href="/salary-table" className="text-sm font-semibold text-blue-700 hover:underline">2026 연봉 실수령액 표 (2,500만~1억원)</a>
+            <Link href="/salary-table" className="text-sm font-semibold text-blue-700 hover:underline">2026 연봉 실수령액 표 (2,500만~1억원)</Link>
           </div>
           <div>
             <span className="text-sm text-gray-600">더 알아보기 — </span>
-            <a href="/guide/salary-take-home" className="text-sm font-semibold text-blue-700 hover:underline">연봉 실수령액이 생각보다 적은 이유 (세금·4대보험 구조)</a>
+            <Link href="/guide/salary-take-home" className="text-sm font-semibold text-blue-700 hover:underline">연봉 실수령액이 생각보다 적은 이유 (세금·4대보험 구조)</Link>
           </div>
         </div>
         <RelatedTools current="/salary" />
       </main>
 
       {/* Footer */}
-      <footer className="border-t mt-auto">
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          &copy; 2026 ontools. All rights reserved.
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

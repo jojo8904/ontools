@@ -1,5 +1,7 @@
 'use client'
 
+import { useObjectUrls } from '@/lib/useObjectUrls'
+
 import { useState, useRef, useCallback } from 'react'
 import { Button } from '@/components/ui/Button'
 
@@ -14,6 +16,8 @@ interface Item {
 let _seq = 0
 
 export function ImageStitch() {
+  const { createObjectUrl, clearObjectUrls } = useObjectUrls()
+
   const [items, setItems] = useState<Item[]>([])
   const [direction, setDirection] = useState<Direction>('vertical')
   const [gap, setGap] = useState(0)
@@ -26,7 +30,7 @@ export function ImageStitch() {
   const addFiles = useCallback((files: FileList | File[]) => {
     const imageFiles = Array.from(files).filter((f) => f.type.startsWith('image/'))
     imageFiles.forEach((file) => {
-      const url = URL.createObjectURL(file)
+      const url = createObjectUrl(file)
       const image = new Image()
       image.onload = () => {
         _seq += 1
@@ -36,7 +40,7 @@ export function ImageStitch() {
       image.onerror = () => URL.revokeObjectURL(url)
       image.src = url
     })
-  }, [])
+  }, [createObjectUrl])
 
   const move = (index: number, dir: -1 | 1) => {
     setItems((prev) => {
@@ -100,14 +104,14 @@ export function ImageStitch() {
       const blob = await new Promise<Blob>((resolve) =>
         canvas.toBlob((b) => resolve(b as Blob), 'image/png'),
       )
-      setResultUrl(URL.createObjectURL(blob))
+      setResultUrl(createObjectUrl(blob, 'setResultUrl'))
     } catch (e) {
       console.error('stitch failed', e)
       alert('이어붙이는 중 오류가 발생했어요.')
     } finally {
       setProcessing(false)
     }
-  }, [items, direction, gap, bg])
+  }, [items, direction, createObjectUrl, gap, bg])
 
   const handleDownload = () => {
     if (!resultUrl) return

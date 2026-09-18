@@ -1,3 +1,7 @@
+
+import Link from 'next/link'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import { UnemploymentCalculator } from './UnemploymentCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
@@ -19,6 +23,7 @@ const UNEMPLOYMENT_FAQ = [
 ]
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/unemployment' },
   title: '실업급여 계산기 - ontools',
   description:
     '나이, 고용보험 가입기간, 퇴직 전 월 평균임금을 입력하면 1일 구직급여, 소정급여일수, 총 예상 수급액을 계산합니다. 2026년 상한액/하한액 적용.',
@@ -46,20 +51,13 @@ export default function UnemploymentPage() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4">
-          <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-            <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
-            <span className="text-xl font-bold">ontools</span>
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       {/* Main Content */}
       <main className="flex-1 container mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <div className="text-sm text-muted-foreground mb-6">
-          <a href="/" className="hover:text-foreground">홈</a>
+          <Link href="/" className="hover:text-foreground">홈</Link>
           {' > '}
           <span className="text-foreground">금융</span>
           {' > '}
@@ -202,11 +200,7 @@ export default function UnemploymentPage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t mt-auto">
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          &copy; 2026 ontools. All rights reserved.
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

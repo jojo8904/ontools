@@ -10,8 +10,6 @@ const SUPABASE_URL = process.env.SUPABASE_URL!
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY!
 const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY!
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)
-
 // 카테고리별 검색 키워드
 const SEARCH_QUERIES: Record<string, string> = {
   salary: '2026 연봉 실수령액',
@@ -30,7 +28,6 @@ const SEARCH_QUERIES: Record<string, string> = {
   'income-tax': '종합소득세 신고 방법',
   'rent-vs-jeonse': '전세 월세 비교 어떤게 유리',
   'used-car-tax': '중고차 취등록세 계산',
-  'youth-savings': '청년 내일채움공제 신청',
   'capital-gains-tax': '양도소득세 계산 부동산',
   'water-intake': '하루 물 섭취량 건강',
   'password-generator': '안전한 비밀번호 만들기',
@@ -69,7 +66,8 @@ async function searchVideos(query: string): Promise<YouTubeSearchItem[]> {
     key: YOUTUBE_API_KEY,
   })
 
-  const res = await fetch(`https://www.googleapis.com/youtube/v3/search?${params}`)
+  const res = await fetch(`https://www.googleapis.com/youtube/v3/search?${params}`, { signal: AbortSignal.timeout(15000) })
+  if (!res.ok) throw new Error(`YouTube search HTTP ${res.status}`)
   const data = await res.json()
 
   if (data.error) {
@@ -87,7 +85,8 @@ async function getVideoStats(videoIds: string[]): Promise<Map<string, string>> {
     key: YOUTUBE_API_KEY,
   })
 
-  const res = await fetch(`https://www.googleapis.com/youtube/v3/videos?${params}`)
+  const res = await fetch(`https://www.googleapis.com/youtube/v3/videos?${params}`, { signal: AbortSignal.timeout(15000) })
+  if (!res.ok) throw new Error(`YouTube statistics HTTP ${res.status}`)
   const data = await res.json()
 
   const statsMap = new Map<string, string>()
@@ -105,7 +104,9 @@ function formatViewCount(count: string): string {
   return `${num}회`
 }
 
-async function crawlYouTube() {
+export async function crawlYouTube() {
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY || !YOUTUBE_API_KEY) throw new Error('Missing crawler environment variables')
+  const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)
   console.log('Starting YouTube crawler...')
 
   let totalSaved = 0
@@ -124,9 +125,6 @@ async function crawlYouTube() {
       const videoIds = items.map((item) => item.id.videoId)
       const statsMap = await getVideoStats(videoIds)
 
-      // Delete old videos for this category
-      await supabase.from('youtube_videos').delete().eq('tool_category', category)
-
       // Insert new videos
       const records = items.map((item) => ({
         title: item.snippet.title,
@@ -137,7 +135,7 @@ async function crawlYouTube() {
         tool_category: category,
       }))
 
-      const { error } = await supabase.from('youtube_videos').insert(records)
+      const { error } = await supabase.rpc('replace_youtube_category', { p_category: category, p_videos: records })
       if (error) throw new Error(`Supabase insert error: ${error.message}`)
 
       console.log(`  Saved ${records.length} videos`)
@@ -154,9 +152,12 @@ async function crawlYouTube() {
   console.log(`\nCrawler Summary:`)
   console.log(`  Saved: ${totalSaved}`)
   console.log(`  Errors: ${totalErrors}`)
+  if (totalErrors > 0) throw new Error(`YouTube sync failed for ${totalErrors} categories`)
 }
 
-crawlYouTube().catch((error) => {
-  console.error('Fatal error:', error)
-  process.exit(1)
-})
+if (require.main === module) {
+  crawlYouTube().catch((error) => {
+    console.error('Fatal error:', error)
+    process.exitCode = 1
+  })
+}

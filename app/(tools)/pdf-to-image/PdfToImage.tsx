@@ -1,6 +1,10 @@
 'use client'
 
-import { useState, useRef, useCallback } from 'react'
+import { useObjectUrls, downloadBlob } from '@/lib/useObjectUrls'
+
+import { useState, useRef, useCallback, useEffect } from 'react'
+import type { PDFDocumentLoadingTask } from 'pdfjs-dist'
+import { trackToolEvent } from '@/lib/analytics'
 import { Button } from '@/components/ui/Button'
 
 type OutType = 'image/jpeg' | 'image/png'
@@ -12,6 +16,8 @@ interface Page {
 }
 
 export function PdfToImage() {
+  const { createObjectUrl, clearObjectUrls } = useObjectUrls()
+
   const [fileName, setFileName] = useState('')
   const [pages, setPages] = useState<Page[]>([])
   const [busy, setBusy] = useState(false)
@@ -20,9 +26,14 @@ export function PdfToImage() {
   const [hq, setHq] = useState(false)
   const [dragOver, setDragOver] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
+  const taskRef = useRef<PDFDocumentLoadingTask | null>(null)
+  const jobRef = useRef(0)
+  useEffect(() => () => { jobRef.current++; void taskRef.current?.destroy() }, [])
 
   const handle = useCallback(
     async (file: File) => {
+      if (busy) return
+      if (file.size > 50 * 1024 * 1024) { alert('50MB 이하 PDF를 선택해주세요.'); return }
       if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
         alert('PDF 파일만 올릴 수 있어요.')
         return
@@ -31,17 +42,29 @@ export function PdfToImage() {
       setPages([])
       setBusy(true)
       setProgress('PDF 읽는 중…')
+      const job = ++jobRef.current
+      clearObjectUrls()
       try {
         const pdfjs = await import('pdfjs-dist')
-        pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`
+        if (job !== jobRef.current) return
+        pdfjs.GlobalWorkerOptions.workerSrc = `/pdf.worker-${pdfjs.version}.min.mjs`
         const buf = await file.arrayBuffer()
-        const pdf = await pdfjs.getDocument({ data: buf }).promise
+        if (job !== jobRef.current) return
+        // PDF.js 6 removed eval support entirely; the worker is pinned to this package.
+        const task = pdfjs.getDocument({ data: buf, useSystemFonts: true })
+        taskRef.current = task
+        const pdf = await task.promise
+        if (pdf.numPages > 50) throw new Error('한 번에 50페이지까지 변환할 수 있어요. PDF 분할 도구로 나눠주세요.')
         const scale = hq ? 2.5 : 1.6
         const out: Page[] = []
+        let pixels = 0
         for (let n = 1; n <= pdf.numPages; n++) {
+          if (job !== jobRef.current) return
           setProgress(`${n} / ${pdf.numPages} 페이지 변환 중…`)
           const page = await pdf.getPage(n)
           const viewport = page.getViewport({ scale })
+          pixels += viewport.width * viewport.height
+          if (viewport.width * viewport.height > 16_000_000 || pixels > 40_000_000) throw new Error('이미지 해상도가 너무 큽니다. 일반 화질이나 더 적은 페이지로 시도해주세요.')
           const c = document.createElement('canvas')
           c.width = Math.floor(viewport.width)
           c.height = Math.floor(viewport.height)
@@ -50,20 +73,31 @@ export function PdfToImage() {
             ctx.fillStyle = '#ffffff'
             ctx.fillRect(0, 0, c.width, c.height)
           }
-          await page.render({ canvasContext: ctx, viewport }).promise
-          const blob: Blob = await new Promise((res) => c.toBlob((b) => res(b!), fmt, 0.92))
-          out.push({ n, url: URL.createObjectURL(blob), blob })
+          await page.render({ canvas: c, canvasContext: ctx, viewport }).promise
+          const blob: Blob = await new Promise((res, reject) => c.toBlob((b) => b ? res(b) : reject(new Error('이미지 인코딩에 실패했어요.')), fmt, 0.92))
+          if (job !== jobRef.current) return
+          out.push({ n, url: createObjectUrl(blob), blob })
+          page.cleanup()
+          c.width = c.height = 0
         }
         setPages(out)
+        trackToolEvent('conversion_complete', '/pdf-to-image')
       } catch (e) {
+        if (job !== jobRef.current) return
+        clearObjectUrls()
         console.error('pdf->image failed', e)
-        alert('PDF 변환 중 오류가 발생했어요. 다른 파일로 시도해 주세요.')
+        trackToolEvent('tool_error', '/pdf-to-image')
+        alert(e instanceof Error ? e.message : 'PDF 변환 중 오류가 발생했어요.')
       } finally {
-        setBusy(false)
-        setProgress('')
+        if (job === jobRef.current) {
+          await taskRef.current?.destroy().catch(() => {})
+          taskRef.current = null
+          setBusy(false)
+          setProgress('')
+        }
       }
     },
-    [fmt, hq],
+    [fmt, hq, busy, clearObjectUrls, createObjectUrl],
   )
 
   const ext = fmt === 'image/jpeg' ? 'jpg' : 'png'
@@ -81,13 +115,15 @@ export function PdfToImage() {
     const zip = new JSZip()
     pages.forEach((p) => zip.file(`${base}_${String(p.n).padStart(2, '0')}.${ext}`, p.blob))
     const blob = await zip.generateAsync({ type: 'blob' })
-    const a = document.createElement('a')
-    a.download = `${base}_이미지.zip`
-    a.href = URL.createObjectURL(blob)
-    a.click()
+    downloadBlob(blob, `${base}_이미지.zip`)
   }
 
   const reset = () => {
+    jobRef.current++
+    void taskRef.current?.destroy()
+    taskRef.current = null
+    setBusy(false)
+    clearObjectUrls()
     setPages([])
     setFileName('')
   }
@@ -151,6 +187,7 @@ export function PdfToImage() {
       <div className="rounded-xl border border-gray-200 bg-gray-50 p-12 text-center">
         <p className="font-medium text-gray-700">변환 중…</p>
         <p className="mt-1 text-sm text-gray-400">{progress}</p>
+        <Button onClick={reset} variant="outline" className="mt-4">취소</Button>
       </div>
     )
   }

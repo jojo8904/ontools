@@ -1,7 +1,10 @@
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/games' },
   title: '게임 모음 - ontools',
   description:
     '브라우저에서 바로 즐기는 하이퍼캐주얼 게임. 2048, 테트리스, 스네이크, 지뢰찾기, 솔리테어, 블랙잭, 메모리 카드, Flappy Bird, 타자연습, 오목.',
@@ -90,27 +93,13 @@ const GAMES = [
 export default function GamesPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-10">
-        <div className="container mx-auto px-4 py-4">
-          <a
-            href="/"
-            className="flex items-center gap-2.5 hover:opacity-80 transition-opacity"
-          >
-            <img
-              src="/mascot.png"
-              alt="ontools"
-              className="w-10 h-10 rounded-full"
-            />
-            <span className="text-xl font-bold">ontools</span>
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="text-sm text-muted-foreground mb-6">
-          <a href="/" className="hover:text-foreground">
+          <Link href="/" className="hover:text-foreground">
             홈
-          </a>
+          </Link>
           {' > '}
           <span className="text-foreground font-medium">게임</span>
         </div>
@@ -145,11 +134,7 @@ export default function GamesPage() {
         </div>
       </main>
 
-      <footer className="border-t mt-auto">
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          &copy; 2026 ontools. All rights reserved.
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

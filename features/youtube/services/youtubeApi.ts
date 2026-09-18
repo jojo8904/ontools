@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase'
+import { getSupabaseClient } from '@/lib/supabase'
 
 export interface YouTubeVideo {
   id: string
@@ -11,6 +11,8 @@ export interface YouTubeVideo {
 }
 
 export async function getVideosByCategory(category: string): Promise<YouTubeVideo[]> {
+  const supabase = getSupabaseClient()
+  if (!supabase) return []
   const { data, error } = await supabase
     .from('youtube_videos')
     .select('*')

@@ -22,11 +22,12 @@ const CURRENCIES = [
 ]
 
 // Fetch all exchange rates from open.er-api.com (KRW base)
-async function fetchAllRates(): Promise<Record<string, number> | null> {
+async function fetchAllRates(): Promise<{ rates: Record<string, number>; asOf: string } | null> {
   const url = 'https://open.er-api.com/v6/latest/KRW'
 
   try {
-    const res = await fetch(url)
+    const res = await fetch(url, { signal: AbortSignal.timeout(15000) })
+    if (!res.ok) throw new Error(`Exchange API HTTP ${res.status}`)
     const data = await res.json()
 
     if (data.result !== 'success') {
@@ -34,7 +35,8 @@ async function fetchAllRates(): Promise<Record<string, number> | null> {
       return null
     }
 
-    return data.rates
+    if (!Number.isFinite(data.time_last_update_unix) || !data.rates) throw new Error('Invalid rate metadata')
+    return { rates: data.rates, asOf: new Date(data.time_last_update_unix * 1000).toISOString() }
   } catch (error) {
     console.error('Error fetching exchange rates:', error)
     return null
@@ -47,6 +49,8 @@ async function saveExchangeRate(record: {
   rate: number
   date: string
   is_weekend: boolean
+  source: string
+  fetched_at: string
 }) {
   const { error } = await supabase.from('exchange_rates').insert(record)
   if (error) throw new Error(`Supabase insert error: ${error.message}`)
@@ -63,9 +67,9 @@ async function updateExchangeRates() {
   console.log(`🗓️  Weekend: ${weekend ? 'Yes' : 'No'}`)
 
   // Fetch all rates in one call
-  const rates = await fetchAllRates()
+  const snapshot = await fetchAllRates()
 
-  if (!rates) {
+  if (!snapshot) {
     throw new Error('Failed to fetch exchange rates from API')
   }
 
@@ -76,9 +80,9 @@ async function updateExchangeRates() {
     console.log(`\n💵 Processing ${name} (${code})...`)
 
     try {
-      const foreignPerKrw = rates[erApiCode]
+      const foreignPerKrw = snapshot.rates[erApiCode]
 
-      if (!foreignPerKrw || foreignPerKrw === 0) {
+      if (!Number.isFinite(foreignPerKrw) || foreignPerKrw <= 0) {
         console.error(`  ❌ Rate not found for ${erApiCode}`)
         totalErrors++
         continue
@@ -91,7 +95,9 @@ async function updateExchangeRates() {
       await saveExchangeRate({
         currency_code: code,
         rate,
-        date: today,
+        date: snapshot.asOf,
+        fetched_at: today,
+        source: 'ExchangeRate-API',
         is_weekend: weekend,
       })
 

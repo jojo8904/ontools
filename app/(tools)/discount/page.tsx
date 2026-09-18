@@ -16,6 +16,7 @@ const DISCOUNT_FAQ = [
 ]
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/discount' },
   title: '할인율 계산기 - ontools',
   description: '원가와 할인율만 입력하면 할인 적용가와 할인 금액을 바로 계산합니다. 세일·쿠폰 가격 비교에 편리.',
   keywords: ['할인율계산기', '할인계산', '세일가격', '퍼센트 계산', '할인가'],

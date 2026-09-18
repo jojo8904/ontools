@@ -1,5 +1,7 @@
 'use client'
 
+import { useObjectUrls } from '@/lib/useObjectUrls'
+
 import { useState, useRef, useCallback, useEffect } from 'react'
 import { Button } from '@/components/ui/Button'
 
@@ -90,6 +92,8 @@ function renderAll(
 }
 
 export function ImageMask() {
+  const { createObjectUrl, clearObjectUrls } = useObjectUrls()
+
   const [img, setImg] = useState<HTMLImageElement | null>(null)
   const [fileName, setFileName] = useState('')
   const [masks, setMasks] = useState<Mask[]>([])
@@ -102,6 +106,9 @@ export function ImageMask() {
   const dragStart = useRef<{ x: number; y: number } | null>(null)
   const dragRect = useRef<Mask | null>(null)
   const displayScale = useRef(1)
+  const revision = useRef(0)
+  const invalidateExport = () => { revision.current++; setResultUrl(null) }
+  useEffect(() => () => { revision.current++ }, [])
 
   const loadFile = useCallback((file: File) => {
     if (!file.type.startsWith('image/')) {
@@ -109,11 +116,14 @@ export function ImageMask() {
       return
     }
     setFileName(file.name)
+    revision.current++
+    const version = revision.current
     setMasks([])
     setResultUrl(null)
-    const url = URL.createObjectURL(file)
+    const url = createObjectUrl(file)
     const image = new Image()
     image.onload = () => {
+      if (version !== revision.current) { URL.revokeObjectURL(url); return }
       setImg(image)
       URL.revokeObjectURL(url)
     }
@@ -122,7 +132,7 @@ export function ImageMask() {
       URL.revokeObjectURL(url)
     }
     image.src = url
-  }, [])
+  }, [createObjectUrl])
 
   // 이미지/마스크/워터마크 변경 시 디스플레이 캔버스 다시 그림
   useEffect(() => {
@@ -180,6 +190,7 @@ export function ImageMask() {
     dragStart.current = null
     dragRect.current = null
     if (r && r.w > 5 && r.h > 5) {
+      invalidateExport()
       setMasks((prev) => [...prev, r])
     } else if (img) {
       const ctx = canvasRef.current!.getContext('2d')!
@@ -187,8 +198,8 @@ export function ImageMask() {
     }
   }
 
-  const undo = () => setMasks((prev) => prev.slice(0, -1))
-  const clearMasks = () => setMasks([])
+  const undo = () => { invalidateExport(); setMasks((prev) => prev.slice(0, -1)) }
+  const clearMasks = () => { invalidateExport(); setMasks([]) }
 
   const handleExport = useCallback(() => {
     if (!img) return
@@ -198,12 +209,13 @@ export function ImageMask() {
     const ctx = out.getContext('2d')!
     // 마스크는 디스플레이 좌표 → 실제 해상도로 확대
     const exportScale = 1 / displayScale.current
+    const version = ++revision.current
     renderAll(ctx, img, masks, exportScale, watermark, null, mosaicBlock)
     out.toBlob((blob) => {
-      if (!blob) return
-      setResultUrl(URL.createObjectURL(blob))
+      if (!blob || version !== revision.current) return
+      setResultUrl(createObjectUrl(blob, 'result'))
     }, 'image/png')
-  }, [img, masks, watermark, mosaicBlock])
+  }, [img, masks, watermark, mosaicBlock, createObjectUrl])
 
   const handleDownload = () => {
     if (!resultUrl) return
@@ -215,6 +227,8 @@ export function ImageMask() {
   }
 
   const reset = () => {
+    revision.current++
+    clearObjectUrls()
     setImg(null)
     setFileName('')
     setMasks([])
@@ -271,7 +285,7 @@ export function ImageMask() {
                   {([['약', 8], ['보통', 12], ['강', 20]] as const).map(([label, v]) => (
                     <button
                       key={v}
-                      onClick={() => setMosaicBlock(v)}
+                      onClick={() => { invalidateExport(); setMosaicBlock(v) }}
                       className={`rounded-md px-2.5 py-1 text-xs font-medium ${mosaicBlock === v ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-500'}`}
                     >
                       {label}
@@ -310,11 +324,11 @@ export function ImageMask() {
 
           {/* 워터마크 */}
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">워터마크 (선택) — 예: "○○은행 제출용"</label>
+            <label className="mb-1.5 block text-sm font-medium text-gray-700">워터마크 (선택) — 예: &quot;○○은행 제출용&quot;</label>
             <input
               type="text"
               value={watermark}
-              onChange={(e) => setWatermark(e.target.value)}
+              onChange={(e) => { invalidateExport(); setWatermark(e.target.value) }}
               placeholder="제출처를 적으면 사진 전체에 반복 표시됩니다"
               className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-blue-400"
             />

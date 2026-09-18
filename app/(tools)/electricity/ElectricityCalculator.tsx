@@ -222,7 +222,7 @@ export function ElectricityCalculator() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">
-                      전력산업기반기금 (3.7%)
+                      전력산업기반기금 (2.7%)
                     </span>
                     <span className="font-medium">
                       {formatCurrency(result.fund)}
@@ -247,16 +247,16 @@ export function ElectricityCalculator() {
           </CardHeader>
           <CardContent className="text-sm text-muted-foreground space-y-3">
             <p>
-              한국전력 <strong>주택용 전기요금</strong> 누진제 기준으로
-              계산합니다.
+              <strong>주택용 저압, 기타계절(1~6월·9~12월), 0~1,000kWh</strong> 예상액입니다.
+              연료비 5원/kWh를 가정하며 하계 구간, 고압 계약, 할인 및 TV 수신료는 미반영합니다.
             </p>
             <p>
               <strong>누진 구간</strong>: 사용량에 따라 1~3구간으로 나뉘며,
               구간이 높을수록 단가가 올라갑니다.
             </p>
             <p>
-              실제 요금은 계절별 할인/할증, 복지 할인 등에 따라 다를 수
-              있습니다.
+              기금은 2025년 7월 이후 2.7%입니다. 실제 청구액은
+              <a href="https://online.kepco.co.kr/" className="underline" target="_blank" rel="noreferrer"> 한전ON</a>에서 확인하세요.
             </p>
           </CardContent>
         </Card>

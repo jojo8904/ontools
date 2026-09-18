@@ -1,3 +1,7 @@
+
+import Link from 'next/link'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import { SeveranceCalculator } from './SeveranceCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
@@ -21,6 +25,7 @@ const SEVERANCE_FAQ = [
 ]
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/severance-pay' },
   title: '퇴직금 계산기 - ontools',
   description:
     '입사일, 퇴사일, 월 평균임금을 입력하면 근로기준법에 따른 퇴직금을 계산합니다. 1일 평균임금, 재직일수 기반 정확한 퇴직금 산정.',
@@ -47,22 +52,15 @@ export default function SeverancePayPage() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4">
-          <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-            <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
-            <span className="text-xl font-bold">ontools</span>
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       {/* Main Content */}
       <main className="flex-1 container mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <div className="text-sm text-muted-foreground mb-6">
-          <a href="/" className="hover:text-foreground">
+          <Link href="/" className="hover:text-foreground">
             홈
-          </a>
+          </Link>
           {' > '}
           <span className="text-foreground">금융</span>
           {' > '}
@@ -92,7 +90,7 @@ export default function SeverancePayPage() {
           <aside className="space-y-6">
             {/* 사이드바 고정 광고 (PC 전용) */}
             <div className="hidden lg:block sticky top-20">
-              <AdUnit slot="0000000000" />
+              <AdUnit placement="tool" />
             </div>
             {/* 퇴직금 계산 방법 */}
             <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
@@ -176,17 +174,13 @@ export default function SeverancePayPage() {
         <FaqSection items={SEVERANCE_FAQ} />
         <div className="mt-8 rounded-xl border border-blue-100 bg-blue-50/50 p-4">
           <span className="text-sm text-gray-600">더 알아보기 — </span>
-          <a href="/guide/severance-pay" className="text-sm font-semibold text-blue-700 hover:underline">퇴직금 계산법 — 평균임금·상여금 포함 여부까지</a>
+          <Link href="/guide/severance-pay" className="text-sm font-semibold text-blue-700 hover:underline">퇴직금 계산법 — 평균임금·상여금 포함 여부까지</Link>
         </div>
         <RelatedTools current="/severance-pay" />
       </main>
 
       {/* Footer */}
-      <footer className="border-t mt-auto">
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          &copy; 2026 ontools. All rights reserved.
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

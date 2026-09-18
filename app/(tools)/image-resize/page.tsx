@@ -1,3 +1,7 @@
+
+import Link from 'next/link'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import { ImageResize } from './ImageResize'
 import { RelatedTools } from '@/components/RelatedTools'
@@ -29,6 +33,7 @@ const GUIDE = [
 ]
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/image-resize' },
   title: '이미지 크기 조절 (가로세로 px 변경) - ontools',
   description:
     '사진의 가로·세로 픽셀 크기를 원하는 값으로 변경합니다. 비율 유지, 25/50/75% 배율, PNG·JPG 저장 지원. 브라우저에서 처리되어 서버로 전송되지 않습니다.',
@@ -54,18 +59,11 @@ export const metadata: Metadata = {
 export default function ImageResizePage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4">
-          <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-            <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
-            <span className="text-xl font-bold">ontools</span>
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="text-sm text-muted-foreground mb-6">
-          <a href="/" className="hover:text-foreground">홈</a>
+          <Link href="/" className="hover:text-foreground">홈</Link>
           {' > '}
           <span className="text-foreground">이미지·파일</span>
           {' > '}
@@ -90,7 +88,7 @@ export default function ImageResizePage() {
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-1">블로그·쇼핑몰 업로드</h3>
-                  <p>"가로 1000px 이하" 같은 업로드 규격에 맞춰 크기를 조절합니다.</p>
+                  <p>&quot;가로 1000px 이하&quot; 같은 업로드 규격에 맞춰 크기를 조절합니다.</p>
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-1">프로필·썸네일</h3>
@@ -119,11 +117,7 @@ export default function ImageResizePage() {
         <RelatedTools current="/image-resize" />
       </main>
 
-      <footer className="border-t mt-auto">
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          &copy; 2026 ontools. All rights reserved.
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

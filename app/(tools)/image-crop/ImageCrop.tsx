@@ -1,5 +1,7 @@
 'use client'
 
+import { useObjectUrls } from '@/lib/useObjectUrls'
+
 import { useState, useRef, useCallback, useEffect } from 'react'
 import { Button } from '@/components/ui/Button'
 
@@ -16,6 +18,8 @@ const PRESETS: [string, number | null][] = [
 ]
 
 export function ImageCrop() {
+  const { createObjectUrl, clearObjectUrls } = useObjectUrls()
+
   const [img, setImg] = useState<HTMLImageElement | null>(null)
   const [fileName, setFileName] = useState('')
   const [isJpg, setIsJpg] = useState(false)
@@ -39,7 +43,7 @@ export function ImageCrop() {
     setIsJpg(file.type === 'image/jpeg')
     setResultUrl(null)
     setAspect(null)
-    const url = URL.createObjectURL(file)
+    const url = createObjectUrl(file)
     const image = new Image()
     image.onload = () => {
       setImg(image)
@@ -50,7 +54,7 @@ export function ImageCrop() {
       URL.revokeObjectURL(url)
     }
     image.src = url
-  }, [])
+  }, [createObjectUrl])
 
   // 이미지 로드 → 캔버스 셋업 + 기본 크롭(전체)
   useEffect(() => {
@@ -201,13 +205,13 @@ export function ImageCrop() {
     c.toBlob(
       (b) => {
         if (!b) return
-        setResultUrl(URL.createObjectURL(b))
+        setResultUrl(createObjectUrl(b, 'setResultUrl'))
         setResultInfo(`${sw} × ${sh}px · ${(b.size / 1024).toFixed(0)}KB`)
       },
       type,
       0.92,
     )
-  }, [img, crop, isJpg])
+  }, [img, crop, isJpg, createObjectUrl])
 
   const download = () => {
     if (!resultUrl) return
@@ -219,6 +223,7 @@ export function ImageCrop() {
   }
 
   const reset = () => {
+    clearObjectUrls()
     setImg(null)
     setFileName('')
     setResultUrl(null)

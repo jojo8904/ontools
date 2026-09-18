@@ -1,5 +1,7 @@
 'use client'
 
+import { useObjectUrls } from '@/lib/useObjectUrls'
+
 import { useState, useRef, useCallback } from 'react'
 import { Button } from '@/components/ui/Button'
 
@@ -28,6 +30,8 @@ function isHeic(file: File): boolean {
 }
 
 export function HeicToJpg() {
+  const { createObjectUrl, clearObjectUrls } = useObjectUrls()
+
   const [items, setItems] = useState<Item[]>([])
   const [outType, setOutType] = useState<OutType>('image/jpeg')
   const [quality, setQuality] = useState(0.9)
@@ -51,7 +55,7 @@ export function HeicToJpg() {
         try {
           const out = await heic2any({ blob: file, toType: type, quality: q })
           const blob = Array.isArray(out) ? out[0] : out
-          const url = URL.createObjectURL(blob as Blob)
+          const url = createObjectUrl(blob as Blob)
           setItems((prev) =>
             prev.map((it) => (it.id === id ? { ...it, status: 'done', url, size: (blob as Blob).size } : it)),
           )
@@ -64,7 +68,7 @@ export function HeicToJpg() {
       }
       setBusy(false)
     },
-    [],
+    [createObjectUrl],
   )
 
   const ext = outType === 'image/jpeg' ? 'jpg' : 'png'

@@ -1,4 +1,11 @@
 import { CurrencyInput, CurrencyResult, CurrencyCode } from '@/types/tools'
+export interface RateQuote {
+  rate: number
+  asOf: string | null
+  source: string
+  status: 'live' | 'stale' | 'fallback'
+}
+export type RateQuotes = Record<CurrencyCode, RateQuote>
 
 // 폴백 환율 (1단위 기준, JPY도 1엔 기준)
 export const EXCHANGE_RATES: Record<CurrencyCode, number> = {
@@ -27,15 +34,10 @@ export function isWeekend(date: Date = new Date()): boolean {
 /**
  * 최종 업데이트 시간 포맷 (한국 시간 기준)
  */
-export function getLastUpdatedTime(): string {
-  const now = new Date()
-  const year = now.getFullYear()
-  const month = String(now.getMonth() + 1).padStart(2, '0')
-  const day = String(now.getDate()).padStart(2, '0')
-  const weekdays = ['일', '월', '화', '수', '목', '금', '토']
-  const weekday = weekdays[now.getDay()]
-
-  return `${year}-${month}-${day}(${weekday}) 11:00 기준`
+export function getLastUpdatedTime(asOf: string | null = null): string {
+  return asOf ? `${new Intl.DateTimeFormat('ko-KR', {
+    timeZone: 'Asia/Seoul', dateStyle: 'medium', timeStyle: 'short',
+  }).format(new Date(asOf))} 기준 (한국 시간)` : '기준일 미확인 · 참고용 고정 환율'
 }
 
 /**
@@ -48,9 +50,19 @@ export function getLastUpdatedTime(): string {
  */
 export function convertCurrency(
   input: CurrencyInput,
-  rates: Record<CurrencyCode, number> = EXCHANGE_RATES
+  rates: Record<CurrencyCode, number> = EXCHANGE_RATES,
+  quotes?: RateQuotes
 ): CurrencyResult {
   const { amount, fromCurrency, toCurrency } = input
+  if (!Number.isFinite(amount) || amount < 0) throw new RangeError('금액은 0 이상의 숫자여야 합니다.')
+  const relevant = [fromCurrency, toCurrency].filter((c): c is CurrencyCode => c !== 'KRW')
+  if (relevant.some((c) => !Number.isFinite(rates[c]) || rates[c] <= 0)) throw new RangeError('유효하지 않은 환율입니다.')
+  const metadata = relevant.map((code) => quotes?.[code])
+  const status = !quotes || metadata.some((q) => !q || q.status === 'fallback') ? 'fallback'
+    : metadata.some((q) => q?.status === 'stale') ? 'stale' : 'live'
+  const dates = metadata.map((q) => q?.asOf).filter((d): d is string => Boolean(d)).sort()
+  const lastUpdated = status === 'fallback' ? getLastUpdatedTime() : getLastUpdatedTime(dates[0] ?? null)
+  const source = [...new Set(metadata.map((q) => q?.source || '참고용 고정 환율'))].join(' / ')
 
   if (fromCurrency === toCurrency) {
     return {
@@ -59,7 +71,8 @@ export function convertCurrency(
       toCurrency,
       convertedAmount: amount,
       rate: 1,
-      lastUpdated: getLastUpdatedTime(),
+      lastUpdated,
+      status, source,
       isWeekend: isWeekend(),
     }
   }
@@ -69,7 +82,7 @@ export function convertCurrency(
 
   if (fromCurrency === 'KRW') {
     const targetRate = rates[toCurrency as CurrencyCode]
-    rate = targetRate
+    rate = 1 / targetRate
     convertedAmount = amount / targetRate
   } else if (toCurrency === 'KRW') {
     const sourceRate = rates[fromCurrency as CurrencyCode]
@@ -90,7 +103,8 @@ export function convertCurrency(
     toCurrency,
     convertedAmount,
     rate,
-    lastUpdated: getLastUpdatedTime(),
+    lastUpdated,
+    status, source,
     isWeekend: isWeekend(),
   }
 }

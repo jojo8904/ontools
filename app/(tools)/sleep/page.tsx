@@ -5,6 +5,7 @@ import { FaqSection } from '@/components/FaqSection'
 import { SleepCalculator } from './SleepCalculator'
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/sleep' },
   title: '수면 시간 계산기 - ontools',
   description: '90분 수면 주기를 기준으로 개운하게 일어날 수 있는 취침·기상 시각을 추천합니다. 지금 자면 몇 시에 일어나야 할지 알려드려요.',
   keywords: ['수면계산기', '취침시간', '기상시간', '수면주기', '꿀잠'],

@@ -1,3 +1,7 @@
+
+import Link from 'next/link'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import { UnitConverterCalculator } from './UnitConverterCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
@@ -11,6 +15,7 @@ const UNIT_GUIDE = [
 ]
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/unit-converter' },
   title: '단위 변환기 - ontools',
   description:
     '길이(cm/m/km/inch/ft/mile), 무게(g/kg/lb/oz), 온도(°C/°F), 시간(초/분/시간/일) 단위를 간편하게 변환하세요.',
@@ -38,22 +43,15 @@ export default function UnitConverterPage() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4">
-          <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-            <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
-            <span className="text-xl font-bold">ontools</span>
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       {/* Main Content */}
       <main className="flex-1 container mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <div className="text-sm text-muted-foreground mb-6">
-          <a href="/" className="hover:text-foreground">
+          <Link href="/" className="hover:text-foreground">
             홈
-          </a>
+          </Link>
           {' > '}
           <span className="text-foreground">유틸리티</span>
           {' > '}
@@ -80,11 +78,7 @@ export default function UnitConverterPage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t mt-auto">
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          &copy; 2026 ontools. All rights reserved.
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

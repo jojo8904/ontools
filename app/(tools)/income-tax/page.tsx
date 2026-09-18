@@ -1,3 +1,7 @@
+
+import Link from 'next/link'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import { IncomeTaxCalculator } from './IncomeTaxCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
@@ -21,6 +25,7 @@ const INCOME_TAX_FAQ = [
 ]
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/income-tax' },
   title: '종합소득세 계산기 - ontools',
   description: '종합소득세를 간편하게 계산하세요. 2025년 기준 세율 구간 적용, 소득공제 반영, 지방소득세 포함.',
   keywords: ['종합소득세계산기', '소득세', '세율구간', '종소세', '소득세신고'],
@@ -36,17 +41,10 @@ export const metadata: Metadata = {
 export default function IncomeTaxPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4">
-          <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-            <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
-            <span className="text-xl font-bold">ontools</span>
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="text-sm text-muted-foreground mb-6">
-          <a href="/" className="hover:text-foreground">홈</a>{' > '}
+          <Link href="/" className="hover:text-foreground">홈</Link>{' > '}
           <span className="text-foreground">급여/세금</span>{' > '}
           <span className="text-foreground font-medium">종합소득세 계산기</span>
         </div>
@@ -66,7 +64,7 @@ export default function IncomeTaxPage() {
           <aside className="space-y-6">
             {/* 사이드바 고정 광고 (PC 전용) */}
             <div className="hidden lg:block sticky top-20">
-              <AdUnit slot="0000000000" />
+              <AdUnit placement="tool" />
             </div>
             <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">종합소득세 세율 (2025)</h2>
@@ -104,9 +102,7 @@ export default function IncomeTaxPage() {
         <FaqSection items={INCOME_TAX_FAQ} />
         <RelatedTools current="/income-tax" />
       </main>
-      <footer className="border-t mt-auto">
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">&copy; 2026 ontools. All rights reserved.</div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

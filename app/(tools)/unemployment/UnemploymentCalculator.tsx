@@ -15,9 +15,9 @@ import {
 type AgeGroup = 'under50' | '50orAbove'
 
 // 2026년 기준
-const DAILY_UPPER_LIMIT = 66000
-const MIN_WAGE_2026 = 10030
-const DAILY_LOWER_LIMIT = Math.floor(MIN_WAGE_2026 * 0.8 * 8) // 64,192원
+import { KOREA_POLICY } from '@/lib/korea-policy'
+const DAILY_UPPER_LIMIT = KOREA_POLICY.unemploymentDailyUpper
+const DAILY_LOWER_LIMIT = KOREA_POLICY.unemploymentDailyLower
 
 // 소정급여일수 테이블
 const BENEFIT_DAYS: Record<AgeGroup, number[]> = {

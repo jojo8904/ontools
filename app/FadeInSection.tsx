@@ -20,7 +20,7 @@ export function FadeInSection({ children, className = '' }: FadeInSectionProps) 
           observer.unobserve(el)
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0 }
     )
     observer.observe(el)
     return () => observer.disconnect()

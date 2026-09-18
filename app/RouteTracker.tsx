@@ -3,6 +3,7 @@
 import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { getToolByHref } from '@/lib/tools'
+import { trackToolEvent } from '@/lib/analytics'
 
 const KEY = 'ontools:recent'
 
@@ -17,10 +18,12 @@ export function RouteTracker() {
     if (!pathname) return
     const tool = getToolByHref(pathname)
     if (!tool) return // 등록된 도구 페이지만 기록
+    trackToolEvent('tool_view', pathname)
     try {
       const prev: string[] = JSON.parse(localStorage.getItem(KEY) || '[]')
       const next = [pathname, ...prev.filter((p) => p !== pathname)].slice(0, 6)
       localStorage.setItem(KEY, JSON.stringify(next))
+      window.dispatchEvent(new Event('ontools:recent-changed'))
     } catch {
       // localStorage 비활성(사생활 보호 모드 등) 시 무시
     }

@@ -1,3 +1,7 @@
+
+import Link from 'next/link'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import { AnnualLeaveDaysCalculator } from './AnnualLeaveDaysCalculator'
 import { RelatedTools } from '@/components/RelatedTools'
@@ -35,6 +39,7 @@ const FAQ = [
 ]
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/annual-leave-days' },
   title: '연차 개수 계산기 (입사일 기준) - ontools',
   description:
     '입사일만 넣으면 지금 내 연차가 며칠인지 계산합니다. 1년 미만 월 1일 발생, 1년 이상 15일+2년마다 1일(최대 25일). 근로기준법 기준.',
@@ -51,18 +56,11 @@ export const metadata: Metadata = {
 export default function AnnualLeaveDaysPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4">
-          <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-            <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
-            <span className="text-xl font-bold">ontools</span>
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="text-sm text-muted-foreground mb-6">
-          <a href="/" className="hover:text-foreground">홈</a>
+          <Link href="/" className="hover:text-foreground">홈</Link>
           {' > '}
           <span className="text-foreground">연봉·세금</span>
           {' > '}
@@ -109,9 +107,9 @@ export default function AnnualLeaveDaysPage() {
             <section className="rounded-xl border border-gray-200/70 bg-[#F2EEE6] p-6">
               <h2 className="text-xl font-bold mb-4">함께 보면 좋아요</h2>
               <div className="space-y-2 text-sm leading-relaxed">
-                <p><a href="/annual-leave-pay" className="font-semibold text-blue-700 hover:underline">연차 수당 계산기</a> — 못 쓴 연차, 돈으로 얼마?</p>
-                <p><a href="/severance-pay" className="font-semibold text-blue-700 hover:underline">퇴직금 계산기</a> — 퇴사 전 필수 확인</p>
-                <p><a href="/salary" className="font-semibold text-blue-700 hover:underline">연봉 실수령액 계산기</a></p>
+                <p><Link href="/annual-leave-pay" className="font-semibold text-blue-700 hover:underline">연차 수당 계산기</Link> — 못 쓴 연차, 돈으로 얼마?</p>
+                <p><Link href="/severance-pay" className="font-semibold text-blue-700 hover:underline">퇴직금 계산기</Link> — 퇴사 전 필수 확인</p>
+                <p><Link href="/salary" className="font-semibold text-blue-700 hover:underline">연봉 실수령액 계산기</Link></p>
               </div>
             </section>
           </aside>
@@ -122,11 +120,7 @@ export default function AnnualLeaveDaysPage() {
         <RelatedTools current="/annual-leave-days" />
       </main>
 
-      <footer className="border-t mt-auto">
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          &copy; 2026 ontools. All rights reserved.
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

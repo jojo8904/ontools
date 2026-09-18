@@ -1,5 +1,7 @@
 'use client'
 
+import { useStoredNumber } from '@/lib/useStoredNumber'
+
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
 const ROWS = 9
@@ -97,12 +99,7 @@ export function GameMinesweeper() {
   const [won, setWon] = useState(false)
   const [started, setStarted] = useState(false)
   const [time, setTime] = useState(0)
-  const [bestTime, setBestTime] = useState<number | null>(null)
-
-  useEffect(() => {
-    const stored = localStorage.getItem(HS_KEY)
-    if (stored) setBestTime(parseInt(stored, 10))
-  }, [])
+  const [bestTime, setBestTime] = useStoredNumber(HS_KEY, null)
 
   useEffect(() => {
     if (!started || gameOver || won) return
@@ -129,7 +126,6 @@ export function GameMinesweeper() {
           setWon(true)
           if (bestTime === null || 0 < bestTime) {
             setBestTime(0)
-            localStorage.setItem(HS_KEY, '0')
           }
         }
         return
@@ -154,11 +150,10 @@ export function GameMinesweeper() {
         setWon(true)
         if (bestTime === null || time < bestTime) {
           setBestTime(time)
-          localStorage.setItem(HS_KEY, String(time))
         }
       }
     },
-    [board, gameOver, won, time, bestTime]
+    [gameOver, won, board, bestTime, setBestTime, time]
   )
 
   const handleRightClick = useCallback(

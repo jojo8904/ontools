@@ -1,3 +1,7 @@
+
+import Link from 'next/link'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import { ImageMask } from './ImageMask'
 import { RelatedTools } from '@/components/RelatedTools'
@@ -29,6 +33,7 @@ const GUIDE = [
 ]
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/image-mask' },
   title: '신분증·통장 민감정보 가리기 (모자이크·마스킹) - ontools',
   description:
     '신분증, 통장사본, 계약서의 주민번호·계좌번호를 검은칠·모자이크로 가립니다. 워터마크 추가, 사진 위치정보(EXIF) 제거까지. 브라우저에서 처리되어 서버로 전송되지 않습니다.',
@@ -54,18 +59,11 @@ export const metadata: Metadata = {
 export default function ImageMaskPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4">
-          <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-            <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
-            <span className="text-xl font-bold">ontools</span>
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="text-sm text-muted-foreground mb-6">
-          <a href="/" className="hover:text-foreground">홈</a>
+          <Link href="/" className="hover:text-foreground">홈</Link>
           {' > '}
           <span className="text-foreground">이미지·파일</span>
           {' > '}
@@ -119,11 +117,7 @@ export default function ImageMaskPage() {
         <RelatedTools current="/image-mask" />
       </main>
 
-      <footer className="border-t mt-auto">
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          &copy; 2026 ontools. All rights reserved.
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

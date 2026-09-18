@@ -5,6 +5,7 @@ import { FaqSection } from '@/components/FaqSection'
 import { GiftTaxCalculator } from './GiftTaxCalculator'
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/gift-tax' },
   title: '증여세 계산기 - ontools',
   description: '증여 재산가액과 관계를 입력하면 증여재산공제·과세표준·증여세를 계산합니다. 신고세액공제 3% 반영.',
   keywords: ['증여세', '증여세계산기', '증여재산공제', '증여세율', '자녀증여'],

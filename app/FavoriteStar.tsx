@@ -1,14 +1,24 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useSyncExternalStore } from 'react'
 
 const KEY = 'ontools:favorites'
 
 function readFavs(): string[] {
   try {
-    return JSON.parse(localStorage.getItem(KEY) || '[]')
+    const parsed: unknown = JSON.parse(localStorage.getItem(KEY) || '[]')
+    return Array.isArray(parsed) ? parsed.filter((item): item is string => typeof item === 'string') : []
   } catch {
     return []
+  }
+}
+
+function subscribe(update: () => void) {
+  window.addEventListener('ontools:favorites-changed', update)
+  window.addEventListener('storage', update)
+  return () => {
+    window.removeEventListener('ontools:favorites-changed', update)
+    window.removeEventListener('storage', update)
   }
 }
 
@@ -17,11 +27,7 @@ function readFavs(): string[] {
  * 링크 옆에 두며, 클릭 시 네비게이션을 막고 즐겨찾기만 토글
  */
 export function FavoriteStar({ href }: { href: string }) {
-  const [fav, setFav] = useState(false)
-
-  useEffect(() => {
-    setFav(readFavs().includes(href))
-  }, [href])
+  const fav = useSyncExternalStore(subscribe, () => readFavs().includes(href), () => false)
 
   const toggle = (e: React.MouseEvent) => {
     e.preventDefault()
@@ -33,7 +39,6 @@ export function FavoriteStar({ href }: { href: string }) {
     } catch {
       // 무시
     }
-    setFav(next.includes(href))
     window.dispatchEvent(new Event('ontools:favorites-changed'))
   }
 

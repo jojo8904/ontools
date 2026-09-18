@@ -1,3 +1,7 @@
+
+import Link from 'next/link'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import { AnnualLeavePayCalculator } from './AnnualLeavePayCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
@@ -11,6 +15,7 @@ const ANNUAL_LEAVE_GUIDE = [
 ]
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/annual-leave-pay' },
   title: '연차 수당 계산기 - ontools',
   description: '미사용 연차에 대한 연차수당을 계산하세요. 1일 통상임금과 미사용 연차 일수를 입력하면 자동 계산됩니다.',
   keywords: ['연차수당계산기', '미사용연차', '연차수당', '통상임금', '연차보상'],
@@ -26,17 +31,10 @@ export const metadata: Metadata = {
 export default function AnnualLeavePayPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4">
-          <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-            <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
-            <span className="text-xl font-bold">ontools</span>
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="text-sm text-muted-foreground mb-6">
-          <a href="/" className="hover:text-foreground">홈</a>{' > '}
+          <Link href="/" className="hover:text-foreground">홈</Link>{' > '}
           <span className="text-foreground">급여/세금</span>{' > '}
           <span className="text-foreground font-medium">연차 수당 계산기</span>
         </div>
@@ -72,9 +70,7 @@ export default function AnnualLeavePayPage() {
         <ToolGuide sections={ANNUAL_LEAVE_GUIDE} />
         <RelatedTools current="/annual-leave-pay" />
       </main>
-      <footer className="border-t mt-auto">
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">&copy; 2026 ontools. All rights reserved.</div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

@@ -1,3 +1,5 @@
+
+import Link from 'next/link'
 import type { Metadata } from 'next'
 import { ToolShell } from '@/components/ToolShell'
 import { FaqSection } from '@/components/FaqSection'
@@ -17,6 +19,7 @@ const AGE_FAQ = [
 ]
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/age' },
   title: '만 나이 계산기 - ontools',
   description: '생년월일만 입력하면 만 나이, 연 나이, 살아온 날수, 다음 생일까지 D-day를 한 번에 계산합니다. 2023년 만 나이 통일 기준.',
   keywords: ['만나이', '만나이계산기', '나이계산기', '연나이', '생일계산'],
@@ -35,7 +38,7 @@ export default function AgePage() {
       <FaqSection items={AGE_FAQ} />
       <div className="mt-8 rounded-xl border border-blue-100 bg-blue-50/50 p-4">
         <span className="text-sm text-gray-600">더 알아보기 — </span>
-        <a href="/guide/korean-age" className="text-sm font-semibold text-blue-700 hover:underline">만 나이 계산법과 만 나이 통일 (2023년 변경 정리)</a>
+        <Link href="/guide/korean-age" className="text-sm font-semibold text-blue-700 hover:underline">만 나이 계산법과 만 나이 통일 (2023년 변경 정리)</Link>
       </div>
     </ToolShell>
   )

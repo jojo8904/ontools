@@ -1,5 +1,7 @@
 'use client'
 
+import { useObjectUrls } from '@/lib/useObjectUrls'
+
 import { useState, useRef, useCallback } from 'react'
 import { Button } from '@/components/ui/Button'
 
@@ -17,6 +19,8 @@ const EXT: Record<OutType, string> = {
 }
 
 export function ImageConvert() {
+  const { createObjectUrl, clearObjectUrls } = useObjectUrls()
+
   const [img, setImg] = useState<HTMLImageElement | null>(null)
   const [fileName, setFileName] = useState('')
   const [srcType, setSrcType] = useState('')
@@ -39,7 +43,7 @@ export function ImageConvert() {
     setResultUrl(null)
     // 원본이 JPG면 기본 변환 대상은 PNG로, 그 외엔 JPG로
     setTarget(file.type === 'image/jpeg' ? 'image/png' : 'image/jpeg')
-    const url = URL.createObjectURL(file)
+    const url = createObjectUrl(file)
     const image = new Image()
     image.onload = () => {
       setImg(image)
@@ -50,7 +54,7 @@ export function ImageConvert() {
       URL.revokeObjectURL(url)
     }
     image.src = url
-  }, [])
+  }, [createObjectUrl])
 
   const run = useCallback(() => {
     if (!img) return
@@ -67,7 +71,7 @@ export function ImageConvert() {
     c.toBlob(
       (b) => {
         if (!b) return
-        setResultUrl(URL.createObjectURL(b))
+        setResultUrl(createObjectUrl(b, 'setResultUrl'))
         const diff = srcSize > 0 ? Math.round((1 - b.size / srcSize) * 100) : 0
         const diffText = srcSize > 0 ? (diff > 0 ? ` (${diff}%↓)` : diff < 0 ? ` (${-diff}%↑)` : '') : ''
         setResultInfo(`${LABELS[target]} · ${(b.size / 1024).toFixed(0)}KB${diffText}`)
@@ -75,7 +79,7 @@ export function ImageConvert() {
       target,
       quality / 100,
     )
-  }, [img, target, quality, srcSize])
+  }, [img, target, quality, createObjectUrl, srcSize])
 
   const download = () => {
     if (!resultUrl) return
@@ -87,6 +91,7 @@ export function ImageConvert() {
   }
 
   const reset = () => {
+    clearObjectUrls()
     setImg(null)
     setFileName('')
     setResultUrl(null)

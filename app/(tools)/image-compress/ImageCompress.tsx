@@ -1,5 +1,7 @@
 'use client'
 
+import { useObjectUrls } from '@/lib/useObjectUrls'
+
 import { useState, useRef, useCallback } from 'react'
 import { Button } from '@/components/ui/Button'
 
@@ -92,6 +94,8 @@ async function compressToTarget(
 }
 
 export function ImageCompress() {
+  const { createObjectUrl, clearObjectUrls } = useObjectUrls()
+
   const [img, setImg] = useState<HTMLImageElement | null>(null)
   const [fileName, setFileName] = useState('')
   const [originalSize, setOriginalSize] = useState(0)
@@ -110,7 +114,7 @@ export function ImageCompress() {
     setFileName(file.name)
     setOriginalSize(file.size)
     setResult(null)
-    const url = URL.createObjectURL(file)
+    const url = createObjectUrl(file)
     const image = new Image()
     image.onload = () => {
       setImg(image)
@@ -121,7 +125,7 @@ export function ImageCompress() {
       URL.revokeObjectURL(url)
     }
     image.src = url
-  }, [])
+  }, [createObjectUrl])
 
   const effectiveKb = customKb ? Math.max(1, parseInt(customKb, 10) || 0) : targetKb
 
@@ -133,7 +137,7 @@ export function ImageCompress() {
       const targetBytes = effectiveKb * 1024
       const { blob, width, height, quality, ok } = await compressToTarget(img, targetBytes)
       setResult({
-        url: URL.createObjectURL(blob),
+        url: createObjectUrl(blob, 'setResult'),
         size: blob.size,
         width,
         height,
@@ -146,7 +150,7 @@ export function ImageCompress() {
     } finally {
       setProcessing(false)
     }
-  }, [img, effectiveKb])
+  }, [img, effectiveKb, createObjectUrl])
 
   const handleDownload = () => {
     if (!result) return
@@ -158,6 +162,7 @@ export function ImageCompress() {
   }
 
   const reset = () => {
+    clearObjectUrls()
     setImg(null)
     setFileName('')
     setOriginalSize(0)

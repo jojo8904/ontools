@@ -1,5 +1,7 @@
 'use client'
 
+import { useObjectUrls } from '@/lib/useObjectUrls'
+
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { Button } from '@/components/ui/Button'
 
@@ -57,6 +59,8 @@ function wrapLines(ctx: CanvasRenderingContext2D, text: string, maxWidth: number
 }
 
 export function TextImage() {
+  const { createObjectUrl, clearObjectUrls } = useObjectUrls()
+
   const [text, setText] = useState('오늘 할 수 있는 일에\n최선을 다하면\n내일은 한 걸음 나아가 있다.')
   const [mode, setMode] = useState<Mode>('quote')
   const [size, setSize] = useState<SizeKey>('square')
@@ -158,7 +162,7 @@ export function TextImage() {
       if (!blob) return
       const link = document.createElement('a')
       link.download = `ontools_image_${size}.png`
-      link.href = URL.createObjectURL(blob)
+      link.href = createObjectUrl(blob)
       link.click()
     }, 'image/png')
   }

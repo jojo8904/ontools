@@ -146,9 +146,10 @@ export function LadderGame() {
       total += d
     }
     animating.current = true
-    const t0 = performance.now()
+    let t0: number | null = null
     const dur = 900
     const tick = (now: number) => {
+      t0 ??= now
       const p = Math.min(1, (now - t0) / dur)
       let dist = p * total
       drawBase(ctx, rungs, revealed)

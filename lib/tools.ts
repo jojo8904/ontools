@@ -1,7 +1,7 @@
 /**
  * 전체 도구 레지스트리 — 검색, 관련 도구 추천, 사이트맵 등에서 공통 사용
  */
-export type ToolCategory = 'salary-tax' | 'finance' | 'health' | 'utility' | 'image'
+export type ToolCategory = 'salary-tax' | 'finance' | 'health' | 'utility' | 'image' | 'game'
 
 export interface ToolMeta {
   href: string
@@ -17,9 +17,20 @@ export const CATEGORY_LABELS: Record<ToolCategory, string> = {
   health: '건강',
   utility: '생활·유틸',
   image: '이미지·파일',
+  game: '게임',
 }
 
 export const TOOLS: ToolMeta[] = [
+  {"href":"/games/2048","label":"2048","badge":"HOT","category":"game"},
+  {"href":"/games/tetris","label":"테트리스","category":"game"},
+  {"href":"/games/snake","label":"스네이크","category":"game"},
+  {"href":"/games/minesweeper","label":"지뢰찾기","category":"game"},
+  {"href":"/games/solitaire","label":"솔리테어","category":"game"},
+  {"href":"/games/blackjack","label":"블랙잭","category":"game"},
+  {"href":"/games/memory","label":"메모리 카드","category":"game"},
+  {"href":"/games/flappy","label":"Flappy Bird","category":"game"},
+  {"href":"/games/typing","label":"타자연습","category":"game"},
+  {"href":"/games/gomoku","label":"오목","category":"game"},
   // 연봉·세금
   { href: '/salary', label: '연봉 실수령액 계산기', category: 'salary-tax', badge: 'HOT', keywords: ['월급', '실수령', '세후'] },
   { href: '/severance-pay', label: '퇴직금 계산기', category: 'salary-tax', keywords: ['퇴직', '근속'] },

@@ -5,6 +5,7 @@ import { FaqSection } from '@/components/FaqSection'
 import { DateCalcCalculator } from './DateCalcCalculator'
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/date-calc' },
   title: '날짜 계산기 - ontools',
   description: '두 날짜 사이의 일수, 특정 날짜로부터 며칠 후·전의 날짜를 계산합니다. 근무일·기념일·마감일 계산에 편리.',
   keywords: ['날짜계산기', '날짜계산', '며칠후', '일수계산', '날짜 사이'],

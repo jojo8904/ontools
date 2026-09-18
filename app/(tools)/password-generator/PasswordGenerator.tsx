@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
+import { generatePassword } from '@/lib/password'
 
 export function PasswordGenerator() {
   const [length, setLength] = useState(16)
@@ -11,38 +12,7 @@ export function PasswordGenerator() {
   const [copied, setCopied] = useState(false)
 
   const generate = useCallback(() => {
-    const lower = 'abcdefghijklmnopqrstuvwxyz'
-    const upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    const numbers = '0123456789'
-    const special = '!@#$%^&*()_+-=[]{}|;:,.<>?'
-
-    let chars = lower
-    if (includeUppercase) chars += upper
-    if (includeNumbers) chars += numbers
-    if (includeSpecial) chars += special
-
-    const array = new Uint32Array(length)
-    crypto.getRandomValues(array)
-
-    let result = ''
-
-    // 각 옵션에서 최소 1개씩 보장
-    const required: string[] = [lower[Math.floor(Math.random() * lower.length)]]
-    if (includeUppercase) required.push(upper[Math.floor(Math.random() * upper.length)])
-    if (includeNumbers) required.push(numbers[Math.floor(Math.random() * numbers.length)])
-    if (includeSpecial) required.push(special[Math.floor(Math.random() * special.length)])
-
-    for (let i = 0; i < length; i++) {
-      if (i < required.length) {
-        result += required[i]
-      } else {
-        result += chars[array[i] % chars.length]
-      }
-    }
-
-    // 셔플
-    const shuffled = result.split('').sort(() => Math.random() - 0.5).join('')
-    setPassword(shuffled)
+    setPassword(generatePassword(length, includeUppercase, includeNumbers, includeSpecial))
     setCopied(false)
   }, [length, includeUppercase, includeSpecial, includeNumbers])
 

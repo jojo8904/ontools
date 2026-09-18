@@ -1,3 +1,7 @@
+
+import Link from 'next/link'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import { CurrencyConverter } from './CurrencyConverter'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
@@ -34,9 +38,10 @@ const CURRENCY_FAQ = [
 ]
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/currency' },
   title: '환율 계산기 - ontools',
   description:
-    '실시간 환율 정보로 원화, 달러, 엔화, 유로, 위안화를 간편하게 변환하세요. 한국수출입은행 환율 기준, 최신 환율 뉴스 제공.',
+    '최근 고시 환율 정보로 원화, 달러, 엔화, 유로, 위안화를 간편하게 변환하세요. ExchangeRate-API 환율 기준, 최신 환율 뉴스 제공.',
   keywords: [
     '환율계산기',
     '환율변환',
@@ -45,11 +50,11 @@ export const metadata: Metadata = {
     '엔화환율',
     '유로환율',
     '위안화환율',
-    '실시간환율',
+    '환율변환',
   ],
   openGraph: {
     title: '환율 계산기 - ontools',
-    description: '실시간 환율로 통화를 간편하게 변환하세요.',
+    description: '최근 고시 환율로 통화를 간편하게 변환하세요.',
     url: 'https://ontools.co.kr/currency',
     siteName: 'ontools',
     type: 'website',
@@ -60,22 +65,15 @@ export default function CurrencyPage() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4">
-          <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-            <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
-            <span className="text-xl font-bold">ontools</span>
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       {/* Main Content */}
       <main className="flex-1 container mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <div className="text-sm text-muted-foreground mb-6">
-          <a href="/" className="hover:text-foreground">
+          <Link href="/" className="hover:text-foreground">
             홈
-          </a>
+          </Link>
           {' > '}
           <span className="text-foreground">금융</span>
           {' > '}
@@ -86,7 +84,7 @@ export default function CurrencyPage() {
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2">환율 계산기</h1>
           <p className="text-muted-foreground">
-            실시간 환율 정보로 원화, 달러, 엔화, 유로, 위안화를 간편하게
+            최근 고시 환율 정보로 원화, 달러, 엔화, 유로, 위안화를 간편하게
             변환하세요.
           </p>
         </div>
@@ -105,7 +103,7 @@ export default function CurrencyPage() {
           <aside className="space-y-6">
             {/* 사이드바 고정 광고 (PC 전용) */}
             <div className="hidden lg:block sticky top-20">
-              <AdUnit slot="0000000000" />
+              <AdUnit placement="tool" />
             </div>
             {/* 환전 수수료 절약 팁 */}
             <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
@@ -159,17 +157,13 @@ export default function CurrencyPage() {
         <FaqSection items={CURRENCY_FAQ} />
         <div className="mt-8 rounded-xl border border-blue-100 bg-blue-50/50 p-4">
           <span className="text-sm text-gray-600">더 알아보기 — </span>
-          <a href="/guide/exchange-rate" className="text-sm font-semibold text-blue-700 hover:underline">환율 계산기 보는 법과 환전 수수료 아끼는 팁</a>
+          <Link href="/guide/exchange-rate" className="text-sm font-semibold text-blue-700 hover:underline">환율 계산기 보는 법과 환전 수수료 아끼는 팁</Link>
         </div>
         <RelatedTools current="/currency" />
       </main>
 
       {/* Footer */}
-      <footer className="border-t mt-auto">
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          &copy; 2026 ontools. All rights reserved.
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

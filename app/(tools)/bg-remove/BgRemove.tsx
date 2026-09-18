@@ -1,6 +1,8 @@
 'use client'
 
-import { useState, useRef, useCallback } from 'react'
+import { useObjectUrls } from '@/lib/useObjectUrls'
+
+import { useState, useRef, useCallback, useEffect } from 'react'
 import { Button } from '@/components/ui/Button'
 
 type BgMode = 'transparent' | 'white' | 'custom'
@@ -29,6 +31,8 @@ function blobToImage(blob: Blob): Promise<HTMLImageElement> {
 }
 
 export function BgRemove() {
+  const { createObjectUrl, clearObjectUrls } = useObjectUrls()
+
   const [origUrl, setOrigUrl] = useState<string | null>(null)
   const [fileName, setFileName] = useState('')
   const [cutBlob, setCutBlob] = useState<Blob | null>(null)
@@ -40,6 +44,8 @@ export function BgRemove() {
   const [dragOver, setDragOver] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const fileRef = useRef<File | null>(null)
+  const operation = useRef(0)
+  useEffect(() => () => { operation.current++ }, [])
 
   const load = useCallback((file: File) => {
     if (!file.type.startsWith('image/')) {
@@ -47,16 +53,19 @@ export function BgRemove() {
       return
     }
     fileRef.current = file
+    operation.current++
+    clearObjectUrls()
     setFileName(file.name)
     setCutBlob(null)
     setCutUrl(null)
     setBgMode('transparent')
-    setOrigUrl(URL.createObjectURL(file))
-  }, [])
+    setOrigUrl(createObjectUrl(file, 'setOrigUrl'))
+  }, [clearObjectUrls, createObjectUrl])
 
   const run = useCallback(async () => {
     const file = fileRef.current
     if (!file) return
+    const ticket = ++operation.current
     setBusy(true)
     setProgress('AI 모델 준비 중…')
     try {
@@ -65,24 +74,27 @@ export function BgRemove() {
       // @ts-ignore - 외부 URL 동적 import (webpack 번들 제외)
       const mod: any = await import(/* webpackIgnore: true */ 'https://esm.sh/@imgly/background-removal@1.7.0')
       const removeBackground = mod.removeBackground
+      if (ticket !== operation.current) return
       const blob: Blob = await removeBackground(file, {
         output: { format: 'image/png' },
         progress: (key: string, current: number, total: number) => {
+          if (ticket !== operation.current) return
           const pct = total ? Math.round((current / total) * 100) : 0
           if (key.startsWith('fetch')) setProgress(`AI 모델 받는 중… ${pct}% (처음 한 번만)`)
           else setProgress(`배경 분석 중… ${pct}%`)
         },
       })
+      if (ticket !== operation.current) return
       setCutBlob(blob)
-      setCutUrl(URL.createObjectURL(blob))
+      setCutUrl(createObjectUrl(blob, 'setCutUrl'))
     } catch (e) {
+      if (ticket !== operation.current) return
       console.error('bg remove failed', e)
       alert('배경 제거 중 오류가 발생했어요. 인터넷 연결을 확인하고 잠시 후 다시 시도해 주세요.')
     } finally {
-      setBusy(false)
-      setProgress('')
+      if (ticket === operation.current) { setBusy(false); setProgress('') }
     }
-  }, [])
+  }, [createObjectUrl])
 
   const buildBlob = useCallback(async (): Promise<Blob | null> => {
     if (!cutBlob) return null
@@ -104,11 +116,15 @@ export function BgRemove() {
     const a = document.createElement('a')
     const base = fileName.replace(/\.[^.]+$/, '') || 'image'
     a.download = `${base}_누끼.png`
-    a.href = URL.createObjectURL(blob)
+    a.href = createObjectUrl(blob)
     a.click()
-  }, [buildBlob, fileName])
+  }, [buildBlob, createObjectUrl, fileName])
 
   const reset = () => {
+    operation.current++
+    setBusy(false)
+    setProgress('')
+    clearObjectUrls()
     setOrigUrl(null)
     setCutBlob(null)
     setCutUrl(null)

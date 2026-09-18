@@ -1,5 +1,7 @@
 'use client'
 
+import { useObjectUrls } from '@/lib/useObjectUrls'
+
 import { useState, useRef, useCallback, useEffect } from 'react'
 import { Button } from '@/components/ui/Button'
 
@@ -15,6 +17,8 @@ const SPECS = [
 const FRAME_MAX = 340
 
 export function IdPhoto() {
+  const { createObjectUrl, clearObjectUrls } = useObjectUrls()
+
   const [img, setImg] = useState<HTMLImageElement | null>(null)
   const [fileName, setFileName] = useState('')
   const [specId, setSpecId] = useState('passport')
@@ -22,8 +26,16 @@ export function IdPhoto() {
   const [resultUrl, setResultUrl] = useState<string | null>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const revision = useRef(0)
   const offset = useRef({ x: 0, y: 0 })
   const dragRef = useRef<{ px: number; py: number; ox: number; oy: number } | null>(null)
+
+  const invalidate = useCallback(() => {
+    revision.current++
+    setResultUrl(null)
+  }, [])
+
+  useEffect(() => () => { revision.current++ }, [])
 
   const spec = SPECS.find((s) => s.id === specId)!
   const specPxW = mmToPx(spec.wmm)
@@ -68,7 +80,6 @@ export function IdPhoto() {
     if (!img) return
     centerImage()
     redraw()
-    setResultUrl(null)
   }, [img, specId, zoom, centerImage, redraw])
 
   const loadFile = useCallback((file: File) => {
@@ -76,21 +87,23 @@ export function IdPhoto() {
       alert('이미지 파일만 올릴 수 있어요.')
       return
     }
+    invalidate()
+    const ticket = revision.current
     setFileName(file.name)
-    setResultUrl(null)
     setZoom(1)
-    const url = URL.createObjectURL(file)
+    const url = createObjectUrl(file)
     const image = new Image()
     image.onload = () => {
-      setImg(image)
+      if (ticket === revision.current) setImg(image)
       URL.revokeObjectURL(url)
     }
     image.onerror = () => {
+      if (ticket !== revision.current) return
       alert('이미지를 불러오지 못했어요.')
       URL.revokeObjectURL(url)
     }
     image.src = url
-  }, [])
+  }, [createObjectUrl, invalidate])
 
   const onPointerDown = (e: React.PointerEvent) => {
     if (!img) return
@@ -105,6 +118,7 @@ export function IdPhoto() {
     const dx = (e.clientX - dragRef.current.px) * sx
     const dy = (e.clientY - dragRef.current.py) * sx
     offset.current = { x: dragRef.current.ox + dx, y: dragRef.current.oy + dy }
+    invalidate()
     redraw()
   }
   const onPointerUp = () => {
@@ -113,6 +127,7 @@ export function IdPhoto() {
 
   const handleExport = () => {
     if (!img) return
+    const ticket = ++revision.current
     const out = document.createElement('canvas')
     out.width = specPxW
     out.height = specPxH
@@ -120,7 +135,7 @@ export function IdPhoto() {
     render(out.getContext('2d')!, sf)
     out.toBlob(
       (blob) => {
-        if (blob) setResultUrl(URL.createObjectURL(blob))
+        if (blob && ticket === revision.current) setResultUrl(createObjectUrl(blob, 'setResultUrl'))
       },
       'image/jpeg',
       0.95,
@@ -137,6 +152,8 @@ export function IdPhoto() {
   }
 
   const reset = () => {
+    invalidate()
+    clearObjectUrls()
     setImg(null)
     setFileName('')
     setResultUrl(null)
@@ -178,7 +195,7 @@ export function IdPhoto() {
               {SPECS.map((s) => (
                 <button
                   key={s.id}
-                  onClick={() => setSpecId(s.id)}
+                  onClick={() => { invalidate(); setSpecId(s.id) }}
                   className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                     specId === s.id ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                   }`}
@@ -199,7 +216,7 @@ export function IdPhoto() {
               onPointerDown={onPointerDown}
               onPointerMove={onPointerMove}
               onPointerUp={onPointerUp}
-              style={{ width: Fw, height: Fh }}
+              style={{ width: Fw, height: 'auto', maxWidth: '100%', aspectRatio: `${Fw} / ${Fh}` }}
               className="cursor-move touch-none rounded border border-gray-300 shadow-sm"
             />
             <p className="text-xs text-gray-400">드래그로 위치 조정 · 아래 슬라이더로 확대</p>
@@ -211,7 +228,7 @@ export function IdPhoto() {
                 max={3}
                 step={0.01}
                 value={zoom}
-                onChange={(e) => setZoom(parseFloat(e.target.value))}
+                onChange={(e) => { invalidate(); setZoom(parseFloat(e.target.value)) }}
                 className="flex-1"
               />
               <span className="text-xs text-gray-400">확대</span>

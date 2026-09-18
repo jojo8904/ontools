@@ -82,6 +82,6 @@ describe('calculateSalaryTakeHome', () => {
 
     expect(result.monthlySalary).toBe(8_333_333)
     expect(result.incomeTax).toBeGreaterThan(0)
-    expect(result.nationalPension).toBe(251_550) // 상한 적용
+    expect(result.nationalPension).toBe(313_025) // 2026-07 upper bound
   })
 })

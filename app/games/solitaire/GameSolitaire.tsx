@@ -1,6 +1,7 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
+import { useStoredNumber } from '@/lib/useStoredNumber'
 
 type Suit = '♠' | '♥' | '♦' | '♣'
 type Card = { suit: Suit; rank: number; faceUp: boolean }
@@ -109,15 +110,10 @@ function CardView({ card, onClick, small }: { card: Card; onClick?: () => void; 
 
 export function GameSolitaire() {
   const [state, setState] = useState<GameState>(initGame)
-  const [wins, setWins] = useState(0)
+  const [wins, setWins] = useStoredNumber(HS_KEY)
   const [selected, setSelected] = useState<{ source: string; index: number } | null>(null)
   const [won, setWon] = useState(false)
   const [moves, setMoves] = useState(0)
-
-  useEffect(() => {
-    const stored = localStorage.getItem(HS_KEY)
-    if (stored) setWins(parseInt(stored, 10))
-  }, [])
 
   const drawStock = useCallback(() => {
     const s = cloneState(state)
@@ -156,14 +152,13 @@ export function GameSolitaire() {
             setWon(true)
             const newWins = wins + 1
             setWins(newWins)
-            localStorage.setItem(HS_KEY, String(newWins))
           }
           return true
         }
       }
       return false
     },
-    [state, wins]
+    [setWins, state, wins]
   )
 
   const handleClick = useCallback(
@@ -231,7 +226,6 @@ export function GameSolitaire() {
             setWon(true)
             const newWins = wins + 1
             setWins(newWins)
-            localStorage.setItem(HS_KEY, String(newWins))
           }
           return
         }
@@ -240,7 +234,7 @@ export function GameSolitaire() {
       // Clicking same card = deselect, or select new
       setSelected({ source, index: cardIndex })
     },
-    [selected, state, won, wins]
+    [won, selected, state, wins, setWins]
   )
 
   const handleDoubleClick = useCallback(

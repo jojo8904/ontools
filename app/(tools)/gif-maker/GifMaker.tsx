@@ -1,5 +1,7 @@
 'use client'
 
+import { useObjectUrls } from '@/lib/useObjectUrls'
+
 import { useState, useRef, useCallback } from 'react'
 import { Button } from '@/components/ui/Button'
 
@@ -12,6 +14,8 @@ interface Item {
 let _seq = 0
 
 export function GifMaker() {
+  const { createObjectUrl, clearObjectUrls } = useObjectUrls()
+
   const [items, setItems] = useState<Item[]>([])
   const [delay, setDelay] = useState(500)
   const [width, setWidth] = useState(480)
@@ -27,7 +31,7 @@ export function GifMaker() {
     Array.from(files)
       .filter((f) => f.type.startsWith('image/'))
       .forEach((file) => {
-        const url = URL.createObjectURL(file)
+        const url = createObjectUrl(file)
         const image = new Image()
         image.onload = () => {
           _seq += 1
@@ -37,7 +41,7 @@ export function GifMaker() {
         image.onerror = () => URL.revokeObjectURL(url)
         image.src = url
       })
-  }, [])
+  }, [createObjectUrl])
 
   const move = (i: number, dir: -1 | 1) => {
     setItems((prev) => {
@@ -85,7 +89,7 @@ export function GifMaker() {
       gif.finish()
       const bytes = gif.bytes()
       const blob = new Blob([bytes as unknown as BlobPart], { type: 'image/gif' })
-      setResultUrl(URL.createObjectURL(blob))
+      setResultUrl(createObjectUrl(blob, 'setResultUrl'))
       setResultInfo(`${W} × ${H}px · ${items.length}프레임 · ${(blob.size / 1024).toFixed(0)}KB`)
     } catch (e) {
       console.error('gif failed', e)
@@ -94,7 +98,7 @@ export function GifMaker() {
       setBusy(false)
       setProgress('')
     }
-  }, [items, delay, width])
+  }, [items, width, createObjectUrl, delay])
 
   const download = () => {
     if (!resultUrl) return

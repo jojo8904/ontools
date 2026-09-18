@@ -5,6 +5,7 @@ import { FaqSection } from '@/components/FaqSection'
 import { CarTaxCalculator } from './CarTaxCalculator'
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/car-tax' },
   title: '자동차세 계산기 - ontools',
   description: '배기량과 차령을 입력하면 연간 자동차세(지방교육세 포함)를 계산합니다. 비영업용 승용차·전기차 기준.',
   keywords: ['자동차세', '자동차세계산기', '자동차세조회', '차량세금', '연납'],

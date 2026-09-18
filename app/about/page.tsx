@@ -1,7 +1,10 @@
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/about' },
   title: '소개 - ontools',
   description: 'ontools는 한국 실생활에 필요한 30여 종 계산기와 AI가 정리한 최신 뉴스를 무료로 제공하는 유틸리티 포털입니다.',
   robots: { index: true, follow: true },
@@ -10,14 +13,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#faf8fc' }}>
-      <header className="bg-white border-b border-[#eee]">
-        <div className="container mx-auto px-4 py-4">
-          <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-            <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
-            <span className="text-xl font-bold text-[#111]">ontools</span>
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="flex-1 container mx-auto px-4 py-10 w-full max-w-3xl">
         <h1 className="text-3xl font-bold mb-2 text-[#241a33]">ontools 소개</h1>
@@ -69,11 +65,7 @@ export default function AboutPage() {
         </div>
       </main>
 
-      <footer className="mt-auto border-t border-[#ece6f2]" style={{ backgroundColor: '#F7F3FB' }}>
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-[#8a8290]">
-          &copy; 2026 ontools. All rights reserved.
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

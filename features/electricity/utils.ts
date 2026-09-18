@@ -1,6 +1,6 @@
 /**
  * 전기요금 계산기
- * 한국전력 주택용 전기요금 누진제 기준 (2024년)
+ * 주택용 저압, 기타계절, 0~1000kWh. 기금: 2025-07 이후 2.7%.
  */
 
 export type ElectricityMode = 'usage' | 'amount'
@@ -19,7 +19,7 @@ const FUEL_RATE = 5.0
 // 부가가치세율
 const VAT_RATE = 0.1
 // 전력산업기반기금율
-const FUND_RATE = 0.037
+const FUND_RATE = 0.027
 
 export interface ElectricityResult {
   usage: number // kWh
@@ -44,6 +44,7 @@ export interface TierBreakdown {
 
 // kWh → 요금 계산
 export function calculateFromUsage(kwh: number): ElectricityResult {
+  if (!Number.isFinite(kwh) || kwh < 0 || kwh > 1000) throw new RangeError('기타계절 0~1,000kWh 범위만 지원합니다.')
   // 구간 결정
   let tier = 1
   if (kwh > 400) tier = 3
@@ -76,12 +77,11 @@ export function calculateFromUsage(kwh: number): ElectricityResult {
   const fuelCharge = Math.floor(kwh * FUEL_RATE)
   const subtotal = basicCharge + usageCharge + climateCharge + fuelCharge
 
-  // 부가세 (10원 미만 절사)
-  const vat = Math.floor(subtotal * VAT_RATE / 10) * 10
+  const vat = Math.round(subtotal * VAT_RATE)
   // 전력산업기반기금 (10원 미만 절사)
   const fund = Math.floor(subtotal * FUND_RATE / 10) * 10
 
-  const total = subtotal + vat + fund
+  const total = Math.floor((subtotal + vat + fund) / 10) * 10
 
   return {
     usage: kwh,
@@ -100,11 +100,14 @@ export function calculateFromUsage(kwh: number): ElectricityResult {
 
 // 금액 → kWh 역계산 (이진 탐색)
 export function calculateFromAmount(targetAmount: number): ElectricityResult {
+  if (!Number.isFinite(targetAmount) || targetAmount < calculateFromUsage(0).total || targetAmount > calculateFromUsage(1000).total) {
+    throw new RangeError('0~1,000kWh에 해당하는 요금 범위를 입력해주세요.')
+  }
   let low = 0
-  let high = 5000
+  let high = 1000
   let bestKwh = 0
 
-  for (let i = 0; i < 50; i++) {
+  while (low <= high) {
     const mid = Math.floor((low + high) / 2)
     const result = calculateFromUsage(mid)
 

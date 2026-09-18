@@ -1,11 +1,15 @@
 'use client'
 
+import { useObjectUrls } from '@/lib/useObjectUrls'
+
 import { useState, useRef, useCallback } from 'react'
 import { Button } from '@/components/ui/Button'
 
 type OutType = 'image/png' | 'image/jpeg'
 
 export function ImageResize() {
+  const { createObjectUrl, clearObjectUrls } = useObjectUrls()
+
   const [img, setImg] = useState<HTMLImageElement | null>(null)
   const [fileName, setFileName] = useState('')
   const [outType, setOutType] = useState<OutType>('image/png')
@@ -26,7 +30,7 @@ export function ImageResize() {
     setFileName(file.name)
     setOutType(file.type === 'image/jpeg' ? 'image/jpeg' : 'image/png')
     setResultUrl(null)
-    const url = URL.createObjectURL(file)
+    const url = createObjectUrl(file)
     const image = new Image()
     image.onload = () => {
       setImg(image)
@@ -40,7 +44,7 @@ export function ImageResize() {
       URL.revokeObjectURL(url)
     }
     image.src = url
-  }, [])
+  }, [createObjectUrl])
 
   const onW = (v: number) => {
     setW(v)
@@ -72,13 +76,13 @@ export function ImageResize() {
     c.toBlob(
       (b) => {
         if (!b) return
-        setResultUrl(URL.createObjectURL(b))
+        setResultUrl(createObjectUrl(b, 'setResultUrl'))
         setResultInfo(`${w} × ${h}px · ${(b.size / 1024).toFixed(0)}KB`)
       },
       outType,
       0.92,
     )
-  }, [img, w, h, outType])
+  }, [img, w, h, outType, createObjectUrl])
 
   const download = () => {
     if (!resultUrl) return
@@ -90,6 +94,7 @@ export function ImageResize() {
   }
 
   const reset = () => {
+    clearObjectUrls()
     setImg(null)
     setFileName('')
     setResultUrl(null)

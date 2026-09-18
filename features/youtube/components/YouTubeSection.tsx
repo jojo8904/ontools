@@ -13,9 +13,12 @@ export function YouTubeSection({ category, title = '관련 영상' }: YouTubeSec
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    let active = true
     getVideosByCategory(category)
-      .then(setVideos)
-      .finally(() => setLoading(false))
+      .then((next) => { if (active) setVideos(next) })
+      .catch(() => { if (active) setVideos([]) })
+      .finally(() => { if (active) setLoading(false) })
+    return () => { active = false }
   }, [category])
 
   if (loading) {

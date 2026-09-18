@@ -1,3 +1,7 @@
+
+import Link from 'next/link'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import { LunarConverter } from './LunarConverter'
 import { RelatedTools } from '@/components/RelatedTools'
@@ -28,6 +32,7 @@ const GUIDE = [
 ]
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/lunar' },
   title: '음력 양력 변환기 (윤달·간지 지원) - ontools',
   description:
     '양력↔음력 날짜를 서로 변환합니다. 어르신 생신·제사·명절 날짜 확인, 윤달 처리, 간지(육십갑자) 표시. 한국 음력 기준 1000~2050년 지원.',
@@ -44,18 +49,11 @@ export const metadata: Metadata = {
 export default function LunarPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4">
-          <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-            <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
-            <span className="text-xl font-bold">ontools</span>
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="text-sm text-muted-foreground mb-6">
-          <a href="/" className="hover:text-foreground">홈</a>
+          <Link href="/" className="hover:text-foreground">홈</Link>
           {' > '}
           <span className="text-foreground">생활·유틸</span>
           {' > '}
@@ -96,9 +94,9 @@ export default function LunarPage() {
             <section className="rounded-xl border border-gray-200/70 bg-[#F2EEE6] p-6">
               <h2 className="text-xl font-bold mb-4">함께 쓰면 좋아요</h2>
               <div className="space-y-2 text-sm leading-relaxed">
-                <p><a href="/age" className="font-semibold text-blue-700 hover:underline">만 나이 계산기</a> — 생일로 만 나이 확인</p>
-                <p><a href="/d-day" className="font-semibold text-blue-700 hover:underline">D-day 계산기</a> — 생신·기념일까지 며칠?</p>
-                <p><a href="/date-calc" className="font-semibold text-blue-700 hover:underline">날짜 계산기</a></p>
+                <p><Link href="/age" className="font-semibold text-blue-700 hover:underline">만 나이 계산기</Link> — 생일로 만 나이 확인</p>
+                <p><Link href="/d-day" className="font-semibold text-blue-700 hover:underline">D-day 계산기</Link> — 생신·기념일까지 며칠?</p>
+                <p><Link href="/date-calc" className="font-semibold text-blue-700 hover:underline">날짜 계산기</Link></p>
               </div>
             </section>
           </aside>
@@ -108,11 +106,7 @@ export default function LunarPage() {
         <RelatedTools current="/lunar" />
       </main>
 
-      <footer className="border-t mt-auto">
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          &copy; 2026 ontools. All rights reserved.
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

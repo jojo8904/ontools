@@ -1,5 +1,7 @@
 'use client'
 
+import { useObjectUrls } from '@/lib/useObjectUrls'
+
 import { useState, useRef, useCallback } from 'react'
 import { Button } from '@/components/ui/Button'
 
@@ -28,6 +30,8 @@ function toJpegDataUrl(img: HTMLImageElement): string {
 }
 
 export function ImageToPdf() {
+  const { createObjectUrl, clearObjectUrls } = useObjectUrls()
+
   const [items, setItems] = useState<Item[]>([])
   const [pageSize, setPageSize] = useState<PageSize>('a4')
   const [orient, setOrient] = useState<Orient>('auto')
@@ -40,7 +44,7 @@ export function ImageToPdf() {
     Array.from(files)
       .filter((f) => f.type.startsWith('image/'))
       .forEach((file) => {
-        const url = URL.createObjectURL(file)
+        const url = createObjectUrl(file)
         const image = new Image()
         image.onload = () => {
           _seq += 1
@@ -50,7 +54,7 @@ export function ImageToPdf() {
         image.onerror = () => URL.revokeObjectURL(url)
         image.src = url
       })
-  }, [])
+  }, [createObjectUrl])
 
   const move = (i: number, dir: -1 | 1) => {
     setItems((prev) => {

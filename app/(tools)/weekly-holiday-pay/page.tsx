@@ -1,3 +1,7 @@
+
+import Link from 'next/link'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import { WeeklyHolidayPayCalculator } from './WeeklyHolidayPayCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
@@ -11,6 +15,7 @@ const WEEKLY_HOLIDAY_GUIDE = [
 ]
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/weekly-holiday-pay' },
   title: '주휴수당 계산기 - ontools',
   description:
     '시급, 주 근무시간, 근무일수를 입력하면 주휴수당, 주급, 월 예상 급여를 자동 계산합니다. 2026년 최저시급 기준 주휴수당 계산.',
@@ -38,20 +43,13 @@ export default function WeeklyHolidayPayPage() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4">
-          <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-            <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
-            <span className="text-xl font-bold">ontools</span>
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       {/* Main Content */}
       <main className="flex-1 container mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <div className="text-sm text-muted-foreground mb-6">
-          <a href="/" className="hover:text-foreground">홈</a>
+          <Link href="/" className="hover:text-foreground">홈</Link>
           {' > '}
           <span className="text-foreground">금융</span>
           {' > '}
@@ -101,7 +99,7 @@ export default function WeeklyHolidayPayPage() {
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <div className="bg-blue-50 rounded-lg p-4 text-center">
                   <p className="text-xs text-blue-600 font-semibold mb-1">시간당</p>
-                  <p className="text-2xl font-bold text-blue-900">10,030원</p>
+                  <p className="text-2xl font-bold text-blue-900">10,320원</p>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm border-collapse">
@@ -114,7 +112,7 @@ export default function WeeklyHolidayPayPage() {
                     <tbody className="divide-y divide-gray-100">
                       <tr>
                         <td className="py-1.5 pr-3">일급 (8시간)</td>
-                        <td className="py-1.5 text-right font-medium">80,240원</td>
+                        <td className="py-1.5 text-right font-medium">82,560원</td>
                       </tr>
                       <tr>
                         <td className="py-1.5 pr-3">주급 (40시간+주휴)</td>
@@ -122,7 +120,7 @@ export default function WeeklyHolidayPayPage() {
                       </tr>
                       <tr>
                         <td className="py-1.5 pr-3">월급 (209시간)</td>
-                        <td className="py-1.5 text-right font-medium">2,096,270원</td>
+                        <td className="py-1.5 text-right font-medium">2,156,880원</td>
                       </tr>
                     </tbody>
                   </table>
@@ -150,9 +148,9 @@ export default function WeeklyHolidayPayPage() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-1">예시</h3>
-                  <p>시급 10,030원, 주 40시간 근무 시:</p>
+                  <p>시급 10,320원, 주 40시간 근무 시:</p>
                   <p>주휴시간 = 40/40 x 8 = 8시간</p>
-                  <p>주휴수당 = 10,030 x 8 = 80,240원/주</p>
+                  <p>주휴수당 = 10,320 x 8 = 82,560원/주</p>
                 </div>
               </div>
             </section>
@@ -182,11 +180,7 @@ export default function WeeklyHolidayPayPage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t mt-auto">
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          &copy; 2026 ontools. All rights reserved.
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

@@ -1,8 +1,11 @@
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { RelatedTools } from '@/components/RelatedTools'
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/id-photo-size' },
   title: '증명사진 규격 정리 (여권·운전면허·이력서·비자) - ontools',
   description:
     '용도별 증명사진 규격을 cm·mm·픽셀(px)로 정리했습니다. 여권 35×45mm, 일반 증명사진 30×40mm, 미국 비자 51×51mm 등. 규격에 맞춰 바로 만들 수 있는 도구도 함께.',
@@ -37,18 +40,11 @@ const SPECS = [
 export default function IdPhotoSizePage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4">
-          <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-            <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
-            <span className="text-xl font-bold">ontools</span>
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="flex-1 container mx-auto px-4 py-8 max-w-3xl">
         <div className="text-sm text-muted-foreground mb-6">
-          <a href="/" className="hover:text-foreground">홈</a>
+          <Link href="/" className="hover:text-foreground">홈</Link>
           {' > '}
           <span className="text-foreground">이미지·파일</span>
           {' > '}
@@ -128,11 +124,7 @@ export default function IdPhotoSizePage() {
         <RelatedTools current="/id-photo" />
       </main>
 
-      <footer className="border-t mt-auto">
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          &copy; 2026 ontools. All rights reserved.
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

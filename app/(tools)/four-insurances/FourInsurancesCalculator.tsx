@@ -1,30 +1,32 @@
 'use client'
 
 import { useState } from 'react'
-
-const PENSION_CAP = 6_170_000 // 국민연금 기준소득월액 상한(2025~)
+import { calculateEmployeeInsurance, getPolicyPeriod, KOREA_POLICY } from '@/lib/korea-policy'
+import { PolicyPeriodSelect } from '@/components/PolicyPeriodSelect'
+import { PolicySources } from '@/components/PolicySources'
 
 export function FourInsurancesCalculator() {
   const [salary, setSalary] = useState('') // 월급여(원)
+  const [policyDate, setPolicyDate] = useState<string>(KOREA_POLICY.defaultDate)
+  const PENSION_CAP = getPolicyPeriod(policyDate).pensionMax
 
   const s = parseFloat(salary)
-  const valid = !isNaN(s) && s > 0
+  const valid = Number.isFinite(s) && s > 0
 
-  const pension = valid ? Math.floor(Math.min(s, PENSION_CAP) * 0.045) : 0
-  const health = valid ? Math.floor(s * 0.03545) : 0
-  const care = Math.floor(health * 0.1295)
-  const employment = valid ? Math.floor(s * 0.009) : 0
+  const { nationalPension: pension, healthInsurance: health, longTermCare: care, employmentInsurance: employment } = calculateEmployeeInsurance(valid ? s : 0, policyDate)
   const total = pension + health + care + employment
 
   const rows = [
-    { label: '국민연금', sub: '4.5%', val: pension },
-    { label: '건강보험', sub: '3.545%', val: health },
-    { label: '장기요양보험', sub: '건강보험료의 12.95%', val: care },
+    { label: '국민연금', sub: `${KOREA_POLICY.pensionEmployeeRate * 100}%`, val: pension },
+    { label: '건강보험', sub: `${KOREA_POLICY.healthEmployeeRate * 100}%`, val: health },
+    { label: '장기요양보험', sub: `건강보험료의 ${(KOREA_POLICY.careToHealthRatio * 100).toFixed(2)}%`, val: care },
     { label: '고용보험', sub: '0.9%', val: employment },
   ]
 
   return (
     <div className="space-y-5">
+      <PolicyPeriodSelect value={policyDate} onChange={setPolicyDate} />
+      <PolicySources />
       <div className="bg-white rounded-2xl border border-[#ece6f2] p-6 shadow-sm">
         <label className="block text-sm font-medium mb-2 text-[#333]">월 급여 (세전, 원)</label>
         <input

@@ -16,7 +16,7 @@ import { CurrencyCode } from '@/types/tools'
 const CURRENCIES: Array<'KRW' | CurrencyCode> = ['KRW', 'USD', 'JPY', 'EUR', 'CNY']
 
 export function CurrencyConverter() {
-  const { input, result, convert, updateInput, swapCurrencies, reset } =
+  const { input, result, convert, updateInput, swapCurrencies, reset, loading, error, retry } =
     useCurrencyConverter()
 
   return (
@@ -26,7 +26,7 @@ export function CurrencyConverter() {
           <CardHeader>
             <CardTitle>환율 변환</CardTitle>
             <CardDescription>
-              실시간 환율로 통화를 변환하세요
+              제공기관의 최근 고시 환율을 기준으로 계산합니다
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -106,8 +106,8 @@ export function CurrencyConverter() {
 
             {/* Buttons */}
             <div className="flex gap-2 pt-4">
-              <Button onClick={convert} className="flex-1">
-                환율 계산
+              <Button onClick={convert} className="flex-1" disabled={loading}>
+                {loading ? '환율 확인 중...' : '환율 계산'}
               </Button>
               <Button onClick={reset} variant="outline">
                 초기화
@@ -116,6 +116,7 @@ export function CurrencyConverter() {
           </CardContent>
         </Card>
 
+        {error && <p role="alert" className="text-sm text-red-600">{error}</p>}
         {/* Result */}
         {result && (
           <Card>
@@ -123,9 +124,9 @@ export function CurrencyConverter() {
               <CardTitle>환전 결과</CardTitle>
               <CardDescription>
                 {result.lastUpdated}
-                {result.isWeekend && (
+                {result.status !== 'live' && (
                   <span className="ml-2 text-amber-600">
-                    (주말/공휴일 - 최근 영업일 환율 기준)
+                    {result.status === 'fallback' ? '(조회 불가: 참고용 고정 환율)' : '(36시간 이상 지난 환율)'}
                   </span>
                 )}
               </CardDescription>
@@ -161,7 +162,7 @@ export function CurrencyConverter() {
                 <div className="border-t pt-4 text-center">
                   <p className="text-sm text-muted-foreground mb-1">적용 환율</p>
                   <p className="text-lg font-semibold">
-                    1 {result.fromCurrency} = {result.rate.toFixed(2)}{' '}
+                    1 {result.fromCurrency} = {result.rate.toLocaleString('ko-KR', { maximumSignificantDigits: 6 })}{' '}
                     {result.toCurrency}
                   </p>
                 </div>
@@ -171,11 +172,13 @@ export function CurrencyConverter() {
               <div className="bg-muted rounded-lg p-4">
                 <p className="text-sm text-muted-foreground">
                   💡 <strong>안내</strong>
-                  <br />• 환율은 한국수출입은행 기준, 평일 오전 11시에 자동 업데이트됩니다
-                  <br />• 주말/공휴일에는 직전 영업일 환율이 표시됩니다
+                  <br />• 출처: {result.source}
+                  <br />• 제공기관의 일별 환율이며 화면의 기준시각을 확인하세요
                   <br />• 실제 환전 시 은행/환전소 수수료가 추가될 수 있습니다
                 </p>
               </div>
+              <a className="text-xs underline" href="https://www.exchangerate-api.com" target="_blank" rel="noopener noreferrer">Rates By ExchangeRate-API</a>
+              {result.status !== 'live' && <Button onClick={retry} disabled={loading} variant="outline">다시 조회</Button>}
             </CardContent>
           </Card>
         )}

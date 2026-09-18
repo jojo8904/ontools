@@ -1,3 +1,7 @@
+
+import Link from 'next/link'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import { FreelancerTaxCalculator } from './FreelancerTaxCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
@@ -19,6 +23,7 @@ const FREELANCER_FAQ = [
 ]
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/freelancer-tax' },
   title: '프리랜서 세금 계산기 (3.3%) - ontools',
   description: '프리랜서 원천징수 3.3% 세금을 계산하세요. 계약 금액에서 소득세 3%와 지방소득세 0.3%를 자동 계산합니다.',
   keywords: ['프리랜서세금', '3.3%계산기', '원천징수', '프리랜서소득세', '사업소득세'],
@@ -34,17 +39,10 @@ export const metadata: Metadata = {
 export default function FreelancerTaxPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4">
-          <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-            <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
-            <span className="text-xl font-bold">ontools</span>
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="text-sm text-muted-foreground mb-6">
-          <a href="/" className="hover:text-foreground">홈</a>{' > '}
+          <Link href="/" className="hover:text-foreground">홈</Link>{' > '}
           <span className="text-foreground">급여/세금</span>{' > '}
           <span className="text-foreground font-medium">프리랜서 세금 계산기 (3.3%)</span>
         </div>
@@ -80,13 +78,11 @@ export default function FreelancerTaxPage() {
         <FaqSection items={FREELANCER_FAQ} />
         <div className="mt-8 rounded-xl border border-blue-100 bg-blue-50/50 p-4">
           <span className="text-sm text-gray-600">더 알아보기 — </span>
-          <a href="/guide/freelancer-tax-refund" className="text-sm font-semibold text-blue-700 hover:underline">프리랜서 3.3%, 세금 다 낸 게 아니에요 (환급받는 법)</a>
+          <Link href="/guide/freelancer-tax-refund" className="text-sm font-semibold text-blue-700 hover:underline">프리랜서 3.3%, 세금 다 낸 게 아니에요 (환급받는 법)</Link>
         </div>
         <RelatedTools current="/freelancer-tax" />
       </main>
-      <footer className="border-t mt-auto">
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">&copy; 2026 ontools. All rights reserved.</div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

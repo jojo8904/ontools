@@ -1,3 +1,7 @@
+
+import Link from 'next/link'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import { BmiCalculator } from './BmiCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
@@ -32,6 +36,7 @@ const BMI_FAQ = [
 ]
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/bmi' },
   title: 'BMI 계산기 - ontools',
   description:
     'BMI(체질량지수) 계산기로 당신의 건강 상태를 확인하세요. 신장과 체중만 입력하면 BMI 지수, 체중 분류, 표준 체중 범위를 알 수 있습니다.',
@@ -58,22 +63,15 @@ export default function BmiPage() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4">
-          <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-            <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
-            <span className="text-xl font-bold">ontools</span>
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       {/* Main Content */}
       <main className="flex-1 container mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <div className="text-sm text-muted-foreground mb-6">
-          <a href="/" className="hover:text-foreground">
+          <Link href="/" className="hover:text-foreground">
             홈
-          </a>
+          </Link>
           {' > '}
           <span className="text-foreground">건강</span>
           {' > '}
@@ -100,17 +98,13 @@ export default function BmiPage() {
         <FaqSection items={BMI_FAQ} />
         <div className="mt-8 rounded-xl border border-blue-100 bg-blue-50/50 p-4">
           <span className="text-sm text-gray-600">더 알아보기 — </span>
-          <a href="/guide/bmi-guide" className="text-sm font-semibold text-blue-700 hover:underline">BMI(체질량지수) 보는 법과 한국 기준</a>
+          <Link href="/guide/bmi-guide" className="text-sm font-semibold text-blue-700 hover:underline">BMI(체질량지수) 보는 법과 한국 기준</Link>
         </div>
         <RelatedTools current="/bmi" />
       </main>
 
       {/* Footer */}
-      <footer className="border-t mt-auto">
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          © 2026 ontools. All rights reserved.
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

@@ -1,5 +1,7 @@
 'use client'
 
+import { useStoredNumber } from '@/lib/useStoredNumber'
+
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 const WORDS_KO = [
@@ -34,7 +36,7 @@ export function GameTyping() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const [score, setScore] = useState(0)
-  const [highScore, setHighScore] = useState(0)
+  const [highScore, setHighScore] = useStoredNumber(HS_KEY)
   const [lives, setLives] = useState(3)
   const [gameOver, setGameOver] = useState(false)
   const [started, setStarted] = useState(false)
@@ -49,12 +51,9 @@ export function GameTyping() {
   const frameRef = useRef<number>(0)
   const nextIdRef = useRef(0)
   const lastSpawnRef = useRef(0)
+  const lastFrameRef = useRef(0)
   const levelRef = useRef(1)
 
-  useEffect(() => {
-    const stored = localStorage.getItem(HS_KEY)
-    if (stored) setHighScore(parseInt(stored, 10))
-  }, [])
 
   const draw = useCallback(() => {
     const canvas = canvasRef.current
@@ -126,8 +125,10 @@ export function GameTyping() {
   )
 
   const gameLoop = useCallback(
-    (time: number) => {
+    function gameLoop(time: number) {
       if (gameOverRef.current) return
+      const dt = lastFrameRef.current ? Math.min((time - lastFrameRef.current) / (1000 / 60), 3) : 1
+      lastFrameRef.current = time
 
       // Spawn interval decreases with level
       const spawnInterval = Math.max(1200 - levelRef.current * 80, 500)
@@ -138,7 +139,7 @@ export function GameTyping() {
       // Move words
       const fallen: number[] = []
       wordsRef.current.forEach((w) => {
-        w.y += w.speed
+        w.y += w.speed * dt
         if (w.y > CANVAS_H) {
           fallen.push(w.id)
         }
@@ -173,7 +174,7 @@ export function GameTyping() {
       draw()
       frameRef.current = requestAnimationFrame(gameLoop)
     },
-    [draw, spawnWord]
+    [draw, setHighScore, spawnWord]
   )
 
   const handleInput = useCallback(
@@ -196,6 +197,7 @@ export function GameTyping() {
   )
 
   const startGame = useCallback(() => {
+    lastFrameRef.current = 0
     wordsRef.current = []
     scoreRef.current = 0
     livesRef.current = 3
@@ -283,7 +285,7 @@ export function GameTyping() {
           ref={canvasRef}
           width={CANVAS_W}
           height={CANVAS_H}
-          className="rounded-xl border-2 border-gray-700"
+          className="max-w-full h-auto rounded-xl border-2 border-gray-700"
         />
 
         {!started && !gameOver && (

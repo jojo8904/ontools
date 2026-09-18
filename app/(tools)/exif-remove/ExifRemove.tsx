@@ -1,5 +1,7 @@
 'use client'
 
+import { useObjectUrls } from '@/lib/useObjectUrls'
+
 import { useState, useRef, useCallback } from 'react'
 import { Button } from '@/components/ui/Button'
 
@@ -90,6 +92,8 @@ function parseExif(buf: ArrayBuffer): ExifInfo {
 }
 
 export function ExifRemove() {
+  const { createObjectUrl, clearObjectUrls } = useObjectUrls()
+
   const [img, setImg] = useState<HTMLImageElement | null>(null)
   const [fileName, setFileName] = useState('')
   const [isJpg, setIsJpg] = useState(true)
@@ -109,7 +113,7 @@ export function ExifRemove() {
     setFileName(file.name)
     setIsJpg(file.type === 'image/jpeg')
     setDone(false)
-    setPreviewUrl(URL.createObjectURL(file))
+    setPreviewUrl(createObjectUrl(file))
     try {
       const buf = await file.arrayBuffer()
       setInfo(parseExif(buf))
@@ -117,9 +121,9 @@ export function ExifRemove() {
       setInfo({ hasExif: false })
     }
     const image = new Image()
-    image.src = URL.createObjectURL(file)
+    image.src = createObjectUrl(file)
     image.onload = () => setImg(image)
-  }, [])
+  }, [createObjectUrl])
 
   const clean = useCallback(() => {
     if (!img) return
@@ -139,16 +143,17 @@ export function ExifRemove() {
         const a = document.createElement('a')
         const base = fileName.replace(/\.[^.]+$/, '') || 'image'
         a.download = `${base}_정보제거.${isJpg ? 'jpg' : 'png'}`
-        a.href = URL.createObjectURL(b)
+        a.href = createObjectUrl(b)
         a.click()
         setDone(true)
       },
       type,
       0.95,
     )
-  }, [img, isJpg, fileName])
+  }, [img, isJpg, fileName, createObjectUrl])
 
   const reset = () => {
+    clearObjectUrls()
     setImg(null)
     setFileName('')
     setPreviewUrl(null)

@@ -1,11 +1,15 @@
 import { ImageResponse } from 'next/og'
+import { readFile } from 'node:fs/promises'
+import { join } from 'node:path'
 
-export const runtime = 'edge'
+export const runtime = 'nodejs'
 export const alt = 'ontools - 당신의 스마트한 일상 도구'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
 export default async function Image() {
+  const background = (await readFile(join(process.cwd(), 'public/tools-bg.png'))).toString('base64')
+  const mascot = (await readFile(join(process.cwd(), 'public/mascot.png'))).toString('base64')
   return new ImageResponse(
     (
       <div
@@ -21,9 +25,8 @@ export default async function Image() {
         }}
       >
         {/* 풀블리드 히어로 배경 (고급 에디토리얼) */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://ontools.co.kr/images/hero.webp"
+          src={`data:image/png;base64,${background}`}
           width={1200}
           height={630}
           style={{
@@ -50,9 +53,8 @@ export default async function Image() {
           }}
         />
         {/* Mascot */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://ontools.co.kr/mascot.png"
+          src={`data:image/png;base64,${mascot}`}
           width={130}
           height={130}
           style={{ borderRadius: '50%', marginBottom: 20 }}
@@ -64,7 +66,7 @@ export default async function Image() {
             fontSize: 80,
             fontWeight: 900,
             color: '#241a33',
-            letterSpacing: '-0.03em',
+            letterSpacing: 0,
             lineHeight: 1,
           }}
         >

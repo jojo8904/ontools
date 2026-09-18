@@ -1,5 +1,7 @@
 'use client'
 
+import { useObjectUrls } from '@/lib/useObjectUrls'
+
 import { useState, useRef, useCallback } from 'react'
 import { Button } from '@/components/ui/Button'
 
@@ -12,6 +14,8 @@ interface Piece {
 }
 
 export function ImageSplit() {
+  const { createObjectUrl, clearObjectUrls } = useObjectUrls()
+
   const [img, setImg] = useState<HTMLImageElement | null>(null)
   const [fileName, setFileName] = useState('')
   const [isJpg, setIsJpg] = useState(false)
@@ -30,7 +34,7 @@ export function ImageSplit() {
     setFileName(file.name)
     setIsJpg(file.type === 'image/jpeg')
     setPieces([])
-    const url = URL.createObjectURL(file)
+    const url = createObjectUrl(file)
     const image = new Image()
     image.onload = () => {
       setImg(image)
@@ -43,7 +47,7 @@ export function ImageSplit() {
       URL.revokeObjectURL(url)
     }
     image.src = url
-  }, [])
+  }, [createObjectUrl])
 
   const run = useCallback(async () => {
     if (!img) return
@@ -77,13 +81,13 @@ export function ImageSplit() {
         }
         ctx.drawImage(img, sx, sy, sw, sh, 0, 0, sw, sh)
         const blob: Blob = await new Promise((res) => c.toBlob((b) => res(b!), type, 0.95))
-        out.push({ i: i + 1, url: URL.createObjectURL(blob), blob })
+        out.push({ i: i + 1, url: createObjectUrl(blob), blob })
       }
       setPieces(out)
     } finally {
       setBusy(false)
     }
-  }, [img, count, dir, isJpg])
+  }, [img, isJpg, count, dir, createObjectUrl])
 
   const ext = isJpg ? 'jpg' : 'png'
   const base = fileName.replace(/\.[^.]+$/, '') || 'image'
@@ -100,11 +104,12 @@ export function ImageSplit() {
     const blob = await zip.generateAsync({ type: 'blob' })
     const a = document.createElement('a')
     a.download = `${base}_분할.zip`
-    a.href = URL.createObjectURL(blob)
+    a.href = createObjectUrl(blob)
     a.click()
   }
 
   const reset = () => {
+    clearObjectUrls()
     setImg(null)
     setFileName('')
     setPieces([])

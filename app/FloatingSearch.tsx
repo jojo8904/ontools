@@ -15,11 +15,6 @@ export function FloatingSearch() {
   const [favs, setFavs] = useState<ToolMeta[]>([])
   const [recents, setRecents] = useState<ToolMeta[]>([])
 
-  // 데스크톱에서는 기본으로 열어둠 (모바일은 화면을 가리므로 버튼 탭 시 열림)
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.innerWidth >= 1024) setOpen(true)
-  }, [])
-
   useEffect(() => {
     const load = () => {
       try {
@@ -34,9 +29,11 @@ export function FloatingSearch() {
     if (open) load()
     window.addEventListener('ontools:favorites-changed', load)
     window.addEventListener('storage', load)
+    window.addEventListener('ontools:recent-changed', load)
     return () => {
       window.removeEventListener('ontools:favorites-changed', load)
       window.removeEventListener('storage', load)
+      window.removeEventListener('ontools:recent-changed', load)
     }
   }, [open])
 

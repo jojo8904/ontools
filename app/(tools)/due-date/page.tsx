@@ -5,6 +5,7 @@ import { FaqSection } from '@/components/FaqSection'
 import { DueDateCalculator } from './DueDateCalculator'
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/due-date' },
   title: '출산예정일 계산기 - ontools',
   description: '마지막 생리 시작일을 입력하면 출산예정일과 현재 임신 주수, D-day를 계산합니다.',
   keywords: ['출산예정일', '출산예정일계산기', '임신주수', '임신계산기', '분만예정일'],

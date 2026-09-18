@@ -125,6 +125,7 @@ export function CatRunner() {
   const phaseRef = useRef<Phase>('idle')
   const nameInputRef = useRef<HTMLInputElement>(null)
   const awaitingName = useRef(false)
+  const [namePending, setNamePending] = useState(false)
   const boardRef = useRef<Score[]>([])
 
   const [phase, setPhase] = useState<Phase>('idle')
@@ -158,6 +159,7 @@ export function CatRunner() {
       for (const s of SEED) if (!ids.has(s.id)) loaded.push(s)
       const oldBest = parseInt(localStorage.getItem('catRunnerBest') || '0', 10)
       if (oldBest > 0 && !loaded.some((e) => e.id === 1)) loaded.push({ name: '나', score: oldBest, id: 1 })
+      // Local records are hydrated only after browser storage becomes available.
       setBoard(loaded.sort((a, b) => b.score - a.score).slice(0, LB_KEEP))
     } catch {
       setBoard([...SEED])
@@ -304,7 +306,7 @@ export function CatRunner() {
     if (g.weather === 'clear') g.particles = g.particles.filter((_, i) => i < g.particles.length * 0.96)
   }
 
-  const loop = useCallback(() => {
+  const loop = useCallback(function loop() {
     const g = game.current
     if (phaseRef.current !== 'playing') return
 
@@ -363,6 +365,7 @@ export function CatRunner() {
         setNameValue('')
         const rank = boardRef.current.filter((e) => e.score > sc).length + 1
         awaitingName.current = sc > 0 && rank <= LB_KEEP
+        setNamePending(awaitingName.current)
         if (awaitingName.current) setTimeout(() => nameInputRef.current?.focus(), 60)
         setPhaseBoth('over')
         draw()
@@ -375,7 +378,7 @@ export function CatRunner() {
     raf.current = requestAnimationFrame(loop)
   }, [draw])
 
-  const idleLoop = useCallback(() => {
+  const idleLoop = useCallback(function idleLoop() {
     if (phaseRef.current !== 'idle') return
     const g = game.current
     g.worldTime += 0.5
@@ -416,6 +419,7 @@ export function CatRunner() {
       return next
     })
     awaitingName.current = false
+    setNamePending(false)
     setSubmitted(true)
   }, [nameValue, score])
 
@@ -460,7 +464,7 @@ export function CatRunner() {
 
   useEffect(() => () => cancelAnimationFrame(raf.current), [])
 
-  const showNameEntry = phase === 'over' && awaitingName.current && !submitted
+  const showNameEntry = phase === 'over' && namePending && !submitted
 
   return (
     <div

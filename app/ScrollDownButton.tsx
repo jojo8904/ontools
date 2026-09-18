@@ -15,8 +15,8 @@ export function ScrollDownButton() {
 
   return (
     <button
-      onClick={() => document.getElementById('news')?.scrollIntoView({ behavior: 'smooth' })}
-      aria-label="최신 뉴스로 스크롤"
+      onClick={() => document.getElementById('tools')?.scrollIntoView({ behavior: 'smooth' })}
+      aria-label="도구 모음으로 스크롤"
       style={{
         position: 'fixed',
         bottom: '32px',
@@ -37,7 +37,6 @@ export function ScrollDownButton() {
         pointerEvents: visible ? 'auto' : 'none',
         transition: 'opacity 0.4s ease, background 0.3s ease',
         boxShadow: '0 6px 16px rgba(249,115,22,0.45)',
-        animation: 'bounce-subtle 2s ease-in-out infinite',
       }}
       onMouseEnter={(e) => { e.currentTarget.style.background = '#ea580c' }}
       onMouseLeave={(e) => { e.currentTarget.style.background = '#f97316' }}

@@ -1,3 +1,7 @@
+
+import Link from 'next/link'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import { CapitalGainsTaxCalculator } from './CapitalGainsTaxCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
@@ -20,6 +24,7 @@ const CAPITAL_GAINS_FAQ = [
 ]
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/capital-gains-tax' },
   title: '양도소득세 계산기 - ontools',
   description: '부동산 양도소득세를 계산하세요. 장기보유특별공제, 다주택 중과세, 기본공제 250만원 반영.',
   keywords: ['양도소득세계산기', '양도세', '부동산세금', '장기보유특별공제', '다주택양도세'],
@@ -29,9 +34,9 @@ export const metadata: Metadata = {
 export default function CapitalGainsTaxPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b"><div className="container mx-auto px-4 py-4"><a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity"><img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" /><span className="text-xl font-bold">ontools</span></a></div></header>
+      <SiteHeader />
       <main className="flex-1 container mx-auto px-4 py-8">
-        <div className="text-sm text-muted-foreground mb-6"><a href="/" className="hover:text-foreground">홈</a>{' > '}<span className="text-foreground">금융</span>{' > '}<span className="text-foreground font-medium">양도소득세 계산기</span></div>
+        <div className="text-sm text-muted-foreground mb-6"><Link href="/" className="hover:text-foreground">홈</Link>{' > '}<span className="text-foreground">금융</span>{' > '}<span className="text-foreground font-medium">양도소득세 계산기</span></div>
         <div className="mb-8"><h1 className="text-3xl font-bold mb-2">양도소득세 계산기</h1><p className="text-muted-foreground">부동산 매도 시 예상 양도소득세를 계산하세요.</p></div>
         {/* 제목 밑 광고 (카카오 애드핏) */}
         <ResponsiveAdFit />
@@ -45,7 +50,7 @@ export default function CapitalGainsTaxPage() {
           <aside className="space-y-6">
             {/* 사이드바 고정 광고 (PC 전용) */}
             <div className="hidden lg:block sticky top-20">
-              <AdUnit slot="0000000000" />
+              <AdUnit placement="tool" />
             </div>
             <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
               <h2 className="text-xl font-bold mb-4">1세대 1주택 비과세</h2>
@@ -67,7 +72,7 @@ export default function CapitalGainsTaxPage() {
         <FaqSection items={CAPITAL_GAINS_FAQ} />
         <RelatedTools current="/capital-gains-tax" />
       </main>
-      <footer className="border-t mt-auto"><div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">&copy; 2026 ontools. All rights reserved.</div></footer>
+      <SiteFooter />
     </div>
   )
 }

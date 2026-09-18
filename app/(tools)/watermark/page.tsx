@@ -1,3 +1,7 @@
+
+import Link from 'next/link'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import { Watermark } from './Watermark'
 import { RelatedTools } from '@/components/RelatedTools'
@@ -29,6 +33,7 @@ const GUIDE = [
 ]
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/watermark' },
   title: '이미지 워터마크 넣기 (텍스트·로고) - ontools',
   description:
     '사진에 텍스트나 로고 워터마크를 넣습니다. 위치·크기·투명도 조절, 전체 반복 지원. 출처 표시·도용 방지에 사용. 브라우저에서 처리되어 서버로 전송되지 않습니다.',
@@ -53,18 +58,11 @@ export const metadata: Metadata = {
 export default function WatermarkPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4">
-          <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-            <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
-            <span className="text-xl font-bold">ontools</span>
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="text-sm text-muted-foreground mb-6">
-          <a href="/" className="hover:text-foreground">홈</a>
+          <Link href="/" className="hover:text-foreground">홈</Link>
           {' > '}
           <span className="text-foreground">이미지·파일</span>
           {' > '}
@@ -97,7 +95,7 @@ export default function WatermarkPage() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-1">제출용 사본</h3>
-                  <p>"○○ 제출용" 표식을 넣어 사본이 다른 용도로 쓰이는 것을 예방합니다.</p>
+                  <p>&quot;○○ 제출용&quot; 표식을 넣어 사본이 다른 용도로 쓰이는 것을 예방합니다.</p>
                 </div>
               </div>
             </section>
@@ -117,11 +115,7 @@ export default function WatermarkPage() {
         <RelatedTools current="/watermark" />
       </main>
 
-      <footer className="border-t mt-auto">
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          &copy; 2026 ontools. All rights reserved.
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

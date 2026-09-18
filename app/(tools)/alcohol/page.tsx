@@ -5,6 +5,7 @@ import { FaqSection } from '@/components/FaqSection'
 import { AlcoholCalculator } from './AlcoholCalculator'
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/alcohol' },
   title: '음주 알코올 분해 시간 계산기 - ontools',
   description: '위드마크 공식으로 마신 술의 예상 혈중알코올농도와 분해(해독)되기까지 걸리는 시간을 추정합니다. 음주운전은 절대 금지입니다.',
   keywords: ['알코올분해시간', '술 깨는 시간', '혈중알코올농도', '위드마크', '음주측정'],

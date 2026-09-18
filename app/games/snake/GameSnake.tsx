@@ -1,5 +1,7 @@
 'use client'
 
+import { useStoredNumber } from '@/lib/useStoredNumber'
+
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 const GRID = 20
@@ -23,22 +25,18 @@ const HS_KEY = 'ontools-snake-highscore'
 export function GameSnake() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [score, setScore] = useState(0)
-  const [highScore, setHighScore] = useState(0)
+  const [highScore, setHighScore] = useStoredNumber(HS_KEY)
   const [gameOver, setGameOver] = useState(false)
   const [started, setStarted] = useState(false)
 
   const snakeRef = useRef<Point[]>([{ x: 10, y: 10 }])
   const dirRef = useRef<Dir>('right')
   const nextDirRef = useRef<Dir>('right')
-  const foodRef = useRef<Point>(randomFood(snakeRef.current))
+  const foodRef = useRef<Point>({ x: 5, y: 5 })
   const scoreRef = useRef(0)
   const gameOverRef = useRef(false)
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
-  useEffect(() => {
-    const stored = localStorage.getItem(HS_KEY)
-    if (stored) setHighScore(parseInt(stored, 10))
-  }, [])
 
   const draw = useCallback(() => {
     const canvas = canvasRef.current
@@ -148,7 +146,7 @@ export function GameSnake() {
 
     snakeRef.current = snake
     draw()
-  }, [draw])
+  }, [draw, setHighScore])
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {

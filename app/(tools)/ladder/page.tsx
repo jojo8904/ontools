@@ -1,3 +1,7 @@
+
+import Link from 'next/link'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import { LadderGame } from './LadderGame'
 import { RelatedTools } from '@/components/RelatedTools'
@@ -29,6 +33,7 @@ const GUIDE = [
 ]
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/ladder' },
   title: '사다리타기 (온라인 사다리 게임) - ontools',
   description:
     '2~8명 사다리타기를 온라인에서 바로. 이름과 결과를 정하면 무작위 사다리가 만들어지고, 클릭하면 애니메이션으로 결과가 공개됩니다. 커피내기·당번 정하기에 딱.',
@@ -45,18 +50,11 @@ export const metadata: Metadata = {
 export default function LadderPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4">
-          <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-            <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
-            <span className="text-xl font-bold">ontools</span>
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="text-sm text-muted-foreground mb-6">
-          <a href="/" className="hover:text-foreground">홈</a>
+          <Link href="/" className="hover:text-foreground">홈</Link>
           {' > '}
           <span className="text-foreground">생활·유틸</span>
           {' > '}
@@ -100,7 +98,7 @@ export default function LadderPage() {
                 <p>
                   가로줄은 매번 <strong className="text-gray-900">무작위로 생성</strong>되고, 모든 세로줄 사이에 최소 1개 이상 놓여 결과를 예측할 수 없습니다.
                 </p>
-                <p>마음에 안 들면 "새로 섞기"로 언제든 다시 만들 수 있어요.</p>
+                <p>마음에 안 들면 &quot;새로 섞기&quot;로 언제든 다시 만들 수 있어요.</p>
               </div>
             </section>
           </aside>
@@ -110,11 +108,7 @@ export default function LadderPage() {
         <RelatedTools current="/ladder" />
       </main>
 
-      <footer className="border-t mt-auto">
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          &copy; 2026 ontools. All rights reserved.
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

@@ -12,7 +12,8 @@ import {
   CardTitle,
 } from '@/components/ui/Card'
 
-const MIN_WAGE_2026 = 10030 // 2026년 최저시급
+import { KOREA_POLICY } from '@/lib/korea-policy'
+const MIN_WAGE_2026 = KOREA_POLICY.minimumWage
 
 interface PayResult {
   hourlyWage: number
@@ -97,7 +98,7 @@ export function WeeklyHolidayPayCalculator() {
             <div className="flex gap-2">
               <Input
                 type="number"
-                placeholder="예: 10030"
+                placeholder="예: 10320"
                 value={wage}
                 onChange={(e) => setWage(e.target.value)}
                 className="flex-1"

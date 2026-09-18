@@ -1,3 +1,7 @@
+
+import Link from 'next/link'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import { PasswordGenerator } from './PasswordGenerator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
@@ -11,6 +15,7 @@ const PASSWORD_GUIDE = [
 ]
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/password-generator' },
   title: '비밀번호 생성기 - ontools',
   description: '안전한 랜덤 비밀번호를 생성하세요. 길이 조절, 대문자/숫자/특수문자 포함 여부 선택 가능.',
   keywords: ['비밀번호생성기', '패스워드생성', '랜덤비밀번호', '안전한비밀번호', '비밀번호만들기'],
@@ -20,9 +25,9 @@ export const metadata: Metadata = {
 export default function PasswordGeneratorPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b"><div className="container mx-auto px-4 py-4"><a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity"><img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" /><span className="text-xl font-bold">ontools</span></a></div></header>
+      <SiteHeader />
       <main className="flex-1 container mx-auto px-4 py-8">
-        <div className="text-sm text-muted-foreground mb-6"><a href="/" className="hover:text-foreground">홈</a>{' > '}<span className="text-foreground">유틸리티</span>{' > '}<span className="text-foreground font-medium">비밀번호 생성기</span></div>
+        <div className="text-sm text-muted-foreground mb-6"><Link href="/" className="hover:text-foreground">홈</Link>{' > '}<span className="text-foreground">유틸리티</span>{' > '}<span className="text-foreground font-medium">비밀번호 생성기</span></div>
         <div className="mb-8"><h1 className="text-3xl font-bold mb-2">비밀번호 생성기</h1><p className="text-muted-foreground">안전한 랜덤 비밀번호를 간편하게 생성하세요.</p></div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           <div className="lg:col-span-2">
@@ -53,7 +58,7 @@ export default function PasswordGeneratorPage() {
         <ToolGuide sections={PASSWORD_GUIDE} />
         <RelatedTools current="/password-generator" />
       </main>
-      <footer className="border-t mt-auto"><div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">&copy; 2026 ontools. All rights reserved.</div></footer>
+      <SiteFooter />
     </div>
   )
 }

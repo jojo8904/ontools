@@ -1,8 +1,13 @@
+
+import Link from 'next/link'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import { GameGuide } from '@/components/GameGuide'
 import { GameTetris } from './GameTetris'
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/games/tetris' },
   title: '테트리스 - ontools',
   description: '클래식 테트리스 게임. 블록을 쌓아 줄을 완성하세요.',
   openGraph: {
@@ -17,31 +22,17 @@ export const metadata: Metadata = {
 export default function TetrisPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-10">
-        <div className="container mx-auto px-4 py-4">
-          <a
-            href="/"
-            className="flex items-center gap-2.5 hover:opacity-80 transition-opacity"
-          >
-            <img
-              src="/mascot.png"
-              alt="ontools"
-              className="w-10 h-10 rounded-full"
-            />
-            <span className="text-xl font-bold">ontools</span>
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="text-sm text-muted-foreground mb-6">
-          <a href="/" className="hover:text-foreground">
+          <Link href="/" className="hover:text-foreground">
             홈
-          </a>
+          </Link>
           {' > '}
-          <a href="/games" className="hover:text-foreground">
+          <Link href="/games" className="hover:text-foreground">
             게임
-          </a>
+          </Link>
           {' > '}
           <span className="text-foreground font-medium">테트리스</span>
         </div>
@@ -57,11 +48,7 @@ export default function TetrisPage() {
         <GameGuide slug="tetris" />
       </main>
 
-      <footer className="border-t mt-auto">
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          &copy; 2026 ontools. All rights reserved.
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

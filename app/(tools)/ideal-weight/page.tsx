@@ -5,6 +5,7 @@ import { FaqSection } from '@/components/FaqSection'
 import { IdealWeightCalculator } from './IdealWeightCalculator'
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/ideal-weight' },
   title: '적정체중 계산기 - ontools',
   description: '키를 입력하면 표준체중과 정상 체중 범위를 계산합니다. 대한비만학회 BMI 기준. 현재 체중과 비교도 가능.',
   keywords: ['적정체중', '표준체중', '정상체중', '표준체중계산기', '비만도'],

@@ -5,6 +5,7 @@ import { FaqSection } from '@/components/FaqSection'
 import { CompoundInterestCalculator } from './CompoundInterestCalculator'
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/compound-interest' },
   title: '복리 계산기 - ontools',
   description: '초기 원금과 매월 납입액, 이율, 기간을 입력하면 복리로 불어나는 미래 금액과 이자를 계산합니다.',
   keywords: ['복리계산기', '복리', '복리이자', '투자수익', '72의법칙'],

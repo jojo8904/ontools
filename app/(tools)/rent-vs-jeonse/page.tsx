@@ -1,3 +1,7 @@
+
+import Link from 'next/link'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import { RentVsJeonseCalculator } from './RentVsJeonseCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
@@ -11,6 +15,7 @@ const RENT_JEONSE_GUIDE = [
 ]
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/rent-vs-jeonse' },
   title: '전세 vs 월세 비교 계산기 - ontools',
   description: '전세와 월세 중 어느 것이 유리한지 비교 계산하세요. 기회비용을 고려한 합리적인 주거 선택을 도와드립니다.',
   keywords: ['전세월세비교', '전세vs월세', '주거비계산', '전월세비교계산기', '기회비용'],
@@ -20,9 +25,9 @@ export const metadata: Metadata = {
 export default function RentVsJeonsePage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b"><div className="container mx-auto px-4 py-4"><a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity"><img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" /><span className="text-xl font-bold">ontools</span></a></div></header>
+      <SiteHeader />
       <main className="flex-1 container mx-auto px-4 py-8">
-        <div className="text-sm text-muted-foreground mb-6"><a href="/" className="hover:text-foreground">홈</a>{' > '}<span className="text-foreground">금융</span>{' > '}<span className="text-foreground font-medium">전세 vs 월세 비교 계산기</span></div>
+        <div className="text-sm text-muted-foreground mb-6"><Link href="/" className="hover:text-foreground">홈</Link>{' > '}<span className="text-foreground">금융</span>{' > '}<span className="text-foreground font-medium">전세 vs 월세 비교 계산기</span></div>
         <div className="mb-8"><h1 className="text-3xl font-bold mb-2">전세 vs 월세 비교 계산기</h1><p className="text-muted-foreground">기회비용을 고려하여 전세와 월세 중 어느 것이 유리한지 비교하세요.</p></div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           <div className="lg:col-span-2">
@@ -52,11 +57,11 @@ export default function RentVsJeonsePage() {
         <ToolGuide sections={RENT_JEONSE_GUIDE} />
         <div className="mt-8 rounded-xl border border-blue-100 bg-blue-50/50 p-4">
           <span className="text-sm text-gray-600">더 알아보기 — </span>
-          <a href="/guide/rent-vs-jeonse" className="text-sm font-semibold text-blue-700 hover:underline">월세 vs 전세, 무엇이 이득일까? (금리로 갈리는 계산)</a>
+          <Link href="/guide/rent-vs-jeonse" className="text-sm font-semibold text-blue-700 hover:underline">월세 vs 전세, 무엇이 이득일까? (금리로 갈리는 계산)</Link>
         </div>
         <RelatedTools current="/rent-vs-jeonse" />
       </main>
-      <footer className="border-t mt-auto"><div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">&copy; 2026 ontools. All rights reserved.</div></footer>
+      <SiteFooter />
     </div>
   )
 }

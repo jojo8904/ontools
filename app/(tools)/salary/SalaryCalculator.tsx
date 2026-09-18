@@ -4,6 +4,9 @@ import { useSalaryCalculator } from '@/features/salary/hooks/useSalaryCalculator
 import { formatCurrency } from '@/lib/utils'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
+import { PolicyPeriodSelect } from '@/components/PolicyPeriodSelect'
+import { PolicySources } from '@/components/PolicySources'
+import { KOREA_POLICY } from '@/lib/korea-policy'
 import {
   Card,
   CardContent,
@@ -26,6 +29,7 @@ export function SalaryCalculator() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
+            <PolicyPeriodSelect value={input.policyDate ?? KOREA_POLICY.defaultDate} onChange={(policyDate) => updateInput({ policyDate })} />
             {/* 연봉 */}
             <div>
               <label className="block text-sm font-medium mb-2">
@@ -102,6 +106,7 @@ export function SalaryCalculator() {
             <CardHeader>
               <CardTitle>계산 결과</CardTitle>
               <CardDescription>월 실수령액 및 상세 내역</CardDescription>
+              <PolicySources />
             </CardHeader>
             <CardContent className="space-y-6">
               {/* 주요 결과 */}

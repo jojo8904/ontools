@@ -1,3 +1,7 @@
+
+import Link from 'next/link'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import { ImageConvert } from './ImageConvert'
 import { RelatedTools } from '@/components/RelatedTools'
@@ -30,6 +34,7 @@ const GUIDE = [
 ]
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/image-convert' },
   title: '이미지 형식 변환 (PNG·JPG·WEBP) - ontools',
   description:
     'PNG, JPG, WEBP 이미지 형식을 서로 변환합니다. WEBP 안 열릴 때 JPG·PNG로 변환, 화질 조절 지원. 브라우저에서 처리되어 서버로 전송되지 않습니다.',
@@ -55,18 +60,11 @@ export const metadata: Metadata = {
 export default function ImageConvertPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4">
-          <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-            <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
-            <span className="text-xl font-bold">ontools</span>
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="text-sm text-muted-foreground mb-6">
-          <a href="/" className="hover:text-foreground">홈</a>
+          <Link href="/" className="hover:text-foreground">홈</Link>
           {' > '}
           <span className="text-foreground">이미지·파일</span>
           {' > '}
@@ -95,7 +93,7 @@ export default function ImageConvertPage() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-1">제출용 형식 맞추기</h3>
-                  <p>"JPG만 업로드 가능" 같은 제한에 맞춰 PNG·WEBP를 JPG로 변환합니다.</p>
+                  <p>&quot;JPG만 업로드 가능&quot; 같은 제한에 맞춰 PNG·WEBP를 JPG로 변환합니다.</p>
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-1">용량 줄이기</h3>
@@ -120,11 +118,7 @@ export default function ImageConvertPage() {
         <RelatedTools current="/image-convert" />
       </main>
 
-      <footer className="border-t mt-auto">
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          &copy; 2026 ontools. All rights reserved.
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

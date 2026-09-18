@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Providers } from "./providers";
 import { RouteTracker } from "./RouteTracker";
 import { FloatingSearch } from "./FloatingSearch";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
+import Script from 'next/script';
+import { GA_ID } from '@/lib/analytics';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://ontools.co.kr'),
-  title: "ontools - 실생활 유틸리티 + AI 자동 뉴스",
-  description: "필요한 계산, 관련 뉴스까지 한 번에. 연봉 계산기, 환율 계산기, BMI 계산기 등",
+  title: "온툴즈 ontools - 생활 계산기와 이미지·PDF 도구",
+  description: "연봉·환율·생활 계산부터 이미지 압축, 사진 편집, PDF 변환까지. 브라우저에서 사용하는 무료 도구와 가이드.",
   keywords: ["계산기", "유틸리티", "뉴스", "연봉계산기", "환율계산기"],
   icons: {
     icon: '/favicon.ico',
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
   openGraph: {
     title: 'ontools - 당신의 스마트한 일상 도구',
-    description: '필요한 계산, 관련 뉴스까지 한 번에. 연봉 계산기, 환율 계산기, BMI 계산기 등',
+    description: '생활 계산기, 이미지 편집, PDF 변환을 한 곳에서.',
     url: 'https://ontools.co.kr',
     siteName: 'ontools',
     type: 'website',
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'ontools - 당신의 스마트한 일상 도구',
-    description: '필요한 계산, 관련 뉴스까지 한 번에',
+    description: '생활 계산기, 이미지 편집, PDF 변환을 한 곳에서.',
   },
   verification: {
     google: 'iotm6566LAXWYZHbVROJejB6Z7dqbA7OOS7z0ikycIU',
@@ -52,6 +53,14 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <head>
+        {process.env.NODE_ENV === 'production' && GA_ID && (
+          <Script id="ga4-init" strategy="beforeInteractive">
+            {`window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', ${JSON.stringify(GA_ID)});`}
+          </Script>
+        )}
         <meta name="theme-color" content="#0f0f1a" />
         {adsenseClientId && (
           <script
@@ -69,7 +78,7 @@ export default function RootLayout({
         />
         <GoogleAnalytics />
         <RouteTracker />
-        <Providers>{children}</Providers>
+        {children}
         <FloatingSearch />
       </body>
     </html>

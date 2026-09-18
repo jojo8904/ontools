@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { useStoredNumber } from '@/lib/useStoredNumber'
 
 const EMOJIS = ['🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼']
 const GRID = 4 // 4x4 = 16 cards = 8 pairs
@@ -34,16 +35,11 @@ export function GameMemory() {
   const [cards, setCards] = useState<MemCard[]>(createCards)
   const [flippedIds, setFlippedIds] = useState<number[]>([])
   const [moves, setMoves] = useState(0)
-  const [bestMoves, setBestMoves] = useState<number | null>(null)
+  const [bestMoves, setBestMoves] = useStoredNumber(HS_KEY, null)
   const [won, setWon] = useState(false)
   const [time, setTime] = useState(0)
   const [started, setStarted] = useState(false)
   const lockRef = useRef(false)
-
-  useEffect(() => {
-    const stored = localStorage.getItem(HS_KEY)
-    if (stored) setBestMoves(parseInt(stored, 10))
-  }, [])
 
   useEffect(() => {
     if (!started || won) return
@@ -89,7 +85,6 @@ export function GameMemory() {
             setWon(true)
             if (bestMoves === null || newMoves < bestMoves) {
               setBestMoves(newMoves)
-              localStorage.setItem(HS_KEY, String(newMoves))
             }
           }
         } else {
@@ -108,7 +103,7 @@ export function GameMemory() {
         }
       }
     },
-    [cards, flippedIds, moves, won, started, bestMoves]
+    [won, cards, started, flippedIds, moves, bestMoves, setBestMoves]
   )
 
   const restart = () => {

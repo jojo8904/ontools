@@ -17,19 +17,11 @@ export function useElectricityCalculator() {
 
   const calculate = () => {
     setError(null)
-
-    if (mode === 'usage') {
-      if (usage < 0) {
-        setError('사용량은 0 이상이어야 합니다.')
-        return
-      }
-      setResult(calculateFromUsage(usage))
-    } else {
-      if (amount <= 0) {
-        setError('금액은 0보다 커야 합니다.')
-        return
-      }
-      setResult(calculateFromAmount(amount))
+    try {
+      setResult(mode === 'usage' ? calculateFromUsage(usage) : calculateFromAmount(amount))
+    } catch (err) {
+      setResult(null)
+      setError(err instanceof Error ? err.message : '입력값을 확인해주세요.')
     }
   }
 
@@ -53,8 +45,8 @@ export function useElectricityCalculator() {
     result,
     error,
     changeMode,
-    setUsage,
-    setAmount,
+    setUsage: (value: number) => { setUsage(value); setResult(null) },
+    setAmount: (value: number) => { setAmount(value); setResult(null) },
     calculate,
     reset,
   }

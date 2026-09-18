@@ -1,5 +1,7 @@
 'use client'
 
+import { useStoredNumber } from '@/lib/useStoredNumber'
+
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 const WIDTH = 320
@@ -19,7 +21,7 @@ type Pipe = { x: number; topH: number }
 export function GameFlappy() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [score, setScore] = useState(0)
-  const [highScore, setHighScore] = useState(0)
+  const [highScore, setHighScore] = useStoredNumber(HS_KEY)
   const [gameOver, setGameOver] = useState(false)
   const [started, setStarted] = useState(false)
 
@@ -29,11 +31,8 @@ export function GameFlappy() {
   const gameOverRef = useRef(false)
   const frameRef = useRef<number>(0)
   const lastPipeRef = useRef(0)
+  const lastFrameRef = useRef(0)
 
-  useEffect(() => {
-    const stored = localStorage.getItem(HS_KEY)
-    if (stored) setHighScore(parseInt(stored, 10))
-  }, [])
 
   const draw = useCallback(() => {
     const canvas = canvasRef.current
@@ -132,12 +131,14 @@ export function GameFlappy() {
   }, [])
 
   const gameLoop = useCallback(
-    (time: number) => {
+    function gameLoop(time: number) {
       if (gameOverRef.current) return
+      const dt = lastFrameRef.current ? Math.min((time - lastFrameRef.current) / (1000 / 60), 3) : 1
+      lastFrameRef.current = time
 
       const bird = birdRef.current
-      bird.vy += GRAVITY
-      bird.y += bird.vy
+      bird.vy += GRAVITY * dt
+      bird.y += bird.vy * dt
 
       // Spawn pipes
       if (time - lastPipeRef.current > PIPE_INTERVAL) {
@@ -152,11 +153,11 @@ export function GameFlappy() {
       pipesRef.current = pipesRef.current.filter((p) => p.x + PIPE_WIDTH > -10)
       pipesRef.current.forEach((p) => {
         // Score when passing
-        if (p.x > 56 && p.x - PIPE_SPEED <= 56) {
+        if (p.x > 56 && p.x - PIPE_SPEED * dt <= 56) {
           scoreRef.current++
           setScore(scoreRef.current)
         }
-        p.x -= PIPE_SPEED
+        p.x -= PIPE_SPEED * dt
       })
 
       if (checkCollision()) {
@@ -174,7 +175,7 @@ export function GameFlappy() {
       draw()
       frameRef.current = requestAnimationFrame(gameLoop)
     },
-    [draw, checkCollision]
+    [checkCollision, draw, setHighScore]
   )
 
   const jump = useCallback(() => {
@@ -183,6 +184,7 @@ export function GameFlappy() {
   }, [])
 
   const startGame = useCallback(() => {
+    lastFrameRef.current = 0
     birdRef.current = { y: HEIGHT / 2, vy: 0 }
     pipesRef.current = []
     scoreRef.current = 0
@@ -258,7 +260,7 @@ export function GameFlappy() {
           ref={canvasRef}
           width={WIDTH}
           height={HEIGHT}
-          className="rounded-xl border-2 border-gray-200 cursor-pointer"
+          className="max-w-full h-auto rounded-xl border-2 border-gray-200 cursor-pointer"
           onClick={handleCanvasClick}
           onTouchStart={(e) => {
             e.preventDefault()

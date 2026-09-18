@@ -1,3 +1,7 @@
+
+import Link from 'next/link'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import { LoanCalculator } from './LoanCalculator'
 import { YouTubeSection } from '@/features/youtube/components/YouTubeSection'
@@ -34,6 +38,7 @@ const LOAN_FAQ = [
 ]
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/loan' },
   title: '대출이자 계산기 - ontools',
   description:
     '대출금액, 이자율, 대출기간을 입력하면 원리금균등, 원금균등, 만기일시 세 가지 방식의 월 상환금과 총 이자를 계산합니다.',
@@ -62,20 +67,13 @@ export default function LoanPage() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4">
-          <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-            <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
-            <span className="text-xl font-bold">ontools</span>
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       {/* Main Content */}
       <main className="flex-1 container mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <div className="text-sm text-muted-foreground mb-6">
-          <a href="/" className="hover:text-foreground">홈</a>
+          <Link href="/" className="hover:text-foreground">홈</Link>
           {' > '}
           <span className="text-foreground">금융</span>
           {' > '}
@@ -104,7 +102,7 @@ export default function LoanPage() {
           <aside className="space-y-6">
             {/* 사이드바 고정 광고 (PC 전용) */}
             <div className="hidden lg:block sticky top-20">
-              <AdUnit slot="0000000000" />
+              <AdUnit placement="tool" />
             </div>
             {/* 대출 상환방식 비교 */}
             <section className="bg-[#F2EEE6] rounded-xl border border-gray-200/70 p-6">
@@ -170,11 +168,7 @@ export default function LoanPage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t mt-auto">
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          &copy; 2026 ontools. All rights reserved.
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

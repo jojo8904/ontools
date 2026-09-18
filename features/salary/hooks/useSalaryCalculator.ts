@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { SalaryInput, SalaryResult } from '@/types/tools'
 import { calculateSalaryTakeHome } from '../utils'
 import { salaryInputSchema } from '../schema'
+import { trackToolEvent } from '@/lib/analytics'
 
 export function useSalaryCalculator() {
   const [input, setInput] = useState<SalaryInput>({
@@ -24,10 +25,13 @@ export function useSalaryCalculator() {
     }
     setError(null)
     setResult(calculateSalaryTakeHome(parsed.data))
+    trackToolEvent('calculation_complete', '/salary')
   }
 
   const updateInput = (partial: Partial<SalaryInput>) => {
     setInput((prev) => ({ ...prev, ...partial }))
+    setResult(null)
+    setError(null)
   }
 
   const reset = () => {

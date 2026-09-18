@@ -1,3 +1,7 @@
+
+import Link from 'next/link'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import type { Metadata } from 'next'
 import { ImageCompress } from './ImageCompress'
 import { RelatedTools } from '@/components/RelatedTools'
@@ -29,6 +33,7 @@ const GUIDE = [
 ]
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/image-compress' },
   title: '사진 용량 줄이기 (KB 맞추기) - ontools',
   description:
     '200KB, 1MB 등 원하는 용량 이하로 사진을 자동 압축합니다. 관공서·자격증·온라인 제출용 사진 용량 맞추기. 브라우저에서 처리되어 서버로 전송되지 않습니다.',
@@ -55,20 +60,13 @@ export default function ImageCompressPage() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4">
-          <a href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-            <img src="/mascot.png" alt="ontools" className="w-10 h-10 rounded-full" />
-            <span className="text-xl font-bold">ontools</span>
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       {/* Main Content */}
       <main className="flex-1 container mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <div className="text-sm text-muted-foreground mb-6">
-          <a href="/" className="hover:text-foreground">홈</a>
+          <Link href="/" className="hover:text-foreground">홈</Link>
           {' > '}
           <span className="text-foreground">이미지·파일</span>
           {' > '}
@@ -99,7 +97,7 @@ export default function ImageCompressPage() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-1">자격증·시험 원서접수</h3>
-                  <p>증명사진이나 첨부 서류가 "300KB 이하" 등으로 제한될 때 사용합니다.</p>
+                  <p>증명사진이나 첨부 서류가 &quot;300KB 이하&quot; 등으로 제한될 때 사용합니다.</p>
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-1">온라인 지원·게시판</h3>
@@ -123,17 +121,13 @@ export default function ImageCompressPage() {
         <ToolGuide sections={GUIDE} muted />
         <div className="mt-8 rounded-xl border border-blue-100 bg-blue-50/50 p-4">
           <span className="text-sm text-gray-600">더 알아보기 — </span>
-          <a href="/guide/photo-size-reduce" className="text-sm font-semibold text-blue-700 hover:underline">사진 용량을 200KB·1MB 이하로 줄이는 방법</a>
+          <Link href="/guide/photo-size-reduce" className="text-sm font-semibold text-blue-700 hover:underline">사진 용량을 200KB·1MB 이하로 줄이는 방법</Link>
         </div>
         <RelatedTools current="/image-compress" />
       </main>
 
       {/* Footer */}
-      <footer className="border-t mt-auto">
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          &copy; 2026 ontools. All rights reserved.
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

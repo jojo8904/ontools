@@ -1,5 +1,7 @@
 'use client'
 
+import { useObjectUrls } from '@/lib/useObjectUrls'
+
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { Button } from '@/components/ui/Button'
 
@@ -14,6 +16,8 @@ const POS_GRID: Pos[][] = [
 ]
 
 export function Watermark() {
+  const { createObjectUrl, clearObjectUrls } = useObjectUrls()
+
   const [base, setBase] = useState<HTMLImageElement | null>(null)
   const [fileName, setFileName] = useState('')
   const [source, setSource] = useState<Source>('text')
@@ -33,7 +37,7 @@ export function Watermark() {
       alert('이미지 파일만 올릴 수 있어요.')
       return
     }
-    const url = URL.createObjectURL(file)
+    const url = createObjectUrl(file)
     const image = new Image()
     image.onload = () => {
       cb(image)
@@ -121,7 +125,7 @@ export function Watermark() {
       const link = document.createElement('a')
       const b = fileName.replace(/\.[^.]+$/, '') || 'image'
       link.download = `${b}_watermark.png`
-      link.href = URL.createObjectURL(blob)
+      link.href = createObjectUrl(blob)
       link.click()
     }, 'image/png')
   }

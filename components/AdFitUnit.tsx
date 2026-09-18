@@ -24,7 +24,7 @@ export function AdFitUnit({ unit, width = 728, height = 90, className = '' }: Ad
 
   useEffect(() => {
     const el = ref.current
-    if (!adUnit || !el) return
+    if (!adUnit || !el || process.env.NODE_ENV !== 'production') return
 
     const ins = document.createElement('ins')
     ins.className = 'kakao_ad_area'
@@ -46,7 +46,7 @@ export function AdFitUnit({ unit, width = 728, height = 90, className = '' }: Ad
     }
   }, [adUnit, width, height])
 
-  if (!adUnit) return null
+  if (!adUnit || process.env.NODE_ENV !== 'production') return null
 
   return <div ref={ref} className={`my-6 flex justify-center overflow-hidden ${className}`} />
 }

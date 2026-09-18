@@ -5,6 +5,7 @@ import { z } from 'zod'
  * - 음수/과대값/비정상 입력을 계산 전에 차단
  */
 export const salaryInputSchema = z.object({
+  policyDate: z.enum(['2026-01-01', '2026-07-01']).optional(),
   annualSalary: z
     .number({ invalid_type_error: '연봉을 숫자로 입력해주세요' })
     .min(0, '연봉은 0원 이상이어야 합니다')

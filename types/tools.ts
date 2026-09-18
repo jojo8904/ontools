@@ -17,6 +17,7 @@ export interface ToolMetadata {
 }
 
 export interface SalaryInput {
+  policyDate?: string
   annualSalary: number // 연봉 (원)
   dependents: number // 부양가족 수
   hasDisability: boolean // 장애인 여부
@@ -67,6 +68,8 @@ export interface CurrencyResult {
   rate: number
   lastUpdated: string
   isWeekend: boolean
+  status: 'live' | 'stale' | 'fallback'
+  source: string
 }
 
 export interface SeveranceInput {
