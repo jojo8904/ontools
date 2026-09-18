@@ -83,17 +83,9 @@ export default function HomePage() {
         </div>
       </header>
 
-      {/* Existing brand artwork */}
-      <section
-        className="relative overflow-hidden"
-        style={{
-          minHeight: '180px',
-          backgroundImage: 'url(/images/hero.webp)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      >
-        <div className="container mx-auto px-4 py-5 min-h-[180px] flex items-center relative z-[1]">
+      {/* Brand introduction */}
+      <section className="bg-[#f8f9fa]">
+        <div className="container mx-auto px-4 py-5 min-h-[180px] flex items-center">
           <div className="flex flex-col justify-center">
             <span className="inline-flex items-center gap-1.5 self-start rounded-full bg-white/70 px-3 py-1 text-[0.8rem] font-semibold text-[#6b6276] ring-1 ring-[#e6def0] mb-3">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />

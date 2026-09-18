@@ -40,6 +40,8 @@ test('home keeps the runner and partner banner above the tool directory', async 
     await expect(promo).toBeInViewport()
     const headerBox = (await page.locator('header').boundingBox())!
     const intro = page.locator('section').filter({ has: page.locator('h1') })
+    await expect(intro).toHaveCSS('background-image', 'none')
+    await expect(intro.locator('img')).toHaveCount(0)
     const introBox = (await intro.boundingBox())!
     const copyBox = (await intro.locator('p').boundingBox())!
     const runnerBox = (await runner.boundingBox())!
@@ -60,7 +62,7 @@ test('home keeps the runner and partner banner above the tool directory', async 
       expect(box.x + box.width).toBeLessThanOrEqual(viewport.width)
       expect(box.y + box.height).toBeLessThanOrEqual(headerBox.y + headerBox.height)
     }
-    for (const url of ['/images/hero.webp', '/images/lucky-promo.webp', '/game/cat.png']) {
+    for (const url of ['/images/lucky-promo.webp', '/game/cat.png']) {
       expect(await page.evaluate(async (src) => {
         const image = new Image()
         image.src = src
