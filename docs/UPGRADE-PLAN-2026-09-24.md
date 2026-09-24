@@ -92,3 +92,4 @@
 | 일시 (UTC) | 커밋 | 결과 |
 | --- | --- | --- |
 | 2026-09-24 06:28 | ddbd5b2 | Vercel Production 성공, GitHub CI(database, verify) 성공, 배포 후 sitemap 99개 URL·robots·OG 이미지 전부 200 |
+| 2026-09-24 07:20 | 4f88c2a | 가이드 13편 추가(총 24편), 전기요금 가이드 연중형 개편, 종합소득세 연도 문구 수정, 가이드 목록 최신순. Vercel·CI 성공, 신규 가이드 13개 URL 전부 200, sitemap 112개 |
