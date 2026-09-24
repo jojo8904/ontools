@@ -39,7 +39,7 @@ export default function GuideIndexPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {GUIDES.map((g) => (
+          {[...GUIDES].reverse().map((g) => (
             <Link
               key={g.slug}
               href={`/guide/${g.slug}`}

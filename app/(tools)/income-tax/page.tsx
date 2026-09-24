@@ -27,7 +27,7 @@ const INCOME_TAX_FAQ = [
 export const metadata: Metadata = {
   alternates: { canonical: '/income-tax' },
   title: '종합소득세 계산기 - ontools',
-  description: '종합소득세를 간편하게 계산하세요. 2025년 기준 세율 구간 적용, 소득공제 반영, 지방소득세 포함.',
+  description: '종합소득세를 간편하게 계산하세요. 2026년 기준 세율 구간 적용, 소득공제 반영, 지방소득세 포함.',
   keywords: ['종합소득세계산기', '소득세', '세율구간', '종소세', '소득세신고'],
   openGraph: {
     title: '종합소득세 계산기 - ontools',
