@@ -86,3 +86,9 @@
 - **CLAUDE.md**: 2026-09-24에 현재 구현(Next 16, ExchangeRate-API, 도구 68종) 기준으로 재작성. 초기 기획 문서(`docs/01-plan`, `docs/02-design`)는 기록용.
 - **vitest 설정 경고**: `vitest.config.ts`가 CommonJS로 로드되며 ESM 문법 경고 발생. `vitest.config.mts`로 이름을 바꾸면 해결. 기능 영향 없음.
 - **AdSense**: 승인 대기. 승인 후 CSP 적용과 슬롯 ID 등록이 필요.
+
+## 배포 기록
+
+| 일시 (UTC) | 커밋 | 결과 |
+| --- | --- | --- |
+| 2026-09-24 06:28 | ddbd5b2 | Vercel Production 성공, GitHub CI(database, verify) 성공, 배포 후 sitemap 99개 URL·robots·OG 이미지 전부 200 |
