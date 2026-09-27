@@ -11,6 +11,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest",
     "update-exchange-rate": "tsx scripts/update-exchange-rate.ts",
+    "indexnow": "node scripts/indexnow-submit.mjs",
+    "gsc:index": "node scripts/gsc-request-indexing.mjs",
     "test:e2e": "playwright test"
   },
   "dependencies": {

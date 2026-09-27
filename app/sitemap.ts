@@ -1,7 +1,17 @@
 import { MetadataRoute } from 'next'
 import fs from 'fs'
 import path from 'path'
-import { GUIDES } from '@/lib/guides'
+import { GUIDES, getGuideDate } from '@/lib/guides'
+
+// 도구·정적 페이지의 최종 수정일. 페이지를 크게 바꾸면 여기 날짜를 갱신한다.
+// 없는 경로는 2026-09 유지보수 릴리스 날짜를 쓴다.
+const DEFAULT_UPDATED = '2026-09-19'
+const ROUTE_UPDATED: Record<string, string> = {
+  '/': '2026-09-27',
+  '/guide': '2026-09-24',
+  '/salary': '2026-09-27',
+  '/income-tax': '2026-09-24',
+}
 
 function getPages(dir: string, base = ''): string[] {
   const routes: string[] = []
@@ -36,12 +46,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const appDir = path.join(process.cwd(), 'app')
   const routes = getPages(appDir)
 
-  // 가이드 동적 글 경로 추가
-  for (const g of GUIDES) routes.push(`/guide/${g.slug}`)
-
-  return routes.map((route) => ({
+  const entries: MetadataRoute.Sitemap = routes.map((route) => ({
     url: `${baseUrl}${route === '/' ? '' : route}`,
-    changeFrequency: 'weekly' as const,
+    lastModified: new Date(`${ROUTE_UPDATED[route] ?? DEFAULT_UPDATED}T00:00:00+09:00`),
+    changeFrequency: route === '/' ? ('daily' as const) : ('weekly' as const),
     priority: route === '/' ? 1 : 0.8,
   }))
+
+  // 가이드 동적 글 경로 추가 (게시일 기준 lastmod)
+  for (const g of GUIDES) {
+    entries.push({
+      url: `${baseUrl}/guide/${g.slug}`,
+      lastModified: new Date(`${getGuideDate(g.slug)}T00:00:00+09:00`),
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    })
+  }
+
+  return entries
 }

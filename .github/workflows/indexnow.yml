@@ -1,0 +1,39 @@
+name: IndexNow Submit
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      urls:
+        description: '직접 제출할 URL (공백 구분). 비우면 --all'
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Submit changed URLs (push)
+        if: github.event_name == 'push'
+        run: node scripts/indexnow-submit.mjs --before "${{ github.event.before }}" --after "${{ github.sha }}"
+
+      - name: Submit given URLs or all (manual)
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          if [ -n "${{ github.event.inputs.urls }}" ]; then
+            node scripts/indexnow-submit.mjs ${{ github.event.inputs.urls }}
+          else
+            node scripts/indexnow-submit.mjs --all
+          fi

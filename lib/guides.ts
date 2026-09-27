@@ -1565,3 +1565,48 @@ export const GUIDES: GuideArticle[] = [
 export function getGuide(slug: string): GuideArticle | undefined {
   return GUIDES.find((g) => g.slug === slug)
 }
+
+/**
+ * 가이드별 게시일·최종 수정일 (sitemap lastmod용).
+ * 새 글을 추가하거나 내용을 크게 고치면 여기 날짜를 갱신한다.
+ */
+export const GUIDE_DATES: Record<string, string> = {
+  'heic-to-jpg': '2026-06-28',
+  'photo-size-reduce': '2026-06-28',
+  'remove-background': '2026-06-28',
+  'salary-take-home': '2026-06-28',
+  'korean-age': '2026-06-28',
+  'exchange-rate': '2026-06-28',
+  'bmi-guide': '2026-06-28',
+  'electricity-bill': '2026-09-24',
+  'severance-pay': '2026-07-01',
+  'freelancer-tax-refund': '2026-07-01',
+  'rent-vs-jeonse': '2026-07-01',
+  'minimum-wage-2027': '2026-09-24',
+  'year-end-tax-settlement': '2026-09-24',
+  'social-insurance-2027': '2026-09-24',
+  'upload-fails-after-compress': '2026-09-24',
+  'masked-image-original-remains': '2026-09-24',
+  'receipts-to-a4-pdf': '2026-09-24',
+  'does-free-tool-upload-files': '2026-09-24',
+  'unemployment-benefit-guide': '2026-09-24',
+  'weekly-holiday-pay-guide': '2026-09-24',
+  'annual-leave-calculation': '2026-09-24',
+  'choosing-resignation-date': '2026-09-24',
+  'brokerage-fee-table': '2026-09-24',
+  'gift-tax-basics': '2026-09-24',
+  'loan-repayment-methods': '2026-09-24',
+  'deposit-savings-interest': '2026-09-24',
+  'car-tax-guide': '2026-09-24',
+  'used-car-acquisition-tax': '2026-09-24',
+  'vat-calculation': '2026-09-24',
+  'due-date-calculation': '2026-09-24',
+  'tdee-calorie-guide': '2026-09-24',
+  'holidays-2027': '2026-09-24',
+  'character-count-guide': '2026-09-24',
+  'pyeong-to-sqm': '2026-09-24',
+}
+
+export function getGuideDate(slug: string): string {
+  return GUIDE_DATES[slug] ?? '2026-09-24'
+}
