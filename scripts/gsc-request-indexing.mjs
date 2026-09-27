@@ -34,16 +34,20 @@ function inspectUrl(target) {
 async function ensureLoggedIn(page) {
   await page.goto(`https://search.google.com/search-console?resource_id=${encodeURIComponent(PROPERTY)}`, { waitUntil: 'networkidle' }).catch(() => {})
   await page.waitForTimeout(3000)
-  const isLoginPage = () => /accounts\.google\.com|\/signin|ServiceLogin/i.test(page.url())
-  if (!isLoginPage()) {
+  // 로그아웃 상태면 accounts.google.com 또는 소개 페이지(/search-console/about)로 이동한다.
+  const isLoggedOut = () => /accounts\.google\.com|\/signin|ServiceLogin|\/search-console\/about|\/welcome/i.test(page.url())
+  if (!isLoggedOut()) {
     console.log(`>>> 로그인 상태 확인 (${page.url()})`)
     return true
   }
-  console.log('\n>>> 열린 크롬 창에서 구글 로그인을 해 주세요. 최대 5분 기다립니다...')
+  console.log('\n>>> 열린 크롬 창에서 "지금 시작하기"를 누르고 구글 로그인을 해 주세요. 최대 5분 기다립니다...')
   try {
-    await page.waitForURL((u) => u.hostname === 'search.google.com' && !/signin/i.test(u.href), { timeout: 5 * 60 * 1000 })
+    await page.waitForURL(
+      (u) => u.hostname === 'search.google.com' && !/\/about|\/welcome|signin/i.test(u.href),
+      { timeout: 5 * 60 * 1000 },
+    )
     await page.waitForTimeout(3000)
-    console.log('>>> 로그인 확인됨')
+    console.log(`>>> 로그인 확인됨 (${page.url()})`)
     return true
   } catch {
     console.error('로그인 시간 초과')
@@ -53,19 +57,35 @@ async function ensureLoggedIn(page) {
 
 async function requestIndexing(page, target, idx) {
   const shot = (name) => page.screenshot({ path: path.join(SHOT_DIR, `${idx}-${name}.png`), fullPage: false })
-  await page.goto(inspectUrl(target), { waitUntil: 'domcontentloaded' })
+  // 딥링크(inspect?id=)는 404를 돌려주므로 상단 URL 검사창에 직접 입력한다
+  await page.goto(`https://search.google.com/search-console?resource_id=${encodeURIComponent(PROPERTY)}`, { waitUntil: 'networkidle' }).catch(() => {})
+  const box = page.locator('input[role="combobox"][aria-label*="URL 검사"], input[role="combobox"][aria-label*="Inspect"]').first()
+  try {
+    await box.waitFor({ state: 'visible', timeout: 30_000 })
+  } catch {
+    await shot('no-searchbox')
+    return { url: target, result: '검사창을 찾지 못함 (스크린샷 확인)' }
+  }
+  await box.click()
+  await box.fill(target)
+  await box.press('Enter')
 
-  // 검사 결과 로드 대기: 상태 문구 또는 요청 버튼이 나타날 때까지
+  // "Google 색인에서 데이터 가져오는 중" 로딩이 끝날 때까지 대기
+  const loading = page.getByText(/데이터 가져오는 중|Retrieving data/i)
+  await loading.waitFor({ state: 'visible', timeout: 15_000 }).catch(() => {})
+  await loading.waitFor({ state: 'hidden', timeout: 120_000 }).catch(() => {})
+  await page.waitForTimeout(2000)
+
   const requestBtn = page.getByRole('button', { name: /색인 생성 요청|Request indexing/i })
   const testedLive = page.getByRole('button', { name: /실제 URL 테스트|Test live URL/i })
   try {
     await Promise.race([
-      requestBtn.waitFor({ state: 'visible', timeout: 90_000 }),
-      testedLive.waitFor({ state: 'visible', timeout: 90_000 }),
+      requestBtn.waitFor({ state: 'visible', timeout: 60_000 }),
+      testedLive.waitFor({ state: 'visible', timeout: 60_000 }),
     ])
   } catch {
     await shot('timeout')
-    return { url: target, result: '검사 화면 로드 실패 (스크린샷 확인)' }
+    return { url: target, result: '검사 결과 화면 로드 실패 (스크린샷 확인)' }
   }
   await shot('inspected')
 
@@ -73,16 +93,26 @@ async function requestIndexing(page, target, idx) {
     return { url: target, result: '요청 버튼 없음 (이미 요청됨이거나 화면 구조 변경)' }
   }
 
+  // 검사 결과의 색인 상태 문구 (예: "URL이 Google에 등록되어 있지 않음", "리디렉션 오류")
+  const statusText = await page.evaluate(() => {
+    const t = document.body.innerText
+    const m = t.match(/URL이 Google에 등록되어 있(?:음|지 않음)|URL is (?:not )?on Google/)
+    const reason = t.match(/페이지 색인이 생성되지 않음: ([^\n]+)/)
+    return [m?.[0], reason?.[1]].filter(Boolean).join(' / ')
+  })
+
   await requestBtn.click()
-  // 결과 다이얼로그: 요청됨 / 할당량 초과 / 오류
-  const done = page.getByText(/색인 생성 요청됨|Indexing requested/i)
-  const quota = page.getByText(/할당량|Quota exceeded/i)
-  const already = page.getByText(/이미 요청|already requested/i)
-  const outcome = await Promise.race([
-    done.waitFor({ state: 'visible', timeout: 120_000 }).then(() => '요청 완료'),
-    quota.waitFor({ state: 'visible', timeout: 120_000 }).then(() => '일일 할당량 초과'),
-    already.waitFor({ state: 'visible', timeout: 120_000 }).then(() => '이미 요청됨'),
-  ]).catch(() => '결과 확인 실패 (스크린샷 확인)')
+  // 결과 다이얼로그를 본문 텍스트로 판정 (요청됨 / 할당량 초과 / 이미 요청)
+  let outcome = '결과 확인 실패 (스크린샷 확인)'
+  const started = Date.now()
+  while (Date.now() - started < 120_000) {
+    const text = await page.evaluate(() => document.body.innerText)
+    if (/색인 생성 요청됨|Indexing requested/i.test(text)) { outcome = '요청 완료'; break }
+    if (/할당량|Quota exceeded/i.test(text)) { outcome = '일일 할당량 초과'; break }
+    if (/이미 요청|already requested/i.test(text)) { outcome = '이미 요청됨'; break }
+    await page.waitForTimeout(2000)
+  }
+  if (statusText) outcome += ` (검사 상태: ${statusText})`
   await shot('result')
   // 다이얼로그 닫기
   const close = page.getByRole('button', { name: /확인|OK|닫기|Close/i }).first()
@@ -115,11 +145,20 @@ async function main() {
     const results = []
     for (const [i, target] of urls.entries()) {
       console.log(`[${i + 1}/${urls.length}] ${target}`)
-      const r = await requestIndexing(page, target, i + 1)
+      // 로그인 과정에서 탭이 닫힐 수 있으므로 URL마다 새 탭을 쓴다
+      const tab = await context.newPage()
+      let r
+      try {
+        r = await requestIndexing(tab, target, i + 1)
+      } catch (e) {
+        r = { url: target, result: `오류: ${e.message.split('\n')[0]}` }
+      } finally {
+        await tab.close().catch(() => {})
+      }
       console.log(`    → ${r.result}`)
       results.push(r)
       if (r.result === '일일 할당량 초과') break
-      await page.waitForTimeout(3000)
+      await new Promise((res) => setTimeout(res, 3000))
     }
     console.log('\n결과 요약')
     for (const r of results) console.log(`${r.result.padEnd(14)} ${r.url}`)
