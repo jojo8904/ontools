@@ -101,7 +101,7 @@
 - **사이트맵 lastmod**: `lib/guides.ts`의 `GUIDE_DATES`, `app/sitemap.ts`의 `ROUTE_UPDATED`에 날짜 기록. 페이지를 크게 바꾸면 갱신.
 - **IndexNow(네이버·빙)**: main 푸시 시 `.github/workflows/indexnow.yml`이 변경 URL을 자동 제출. 키 `public/df1d40d783b5f68375200b544645f432.txt`. 수동: `npm run indexnow -- <url...>` 또는 `--all`.
 - **Google Search Console 색인 요청**: 공식 API가 없어 로컬 전용 크롬 프로필(`~/.ontools-gsc-profile`)로 URL 검사 → 색인 생성 요청을 자동 클릭.
-  - 대기열 `.gsc-queue.txt`(git 제외)에서 매일 10:30 작업 스케줄러 `ontools-gsc-index`가 8건씩 처리. 로그 `~/.ontools-gsc-profile/request-log.txt`.
+  - 대기열 `.gsc-queue.txt`(git 제외)를 작업 스케줄러 `ontools-gsc-index`가 로그온 3분 후 하루 1회 8건씩 처리 (`~/.ontools-gsc-profile/last-run.txt`로 중복 방지). 로그 `~/.ontools-gsc-profile/request-log.txt`.
   - 새 페이지 배포 후 큐 파일에 URL 추가. 즉시 요청: `npm run gsc:index -- <url...>`. 일일 한도 약 10건.
   - 구글 세션이 풀리면 `npm run gsc:index -- --login`으로 창을 띄워 다시 로그인.
 - **2026-09-27 현황**: 색인 35 / 미색인 59 (리디렉션 오류 19는 6월 기록, 현재 308 정상; 발견됨-미크롤링 35; 크롤링됨-미색인 5). 당일 /salary, /guide/holidays-2027, /income-tax, /currency, /savings, /severance-pay, /unemployment, /loan, /bg-remove, /image-convert 요청 완료.

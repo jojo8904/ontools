@@ -29,6 +29,16 @@ const loginOnly = args.includes('--login')
 const queueIdx = args.indexOf('--queue')
 const queueCount = queueIdx >= 0 ? Number(args[queueIdx + 1] || 8) : 0
 let urls = args.filter((a) => a.startsWith('http'))
+// 큐 모드는 하루 한 번만 (로그온마다 실행되므로 같은 날 재실행은 건너뛴다)
+const LAST_RUN_FILE = path.join(PROFILE_DIR, 'last-run.txt')
+const today = new Date().toLocaleDateString('sv-SE') // YYYY-MM-DD (로컬 날짜)
+if (queueCount > 0) {
+  const last = fs.existsSync(LAST_RUN_FILE) ? fs.readFileSync(LAST_RUN_FILE, 'utf8').trim() : ''
+  if (last === today) {
+    console.log(`오늘(${today}) 이미 실행됨. 건너뜀.`)
+    process.exit(0)
+  }
+}
 if (queueCount > 0 && fs.existsSync(QUEUE_FILE)) {
   const queued = fs.readFileSync(QUEUE_FILE, 'utf8').split('\n').map((s) => s.trim()).filter((s) => s && !s.startsWith('#'))
   urls = queued.slice(0, queueCount)
@@ -187,6 +197,7 @@ async function main() {
       log(`${r.result} ${r.url}`)
     }
     if (queueCount > 0) {
+      fs.writeFileSync(LAST_RUN_FILE, today)
       removeFromQueue(results.filter((r) => /^요청 완료|^이미 요청됨/.test(r.result)).map((r) => r.url))
       const left = fs.existsSync(QUEUE_FILE) ? fs.readFileSync(QUEUE_FILE, 'utf8').split('\n').filter((s) => s.trim() && !s.startsWith('#')).length : 0
       console.log(`큐에 남은 URL: ${left}건`)
