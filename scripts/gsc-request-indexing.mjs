@@ -21,9 +21,30 @@ import path from 'node:path'
 const PROPERTY = process.env.GSC_PROPERTY || 'https://ontools.co.kr/'
 const PROFILE_DIR = path.join(os.homedir(), '.ontools-gsc-profile')
 const SHOT_DIR = path.join(process.cwd(), 'test-results', 'gsc')
+const QUEUE_FILE = path.join(process.cwd(), '.gsc-queue.txt')
+const LOG_FILE = path.join(PROFILE_DIR, 'request-log.txt')
 const args = process.argv.slice(2)
 const loginOnly = args.includes('--login')
-const urls = args.filter((a) => a.startsWith('http'))
+// --queue N : .gsc-queue.txt 에서 앞의 N개를 꺼내 요청하고, 성공한 URL은 파일에서 제거 (매일 자동 실행용)
+const queueIdx = args.indexOf('--queue')
+const queueCount = queueIdx >= 0 ? Number(args[queueIdx + 1] || 8) : 0
+let urls = args.filter((a) => a.startsWith('http'))
+if (queueCount > 0 && fs.existsSync(QUEUE_FILE)) {
+  const queued = fs.readFileSync(QUEUE_FILE, 'utf8').split('\n').map((s) => s.trim()).filter((s) => s && !s.startsWith('#'))
+  urls = queued.slice(0, queueCount)
+}
+
+function removeFromQueue(done) {
+  if (!fs.existsSync(QUEUE_FILE) || done.length === 0) return
+  const lines = fs.readFileSync(QUEUE_FILE, 'utf8').split('\n')
+  const kept = lines.filter((l) => !done.includes(l.trim()))
+  fs.writeFileSync(QUEUE_FILE, kept.join('\n'))
+}
+
+function log(line) {
+  const stamp = new Date().toISOString().slice(0, 16).replace('T', ' ')
+  try { fs.appendFileSync(LOG_FILE, `${stamp} ${line}\n`) } catch {}
+}
 
 fs.mkdirSync(SHOT_DIR, { recursive: true })
 
@@ -161,7 +182,16 @@ async function main() {
       await new Promise((res) => setTimeout(res, 3000))
     }
     console.log('\n결과 요약')
-    for (const r of results) console.log(`${r.result.padEnd(14)} ${r.url}`)
+    for (const r of results) {
+      console.log(`${r.result.padEnd(14)} ${r.url}`)
+      log(`${r.result} ${r.url}`)
+    }
+    if (queueCount > 0) {
+      removeFromQueue(results.filter((r) => /^요청 완료|^이미 요청됨/.test(r.result)).map((r) => r.url))
+      const left = fs.existsSync(QUEUE_FILE) ? fs.readFileSync(QUEUE_FILE, 'utf8').split('\n').filter((s) => s.trim() && !s.startsWith('#')).length : 0
+      console.log(`큐에 남은 URL: ${left}건`)
+      log(`queue left ${left}`)
+    }
   } finally {
     await context.close()
   }

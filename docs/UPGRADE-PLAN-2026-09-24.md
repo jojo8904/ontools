@@ -95,3 +95,13 @@
 | 2026-09-24 07:20 | 4f88c2a | 가이드 13편 추가(총 24편), 전기요금 가이드 연중형 개편, 종합소득세 연도 문구 수정, 가이드 목록 최신순. Vercel·CI 성공, 신규 가이드 13개 URL 전부 200, sitemap 112개 |
 | 2026-09-24 07:50 | a230b4a | 가이드 10편 추가(총 34편): 대출·예적금·자동차세·중고차 취득세·부가세·출산예정일·TDEE·2027 공휴일·글자수·평수. Vercel·CI 성공 |
 | 2026-09-27 | 51e35b3 | 연봉 계산기: 비과세 입력, 보험료 하한 유지(Codex 리뷰 반영), 10원 절사, NaN 버그 수정, 테스트 11개 추가. Vercel·CI·Playwright 성공 |
+
+## 검색엔진 색인 자동화 (2026-09-27 설정)
+
+- **사이트맵 lastmod**: `lib/guides.ts`의 `GUIDE_DATES`, `app/sitemap.ts`의 `ROUTE_UPDATED`에 날짜 기록. 페이지를 크게 바꾸면 갱신.
+- **IndexNow(네이버·빙)**: main 푸시 시 `.github/workflows/indexnow.yml`이 변경 URL을 자동 제출. 키 `public/df1d40d783b5f68375200b544645f432.txt`. 수동: `npm run indexnow -- <url...>` 또는 `--all`.
+- **Google Search Console 색인 요청**: 공식 API가 없어 로컬 전용 크롬 프로필(`~/.ontools-gsc-profile`)로 URL 검사 → 색인 생성 요청을 자동 클릭.
+  - 대기열 `.gsc-queue.txt`(git 제외)에서 매일 10:30 작업 스케줄러 `ontools-gsc-index`가 8건씩 처리. 로그 `~/.ontools-gsc-profile/request-log.txt`.
+  - 새 페이지 배포 후 큐 파일에 URL 추가. 즉시 요청: `npm run gsc:index -- <url...>`. 일일 한도 약 10건.
+  - 구글 세션이 풀리면 `npm run gsc:index -- --login`으로 창을 띄워 다시 로그인.
+- **2026-09-27 현황**: 색인 35 / 미색인 59 (리디렉션 오류 19는 6월 기록, 현재 308 정상; 발견됨-미크롤링 35; 크롤링됨-미색인 5). 당일 /salary, /guide/holidays-2027, /income-tax, /currency, /savings, /severance-pay, /unemployment, /loan, /bg-remove, /image-convert 요청 완료.
