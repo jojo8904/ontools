@@ -71,31 +71,46 @@ function calculateResidentTax(incomeTax: number): number {
   return Math.floor(incomeTax * 0.1)
 }
 
+// 원천징수 세액은 10원 미만 절사
+function truncateToTen(amount: number): number {
+  return Math.floor(amount / 10) * 10
+}
 
 /**
  * 연봉 실수령액 계산 (메인 함수)
  */
 export function calculateSalaryTakeHome(input: SalaryInput): SalaryResult {
   const { annualSalary, dependents, hasDisability } = input
+  if (!Number.isFinite(annualSalary) || annualSalary < 0) {
+    throw new RangeError('연봉은 0 이상의 유한한 숫자여야 합니다.')
+  }
+  const monthlyNonTaxable = Number.isFinite(input.monthlyNonTaxable) ? Math.max(0, input.monthlyNonTaxable as number) : 0
 
-  // 월급 (세전)
+  // 월급 (세전, 비과세 포함)
   const monthlySalary = Math.floor(annualSalary / 12)
-  const insurance = calculateEmployeeInsurance(monthlySalary, input.policyDate)
+  // 비과세 소득(식대 등)은 소득세와 4대보험 산정 기준에서 제외
+  const monthlyTaxable = Math.max(0, monthlySalary - monthlyNonTaxable)
+  const annualTaxable = Math.max(0, annualSalary - monthlyNonTaxable * 12)
+
+  // 급여가 있는 근로자는 과세급여가 0원이어도 국민연금·건강보험 하한이 적용된다.
+  // 보험 계산 함수는 0원을 "무급"으로 보므로, 재직 중임을 나타내기 위해 최소 1원을 넘긴다.
+  const insuranceBase = monthlySalary > 0 ? Math.max(monthlyTaxable, 1) : 0
+  const insurance = calculateEmployeeInsurance(insuranceBase, input.policyDate)
   const { nationalPension, healthInsurance, longTermCare, employmentInsurance } = insurance
   const annualInsurance = Object.values(insurance).reduce((sum, n) => sum + n, 0) * 12
 
   // 소득세 (연간)
   const annualIncomeTax = calculateIncomeTax(
-    annualSalary,
+    annualTaxable,
     dependents,
     hasDisability,
     annualInsurance
   )
-  const monthlyIncomeTax = Math.floor(annualIncomeTax / 12)
+  const monthlyIncomeTax = truncateToTen(annualIncomeTax / 12)
 
   // 주민세 (연간)
   const annualResidentTax = calculateResidentTax(annualIncomeTax)
-  const monthlyResidentTax = Math.floor(annualResidentTax / 12)
+  const monthlyResidentTax = truncateToTen(annualResidentTax / 12)
 
   // 총 공제액 (월간)
   const totalMonthlyDeduction =

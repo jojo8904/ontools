@@ -1,7 +1,14 @@
 'use client'
 
 import { useSalaryCalculator } from '@/features/salary/hooks/useSalaryCalculator'
+import { calculateTakeHomeRate } from '@/features/salary/utils'
 import { formatCurrency } from '@/lib/utils'
+
+// 빈 입력이나 잘못된 입력은 NaN 대신 0으로 처리
+function toNumber(value: string): number {
+  const n = Number(value)
+  return Number.isFinite(n) ? n : 0
+}
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { PolicyPeriodSelect } from '@/components/PolicyPeriodSelect'
@@ -39,13 +46,33 @@ export function SalaryCalculator() {
                 type="number"
                 value={input.annualSalary}
                 onChange={(e) =>
-                  updateInput({ annualSalary: Number(e.target.value) })
+                  updateInput({ annualSalary: toNumber(e.target.value) })
                 }
                 placeholder="30000000"
                 step="1000000"
               />
               <p className="text-xs text-muted-foreground mt-1">
-                예: 3,000만원 = 30000000
+                예: 3,000만원 = 30000000 (식대 등 비과세 수당 포함 총액)
+              </p>
+            </div>
+
+            {/* 월 비과세액 */}
+            <div>
+              <label className="block text-sm font-medium mb-2">
+                월 비과세액 (원, 선택)
+              </label>
+              <Input
+                type="number"
+                value={input.monthlyNonTaxable ?? 0}
+                onChange={(e) =>
+                  updateInput({ monthlyNonTaxable: toNumber(e.target.value) })
+                }
+                placeholder="0"
+                min="0"
+                step="10000"
+              />
+              <p className="text-xs text-muted-foreground mt-1">
+                연봉에 식대 같은 비과세 수당이 포함돼 있다면 월 금액을 입력하세요. 식대 비과세 한도는 월 20만원이며, 입력한 금액은 소득세와 4대보험 계산에서 제외됩니다. 식대·자가운전보조금 등 일반적인 비과세 기준이며, 국민연금 산정에는 포함되는 특수 비과세(선원 국외근로수당 등)는 반영하지 않습니다.
               </p>
             </div>
 
@@ -58,7 +85,7 @@ export function SalaryCalculator() {
                 type="number"
                 value={input.dependents}
                 onChange={(e) =>
-                  updateInput({ dependents: Number(e.target.value) })
+                  updateInput({ dependents: toNumber(e.target.value) })
                 }
                 placeholder="0"
                 min="0"
@@ -169,11 +196,7 @@ export function SalaryCalculator() {
               <div className="bg-muted rounded-lg p-4">
                 <p className="text-sm text-muted-foreground mb-1">실수령률</p>
                 <p className="text-2xl font-semibold">
-                  {(
-                    (result.monthlyTakeHome / result.monthlySalary) *
-                    100
-                  ).toFixed(1)}
-                  %
+                  {calculateTakeHomeRate(result).toFixed(1)}%
                 </p>
               </div>
             </CardContent>

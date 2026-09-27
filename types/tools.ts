@@ -18,9 +18,10 @@ export interface ToolMetadata {
 
 export interface SalaryInput {
   policyDate?: string
-  annualSalary: number // 연봉 (원)
+  annualSalary: number // 연봉 (원, 비과세 포함 총액)
   dependents: number // 부양가족 수
   hasDisability: boolean // 장애인 여부
+  monthlyNonTaxable?: number // 월 비과세액 (식대 등, 소득세·4대보험 산정 제외)
 }
 
 export interface SalaryResult {

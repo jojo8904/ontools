@@ -16,6 +16,14 @@ export const salaryInputSchema = z.object({
     .min(0, '부양가족 수는 0명 이상이어야 합니다')
     .max(20, '부양가족 수가 너무 많습니다 (20명 이하)'),
   hasDisability: z.boolean(),
+  monthlyNonTaxable: z
+    .number({ invalid_type_error: '비과세액을 숫자로 입력해주세요' })
+    .min(0, '비과세액은 0원 이상이어야 합니다')
+    .max(10_000_000, '비과세액이 너무 큽니다 (월 1,000만원 이하)')
+    .optional(),
+}).refine((d) => (d.monthlyNonTaxable ?? 0) * 12 <= d.annualSalary, {
+  message: '비과세액(연 환산)이 연봉보다 클 수 없습니다',
+  path: ['monthlyNonTaxable'],
 })
 
 export type ValidatedSalaryInput = z.infer<typeof salaryInputSchema>

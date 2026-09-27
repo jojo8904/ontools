@@ -11,6 +11,7 @@ export function useSalaryCalculator() {
     annualSalary: 30_000_000, // 기본값: 3천만원
     dependents: 0,
     hasDisability: false,
+    monthlyNonTaxable: 0,
   })
 
   const [result, setResult] = useState<SalaryResult | null>(null)
@@ -39,6 +40,7 @@ export function useSalaryCalculator() {
       annualSalary: 30_000_000,
       dependents: 0,
       hasDisability: false,
+      monthlyNonTaxable: 0,
     })
     setResult(null)
     setError(null)
