@@ -7,6 +7,7 @@ import { GameGuide } from '@/components/GameGuide'
 import { GameMinesweeper } from './GameMinesweeper'
 
 export const metadata: Metadata = {
+  robots: { index: false, follow: true },
   alternates: { canonical: '/games/minesweeper' },
   title: '지뢰찾기 - ontools',
   description: '클래식 지뢰찾기 게임. 지뢰를 피해 모든 칸을 열어보세요.',

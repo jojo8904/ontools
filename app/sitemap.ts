@@ -46,7 +46,8 @@ function getPages(dir: string, base = ''): string[] {
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://ontools.co.kr'
   const appDir = path.join(process.cwd(), 'app')
-  const routes = getPages(appDir).filter((r) => !EXCLUDED_ROUTES.has(r))
+  // 게임 페이지는 본문이 거의 없어 검색 색인 대상에서 제외 (페이지 자체는 유지)
+  const routes = getPages(appDir).filter((r) => !EXCLUDED_ROUTES.has(r) && !r.startsWith('/games'))
 
   const entries: MetadataRoute.Sitemap = routes.map((route) => ({
     url: `${baseUrl}${route === '/' ? '' : route}`,

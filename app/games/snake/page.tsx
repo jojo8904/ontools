@@ -7,6 +7,7 @@ import { GameGuide } from '@/components/GameGuide'
 import { GameSnake } from './GameSnake'
 
 export const metadata: Metadata = {
+  robots: { index: false, follow: true },
   alternates: { canonical: '/games/snake' },
   title: '스네이크 게임 - ontools',
   description: '클래식 스네이크 게임. 먹이를 먹고 점점 길어지는 뱀을 조종하세요.',

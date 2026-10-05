@@ -7,6 +7,7 @@ import { GameGuide } from '@/components/GameGuide'
 import { Game2048 } from './Game2048'
 
 export const metadata: Metadata = {
+  robots: { index: false, follow: true },
   alternates: { canonical: '/games/2048' },
   title: '2048 게임 - ontools',
   description: '숫자 타일을 합쳐 2048을 만들어보세요. 방향키/스와이프로 조작.',

@@ -7,6 +7,7 @@ import { GameGuide } from '@/components/GameGuide'
 import { GameTetris } from './GameTetris'
 
 export const metadata: Metadata = {
+  robots: { index: false, follow: true },
   alternates: { canonical: '/games/tetris' },
   title: '테트리스 - ontools',
   description: '클래식 테트리스 게임. 블록을 쌓아 줄을 완성하세요.',

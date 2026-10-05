@@ -7,6 +7,7 @@ import { GameGuide } from '@/components/GameGuide'
 import { GameTyping } from './GameTyping'
 
 export const metadata: Metadata = {
+  robots: { index: false, follow: true },
   alternates: { canonical: '/games/typing' },
   title: '타자연습 - ontools',
   description: '떨어지는 한글/영어 단어를 빠르게 타이핑하세요! 타자 속도 향상 게임.',

@@ -7,6 +7,7 @@ import { GameGuide } from '@/components/GameGuide'
 import { GameGomoku } from './GameGomoku'
 
 export const metadata: Metadata = {
+  robots: { index: false, follow: true },
   alternates: { canonical: '/games/gomoku' },
   title: '오목 - ontools',
   description: 'AI와 대결하는 오목 게임. 먼저 다섯 개를 연속으로 놓으세요!',

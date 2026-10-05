@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
+  robots: { index: false, follow: true },
   alternates: { canonical: '/games' },
   title: '게임 모음 - ontools',
   description:

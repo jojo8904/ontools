@@ -7,6 +7,7 @@ import { GameGuide } from '@/components/GameGuide'
 import { GameFlappy } from './GameFlappy'
 
 export const metadata: Metadata = {
+  robots: { index: false, follow: true },
   alternates: { canonical: '/games/flappy' },
   title: 'Flappy Bird - ontools',
   description: '탭해서 장애물을 피하며 날아가세요! 클래식 플래피 버드.',

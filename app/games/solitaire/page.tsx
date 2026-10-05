@@ -7,6 +7,7 @@ import { GameGuide } from '@/components/GameGuide'
 import { GameSolitaire } from './GameSolitaire'
 
 export const metadata: Metadata = {
+  robots: { index: false, follow: true },
   alternates: { canonical: '/games/solitaire' },
   title: '솔리테어 - ontools',
   description: '클론다이크 솔리테어 카드게임. 카드를 정리해 4개의 기둥을 완성하세요.',

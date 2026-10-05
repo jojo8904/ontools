@@ -7,6 +7,7 @@ import { GameGuide } from '@/components/GameGuide'
 import { GameMemory } from './GameMemory'
 
 export const metadata: Metadata = {
+  robots: { index: false, follow: true },
   alternates: { canonical: '/games/memory' },
   title: '메모리 카드 - ontools',
   description: '카드를 뒤집어 같은 짝을 찾으세요! 기억력 테스트 게임.',

@@ -7,6 +7,7 @@ import { GameGuide } from '@/components/GameGuide'
 import { GameBlackjack } from './GameBlackjack'
 
 export const metadata: Metadata = {
+  robots: { index: false, follow: true },
   alternates: { canonical: '/games/blackjack' },
   title: '블랙잭 - ontools',
   description: '딜러와 21 카드 대결. 21에 가까이 가세요!',
