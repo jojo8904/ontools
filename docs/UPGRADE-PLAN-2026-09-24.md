@@ -114,5 +114,5 @@
   2. 소개 페이지 전면 재작성(운영 목적, 도구·가이드 수 동적 표시, 계산 근거, 파일 처리 방식, 업데이트 원칙, 광고 정책).
   3. 도구 50개 페이지에 안내 섹션 4개(계산 예시·제도·흔한 실수)와 FAQ 4개씩 추가. 예시 숫자는 계산기 코드로 검산.
      - 콘텐츠 원본: `scripts/content/batch1~5*.json`, 삽입 도구: `node scripts/add-tool-content.mjs <json>` (중복 제목·질문은 건너뜀).
-- 남은 도구(미확충 18개): image-split, image-stitch, text-image, gif-maker, favicon, kor-eng, ladder, special-chars, photo-submit, receipt-pdf, table-to-excel, product-photo-batch, selling-price, shift-pay-calendar, resignation-compare, pyeong, character-counter, hourly-wage 외 가이드 11편(초기분 800자대).
+- 2026-10-05 추가: 남은 도구 17개도 같은 방식으로 확충해 도구 67개 전체 완료(batch6). add-tool-content.mjs는 인라인 guide/sections·faq/items 배열도 지원. 남은 빈약 페이지: 초기 가이드 11편(800자대, lib/guides.ts 섹션 보강 필요).
 - 재심사 시점: 새 본문이 색인된 뒤(2~4주 후, 대기열 소진 확인 후) 애드센스 "검토 요청". 심사 중 광고 코드·ads.txt 변경 금지.
