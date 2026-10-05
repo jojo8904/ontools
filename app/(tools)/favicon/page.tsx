@@ -6,6 +6,7 @@ import type { Metadata } from 'next'
 import { FaviconMaker } from './FaviconMaker'
 import { RelatedTools } from '@/components/RelatedTools'
 import { ToolGuide } from '@/components/ToolGuide'
+import { FaqSection } from '@/components/FaqSection'
 
 const GUIDE = [
   {
@@ -30,6 +31,17 @@ const GUIDE = [
       '투명 배경 PNG를 올리면 투명도가 유지된 아이콘이 만들어집니다.',
     ],
   },
+  {"h":"필요한 크기와 파일","p":["브라우저 탭용 favicon.ico(16×16, 32×32 포함), 아이폰 홈 화면용 apple-touch-icon.png(180×180), 안드로이드·PWA용 192×192와 512×512 PNG, 그리고 이들을 연결하는 manifest 파일이 기본 세트입니다.","이 도구는 정사각 이미지 하나에서 이 세트를 한 번에 만들어 ZIP으로 내려받게 해 줍니다. HTML head에 넣을 link 태그도 함께 제공됩니다."]},
+  {"h":"원본 이미지 준비","p":["512×512 이상의 정사각 PNG가 좋습니다. 16×16으로 줄여도 알아볼 수 있게 단순한 형태, 굵은 선, 높은 대비로 디자인하세요. 글자가 세 자 이상이거나 가는 선은 탭에서 뭉개집니다.","투명 배경은 탭에서는 자연스럽지만 iOS 홈 화면 아이콘은 투명을 검은색으로 채우므로 apple-touch-icon용은 배경색이 있는 편이 낫습니다."]},
+  {"h":"HTML에 넣는 법","p":["생성된 파일을 사이트 루트(/)에 올리고 head 안에 link rel=\"icon\", link rel=\"apple-touch-icon\", link rel=\"manifest\" 태그를 넣습니다. 루트의 favicon.ico는 태그가 없어도 대부분의 브라우저가 자동으로 찾습니다.","Next.js·Nuxt 같은 프레임워크는 app 폴더에 icon.png, apple-icon.png를 두면 자동 연결됩니다. 워드프레스는 외모 → 사용자 정의 → 사이트 아이콘에서 512px PNG 하나만 올리면 됩니다."]},
+  {"h":"바뀐 파비콘이 안 보일 때","p":["브라우저가 이전 파비콘을 강하게 캐시합니다. 시크릿 창에서 열어 보거나, 파일명에 버전을 붙여(favicon.ico?v=2) 링크하면 즉시 반영됩니다. 구글 검색 결과의 파비콘은 재크롤링 후 며칠~몇 주 뒤에 바뀝니다.","구글 검색 결과용 파비콘은 48×48의 배수(96×96 권장)이고 크롤링이 허용된 경로에 있어야 합니다. 생성은 브라우저에서 이뤄지며 이미지는 서버로 전송되지 않습니다."]},
+]
+
+const EXTRA_FAQ = [
+  {"q":"ICO 파일이 꼭 필요한가요?","a":"최신 브라우저는 PNG·SVG 파비콘을 지원하지만 오래된 브라우저와 일부 북마크 기능은 ICO만 읽습니다. 호환성을 위해 ICO를 함께 두는 것이 안전합니다."},
+  {"q":"SVG 파비콘은 안 만들어 주나요?","a":"이 도구는 비트맵(PNG·ICO) 세트를 만듭니다. SVG 원본이 있다면 link rel=\"icon\" type=\"image/svg+xml\"로 직접 연결하고, 이 도구로 만든 PNG를 대체용으로 두세요."},
+  {"q":"로고가 정사각이 아니에요.","a":"먼저 이미지 자르기로 1:1로 자르거나 여백을 넣어 정사각으로 만든 뒤 올리세요. 가로로 긴 로고는 심볼 부분만 잘라 쓰는 것이 보통입니다."},
+  {"q":"다크 모드에서 안 보여요.","a":"검은 로고는 다크 모드 탭에서 사라집니다. 배경을 넣거나 흰 테두리를 두르고, SVG를 쓴다면 prefers-color-scheme 미디어 쿼리로 색을 바꿀 수 있습니다."},
 ]
 
 export const metadata: Metadata = {
@@ -114,6 +126,7 @@ export default function FaviconPage() {
         </div>
 
         <ToolGuide sections={GUIDE} />
+      <FaqSection items={EXTRA_FAQ} />
         <RelatedTools current="/favicon" />
       </main>
 

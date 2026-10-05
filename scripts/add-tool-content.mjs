@@ -42,7 +42,8 @@ for (const [route, data] of Object.entries(content)) {
   let added = { guide: 0, faq: 0 }
 
   if (data.guide?.length) {
-    const m = src.match(/const (\w*GUIDE)\s*=\s*\[/)
+    // 1순위: const *GUIDE = [ ... ]  2순위: 인라인 guide={[ ... ]} 또는 sections={[ ... ]}
+    const m = src.match(/const (\w*GUIDE)\s*=\s*\[/) || src.match(/\b(guide|sections)=\{\[/)
     if (!m) { console.warn(`${route}: GUIDE 배열 없음`); }
     else {
       const open = m.index + m[0].length - 1
@@ -58,7 +59,8 @@ for (const [route, data] of Object.entries(content)) {
   }
 
   if (data.faq?.length) {
-    const m = src.match(/const (\w*FAQ)\s*=\s*\[/)
+    // 1순위: const *FAQ = [ ... ]  2순위: 인라인 faq={[ ... ]} 또는 items={[ ... ]}
+    const m = src.match(/const (\w*FAQ)\s*=\s*\[/) || src.match(/\b(faq|items)=\{\[/)
     const fresh = data.faq.filter((f) => !src.includes(`q: '${f.q}'`) && !src.includes(`"q":"${f.q}"`))
     if (m && fresh.length) {
       const open = m.index + m[0].length - 1
