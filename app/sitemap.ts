@@ -6,6 +6,8 @@ import { GUIDES, getGuideDate } from '@/lib/guides'
 // 도구·정적 페이지의 최종 수정일. 페이지를 크게 바꾸면 여기 날짜를 갱신한다.
 // 없는 경로는 2026-09 유지보수 릴리스 날짜를 쓴다.
 const DEFAULT_UPDATED = '2026-09-19'
+// noindex 페이지는 사이트맵에서 제외
+const EXCLUDED_ROUTES = new Set(['/youth-savings'])
 const ROUTE_UPDATED: Record<string, string> = {
   '/': '2026-09-27',
   '/guide': '2026-09-24',
@@ -44,7 +46,7 @@ function getPages(dir: string, base = ''): string[] {
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://ontools.co.kr'
   const appDir = path.join(process.cwd(), 'app')
-  const routes = getPages(appDir)
+  const routes = getPages(appDir).filter((r) => !EXCLUDED_ROUTES.has(r))
 
   const entries: MetadataRoute.Sitemap = routes.map((route) => ({
     url: `${baseUrl}${route === '/' ? '' : route}`,
