@@ -105,3 +105,14 @@
   - 새 페이지 배포 후 큐 파일에 URL 추가. 즉시 요청: `npm run gsc:index -- <url...>`. 일일 한도 약 10건.
   - 구글 세션이 풀리면 `npm run gsc:index -- --login`으로 창을 띄워 다시 로그인.
 - **2026-09-27 현황**: 색인 35 / 미색인 59 (리디렉션 오류 19는 6월 기록, 현재 308 정상; 발견됨-미크롤링 35; 크롤링됨-미색인 5). 당일 /salary, /guide/holidays-2027, /income-tax, /currency, /savings, /severance-pay, /unemployment, /loan, /bg-remove, /image-convert 요청 완료.
+
+## 애드센스 "가치가 별로 없는 콘텐츠" 대응 (2026-10-05)
+
+- 재심사 거절 사유: 저가치 콘텐츠. 원인 진단: 122페이지 중 96개가 본문 1,500자 미만(중앙값 955자), 게임 페이지 300~450자.
+- 조치:
+  1. 게임 11개 라우트 noindex + 사이트맵 제외. noindex였던 /youth-savings도 사이트맵·색인 대기열에서 제외.
+  2. 소개 페이지 전면 재작성(운영 목적, 도구·가이드 수 동적 표시, 계산 근거, 파일 처리 방식, 업데이트 원칙, 광고 정책).
+  3. 도구 50개 페이지에 안내 섹션 4개(계산 예시·제도·흔한 실수)와 FAQ 4개씩 추가. 예시 숫자는 계산기 코드로 검산.
+     - 콘텐츠 원본: `scripts/content/batch1~5*.json`, 삽입 도구: `node scripts/add-tool-content.mjs <json>` (중복 제목·질문은 건너뜀).
+- 남은 도구(미확충 18개): image-split, image-stitch, text-image, gif-maker, favicon, kor-eng, ladder, special-chars, photo-submit, receipt-pdf, table-to-excel, product-photo-batch, selling-price, shift-pay-calendar, resignation-compare, pyeong, character-counter, hourly-wage 외 가이드 11편(초기분 800자대).
+- 재심사 시점: 새 본문이 색인된 뒤(2~4주 후, 대기열 소진 확인 후) 애드센스 "검토 요청". 심사 중 광고 코드·ads.txt 변경 금지.
