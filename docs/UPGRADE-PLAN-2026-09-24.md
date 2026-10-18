@@ -91,6 +91,7 @@
 
 | 일시 (UTC) | 커밋 | 결과 |
 | --- | --- | --- |
+| 2026-10-18 23:14 | 6383604 | 무료 자동차 구매·리스·장기렌트 동일 기간 총비용 비교. Vercel 및 Quality Checks(database/verify) 성공, unit 160개·E2E 40통과/조건부 2스킵·운영 audit 0. 기존 OCR도 실제 CI 통과. 운영 직접 HTTP/UI는 클라우드 프록시 403으로 미완료, 부모 라이브 QA 인계. 상세 `docs/CAR-COST-2026-10-18.md`. |
 | 2026-10-18 11:36 | d3e1a09 | 무료 판매자 정산 XLSX/CSV 비교. Vercel 성공, Quality Checks(database/verify) 성공, 단위·통합 17파일/146개·E2E 38통과/기존 조건부 2건너뜀·운영 audit 0. 직접 운영 HTTP/UI는 클라우드 네트워크 403으로 부모 라이브 QA에 인계. |
 | 2026-09-24 06:28 | ddbd5b2 | Vercel Production 성공, GitHub CI(database, verify) 성공, 배포 후 sitemap 99개 URL·robots·OG 이미지 전부 200 |
 | 2026-09-24 07:20 | 4f88c2a | 가이드 13편 추가(총 24편), 전기요금 가이드 연중형 개편, 종합소득세 연도 문구 수정, 가이드 목록 최신순. Vercel·CI 성공, 신규 가이드 13개 URL 전부 200, sitemap 112개 |
