@@ -32,6 +32,7 @@ test('isolated seller settlement demo, mapping, local CSV and export', async ({ 
   page.on('request', r => { if (r.frame() === f) network.push(r.url()) })
   await frame.getByRole('button', { name: '초기화', exact: true }).click()
   await frame.getByLabel('주문 파일', { exact: true }).setInputFiles({ name: 'private-orders.csv', mimeType: 'text/csv', buffer: Buffer.from('id,n\n00123,100\n=CMD(),1') })
+  await expect(frame.getByLabel('주문 키 열', { exact: true })).toBeVisible()
   await frame.getByLabel('정산 파일', { exact: true }).setInputFiles({ name: 'private-settlements.csv', mimeType: 'text/csv', buffer: Buffer.from('id,n\n00123,90\n=CMD(),1') })
   await frame.getByRole('button', { name: '선택한 열 비교하기' }).click()
   await expect(frame.getByRole('status')).toHaveText('2개 비교 항목 · 1개 일치')

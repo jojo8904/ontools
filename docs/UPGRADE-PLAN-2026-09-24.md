@@ -91,6 +91,7 @@
 
 | 일시 (UTC) | 커밋 | 결과 |
 | --- | --- | --- |
+| 2026-10-18 11:36 | d3e1a09 | 무료 판매자 정산 XLSX/CSV 비교. Vercel 성공, Quality Checks(database/verify) 성공, 단위·통합 17파일/146개·E2E 38통과/기존 조건부 2건너뜀·운영 audit 0. 직접 운영 HTTP/UI는 클라우드 네트워크 403으로 부모 라이브 QA에 인계. |
 | 2026-09-24 06:28 | ddbd5b2 | Vercel Production 성공, GitHub CI(database, verify) 성공, 배포 후 sitemap 99개 URL·robots·OG 이미지 전부 200 |
 | 2026-09-24 07:20 | 4f88c2a | 가이드 13편 추가(총 24편), 전기요금 가이드 연중형 개편, 종합소득세 연도 문구 수정, 가이드 목록 최신순. Vercel·CI 성공, 신규 가이드 13개 URL 전부 200, sitemap 112개 |
 | 2026-09-24 07:50 | a230b4a | 가이드 10편 추가(총 34편): 대출·예적금·자동차세·중고차 취득세·부가세·출산예정일·TDEE·2027 공휴일·글자수·평수. Vercel·CI 성공 |
@@ -132,3 +133,16 @@
 - 운영 /, 새 도구, /sitemap.xml, /robots.txt, /opengraph-image 모두 HTTP 200. 등록 도구 전체 canonical 및 신규 사이트맵 항목 확인.
 - 증거: test-results/local 및 test-results/production (Git 제외). Google 색인 요청은 기존 로컬 대기열에 신규 URL만 추가; 직접 색인 요청은 실행하지 않음.
 - 광고, 정책 수치, DB 스키마 및 적용된 마이그레이션 변경 없음. 이 기록은 기능 커밋 검증 후 별도 문서 커밋으로 보관.
+
+
+## 2026-10-18 무료 판매자 정산 비교 (클라우드)
+
+- 기능: `/seller-settlement`, 시트/키/금액 열을 직접 고르는 범용 XLSX/UTF-8 CSV 비교. 가입·결제 없이 무료. 마켓 자동 연동·공식 내보내기 호환·미지급 확정 기능은 없다.
+- 기준 기능 커밋: `d3e1a09b9b392e0b3a943f2ff02ae58b837df813` (초기 `d13315d`, 후속 `42f9fbb`).
+- [GitHub Quality Checks](https://github.com/jojo8904/ontools/actions/runs/39123712082): database/verify 성공. lint, 146 테스트, build, Chromium 설치, E2E 38통과/기존 조건부 2건너뜀, `npm audit --omit=dev --audit-level=high` 0건.
+- [Vercel 배포](https://vercel.com/830508jo-7319s-projects/ontools/36pBpCNYWAKEr9b5Z8ztrdazgWQt): 위 SHA의 성공 상태를 GitHub 연결로 확인.
+- 초기 E2E에서 독립 번들에 남은 Node `process.env` 참조를 발견해 수정했다. production bundle을 `process` 없는 브라우저 조건에서 실행하는 회귀 검사를 추가했다. CSV 여러 줄 셀 뒤의 참조 행 번호와 숫자 키의 내보내기 보존도 수정했다.
+- 입력은 opaque-origin sandbox iframe에만 존재한다. 부모 광고/분석과 DOM·스토리지를 공유하지 않고, CSP로 작업 영역의 외부 연결/폼/제3자 스크립트를 차단한다. 공통 광고 코드는 바꾸지 않았다.
+- 클라우드 npm ci/postinstall, lint/typecheck/146테스트/build(130정적페이지)/운영 audit 통과. 기존 OG 글꼴의 Google Fonts DNS 경고는 빌드 성공과 별개로 남는다.
+- 컨테이너 직접 운영 도메인/API 요청은 네트워크 정책 403, 로컬 Chromium은 기존 실행 제한이 있으므로 우회하지 않았다. 운영 URL 실제 화면·HTTP·블로그용 2스크린샷은 부모의 승인된 클라우드 브라우저 QA로 인계한다. 이 기록은 직접 운영 UI 확인을 주장하지 않는다.
+- 합성 예제/사용 제한/블로그 재현 절차: `docs/SELLER-SETTLEMENT-2026-10-18.md`. 티스토리는 이 작업에서 발행하지 않았다. 사용자 PC, GetLuckyLab, DB, 비밀값, 정책 수치 변경 없음.
