@@ -41,3 +41,6 @@ next-env.d.ts
 
 # Search Console 색인 요청 대기열 (로컬 운영 파일)
 /.gsc-queue.txt
+
+# Built isolated settlement workspace
+/public/settlement-workspace.js

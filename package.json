@@ -13,7 +13,9 @@
     "update-exchange-rate": "tsx scripts/update-exchange-rate.ts",
     "indexnow": "node scripts/indexnow-submit.mjs",
     "gsc:index": "node scripts/gsc-request-indexing.mjs",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "prebuild": "node scripts/build-settlement-workspace.mjs",
+    "predev": "node scripts/build-settlement-workspace.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.95.3",
@@ -46,6 +48,7 @@
     "@types/react-dom": "^18.2.0",
     "@vitejs/plugin-react": "^5.1.4",
     "autoprefixer": "^10.4.0",
+    "esbuild": "^0.28.2",
     "eslint": "^9.39.5",
     "eslint-config-next": "~16.3.8",
     "jsdom": "^28.1.0",
