@@ -116,3 +116,19 @@
      - 콘텐츠 원본: `scripts/content/batch1~5*.json`, 삽입 도구: `node scripts/add-tool-content.mjs <json>` (중복 제목·질문은 건너뜀).
 - 2026-10-05 추가: 남은 도구 17개도 같은 방식으로 확충해 도구 67개 전체 완료(batch6). add-tool-content.mjs는 인라인 guide/sections·faq/items 배열도 지원. 남은 빈약 페이지: 초기 가이드 11편(800자대, lib/guides.ts 섹션 보강 필요).
 - 재심사 시점: 새 본문이 색인된 뒤(2~4주 후, 대기열 소진 확인 후) 애드센스 "검토 요청". 심사 중 광고 코드·ads.txt 변경 금지.
+
+## 2026-10-18 중복 줄 제거 도구 배포 (09:54 UTC 검증)
+
+- 기능 커밋: 16761ea8891539550c406462cbc74864220ee6bb.
+- 운영 URL: https://ontools.co.kr/remove-duplicate-lines
+- 원본 순서 유지, 대소문자 구분, 선택적 앞뒤 공백/빈 줄 제거, 실시간 줄 수, 복사·실패 안내·초기화. 입력은 브라우저 메모리에서만 처리하며 서버·URL·저장소·분석 이벤트에 포함하지 않음.
+- ToolShell, 도구 레지스트리/홈 검색, canonical, 안내 4개 섹션·FAQ 4개, 관련 도구, 사이트맵 날짜 반영.
+- 기존 운영 의존성 감사의 high 3건 해소: Next.js/eslint-config-next 16.3.8, sharp 0.35.5, source-map-js 1.2.2. 메이저 변경 없음.
+- 로컬: npm ci, lint, typecheck, 단위 테스트 14파일/108개, production build 통과. 운영 의존성 audit 0건. Playwright desktop/mobile 34 passed, 2 skipped(기존 프로젝트별 중복 제외).
+- 해당 커밋 GitHub Quality Checks(database/verify) 성공: https://github.com/jojo8904/ontools/actions/runs/39116998440
+- Vercel Production 성공: https://vercel.com/830508jo-7319s-projects/ontools/FYv1EN1Qsk5HaQ9kBHa5ymj7qEJE
+- IndexNow 성공: https://github.com/jojo8904/ontools/actions/runs/39116998444
+- 운영 전체 Playwright 재검증: 34 passed, 2 skipped. 신규 도구 desktop/mobile 원본 보존·옵션 재계산·반복 복사/초기화·클립보드 실패 안내·비전송 확인. 로컬 desktop/mobile 화면 캡처 시각 검토 완료.
+- 운영 /, 새 도구, /sitemap.xml, /robots.txt, /opengraph-image 모두 HTTP 200. 등록 도구 전체 canonical 및 신규 사이트맵 항목 확인.
+- 증거: test-results/local 및 test-results/production (Git 제외). Google 색인 요청은 기존 로컬 대기열에 신규 URL만 추가; 직접 색인 요청은 실행하지 않음.
+- 광고, 정책 수치, DB 스키마 및 적용된 마이그레이션 변경 없음. 이 기록은 기능 커밋 검증 후 별도 문서 커밋으로 보관.
