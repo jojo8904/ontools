@@ -187,6 +187,7 @@ Node 24 LTS 권장(최소 22.13). 릴리스 절차와 DB 사전 조건은 `DEPLO
 
 ## Related Documents
 
+- 운영 핸드오프(폴더·계정·반복 업무·AI 분담): `docs/HANDOFF-2026-10-18.md`
 - 릴리스 절차: `DEPLOYMENT.md`
 - 코드 진단: `docs/CODE-REVIEW-2026-09-18.md`
 - 유지보수 내역: `docs/MAINTENANCE-2026-09-18.md`
