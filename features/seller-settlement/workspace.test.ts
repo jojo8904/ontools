@@ -8,7 +8,9 @@ it('boots the isolated browser bundle, compares demo, invalidates changed mappin
   document.body.innerHTML = '<div id="workspace"></div>'
   execFileSync(process.execPath, ['scripts/build-settlement-workspace.mjs'])
   // Execute our own production bundle to catch runtime failures hidden by typecheck.
-  window.eval(readFileSync('public/settlement-workspace.js', 'utf8'))
+  const bundle = readFileSync('public/settlement-workspace.js', 'utf8')
+  expect(bundle).not.toMatch(/\bprocess\.env\b/)
+  window.eval('(function(process){' + bundle + '})(undefined)')
   await waitFor(() => expect(screen.getByRole('button', { name: '합성 예제로 시작' })).toBeTruthy())
   fireEvent.click(screen.getByRole('button', { name: '합성 예제로 시작' }))
   await waitFor(() => expect(screen.getByLabelText('주문 금액 열')).toBeTruthy())
