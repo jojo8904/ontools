@@ -11,6 +11,8 @@ describe('exact settlement comparison', () => {
     expect(r.map(x => x.status)).toEqual(['금액 차이', '일치', '일치', '중복 키', '주문에만 있음', '입력 오류', '정산에만 있음'])
     expect(r[0]).toMatchObject({ key: '00123', difference: '-300.00', orderRows: [2], settlementRows: [2] })
     expect(r[1].key).toBe('12345678901234567890')
+    const exported = resultCsv(r, parseCsv(DEMO_ORDER)[0], parseCsv(DEMO_SETTLEMENT)[0])
+    expect(exported).toContain("\"'00123\""); expect(exported).toContain("\"'12345678901234567890\"")
     expect(r[3]).toMatchObject({ orderRows: [5, 6], settlementRows: [5], difference: '' })
     expect(compare('id,n\na,0.30', 'id,n\na,0.10')[0].difference).toBe('-0.20')
   })
@@ -35,10 +37,10 @@ describe('exact settlement comparison', () => {
   })
 })
 describe('CSV structure and limits', () => {
-  it('handles BOM, commas, escaped quotes, physical source rows and CRLF', () => {
+  it('handles BOM, commas, escaped quotes, spreadsheet record rows and CRLF', () => {
     const s = parseCsv('\uFEFFid,n\r\n"a\nb","1,000"\r\n"a""b",1\r\n')[0]
     expect(s.rows[1].cells.map(c => c.value)).toEqual(['a\nb', '1,000'])
-    expect(s.rows[2]).toMatchObject({ row: 4, cells: [textCell('a"b'), textCell('1')] })
+    expect(s.rows[2]).toMatchObject({ row: 3, cells: [textCell('a"b'), textCell('1')] })
   })
   it.each(['id,n\n"bad,1', 'id,n\n"bad"x,1', 'id,n\nba"d,1'])('rejects malformed quotes', s => expect(() => parseCsv(s)).toThrow())
   it('rejects empty and oversized tables', () => {

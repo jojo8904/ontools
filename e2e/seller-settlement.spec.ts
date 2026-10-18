@@ -2,12 +2,16 @@ import { expect, test } from '@playwright/test'
 
 test('isolated seller settlement demo, mapping, local CSV and export', async ({ page }, testInfo) => {
   await page.route(/googletagmanager|googlesyndication|doubleclick|kakao|daumcdn|google-analytics/, route => route.abort())
+  const startupErrors: string[] = []
+  page.on('console', message => { if (message.type() === 'error') startupErrors.push(message.text()) })
+  page.on('pageerror', error => startupErrors.push(error.message))
   await page.goto('/seller-settlement')
   await expect(page.getByRole('heading', { name: '판매자 정산 비교', exact: true })).toBeVisible()
   const iframe = page.locator('iframe[title="개인정보 격리 정산 비교 작업 공간"]')
   await expect(iframe).toHaveAttribute('sandbox', 'allow-scripts allow-downloads')
   const frame = page.frameLocator('iframe[title="개인정보 격리 정산 비교 작업 공간"]')
-  await expect(frame.getByRole('button', { name: '선택한 열 비교하기' })).toBeDisabled()
+  try { await expect(frame.getByRole('button', { name: '선택한 열 비교하기' })).toBeDisabled() }
+  catch (error) { console.error('Workspace startup:', startupErrors, page.frames().map(f => f.url())); throw error }
   await frame.getByRole('button', { name: '합성 예제로 시작' }).click()
   await frame.getByRole('button', { name: '선택한 열 비교하기' }).click()
   await expect(frame.getByRole('status')).toHaveText('7개 비교 항목 · 2개 일치')

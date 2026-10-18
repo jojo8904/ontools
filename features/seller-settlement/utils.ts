@@ -25,19 +25,19 @@ export function money(n: bigint): string {
 export function parseCsv(source: string): Sheet[] {
   const input = source.replace(/^\uFEFF/, '')
   const rows: Row[] = []
-  let fields: Cell[] = [], field = '', quoted = false, closed = false, start = 1, line = 1
+  let fields: Cell[] = [], field = '', quoted = false, closed = false
   const pushField = () => { fields.push(textCell(field)); field = ''; closed = false; if (fields.length > LIMITS.columns) throw new Error('열은 최대 100개예요.') }
-  const pushRow = () => { pushField(); rows.push({ row: start, cells: fields }); fields = []; if (rows.length > LIMITS.rows + 1) throw new Error('데이터는 시트당 최대 10,000행이에요.') }
+  const pushRow = () => { pushField(); rows.push({ row: rows.length + 1, cells: fields }); fields = []; if (rows.length > LIMITS.rows + 1) throw new Error('데이터는 시트당 최대 10,000행이에요.') }
   for (let i = 0; i < input.length; i++) {
     const c = input[i]
     if (quoted) {
       if (c === '"') { if (input[i + 1] === '"') { field += '"'; i++ } else { quoted = false; closed = true } }
-      else { field += c; if (c === '\n') line++ }
+      else field += c
     } else if (c === '"' && field === '' && !closed) quoted = true
     else if (c === ',') pushField()
     else if (c === '\r' || c === '\n') {
       if (c === '\r' && input[i + 1] === '\n') i++
-      pushRow(); line++; start = line
+      pushRow()
     } else { if (closed || c === '"') throw new Error('CSV 따옴표 형식을 확인해 주세요.'); field += c }
   }
   if (quoted) throw new Error('CSV 따옴표가 닫히지 않았어요.')
@@ -76,7 +76,7 @@ export function reconcile(a: Sheet, am: Mapping, b: Sheet, bm: Mapping): Result[
   return results
 }
 export function resultCsv(results: Result[], a: Sheet, b: Sheet): string {
-  return exportTable([['상태', '키', '주문 시트', '주문 원본 행', '정산 시트', '정산 원본 행', '주문 금액', '정산 금액', '정산-주문', '확인 안내'], ...results.map(r => [r.status, r.key, a.name, r.orderRows.join(' / '), b.name, r.settlementRows.join(' / '), r.order, r.settlement, r.difference, r.reason])])
+  return exportTable([['상태', '키', '주문 시트', '주문 원본 행', '정산 시트', '정산 원본 행', '주문 금액', '정산 금액', '정산-주문', '확인 안내'], ...results.map(r => [r.status, /^\s*\d+\s*$/.test(r.key) ? `'${r.key}` : r.key, a.name, r.orderRows.join(' / '), b.name, r.settlementRows.join(' / '), r.order, r.settlement, r.difference, r.reason])])
 }
 export const DEMO_ORDER = '주문번호,비교금액\n00123,10000\n12345678901234567890,20000\nREFUND,-3000\nDUP,100\nDUP,200\nONLY-ORDER,5000\nBAD,금액없음\n'
 export const DEMO_SETTLEMENT = '주문번호,비교금액\n00123,9700\n12345678901234567890,20000\nREFUND,-3000\nDUP,300\nONLY-SETTLEMENT,700\nBAD,100\n'

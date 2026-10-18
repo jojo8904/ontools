@@ -6,7 +6,7 @@ export function GET() {
 </style></head><body><div id="workspace"></div><script src="/settlement-workspace.js"></script></body></html>`, {
     headers: {
       'Content-Type': 'text/html; charset=utf-8',
-      'Content-Security-Policy': "default-src 'none'; script-src https://ontools.co.kr/settlement-workspace.js http://localhost:3000/settlement-workspace.js http://127.0.0.1:4127/settlement-workspace.js; style-src 'unsafe-inline'; connect-src 'none'; img-src 'none'; form-action 'none'; base-uri 'none'; frame-ancestors 'self'; sandbox allow-scripts allow-downloads",
+      'Content-Security-Policy': "default-src 'none'; script-src https://ontools.co.kr/settlement-workspace.js http://localhost:3000/settlement-workspace.js http://127.0.0.1:4127/settlement-workspace.js; style-src 'unsafe-inline'; connect-src 'none'; img-src 'none'; form-action 'none'; base-uri 'none'; frame-ancestors https://ontools.co.kr http://localhost:3000 http://127.0.0.1:4127; sandbox allow-scripts allow-downloads",
       'Referrer-Policy': 'no-referrer',
       'X-Content-Type-Options': 'nosniff',
       'X-Robots-Tag': 'noindex, nofollow',
