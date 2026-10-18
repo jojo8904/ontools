@@ -10,6 +10,7 @@ const DEFAULT_UPDATED = '2026-09-19'
 const EXCLUDED_ROUTES = new Set(['/youth-savings'])
 const ROUTE_UPDATED: Record<string, string> = {
   '/': '2026-10-18',
+  '/car-cost': '2026-10-18',
   '/seller-settlement': '2026-10-18',
   '/remove-duplicate-lines': '2026-10-18',
   '/guide': '2026-09-24',

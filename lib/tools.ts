@@ -21,6 +21,7 @@ export const CATEGORY_LABELS: Record<ToolCategory, string> = {
 }
 
 export const TOOLS: ToolMeta[] = [
+  { href: '/car-cost', label: '자동차 구매·리스·장기렌트 총비용 비교', category: 'finance', badge: 'NEW', keywords: ['자동차', '구매', '리스', '장기렌트', '견적', '보증금', '선납금', '총비용'] },
   { href: '/seller-settlement', label: '판매자 정산 비교', category: 'finance', badge: 'NEW', keywords: ['주문', '정산', '엑셀 비교', 'XLSX', 'CSV', '판매자', '주문번호'] },
   { href: '/remove-duplicate-lines', label: '중복 줄 제거', category: 'utility', badge: 'NEW', keywords: ['중복제거', '중복 줄', '텍스트 정리', '빈 줄', '공백 제거'] },
   {"href":"/games/2048","label":"2048","badge":"HOT","category":"game"},
