@@ -10,7 +10,7 @@ export default defineConfig({
   retries: process.env.CI ? 1 : 0,
   reporter: 'list',
   outputDir: remoteURL ? 'test-results/production' : 'test-results/local',
-  use: { baseURL: remoteURL || 'http://127.0.0.1:4127', trace: 'retain-on-failure', serviceWorkers: 'block' },
+  use: { launchOptions: { executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH }, baseURL: remoteURL || 'http://127.0.0.1:4127', trace: 'retain-on-failure', serviceWorkers: 'block' },
   projects: [
     { name: 'desktop', use: { ...devices['Desktop Chrome'], viewport: { width: 1440, height: 1000 } } },
     { name: 'mobile', use: { ...devices['Pixel 7'] } },

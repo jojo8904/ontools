@@ -9,7 +9,8 @@ const DEFAULT_UPDATED = '2026-09-19'
 // noindex 페이지는 사이트맵에서 제외
 const EXCLUDED_ROUTES = new Set(['/youth-savings'])
 const ROUTE_UPDATED: Record<string, string> = {
-  '/': '2026-10-18',
+  '/': '2026-10-19',
+  '/travel-internet': '2026-10-19',
   '/car-cost': '2026-10-18',
   '/seller-settlement': '2026-10-18',
   '/remove-duplicate-lines': '2026-10-18',
