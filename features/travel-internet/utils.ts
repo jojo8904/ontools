@@ -16,7 +16,7 @@ export const integer = (value: number, min: number, max: number) => Number.isSaf
 export function validatePlan(p: Plan, people: number, days: number) {
   return integer(people, 1, 100) && integer(days, 1, 365) &&
     ['package', 'daily'].includes(p.mode) && integer(p.price, 0, 100000000) &&
-    integer(p.billedDays, 1, 365) && integer(p.validity, 1, 365) && integer(p.units, 1, 100) &&
+    (p.mode === 'daily' ? integer(p.billedDays, 1, 365) : integer(p.validity, 1, 365)) && integer(p.units, 1, 100) &&
     integer(p.capacity, 1, 100) && integer(p.perUnitExtra, 0, 100000000) && integer(p.sharedExtra, 0, 100000000) &&
     ['daily', 'total', 'unknown'].includes(p.dataBasis) && ['yes', 'no', 'unknown'].includes(p.sharing)
 }

@@ -33,6 +33,11 @@ test('travel internet quotes: repeat, edits, invalid inputs, reset and condition
   }
   await esim.getByLabel('1인당 패키지 총액 (원)').fill('0')
   await expect(compare).toBeEnabled()
+  await esim.getByLabel('요금 방식').selectOption('daily')
+  await esim.getByLabel('실제 요금 적용 일수 (일)').fill('')
+  await expect(compare).toBeDisabled()
+  await esim.getByLabel('요금 방식').selectOption('package')
+  await expect(compare).toBeEnabled()
   await page.getByLabel('여행 인원 (명)').fill('0')
   await expect(compare).toBeDisabled()
   await page.getByLabel('여행 인원 (명)').fill('3')

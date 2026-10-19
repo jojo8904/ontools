@@ -23,7 +23,12 @@ describe('travel internet input quotes', () => {
     expect(validatePlan(EMPTY_PLAN, 2, 5)).toBe(false)
     expect(validatePlan({ ...p, price: 0 }, 1, 1)).toBe(true)
     for (const [people, days] of [[0, 5], [101, 5], [1, 0], [1, 366], [1.5, 5]]) expect(validatePlan(p, people, days)).toBe(false)
-    for (const key of ['units', 'capacity', 'validity', 'billedDays'] as const) expect(validatePlan({ ...p, [key]: 0 }, 2, 5)).toBe(false)
+    for (const key of ['units', 'capacity', 'validity'] as const) expect(validatePlan({ ...p, [key]: 0 }, 2, 5)).toBe(false)
+  })
+  it('validates only the active billing mode so hidden empty fields do not trap users', () => {
+    expect(validatePlan({ ...p, billedDays: NaN }, 2, 5)).toBe(true)
+    expect(validatePlan({ ...p, mode: 'daily', validity: NaN }, 2, 5)).toBe(true)
+    expect(validatePlan({ ...p, mode: 'daily', billedDays: 0 }, 2, 5)).toBe(false)
   })
   it('keeps maximum sums safe and fractional equal shares precise', () => {
     const max = calculatePlan({ ...p, mode: 'daily', price: 100000000, billedDays: 365, units: 100, perUnitExtra: 100000000, sharedExtra: 100000000 }, 100, 365, true)
