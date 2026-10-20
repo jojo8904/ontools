@@ -109,7 +109,7 @@ export const TOOLS: ToolMeta[] = [
   { href: '/exif-remove', label: '위치정보(EXIF) 제거', category: 'image', keywords: ['사진위치정보제거', 'exif제거', '사진gps제거', '메타데이터제거', '위치정보삭제'] },
   { href: '/image-split', label: '긴 이미지 분할', category: 'image', keywords: ['긴사진자르기', '이미지분할', '인스타파노라마', '사진여러장으로', '긴캡처자르기'] },
   { href: '/favicon', label: '파비콘 만들기', category: 'image', keywords: ['파비콘만들기', 'favicon만들기', 'ico변환', '사이트아이콘', 'png ico'] },
-  { href: '/pdf-merge', label: 'PDF 합치기·분할', category: 'image', badge: 'NEW', keywords: ['pdf합치기', 'pdf병합', 'pdf분할', 'pdf나누기', 'pdf페이지추출'] },
+  { href: '/pdf-merge', label: 'PDF 합치기·분할', category: 'image', badge: 'NEW', keywords: ['pdf합치기', 'pdf병합', 'pdf분할', 'pdf나누기', 'pdf페이지추출', 'pdf페이지편집', 'pdf회전', 'pdf순서변경', 'pdf페이지삭제'] },
   { href: '/gif-maker', label: 'GIF 만들기 (움짤)', category: 'image', badge: 'NEW', keywords: ['gif만들기', '움짤만들기', '움짤제작', '사진gif', 'gif제작'] },
 
   // 생활·유틸 (2차 신규)

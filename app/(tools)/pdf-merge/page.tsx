@@ -76,7 +76,7 @@ export default function PdfMergePage() {
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2">PDF 합치기·분할</h1>
           <p className="text-muted-foreground">
-            여러 PDF를 하나로, 또는 원하는 페이지만 추출. 서버로 전송되지 않고 브라우저에서 바로 처리됩니다.
+            여러 PDF를 하나로, 원하는 페이지만 추출하거나 미리 보며 순서·회전·삭제 후 한 번에 저장. 서버로 전송되지 않고 브라우저에서 바로 처리됩니다.
           </p>
         </div>
 
@@ -108,7 +108,7 @@ export default function PdfMergePage() {
               <h2 className="text-xl font-bold mb-4">개인정보 안심</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <p>
-                  올린 PDF는 <strong className="text-gray-900">서버로 전송되지 않습니다.</strong> 합치기·분할 모두 브라우저 안에서만 처리되므로 계약서·급여명세서 같은 민감한 서류도 안심입니다.
+                  올린 PDF는 <strong className="text-gray-900">서버로 전송되지 않습니다.</strong> 합치기·분할·페이지 편집 모두 브라우저 안에서만 처리되므로 계약서·급여명세서 같은 민감한 서류도 안심입니다.
                 </p>
                 <p>창을 닫으면 파일은 메모리에서 사라집니다.</p>
               </div>
