@@ -4,9 +4,10 @@ import { useObjectUrls } from '@/lib/useObjectUrls'
 
 import { useState, useRef, useCallback } from 'react'
 import { parseRanges } from '@/lib/pdf-ranges'
+import { PdfPageEditor } from './PdfPageEditor'
 import { Button } from '@/components/ui/Button'
 
-type Mode = 'merge' | 'split'
+type Mode = 'merge' | 'split' | 'edit'
 
 interface Item {
   id: string
@@ -32,6 +33,7 @@ export function PdfMerge() {
   const inputRef = useRef<HTMLInputElement>(null)
 
   const addFiles = useCallback(async (files: FileList | File[]) => {
+    if (busy) return
     const pdfs = Array.from(files).filter(
       (f) => f.type === 'application/pdf' || f.name.toLowerCase().endsWith('.pdf'),
     )
@@ -46,7 +48,7 @@ export function PdfMerge() {
       for (const f of pdfs) {
         const bytes = await f.arrayBuffer()
         try {
-          const doc = await PDFDocument.load(bytes, { ignoreEncryption: true })
+          const doc = await PDFDocument.load(bytes, {})
           _seq += 1
           setItems((prev) => [...prev, { id: `f${_seq}`, name: f.name, pages: doc.getPageCount(), bytes }])
         } catch {
@@ -57,7 +59,7 @@ export function PdfMerge() {
       setBusy(false)
       setProgress('')
     }
-  }, [])
+  }, [busy])
 
   const move = (i: number, dir: -1 | 1) => {
     setItems((prev) => {
@@ -91,7 +93,7 @@ export function PdfMerge() {
       const out = await PDFDocument.create()
       for (let i = 0; i < items.length; i++) {
         setProgress(`합치는 중… ${i + 1} / ${items.length}`)
-        const src = await PDFDocument.load(items[i].bytes, { ignoreEncryption: true })
+        const src = await PDFDocument.load(items[i].bytes, {})
         const pages = await out.copyPages(src, src.getPageIndices())
         pages.forEach((p) => out.addPage(p))
       }
@@ -112,7 +114,7 @@ export function PdfMerge() {
     try {
       const { PDFDocument } = await import('pdf-lib')
       const JSZip = (await import('jszip')).default
-      const src = await PDFDocument.load(item.bytes, { ignoreEncryption: true })
+      const src = await PDFDocument.load(item.bytes, {})
       const zip = new JSZip()
       const base = item.name.replace(/\.pdf$/i, '')
       for (let i = 0; i < src.getPageCount(); i++) {
@@ -150,7 +152,7 @@ export function PdfMerge() {
     setProgress('추출 중…')
     try {
       const { PDFDocument } = await import('pdf-lib')
-      const src = await PDFDocument.load(item.bytes, { ignoreEncryption: true })
+      const src = await PDFDocument.load(item.bytes, {})
       const out = await PDFDocument.create()
       const pages = await out.copyPages(src, indices)
       pages.forEach((p) => out.addPage(p))
@@ -170,10 +172,12 @@ export function PdfMerge() {
   return (
     <div className="space-y-5">
       {/* 모드 선택 */}
-      <div className="flex gap-2">
-        {([['merge', '여러 PDF 합치기'], ['split', '한 PDF 분할·추출']] as [Mode, string][]).map(([v, l]) => (
+      <div className="flex flex-wrap gap-2">
+        {([['merge', '여러 PDF 합치기'], ['split', '한 PDF 분할·추출'], ['edit', '페이지 미리보기·편집']] as [Mode, string][]).map(([v, l]) => (
           <button
             key={v}
+            disabled={busy}
+            aria-pressed={mode === v}
             onClick={() => {
               setMode(v)
               reset()
@@ -185,6 +189,7 @@ export function PdfMerge() {
         ))}
       </div>
 
+      {mode === 'edit' ? <PdfPageEditor /> : <>
       {(single ? items.length === 0 : true) && (
         <div
           onClick={() => inputRef.current?.click()}
@@ -226,7 +231,7 @@ export function PdfMerge() {
             <p className="text-sm font-medium text-gray-700">
               {single ? `${items[0].name} · ${items[0].pages}페이지` : `${items.length}개 · 위에서부터 합쳐지는 순서`}
             </p>
-            <button onClick={reset} className="ml-auto text-sm text-gray-400 hover:text-gray-700">
+            <button disabled={busy} onClick={reset} className="ml-auto text-sm text-gray-400 hover:text-gray-700">
               다시 선택
             </button>
           </div>
@@ -237,9 +242,9 @@ export function PdfMerge() {
                 <span className="min-w-0 flex-1 truncate text-sm text-gray-600">{it.name}</span>
                 <span className="shrink-0 text-xs text-gray-400">{it.pages}p</span>
                 <div className="flex shrink-0 gap-1">
-                  <button onClick={() => move(i, -1)} disabled={i === 0} className="rounded px-2 py-1 text-gray-500 hover:bg-gray-100 disabled:opacity-30">↑</button>
-                  <button onClick={() => move(i, 1)} disabled={i === items.length - 1} className="rounded px-2 py-1 text-gray-500 hover:bg-gray-100 disabled:opacity-30">↓</button>
-                  <button onClick={() => remove(it.id)} className="rounded px-2 py-1 text-red-400 hover:bg-red-50">✕</button>
+                  <button onClick={() => move(i, -1)} disabled={busy || i === 0} className="rounded px-2 py-1 text-gray-500 hover:bg-gray-100 disabled:opacity-30">↑</button>
+                  <button onClick={() => move(i, 1)} disabled={busy || i === items.length - 1} className="rounded px-2 py-1 text-gray-500 hover:bg-gray-100 disabled:opacity-30">↓</button>
+                  <button disabled={busy} onClick={() => remove(it.id)} className="rounded px-2 py-1 text-red-400 hover:bg-red-50">✕</button>
                 </div>
               </div>
             ))}
@@ -280,6 +285,7 @@ export function PdfMerge() {
           </Button>
         </div>
       )}
+      </>}
     </div>
   )
 }
