@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { jsPDF } from 'jspdf'
 import { PDFDocument, degrees } from 'pdf-lib'
 import { loadEditablePdf, saveEditedPdf } from './pdf-editor'
 
@@ -20,6 +21,11 @@ describe('PDF page editing', () => {
     const doc = await PDFDocument.create(); doc.addPage()
     doc.context.trailerInfo.Encrypt = doc.context.register(doc.context.obj({ Filter: 'Standard' }))
     await expect(loadEditablePdf((await doc.save()).buffer as ArrayBuffer)).rejects.toThrow('encrypted')
+  })
+  it('rejects a real password encrypted synthetic PDF', async () => {
+    const doc = new jsPDF({ encryption: { userPassword: 'synthetic-only', ownerPassword: 'owner-only', userPermissions: ['print'] } })
+    doc.text('SYNTHETIC ENCRYPTED', 10, 10)
+    await expect(loadEditablePdf(doc.output('arraybuffer'))).rejects.toThrow('encrypted')
   })
   it('rejects damaged and excessive documents', async () => {
     await expect(loadEditablePdf(new ArrayBuffer(10))).rejects.toThrow()

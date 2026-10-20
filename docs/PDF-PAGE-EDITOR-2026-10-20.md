@@ -10,12 +10,29 @@
 
 ## 검증
 
-합성 PDF 단위 테스트: 순서, 기존 회전 누적, 삭제, 원본 보존, 빈 결과/잘못된 인덱스 거절, 손상·암호화 표시·201페이지 거절. 암호화 테스트는 합성 Encrypt trailer로 거절 경로를 확인하며 실제 비밀번호 암호화 호환성 테스트는 아님.
+합성 PDF 단위 테스트: 순서, 기존 회전 누적, 삭제, 원본 보존, 빈 결과/잘못된 인덱스 거절, 손상·암호화 표시·201페이지 거절. 암호화 테스트는 합성 Encrypt trailer와 jsPDF로 생성한 실제 비밀번호 암호화 PDF 양쪽의 거절을 확인함.
 
 Playwright desktop/mobile: 썸네일 표시, 이동·키보드 회전·삭제·마지막 페이지 보호, 실제 저장 bytes의 페이지 크기/회전 확인, 초기화·손상 파일 오류·문서 POST 없음, 기존 병합·추출·전체 ZIP 분할.
 
 승인 범위는 구현과 검증 및 검토 브랜치/커밋 준비. main 병합, 프로덕션 배포, 티스토리 발행은 수행하지 않음.
 
-최종 결과: `npm run lint`, `npm run typecheck`, `npm test -- --run` (20개 파일 / 174개 테스트), `npm run build` 통과. `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium npm run test:e2e -- e2e/pdf-editor.spec.ts` desktop/mobile 4개 통과. `git diff --check` 통과.
+최종 결과: `npm run lint`, `npm run typecheck`, `npm test -- --run` (20개 파일 / 175개 테스트), `npm run build` 통과. `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium npm run test:e2e -- e2e/pdf-editor.spec.ts` desktop/mobile 6개 통과. `git diff --check` 통과.
 
-빌드 중 기존 OG 이미지 동적 Google Fonts 조회에서 `EAI_AGAIN fonts.googleapis.com` 경고 발생. 빌드는 종료 코드 0으로 성공했고 PDF 편집과 무관함. OCR 언어 다운로드는 실행하지 않았고 TLS 검증 변경도 없음. 실제 암호화된 다양한 PDF, 대형 복잡 문서 전수 호환성 및 스크린리더 실기기 검증은 수행하지 않음.
+빌드 중 기존 OG 이미지 동적 Google Fonts 조회에서 `EAI_AGAIN fonts.googleapis.com` 경고 발생. 빌드는 종료 코드 0으로 성공했고 PDF 편집과 무관함. OCR 언어 다운로드는 실행하지 않았고 TLS 검증 변경도 없음. 다양한 암호화 방식의 PDF, 대형 복잡 문서 전수 호환성 및 스크린리더 실기기 검증은 수행하지 않음.
+
+
+## 배포 전 독립 리뷰 및 보완
+
+독립 읽기 전용 리뷰 후 201페이지 초과 안내가 손상 오류로 표시되는 문제를 전용 오류로 수정. getPage 대기 후 취소 확인, canvas 해제/page cleanup의 finally 보장, 완료된 과거 로딩 작업의 ref 덮어쓰기 방지, 현재 파일/편집 상태에 일치하는 썸네일만 표시하도록 보완. 초기화·페이지 이동·저장 버튼도 44px 이상 높이로 통일.
+
+- `PDF page editing > preserves source and saves reordered pages with additive rotations and deletion`: 원본 회전 90도에 추가 270도를 적용해 0도로 정규화, 삭제·순서·원본 bytes 보존 확인.
+- `PDF page editing > rejects encrypted PDFs without bypassing encryption`: 합성 Encrypt trailer 거절.
+- `PDF page editing > rejects a real password encrypted synthetic PDF`: jsPDF 실제 비밀번호 암호화 파일 거절.
+- `PDF page editing > rejects damaged and excessive documents`: 손상 입력 및 201페이지 거절.
+- `preview, reorder, rotate, delete, save and reset locally`: 데스크톱/모바일 각 통과. 저장 bytes 재로딩 결과 `[[200,0],[100,90]]` (페이지 너비, 회전), 마지막 페이지 보호, 키보드 회전, 손상 오류.
+- `existing merge and extraction still download valid PDFs`: 데스크톱/모바일 각 통과. 병합 4페이지, 추출 너비 200의 1페이지, ZIP 2개 PDF와 두 번째 페이지 너비 확인.
+- `repeated edits preserve existing rotation and replacement clears stale state`: 데스크톱/모바일 각 통과. 기존 90도 페이지를 6회 회전·2회 이동 후 다른 페이지 삭제, 저장 bytes 결과 `[[300,0],[100,270]]`. 교체 파일 재저장 결과 `[[400,0]]`. 교체 후 이전 썸네일 URL과 완료 상태 제거, 탭 재진입/초기화 후 썸네일·저장 버튼 없음, 실제 암호화 거절, 201페이지 안내, 로컬 worker 요청과 모든 요청 URL/body의 문서 마커 미포함 확인.
+
+워크플로우 URL: `/pdf-merge` → **페이지 미리보기·편집**. worker는 동일 출처 `/pdf.worker-6.3.289.min.mjs`. public과 설치 패키지 worker SHA-256 모두 `8ab0e5e30031b4a06ecfddd5ae9562f0227f830ee7ec9ed1a968b134243d2386`.
+
+독립 재리뷰에서 새 배포 차단 결함은 발견되지 않음. 파일 교체·초기화·탭 재진입의 최종 상태는 E2E로 검증했으나, getPage/render의 특정 타이밍에 취소되는 경합을 강제 지연하여 재현한 테스트는 미수행. 해당 취소 처리는 코드 리뷰로 확인함.

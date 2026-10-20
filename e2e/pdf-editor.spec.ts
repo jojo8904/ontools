@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test'
-import { PDFDocument } from 'pdf-lib'
+import { jsPDF } from 'jspdf'
+import { PDFDocument, degrees, StandardFonts } from 'pdf-lib'
 import JSZip from 'jszip'
 
 test('preview, reorder, rotate, delete, save and reset locally', async ({ page }) => {
@@ -67,4 +68,75 @@ test('existing merge and extraction still download valid PDFs', async ({ page })
   const zip = await JSZip.loadAsync(Buffer.concat(zipChunks))
   expect(Object.keys(zip.files)).toEqual(['a_01.pdf', 'a_02.pdf'])
   expect((await PDFDocument.load(await zip.files['a_02.pdf'].async('uint8array'))).getPage(0).getWidth()).toBe(200)
+})
+
+
+test('repeated edits preserve existing rotation and replacement clears stale state', async ({ page }) => {
+  await page.route(/googletagmanager|googlesyndication|doubleclick|kakao|daumcdn|google-analytics/, route => route.abort())
+  const requests: { url: string; body: string | null }[] = []
+  page.on('request', request => requests.push({ url: request.url(), body: request.postData() }))
+  const doc = await PDFDocument.create()
+  const font = await doc.embedFont(StandardFonts.Helvetica)
+  const marker = 'PRIVATE_SYNTHETIC_PDF_7b39'
+  doc.addPage([100, 200]).setRotation(degrees(90))
+  doc.addPage([200, 300]); doc.addPage([300, 400])
+  doc.getPage(0).drawText(marker, { x: 5, y: 10, size: 5, font })
+  const buffer = Buffer.from(await doc.save())
+  await page.goto('/pdf-merge')
+  await page.getByRole('button', { name: '페이지 미리보기·편집' }).click()
+  const input = page.getByLabel('편집할 PDF', { exact: true })
+  await input.setInputFiles({ name: `${marker}.pdf`, mimeType: 'application/pdf', buffer })
+  const first = page.getByRole('region', { name: '원본 1페이지', exact: true })
+  await expect(first.getByRole('img')).toBeVisible()
+  for (let n = 0; n < 6; n++) await first.getByRole('button', { name: '90° 회전' }).click()
+  await first.getByRole('button', { name: '뒤로' }).click()
+  await first.getByRole('button', { name: '뒤로' }).click()
+  await page.getByRole('region', { name: '원본 2페이지', exact: true }).getByRole('button', { name: '삭제', exact: true }).click()
+  await expect(first.getByRole('img')).toBeVisible()
+  const oldUrl = await first.getByRole('img').getAttribute('src')
+  const downloaded = page.waitForEvent('download')
+  await page.getByRole('button', { name: '편집한 PDF 저장' }).click()
+  const stream = await (await downloaded).createReadStream()
+  const chunks: Buffer[] = []; for await (const chunk of stream!) chunks.push(Buffer.from(chunk))
+  const saved = await PDFDocument.load(Buffer.concat(chunks))
+  expect(saved.getPages().map(p => [p.getWidth(), p.getRotation().angle])).toEqual([[300, 0], [100, 270]])
+  const replacement = await PDFDocument.create(); replacement.addPage([400, 500])
+  await input.setInputFiles({ name: 'replacement.pdf', mimeType: 'application/pdf', buffer: Buffer.from(await replacement.save()) })
+  await expect(page.getByText('replacement.pdf · 남은 1페이지')).toBeVisible()
+  await expect(page.getByRole('img', { name: /원본 \d+페이지 미리보기/ })).toHaveCount(1)
+  await expect(page.getByRole('img', { name: /원본 \d+페이지 미리보기/ })).toBeVisible()
+  expect(await page.getByRole('img', { name: /원본 \d+페이지 미리보기/ }).getAttribute('src')).not.toBe(oldUrl)
+  await expect(page.getByRole('status')).toHaveText('')
+  await expect(page.getByRole('button', { name: '삭제', exact: true })).toBeDisabled()
+  const replacedDownload = page.waitForEvent('download')
+  await page.getByRole('button', { name: '편집한 PDF 저장' }).click()
+  const replacementStream = await (await replacedDownload).createReadStream()
+  const replacementChunks: Buffer[] = []; for await (const chunk of replacementStream!) replacementChunks.push(Buffer.from(chunk))
+  const replacedPdf = await PDFDocument.load(Buffer.concat(replacementChunks))
+  expect(replacedPdf.getPages().map(p => [p.getWidth(), p.getRotation().angle])).toEqual([[400, 0]])
+  // Reopen the editor: the previous file, thumbnails and saved state must be gone.
+  await page.getByRole('button', { name: '여러 PDF 합치기' }).click()
+  await page.getByRole('button', { name: '페이지 미리보기·편집' }).click()
+  await expect(page.getByRole('img', { name: /원본 \d+페이지 미리보기/ })).toHaveCount(0)
+  await expect(page.getByRole('button', { name: '편집한 PDF 저장' })).toHaveCount(0)
+  await input.setInputFiles({ name: 'replacement.pdf', mimeType: 'application/pdf', buffer: Buffer.from(await replacement.save()) })
+  await expect(page.getByRole('button', { name: '작업 초기화' })).toBeVisible()
+  await page.getByRole('button', { name: '작업 초기화' }).click()
+  await expect(page.getByRole('img', { name: /원본 \d+페이지 미리보기/ })).toHaveCount(0)
+  await expect(page.getByRole('button', { name: '편집한 PDF 저장' })).toHaveCount(0)
+  const encrypted = new jsPDF({ encryption: { userPassword: 'test-only', ownerPassword: 'owner-only', userPermissions: ['print'] } })
+  encrypted.text('SYNTHETIC SECRET', 10, 10)
+  await input.setInputFiles({ name: 'encrypted.pdf', mimeType: 'application/pdf', buffer: Buffer.from(encrypted.output('arraybuffer')) })
+  await expect(page.getByRole('status')).toContainText('손상·암호화')
+  await expect(page.getByRole('img', { name: /원본 \d+페이지 미리보기/ })).toHaveCount(0)
+  const excessive = await PDFDocument.create(); for (let n = 0; n < 201; n++) excessive.addPage()
+  await input.setInputFiles({ name: '201.pdf', mimeType: 'application/pdf', buffer: Buffer.from(await excessive.save()) })
+  await expect(page.getByRole('status')).toContainText('1~200페이지')
+  expect(requests.some(request => request.url.includes('/pdf.worker-6.3.289.min.mjs'))).toBe(true)
+  for (const request of requests) {
+    expect(decodeURIComponent(request.url)).not.toContain(marker)
+    expect(request.body || '').not.toContain(marker)
+    expect(request.body || '').not.toContain(buffer.toString('base64'))
+    expect(request.body).toBeNull()
+  }
 })

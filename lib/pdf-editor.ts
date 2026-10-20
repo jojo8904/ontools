@@ -4,9 +4,11 @@ export interface EditablePage { index: number; rotation: number }
 export const MAX_PDF_BYTES = 50 * 1024 * 1024
 export const MAX_EDIT_PAGES = 200
 
+export class PdfPageLimitError extends Error {}
+
 export async function loadEditablePdf(bytes: ArrayBuffer) {
   const doc = await PDFDocument.load(bytes)
-  if (!doc.getPageCount() || doc.getPageCount() > MAX_EDIT_PAGES) throw new Error('페이지 편집은 1~200페이지 PDF만 지원해요.')
+  if (!doc.getPageCount() || doc.getPageCount() > MAX_EDIT_PAGES) throw new PdfPageLimitError('페이지 편집은 1~200페이지 PDF만 지원해요.')
   return doc
 }
 
