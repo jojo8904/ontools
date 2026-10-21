@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: '일일 칼로리(TDEE) 계산기 - ontools',
-    description: '기초대사량과 하루 소비량 추정를 계산하세요.',
+    description: '기초대사량과 하루 에너지 소비량을 추정하세요.',
     url: 'https://ontools.co.kr/calorie',
     siteName: 'ontools',
     type: 'website',
