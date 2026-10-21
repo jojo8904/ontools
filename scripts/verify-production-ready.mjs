@@ -1,25 +1,25 @@
-// Public repository status read; no credentials or extra permissions required.
-const repository = process.env.GITHUB_REPOSITORY
+// Check the actual public production pages without credentials or GitHub API rate limits.
+// Commit-specific Vercel status is checked separately in the release record.
 const sha = process.env.GITHUB_SHA
-if (!repository || !sha) throw new Error('Run this check in the existing GitHub Actions pipeline.')
+if (!sha) throw new Error('Run this check in the existing GitHub Actions pipeline.')
+const checks = [['image-split', 'A4 여백'], ['electricity', '히터·온풍기 추가요금과 예산'], ['calorie', '평소 활동량 선택']]
 for (let attempt = 0; attempt < 30; attempt++) {
-  const response = await fetch(`https://api.github.com/repos/${repository}/commits/${sha}/status`, {
-    headers: { Accept: 'application/vnd.github+json' },
-  })
-  if (!response.ok) throw new Error(`GitHub commit status returned ${response.status}`)
-  const { statuses } = await response.json()
-  const vercel = statuses.find((status) => status.context === 'Vercel')
-  if (vercel?.state === 'failure' || vercel?.state === 'error') throw new Error('Vercel deployment failed.')
-  if (vercel?.state === 'success') {
-    const checks = [['image-split', 'A4 여백'], ['electricity', '히터·온풍기 추가요금과 예산'], ['calorie', '평소 활동량 선택']]
-    let ready = true
-    for (const [route, marker] of checks) {
-      const page = await fetch(`https://ontools.co.kr/${route}?verify=${sha}`)
-      if (!page.ok || !(await page.text()).includes(marker)) ready = false
-    }
-    if (ready) { console.log(`Production ready for ${sha}: ${vercel.target_url}`); process.exit(0) }
+  let ready = true
+  const availability = []
+  for (const [route, marker] of checks) {
+    try {
+      const page = await fetch(`https://ontools.co.kr/${route}?verify=${sha}`, { signal: AbortSignal.timeout(15000) })
+      const found = page.ok && (await page.text()).includes(marker)
+      availability.push(`${route}: HTTP ${page.status}, feature ${found ? 'present' : 'missing'}`)
+      if (!found) ready = false
+    } catch { ready = false; availability.push(`${route}: request failed`) }
   }
-  console.log(`Waiting for production commit ${sha} (${attempt + 1}/30)`)
+  if (ready) {
+    console.log(`Production feature checks passed; workflow commit ${sha}. Confirm commit-specific Vercel status separately.`)
+    process.exit(0)
+  }
+  console.log(availability.join('; '))
+  console.log(`Waiting for production features; workflow commit ${sha} (${attempt + 1}/30)`)
   await new Promise((resolve) => setTimeout(resolve, 20000))
 }
-throw new Error('Production did not become ready within 10 minutes.')
+throw new Error('Production features did not become ready within the check window.')

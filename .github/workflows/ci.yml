@@ -50,7 +50,7 @@ jobs:
           node-version: '24'
           cache: npm
       - run: npm ci
-      - name: Wait for this commit on the existing Vercel production project
+      - name: Wait for feature availability on the existing production site
         run: node scripts/verify-production-ready.mjs
       - run: npx playwright install --with-deps chromium
       - name: Verify production on desktop and mobile
