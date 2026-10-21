@@ -5,16 +5,20 @@ if (!sha) throw new Error('Run this check in the existing GitHub Actions pipelin
 const checks = [['image-split', 'A4 여백'], ['electricity', '히터·온풍기 추가요금과 예산'], ['calorie', '평소 활동량 선택']]
 for (let attempt = 0; attempt < 30; attempt++) {
   let ready = true
+  const availability = []
   for (const [route, marker] of checks) {
     try {
       const page = await fetch(`https://ontools.co.kr/${route}?verify=${sha}`, { signal: AbortSignal.timeout(15000) })
-      if (!page.ok || !(await page.text()).includes(marker)) ready = false
-    } catch { ready = false }
+      const found = page.ok && (await page.text()).includes(marker)
+      availability.push(`${route}: HTTP ${page.status}, feature ${found ? 'present' : 'missing'}`)
+      if (!found) ready = false
+    } catch { ready = false; availability.push(`${route}: request failed`) }
   }
   if (ready) {
     console.log(`Production feature checks passed; workflow commit ${sha}. Confirm commit-specific Vercel status separately.`)
     process.exit(0)
   }
+  console.log(availability.join('; '))
   console.log(`Waiting for production features; workflow commit ${sha} (${attempt + 1}/30)`)
   await new Promise((resolve) => setTimeout(resolve, 20000))
 }
