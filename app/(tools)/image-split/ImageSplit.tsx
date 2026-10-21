@@ -3,6 +3,8 @@
 import { useObjectUrls } from '@/lib/useObjectUrls'
 
 import { useState, useRef, useCallback } from 'react'
+import { printPlacement, createPrintPdf } from '@/features/image-split/print'
+import { useLocalTask } from '@/lib/useLocalTask'
 import { Button } from '@/components/ui/Button'
 
 type Dir = 'rows' | 'cols'
@@ -11,6 +13,8 @@ interface Piece {
   i: number
   url: string
   blob: Blob
+  width: number
+  height: number
 }
 
 export function ImageSplit() {
@@ -22,7 +26,9 @@ export function ImageSplit() {
   const [dir, setDir] = useState<Dir>('rows')
   const [count, setCount] = useState(3)
   const [pieces, setPieces] = useState<Piece[]>([])
-  const [busy, setBusy] = useState(false)
+  const { busy, error, run: task, cancel } = useLocalTask()
+  const [margin, setMargin] = useState(10)
+  const generation = useRef(0)
   const [dragOver, setDragOver] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -31,12 +37,17 @@ export function ImageSplit() {
       alert('이미지 파일만 올릴 수 있어요.')
       return
     }
+    const version = ++generation.current
+    cancel()
+    setImg(null)
+    clearObjectUrls()
     setFileName(file.name)
     setIsJpg(file.type === 'image/jpeg')
     setPieces([])
     const url = createObjectUrl(file)
     const image = new Image()
     image.onload = () => {
+      if (version !== generation.current) return
       setImg(image)
       // 가로로 긴 사진이면 세로 분할(cols)을 기본으로 추천
       setDir(image.naturalWidth > image.naturalHeight * 1.3 ? 'cols' : 'rows')
@@ -47,29 +58,29 @@ export function ImageSplit() {
       URL.revokeObjectURL(url)
     }
     image.src = url
-  }, [createObjectUrl])
+  }, [createObjectUrl, clearObjectUrls, cancel])
 
   const run = useCallback(async () => {
     if (!img) return
-    setBusy(true)
-    try {
+    await task(async (signal) => {
+      setPieces([])
+      clearObjectUrls()
       const W = img.naturalWidth
       const H = img.naturalHeight
       const type = isJpg ? 'image/jpeg' : 'image/png'
       const out: Piece[] = []
+      if ((dir === 'rows' ? H : W) < count) throw new Error('이미지 픽셀 수보다 조각 수가 많아요.')
       for (let i = 0; i < count; i++) {
         let sx = 0
         let sy = 0
         let sw = W
         let sh = H
         if (dir === 'rows') {
-          sh = Math.round(H / count)
           sy = Math.round((H * i) / count)
-          if (i === count - 1) sh = H - sy
+          sh = Math.round(H * (i + 1) / count) - sy
         } else {
-          sw = Math.round(W / count)
           sx = Math.round((W * i) / count)
-          if (i === count - 1) sw = W - sx
+          sw = Math.round(W * (i + 1) / count) - sx
         }
         const c = document.createElement('canvas')
         c.width = sw
@@ -80,14 +91,13 @@ export function ImageSplit() {
           ctx.fillRect(0, 0, sw, sh)
         }
         ctx.drawImage(img, sx, sy, sw, sh, 0, 0, sw, sh)
-        const blob: Blob = await new Promise((res) => c.toBlob((b) => res(b!), type, 0.95))
-        out.push({ i: i + 1, url: createObjectUrl(blob), blob })
+        const blob = await new Promise<Blob>((res, reject) => c.toBlob((b) => b ? res(b) : reject(new Error('이미지를 저장하지 못했어요.')), type, 0.95))
+        if (signal.aborted) return
+        out.push({ i: i + 1, url: createObjectUrl(blob), blob, width: sw, height: sh })
       }
       setPieces(out)
-    } finally {
-      setBusy(false)
-    }
-  }, [img, isJpg, count, dir, createObjectUrl])
+    })
+  }, [img, isJpg, count, dir, createObjectUrl, clearObjectUrls, task])
 
   const ext = isJpg ? 'jpg' : 'png'
   const base = fileName.replace(/\.[^.]+$/, '') || 'image'
@@ -97,11 +107,12 @@ export function ImageSplit() {
     a.href = p.url
     a.click()
   }
-  const dlZip = async () => {
+  const dlZip = async (signal: AbortSignal) => {
     const JSZip = (await import('jszip')).default
     const zip = new JSZip()
     pieces.forEach((p) => zip.file(`${base}_${String(p.i).padStart(2, '0')}.${ext}`, p.blob))
     const blob = await zip.generateAsync({ type: 'blob' })
+    if (signal.aborted) return
     const a = document.createElement('a')
     a.download = `${base}_분할.zip`
     a.href = createObjectUrl(blob)
@@ -109,6 +120,8 @@ export function ImageSplit() {
   }
 
   const reset = () => {
+    generation.current++
+    cancel()
     clearObjectUrls()
     setImg(null)
     setFileName('')
@@ -118,6 +131,10 @@ export function ImageSplit() {
   if (!img) {
     return (
       <div
+        role="button"
+        tabIndex={0}
+        aria-label="이미지 선택"
+        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); inputRef.current?.click() } }}
         onClick={() => inputRef.current?.click()}
         onDragOver={(e) => {
           e.preventDefault()
@@ -169,7 +186,9 @@ export function ImageSplit() {
             {([['rows', '위→아래 (세로로 긴 캡처)'], ['cols', '좌→우 (가로로 긴 파노라마)']] as [Dir, string][]).map(([v, l]) => (
               <button
                 key={v}
-                onClick={() => setDir(v)}
+                disabled={busy}
+                aria-pressed={dir === v}
+                onClick={() => { setDir(v); setPieces([]) }}
                 className={`rounded-lg px-3 py-1.5 text-sm font-medium ${dir === v ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600'}`}
               >
                 {l}
@@ -179,10 +198,11 @@ export function ImageSplit() {
         </div>
         <div>
           <span className="mb-1.5 block text-sm font-medium text-gray-700">조각 수 {count}개</span>
-          <input type="range" min={2} max={12} value={count} onChange={(e) => setCount(parseInt(e.target.value, 10))} />
+          <input aria-label="조각 수" disabled={busy} type="range" min={2} max={12} value={count} onChange={(e) => { setCount(parseInt(e.target.value, 10)); setPieces([]) }} />
         </div>
       </div>
 
+      {error && <p role="alert" className="text-sm text-red-700">{error}</p>}
       <Button onClick={run} size="lg" className="w-full" disabled={busy}>
         {busy ? '나누는 중…' : `${count}조각으로 나누기`}
       </Button>
@@ -191,10 +211,35 @@ export function ImageSplit() {
         <div className="space-y-3">
           <div className="flex items-center">
             <span className="text-sm font-medium text-gray-700">{pieces.length}조각 완료</span>
-            <Button onClick={dlZip} size="sm" className="ml-auto">
+            <Button disabled={busy} onClick={() => task(async (signal) => { if (!signal.aborted) await dlZip(signal) })} size="sm" className="ml-auto">
               전체 ZIP 다운로드
             </Button>
           </div>
+          <section className="space-y-3 rounded-xl border p-4" aria-label="A4 인쇄 미리보기">
+            <h3 className="font-semibold">A4 인쇄 미리보기 · 세로 210 × 297mm</h3>
+            <label className="block text-sm">페이지 여백 (mm)
+              <select aria-label="페이지 여백 (mm)" value={margin} disabled={busy} onChange={(e) => setMargin(Number(e.target.value))} className="ml-2 rounded border p-2">
+                {[0, 5, 10, 15, 20, 30].map((m) => <option key={m} value={m}>{m}mm</option>)}
+              </select>
+            </label>
+            <p className="text-sm text-gray-600">조각 1개를 A4 한 장에 비율 유지·가운데 맞춤합니다. 이어 붙이는 포스터 방식이 아니므로 조각별 배율이 다를 수 있습니다. 겹침은 없으며, 인쇄할 때 A4·실제 크기(100%)를 선택하세요. 0mm는 프린터에서 가장자리가 잘릴 수 있어요.</p>
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+              {pieces.map((p) => {
+                const box = printPlacement(p.width, p.height, margin)
+                return <div key={p.i}><div className="relative w-full border bg-white shadow-sm" style={{ aspectRatio: '210 / 297' }}>
+                  <img src={p.url} alt={`A4 ${p.i}페이지`} className="absolute" style={{ left: `${box.x / 210 * 100}%`, top: `${box.y / 297 * 100}%`, width: `${box.width / 210 * 100}%`, height: `${box.height / 297 * 100}%` }} />
+                </div><p className="text-center text-xs">{p.i} / {pieces.length}</p></div>
+              })}
+            </div>
+            <Button disabled={busy} onClick={() => task(async (signal) => {
+              const bytes = await createPrintPdf(pieces.map((p) => p.blob), margin)
+              if (signal.aborted) return
+              const a = document.createElement('a')
+              a.href = createObjectUrl(new Blob([bytes as BlobPart], { type: 'application/pdf' }))
+              a.download = `${base}_A4.pdf`
+              a.click()
+            })}>A4 PDF 다운로드</Button>
+          </section>
           <div className="grid grid-cols-3 gap-3 sm:grid-cols-4">
             {pieces.map((p) => (
               <div key={p.i} className="overflow-hidden rounded-lg border border-gray-200 bg-white">

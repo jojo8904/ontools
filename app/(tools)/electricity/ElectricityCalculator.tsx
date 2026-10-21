@@ -1,5 +1,6 @@
 'use client'
 
+import { HeaterCalculator } from './HeaterCalculator'
 import { useElectricityCalculator } from '@/features/electricity/hooks/useElectricityCalculator'
 import { formatCurrency } from '@/lib/utils'
 import { Button } from '@/components/ui/Button'
@@ -116,6 +117,8 @@ export function ElectricityCalculator() {
             </div>
           </CardContent>
         </Card>
+
+        <HeaterCalculator />
 
         {/* Result */}
         {result && (
