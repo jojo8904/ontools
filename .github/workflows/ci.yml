@@ -52,8 +52,6 @@ jobs:
       - run: npm ci
       - name: Wait for this commit on the existing Vercel production project
         run: node scripts/verify-production-ready.mjs
-        env:
-          GH_TOKEN: ${{ github.token }}
       - run: npx playwright install --with-deps chromium
       - name: Verify production on desktop and mobile
         run: npm run test:e2e

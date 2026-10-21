@@ -156,5 +156,5 @@
 - 근거: [한전 요금표](https://cyber.kepco.co.kr/ckepco/front/jsp/CY/D/C/CYDCHP00401.jsp), [기금 법령](https://law.go.kr/LSW/lumLsLinkPop.do?chrClsCd=010202&lspttninfSeq=118786), [2025-07 적용 정책 안내](https://www.korea.kr/news/policyNewsView.do?newsId=148929635), [Mifflin 원문](https://pubmed.ncbi.nlm.nih.gov/2305711/), [NIH 성인 대상/한계](https://www.niddk.nih.gov/health-information/weight-management/body-weight-planner).
 - 화면 예시: 301×1201 PNG → 3조각·20mm 여백·A4 3페이지. 전기 기존300kWh/2000W/4시간/30일/100% → 추가240kWh, 57,760원→140,640원, 추가82,880원; 추가예산30,000원→총50시간. TDEE 남성30세/175cm/75kg/가벼운활동1.375 → BMR1,699/TDEE2,336kcal; 여성은1,533/2,108kcal.
 - 로컬 검증: lint, typecheck, 단위23파일/183개, production build, audit 취약점0개 통과. 새 기능 desktop/mobile 브라우저 검사와 전체 회귀 검사 실행. 최종 CI·배포 결과는 해당 PR 및 커밋 상태/production job에서 확인해야 하며 이 기록만으로 성공을 주장하지 않음.
-- 기존 CI에 main 배포 커밋의 Vercel 상태 대기 및 실제 운영 desktop/mobile E2E·스크린샷 보관 단계를 추가. GitHub의 기존 일회성 Actions 토큰만 사용. 광고/분석/DB/영구 권한 변경 없음.
+- 기존 CI에 main 배포 커밋의 Vercel 상태 대기 및 실제 운영 desktop/mobile E2E·스크린샷 보관 단계를 추가. 공개 커밋 상태를 인증 없이 조회하며 추가 자격증명을 사용하지 않음. 광고/분석/DB/영구 권한 변경 없음.
 - 최종 새 기능 E2E: desktop/mobile 8개 통과(중단 후 교체, PNG/JPEG, 2/12조각, 실제 PDF·ZIP·개별 저장, 난방 경계·예산·초기화, TDEE 검증·입력 변경 포함). 전체 로컬 회귀에서 기존 실제 OCR 테스트가 외부 언어 데이터 초기화 후 150초 기대값 시간 초과. 기능 검사 실패와 구분하며 CI에서 전체 검사를 재확인한다. 빌드는 Google Fonts DNS 경고가 있으나 종료 코드0이다.

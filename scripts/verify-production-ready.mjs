@@ -1,11 +1,10 @@
-// Uses the existing, temporary GitHub Actions token; never prints credentials.
+// Public repository status read; no credentials or extra permissions required.
 const repository = process.env.GITHUB_REPOSITORY
 const sha = process.env.GITHUB_SHA
-const token = process.env.GH_TOKEN
-if (!repository || !sha || !token) throw new Error('Run this check in the existing GitHub Actions pipeline.')
+if (!repository || !sha) throw new Error('Run this check in the existing GitHub Actions pipeline.')
 for (let attempt = 0; attempt < 30; attempt++) {
   const response = await fetch(`https://api.github.com/repos/${repository}/commits/${sha}/status`, {
-    headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' },
+    headers: { Accept: 'application/vnd.github+json' },
   })
   if (!response.ok) throw new Error(`GitHub commit status returned ${response.status}`)
   const { statuses } = await response.json()
