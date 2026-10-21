@@ -147,3 +147,14 @@
 - 클라우드 npm ci/postinstall, lint/typecheck/146테스트/build(130정적페이지)/운영 audit 통과. 기존 OG 글꼴의 Google Fonts DNS 경고는 빌드 성공과 별개로 남는다.
 - 컨테이너 직접 운영 도메인/API 요청은 네트워크 정책 403, 로컬 Chromium은 기존 실행 제한이 있으므로 우회하지 않았다. 운영 URL 실제 화면·HTTP·블로그용 2스크린샷은 부모의 승인된 클라우드 브라우저 QA로 인계한다. 이 기록은 직접 운영 UI 확인을 주장하지 않는다.
 - 합성 예제/사용 제한/블로그 재현 절차: `docs/SELLER-SETTLEMENT-2026-10-18.md`. 티스토리는 이 작업에서 발행하지 않았다. 사용자 PC, GetLuckyLab, DB, 비밀값, 정책 수치 변경 없음.
+
+## 2026-10-21 세 도구 개선
+
+- `/image-split`: 기존 2~12등분·개별 이미지·ZIP 유지. 조각당 A4 세로 한 페이지 맞춤 미리보기, 0~30mm 여백과 PDF 저장. 실제 PDF 페이지 210×297mm 검증. 포스터 타일링/겹침 기능은 아니며 조각별 배율이 달라질 수 있음. 설정 변경·다른 사진 선택 시 이전 결과 무효화, 비동기 작업 취소 반영. 픽셀 높이 입력 기능이 있다는 잘못된 안내 수정.
+- `/electricity`: 히터·온풍기 정격 W × 켜 두는 시간 × 일수 × 명시적 가동률 가정으로 추가 kWh 계산. 기존 요금 엔진의 가구 전체 전후 차액으로 추가요금 계산. 같은 엔진을 분 단위 이진 탐색하여 추가예산 내 총/일평균 시간 표시. 주택용 저압·기타계절·합계 0~1,000kWh 제한 유지. 하계·고압·할인·TV 수신료 제외, 초과 외삽 없음. 기존 단가와 기후 9원/연료 5원 가정 유지. 기금 2.7%는 2025-07 이후 기준이며 모든 최신 청구조건 재현을 주장하지 않음.
+- `/calorie`: Mifflin-St Jeor 간편식과 최종 반올림 유지. 성인 입력 검증, 단계별 흐름, 직업·이동·좌식 시간을 포함한 활동량 설명, 라디오/레이블과 입력 변경 시 결과 무효화. 고정 감량·증량 목표 및 근거 없는 확신/획일적 식사 처방 문구를 제거하고 추정 한계 표시.
+- 근거: [한전 요금표](https://cyber.kepco.co.kr/ckepco/front/jsp/CY/D/C/CYDCHP00401.jsp), [기금 법령](https://law.go.kr/LSW/lumLsLinkPop.do?chrClsCd=010202&lspttninfSeq=118786), [2025-07 적용 정책 안내](https://www.korea.kr/news/policyNewsView.do?newsId=148929635), [Mifflin 원문](https://pubmed.ncbi.nlm.nih.gov/2305711/), [NIH 성인 대상/한계](https://www.niddk.nih.gov/health-information/weight-management/body-weight-planner).
+- 화면 예시: 301×1201 PNG → 3조각·20mm 여백·A4 3페이지. 전기 기존300kWh/2000W/4시간/30일/100% → 추가240kWh, 57,760원→140,640원, 추가82,880원; 추가예산30,000원→총50시간. TDEE 남성30세/175cm/75kg/가벼운활동1.375 → BMR1,699/TDEE2,336kcal; 여성은1,533/2,108kcal.
+- 로컬 검증: lint, typecheck, 단위23파일/183개, production build, audit 취약점0개 통과. 새 기능 desktop/mobile 브라우저 검사와 전체 회귀 검사 실행. 최종 CI·배포 결과는 해당 PR 및 커밋 상태/production job에서 확인해야 하며 이 기록만으로 성공을 주장하지 않음.
+- 기존 CI에 main 배포 커밋의 Vercel 상태 대기 및 실제 운영 desktop/mobile E2E·스크린샷 보관 단계를 추가. 공개 커밋 상태를 인증 없이 조회하며 추가 자격증명을 사용하지 않음. 광고/분석/DB/영구 권한 변경 없음.
+- 최종 새 기능 E2E: desktop/mobile 8개 통과(중단 후 교체, PNG/JPEG, 2/12조각, 실제 PDF·ZIP·개별 저장, 난방 경계·예산·초기화, TDEE 검증·입력 변경 포함). 전체 로컬 회귀에서 기존 실제 OCR 테스트가 외부 언어 데이터 초기화 후 150초 기대값 시간 초과. 기능 검사 실패와 구분하며 CI에서 전체 검사를 재확인한다. 빌드는 Google Fonts DNS 경고가 있으나 종료 코드0이다.

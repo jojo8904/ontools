@@ -1,0 +1,108 @@
+import { test, expect } from '@playwright/test'
+import { PDFDocument } from 'pdf-lib'
+import { readFile } from 'node:fs/promises'
+
+async function noOverflow(page: import('@playwright/test').Page) {
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1)).toBe(true)
+}
+
+test('A4 PDF, ZIP, settings invalidation and repeated upload', async ({ page }) => {
+  await page.goto('/image-split')
+  const image = Buffer.from(await (await import('sharp')).default({ create: { width: 301, height: 1201, channels: 3, background: '#67a5d8' } }).png().toBuffer())
+  await page.locator('input[type=file]').setInputFiles({ name: 'long.png', mimeType: 'image/png', buffer: image })
+  await page.getByRole('button', { name: '3조각으로 나누기' }).click()
+  await expect(page.getByRole('button', { name: 'A4 PDF 다운로드' })).toBeVisible()
+  await page.getByLabel('페이지 여백 (mm)').selectOption('20')
+  const downloadPromise = page.waitForEvent('download')
+  await page.getByRole('button', { name: 'A4 PDF 다운로드' }).click()
+  const download = await downloadPromise
+  const pdf = await PDFDocument.load(await readFile((await download.path())!))
+  expect(pdf.getPageCount()).toBe(3)
+  for (const p of pdf.getPages()) {
+    expect(p.getWidth()).toBeCloseTo(210 / 25.4 * 72, 5)
+    expect(p.getHeight()).toBeCloseTo(297 / 25.4 * 72, 5)
+  }
+  const zipPromise = page.waitForEvent('download')
+  await page.getByRole('button', { name: '전체 ZIP 다운로드' }).click()
+  const zip = await (await import('jszip')).default.loadAsync(await readFile((await (await zipPromise).path())!))
+  expect(Object.keys(zip.files)).toHaveLength(3)
+  const single = page.waitForEvent('download')
+  await page.getByRole('button', { name: '1 저장' }).click()
+  expect((await single).suggestedFilename()).toBe('long_1.png')
+  await noOverflow(page)
+  await page.screenshot({ path: `test-results/a4-${test.info().project.name}.png`, fullPage: true })
+  await page.getByLabel('조각 수').fill('4')
+  await expect(page.getByRole('button', { name: 'A4 PDF 다운로드' })).toHaveCount(0)
+  await page.getByRole('button', { name: '4조각으로 나누기' }).click()
+  await page.getByRole('button', { name: '다른 사진' }).click()
+  await page.locator('input[type=file]').setInputFiles({ name: 'long.png', mimeType: 'image/png', buffer: image })
+  await page.getByRole('button', { name: '4조각으로 나누기' }).click()
+  await expect(page.getByText('4조각 완료')).toBeVisible()
+})
+
+test('heater incremental bill, budget, unsupported range and reset', async ({ page }) => {
+  await page.goto('/electricity')
+  await page.getByRole('button', { name: '난방 추가요금 계산', exact: true }).click()
+  await expect(page.getByRole('status')).toContainText('240kWh')
+  await expect(page.getByRole('status')).toContainText('540kWh')
+  await noOverflow(page)
+  await page.screenshot({ path: `test-results/heater-${test.info().project.name}.png`, fullPage: true })
+  await page.getByLabel('실제 발열 가동률 (%)').fill('50')
+  await expect(page.getByRole('status')).toHaveCount(0)
+  await page.getByRole('button', { name: '난방 추가요금 계산', exact: true }).click()
+  await expect(page.getByRole('status')).toContainText('120kWh')
+  await page.getByLabel('난방기 제외 월 사용량 (kWh)').fill('950')
+  await page.getByRole('button', { name: '난방 추가요금 계산', exact: true }).click()
+  await expect(page.locator('p[role=alert]')).toContainText('1,000kWh')
+  await page.getByRole('button', { name: '난방 입력 초기화' }).click()
+  await expect(page.locator('p[role=alert]')).toHaveCount(0)
+  await expect(page.getByLabel('실제 발열 가동률 (%)')).toHaveValue('100')
+})
+
+test('TDEE exact formula, validation, activity guidance and stale result clearing', async ({ page }) => {
+  await page.goto('/calorie')
+  await page.getByRole('button', { name: 'TDEE 계산하기' }).click()
+  await expect(page.locator('p[role=alert]')).toContainText('18~120')
+  await page.getByLabel('나이 (세)', { exact: true }).fill('30')
+  await page.getByLabel('키 (cm)', { exact: true }).fill('175')
+  await page.getByLabel('체중 (kg)', { exact: true }).fill('75')
+  await page.getByRole('radio', { name: /가벼운 활동/ }).check()
+  await page.getByRole('button', { name: 'TDEE 계산하기' }).click()
+  await expect(page.getByRole('status')).toContainText('2,336')
+  await expect(page.getByRole('status')).toContainText('1,699')
+  await noOverflow(page)
+  await page.screenshot({ path: `test-results/tdee-${test.info().project.name}.png`, fullPage: true })
+  await page.getByRole('button', { name: '여성', exact: true }).click()
+  await expect(page.getByRole('status')).toHaveCount(0)
+  await page.getByRole('button', { name: 'TDEE 계산하기' }).click()
+  await expect(page.getByRole('status')).toContainText('2,108')
+  await page.getByLabel('나이 (세)', { exact: true }).fill('17')
+  await page.getByRole('button', { name: 'TDEE 계산하기' }).click()
+  await expect(page.locator('p[role=alert]')).toBeVisible()
+  await page.getByRole('button', { name: '초기화', exact: true }).click()
+  await expect(page.getByRole('radio', { name: /비활동/ })).toBeChecked()
+  await expect(page.getByLabel('나이 (세)', { exact: true })).toHaveValue('')
+})
+
+test('splitting interrupted by another photo cannot restore old results; JPEG landscape and 12 pieces', async ({ page }) => {
+  await page.goto('/image-split')
+  const image = await (await import('sharp')).default({ create: { width: 1201, height: 301, channels: 3, background: '#eea947' } }).jpeg().toBuffer()
+  await page.locator('input[type=file]').setInputFiles({ name: 'wide.jpg', mimeType: 'image/jpeg', buffer: image })
+  await page.evaluate(() => {
+    const original = HTMLCanvasElement.prototype.toBlob
+    HTMLCanvasElement.prototype.toBlob = function (callback, ...args) { original.call(this, (blob) => setTimeout(() => callback(blob), 700), ...args) }
+  })
+  await page.getByRole('button', { name: '3조각으로 나누기' }).click()
+  await page.getByRole('button', { name: '다른 사진' }).click()
+  await page.locator('input[type=file]').setInputFiles({ name: 'new.jpg', mimeType: 'image/jpeg', buffer: image })
+  await page.getByLabel('조각 수').fill('2')
+  await page.getByRole('button', { name: '2조각으로 나누기' }).click()
+  await expect(page.getByText('2조각 완료')).toBeVisible()
+  await expect(page.getByText('3조각 완료')).toHaveCount(0)
+  const downloadPromise = page.waitForEvent('download')
+  await page.getByRole('button', { name: 'A4 PDF 다운로드' }).click()
+  expect((await PDFDocument.load(await readFile((await (await downloadPromise).path())!))).getPageCount()).toBe(2)
+  await page.getByLabel('조각 수').fill('12')
+  await page.getByRole('button', { name: '12조각으로 나누기' }).click()
+  await expect(page.getByText('12조각 완료')).toBeVisible({ timeout: 15000 })
+})
