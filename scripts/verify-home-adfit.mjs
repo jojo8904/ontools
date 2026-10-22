@@ -37,6 +37,8 @@ try {
         const runner = document.querySelector('[aria-label="고양이 점프 게임"]')
         return {
           width: innerWidth,
+          layout: document.querySelector('[data-home-layout]')?.getAttribute('data-home-layout'),
+          scrollHint: document.querySelector('[data-scroll-hint]')?.getAttribute('data-scroll-hint'),
           unit: ins?.getAttribute('data-ad-unit'),
           adWidth: ins?.getAttribute('data-ad-width'),
           adHeight: ins?.getAttribute('data-ad-height'),
@@ -46,7 +48,7 @@ try {
           visibleArea: !!box && box.width > 0 && box.height > 0 && getComputedStyle(ins).display !== 'none',
           // Frame/area presence alone does not prove a filled paid impression.
           toolsY: tools?.getBoundingClientRect().y,
-          topAdBeforeGame: !!ad && !!runner && ad.getBoundingClientRect().bottom <= runner.getBoundingClientRect().top,
+          topAdAfterGame: !!ad && !!runner && ad.getBoundingClientRect().top >= runner.getBoundingClientRect().bottom,
           promoBelowTools: !!promo && !!tools && promo.getBoundingClientRect().top >= tools.getBoundingClientRect().bottom,
           promoHeight: promo?.getBoundingClientRect().height,
           menuLink: document.querySelector('nav[aria-label="주 메뉴"] a[href="https://getluckylab.com/"]') !== null,
@@ -61,7 +63,9 @@ try {
       assert.equal(result.unit, width >= 728 ? 'DAN-YmhVtuLiN5Q2MJ3K' : 'DAN-TMWlzezuMlSsAZtt')
       assert.equal(result.slotCount, 1)
       assert.equal(result.scriptCount, 1)
-      assert.ok(result.topAdBeforeGame && result.promoBelowTools && result.menuLink && result.noOverflow)
+      assert.equal(result.layout, 'game-ad-tools')
+      assert.equal(result.scrollHint, 'first-viewport')
+      assert.ok(result.topAdAfterGame && result.promoBelowTools && result.menuLink && result.noOverflow)
       assert.ok(result.promoHeight <= 130)
     } finally {
       await page.close()

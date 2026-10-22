@@ -51,7 +51,7 @@ for (const mode of ['blocked', 'no-fill', 'delayed-fill'] as const) {
     await expect(page.locator('ins.kakao_ad_area')).toHaveCount(1)
     await expect(page.locator('script[src*="kas/static/ba.min.js"]')).toHaveCount(1)
     expect(calls).toBe(1)
-    await page.getByRole('button', { name: '도구 모음으로 스크롤' }).click()
+    await page.locator('#tools').evaluate(el => el.scrollIntoView({ behavior: 'instant' }))
     await expect(page.getByRole('heading', { name: '도구 모음', exact: true })).toBeInViewport()
     await page.locator('#tools a[href="/salary"]').click()
     await expect(page).toHaveURL(/\/salary$/)
