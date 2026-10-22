@@ -14,14 +14,14 @@ export function ScrollDownButton() {
   useEffect(() => {
     let frame = 0
     const update = () => {
-      const target = document.querySelector('#tools h2')
       const viewport = window.visualViewport
       const width = viewport?.width ?? innerWidth
       const bottom = (viewport?.offsetTop ?? 0) + (viewport?.height ?? innerHeight)
       const top = bottom - SIZE - 20
       if (window.scrollY > 8) dismissed.current = true
       let next: Position = { left: 0, top, visible: false }
-      if (target && !dismissed.current && target.getBoundingClientRect().top >= bottom && top >= 0 && !document.querySelector('[aria-label="검색 닫기"]')) {
+      const hasMoreContent = document.documentElement.scrollHeight > bottom + window.scrollY + 32
+      if (hasMoreContent && !dismissed.current && top >= 0 && !document.querySelector('[aria-label="검색 닫기"]')) {
         const guards = Array.from(document.querySelectorAll('header, [aria-label="계산기 검색"], [aria-label="고양이 점프 게임"] p, [aria-label="고양이 점프 게임"] span, [aria-label="고양이 점프 게임"] input, [aria-label="고양이 점프 게임"] button')).map(el => el.getBoundingClientRect())
         for (const ad of document.querySelectorAll('aside[aria-label="광고"]')) {
           const unit = ad.querySelector('[data-width]')
@@ -32,7 +32,14 @@ export function ScrollDownButton() {
             guards.push(new DOMRect(box.x, area.y + 24, box.width, 124))
           }
         }
-        const candidates = [20, 8].flatMap(gap => [width / 2 - SIZE / 2, 20, width - SIZE - 20].map(left => ({ left, top: bottom - SIZE - gap })))
+        // Prefer the viewport bottom. If an ad occupies that row, use the
+        // nearest clear row above it instead of suppressing the hint entirely.
+        const lowerLimit = (document.querySelector('header')?.getBoundingClientRect().bottom ?? 0) + 8
+        const fallbackTops = guards.map(box => box.top - SIZE - 16)
+          .filter(value => value >= lowerLimit && value + SIZE <= bottom - 8)
+          .sort((a, b) => b - a)
+        const candidates = [bottom - SIZE - 20, bottom - SIZE - 8, ...fallbackTops]
+          .flatMap(top => [width / 2 - SIZE / 2, 20, width - SIZE - 20, width / 4 - SIZE / 2, width * 3 / 4 - SIZE / 2].map(left => ({ left, top })))
         for (const candidate of candidates) {
           const { left, top } = candidate
           const safe = left >= 8 && left + SIZE <= width - 8 && guards.every(box =>
@@ -82,6 +89,7 @@ export function ScrollDownButton() {
       }}
       aria-label="도구 모음으로 스크롤"
       data-scroll-hint="first-viewport"
+      data-scroll-hint-version="2"
       title="도구 모음으로 스크롤"
       aria-hidden={!position.visible}
       tabIndex={position.visible ? 0 : -1}

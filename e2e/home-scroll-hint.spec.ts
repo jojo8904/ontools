@@ -40,6 +40,8 @@ test('height and orientation changes recompute visibility without leaving a perm
   const original = page.viewportSize()!
   await page.setViewportSize({ width: original.width, height: 1200 })
   await expect(page.getByRole('heading', { name: '도구 모음', exact: true })).toBeInViewport()
+  await expect(hint).toBeVisible()
+  await page.setViewportSize({ width: original.width, height: 10000 })
   await expect(hint).toBeHidden()
   await page.setViewportSize({ width: 844, height: 500 })
   await expect(hint).toBeVisible()
@@ -47,10 +49,18 @@ test('height and orientation changes recompute visibility without leaving a perm
     const box = (await hint.boundingBox())!
     return Math.round(500 - box.y - box.height)
   }).toBe(20)
-  // A full-width mobile ad occupies the bottom of this viewport: hide instead of covering it.
+  // A full-width ad occupies the bottom: the hint must find a safe row above it.
   await page.setViewportSize({ width: 390, height: 650 })
   await page.goto('/')
-  await expect(hint).toBeHidden()
+  await expect(hint).toBeVisible()
+  const safeBox = (await hint.boundingBox())!
+  expect(safeBox.y).toBeGreaterThan(325)
+  expect(safeBox.y + safeBox.height).toBeLessThan(650)
+  for (const viewport of [{ width: 1188, height: 761 }, { width: 1920, height: 1080 }, { width: 390, height: 844 }, { width: 320, height: 740 }]) {
+    await page.setViewportSize(viewport)
+    await page.goto('/')
+    await expect(hint).toBeVisible()
+  }
 })
 
 test('click reaches the next content and reduced motion disables animated scrolling', async ({ page }) => {
@@ -72,8 +82,8 @@ test('click reaches the next content and reduced motion disables animated scroll
   expect(await page.evaluate(() => (window as Window & { hintBehavior?: string }).hintBehavior)).toBe('auto')
 })
 
-test('hint is hidden when the next content is already visible or search is open', async ({ page }) => {
-  await page.setViewportSize({ width: 390, height: 1200 })
+test('hint is hidden when all content fits or search is open', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 10000 })
   await page.goto('/')
   const hint = page.locator(selector)
   await expect(hint).toBeHidden()
