@@ -31,6 +31,8 @@ for (const mode of ['blocked', 'no-fill', 'delayed-fill'] as const) {
     await expect.poll(() => calls).toBe(1)
     const available = await ad.locator('p').evaluate(el => el.parentElement!.clientWidth)
     await expect(ins).toHaveAttribute('data-ad-unit', available >= 728 ? 'DAN-YmhVtuLiN5Q2MJ3K' : 'DAN-TMWlzezuMlSsAZtt')
+    // The SDK must receive a correctly sized host even before a hidden ins fills.
+    expect(await ins.evaluate(el => el.parentElement!.clientWidth)).toBe(available >= 728 ? 728 : 320)
     // Measure the wrapper's layout position, excluding its entrance transform.
     const initialToolsY = await page.locator('#tools').evaluate(el => el.parentElement!.offsetTop)
     const initialHeight = (await ad.boundingBox())!.height
