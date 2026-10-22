@@ -5,8 +5,7 @@ import Link from 'next/link'
 import { FadeInSection } from './FadeInSection'
 import { ScrollDownButton } from './ScrollDownButton'
 import { PromoBanner } from '@/components/PromoBanner'
-import { AdUnit } from '@/components/AdUnit'
-import { ResponsiveAdFit } from '@/components/ResponsiveAdFit'
+import { HomeAdFit } from '@/components/HomeAdFit'
 import { FavoriteStar } from './FavoriteStar'
 import { CatRunner } from './CatRunner'
 
@@ -99,11 +98,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Keep the game and partner banner above the growing tool directory. */}
-      <section aria-label="게임과 행운연구소" className="relative bg-white">
-        <div className="container mx-auto px-4 pt-5 pb-8 space-y-6">
+      <HomeAdFit />
+
+      <section aria-label="고양이 점프" className="relative bg-white">
+        <div className="container mx-auto px-4 pt-5 pb-8">
           <CatRunner />
-          <PromoBanner />
         </div>
         <ScrollDownButton />
       </section>
@@ -224,16 +223,11 @@ export default function HomePage() {
           </div>
         </section>
       </FadeInSection>
-      <section className="bg-white">
-        <div className="container mx-auto px-4 py-5 space-y-6">
-          <ResponsiveAdFit />
+      <section aria-label="함께 운영하는 사이트" className="bg-white">
+        <div className="container mx-auto px-4 py-6">
+          <PromoBanner />
         </div>
       </section>
-
-      {/* 광고 (AdSense 승인 후 슬롯 ID 입력) */}
-      <div className="container mx-auto px-4">
-        <AdUnit placement="home" />
-      </div>
 
       {/* Footer */}
       <footer className="mt-auto border-t border-[#ece6f2]" style={{ backgroundColor: '#F7F3FB' }}>

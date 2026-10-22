@@ -1,0 +1,28 @@
+.frame {
+  container-type: inline-size;
+}
+
+/* Reserve space before hydration, including no-fill, blocked and failed scripts. */
+.space {
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.creative > div {
+  margin: 0;
+}
+
+/* Never crop a fixed-size creative or request a replacement on resize. */
+@container (width < 728px) {
+  .creative[data-width='728'] {
+    display: none;
+  }
+}
+
+@container (width < 320px) {
+  .creative {
+    display: none;
+  }
+}

@@ -2,7 +2,7 @@
 // Commit-specific Vercel status is checked separately in the release record.
 const sha = process.env.GITHUB_SHA
 if (!sha) throw new Error('Run this check in the existing GitHub Actions pipeline.')
-const checks = [['image-split', 'A4 여백'], ['electricity', '히터·온풍기 추가요금과 예산'], ['calorie', '평소 활동량 선택']]
+const checks = [['', '함께 운영하는 사이트'], ['image-split', 'A4 여백'], ['electricity', '히터·온풍기 추가요금과 예산'], ['calorie', '평소 활동량 선택']]
 for (let attempt = 0; attempt < 30; attempt++) {
   let ready = true
   const availability = []
