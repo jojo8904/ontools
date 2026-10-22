@@ -25,7 +25,7 @@ test('home renders assets and fits the viewport', async ({ page }, testInfo) => 
   expect(errors).toEqual([])
 })
 
-test('home keeps the runner and partner banner above the tool directory', async ({ page }, testInfo) => {
+test('home keeps one top ad and a compact partner card below tools', async ({ page }, testInfo) => {
   const viewports = testInfo.project.name === 'mobile'
     ? [{ width: 390, height: 844 }, { width: 320, height: 740 }]
     : [{ width: 1440, height: 1000 }, { width: 1366, height: 768 }]
@@ -37,7 +37,12 @@ test('home keeps the runner and partner banner above the tool directory', async 
     await expect(runner).toHaveCount(1)
     await expect(promo).toHaveCount(1)
     await expect(runner).toBeInViewport()
-    await expect(promo).toBeInViewport()
+    await expect(promo).not.toBeInViewport()
+    const ad = page.getByRole('complementary', { name: '광고', exact: true })
+    await expect(ad).toHaveCount(1)
+    await expect(ad.locator('ins.kakao_ad_area')).toHaveCount(1)
+    await expect(page.locator('ins.kakao_ad_area')).toHaveCount(1)
+    const adBox = (await ad.boundingBox())!
     const headerBox = (await page.locator('header').boundingBox())!
     const intro = page.locator('section').filter({ has: page.locator('h1') })
     await expect(intro).toHaveCSS('background-image', 'none')
@@ -51,10 +56,13 @@ test('home keeps the runner and partner banner above the tool directory', async 
     const titleBox = (await page.getByRole('heading', { name: '도구 모음', exact: true }).boundingBox())!
     expect(introBox.y).toBeGreaterThanOrEqual(headerBox.y + headerBox.height)
     expect(copyBox.y + copyBox.height).toBeLessThanOrEqual(introBox.y + introBox.height)
-    expect(runnerBox.y).toBeGreaterThanOrEqual(introBox.y + introBox.height)
-    expect(promoBox.y).toBeGreaterThanOrEqual(runnerBox.y + runnerBox.height)
-    expect(toolsBox.y).toBeGreaterThanOrEqual(promoBox.y + promoBox.height)
-    expect(scrollButtonBox.y).toBeGreaterThanOrEqual(promoBox.y + promoBox.height)
+    expect(adBox.y).toBeGreaterThanOrEqual(introBox.y + introBox.height)
+    expect(adBox.height).toBe(172)
+    expect(runnerBox.y).toBeGreaterThanOrEqual(adBox.y + adBox.height + 20)
+    expect(toolsBox.y).toBeGreaterThanOrEqual(runnerBox.y + runnerBox.height)
+    expect(promoBox.y).toBeGreaterThanOrEqual(toolsBox.y + toolsBox.height)
+    expect(promoBox.height).toBeLessThanOrEqual(130)
+    expect(scrollButtonBox.y).toBeGreaterThanOrEqual(runnerBox.y + runnerBox.height)
     expect(scrollButtonBox.y + scrollButtonBox.height).toBeLessThanOrEqual(titleBox.y)
     for (const link of await page.getByRole('navigation', { name: '주 메뉴' }).getByRole('link').all()) {
       const box = (await link.boundingBox())!
@@ -62,7 +70,7 @@ test('home keeps the runner and partner banner above the tool directory', async 
       expect(box.x + box.width).toBeLessThanOrEqual(viewport.width)
       expect(box.y + box.height).toBeLessThanOrEqual(headerBox.y + headerBox.height)
     }
-    for (const url of ['/images/lucky-promo.webp', '/game/cat.png']) {
+    for (const url of ['/game/cat.png']) {
       expect(await page.evaluate(async (src) => {
         const image = new Image()
         image.src = src
@@ -70,6 +78,7 @@ test('home keeps the runner and partner banner above the tool directory', async 
         return image.naturalWidth > 0
       }, url)).toBe(true)
     }
+    await expect(page.getByRole('navigation', { name: '주 메뉴' }).getByRole('link', { name: '🍀 행운연구소' })).toHaveAttribute('href', 'https://getluckylab.com/')
     const canvas = runner.locator('canvas')
     expect(await canvas.evaluate((element) => {
       const c = element as HTMLCanvasElement

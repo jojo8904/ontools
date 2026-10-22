@@ -57,6 +57,8 @@ jobs:
         run: npm run test:e2e
         env:
           PLAYWRIGHT_BASE_URL: https://ontools.co.kr
+      - name: Observe home AdFit installation without clicking ads
+        run: node scripts/verify-home-adfit.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
