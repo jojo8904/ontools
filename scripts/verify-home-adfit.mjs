@@ -39,6 +39,9 @@ try {
           width: innerWidth,
           layout: document.querySelector('[data-home-layout]')?.getAttribute('data-home-layout'),
           scrollHint: document.querySelector('[data-scroll-hint]')?.getAttribute('data-scroll-hint'),
+          hintVersion: document.querySelector('[data-scroll-hint]')?.getAttribute('data-scroll-hint-version'),
+          hintVisible: getComputedStyle(document.querySelector('[data-scroll-hint]')).visibility === 'visible',
+          pageHeight: document.documentElement.scrollHeight,
           unit: ins?.getAttribute('data-ad-unit'),
           adWidth: ins?.getAttribute('data-ad-width'),
           adHeight: ins?.getAttribute('data-ad-height'),
@@ -65,6 +68,8 @@ try {
       assert.equal(result.scriptCount, 1)
       assert.equal(result.layout, 'game-ad-tools')
       assert.equal(result.scrollHint, 'first-viewport')
+      assert.equal(result.hintVersion, '2')
+      if (result.pageHeight > 1032) assert.equal(result.hintVisible, true)
       assert.ok(result.topAdAfterGame && result.promoBelowTools && result.menuLink && result.noOverflow)
       assert.ok(result.promoHeight <= 130)
     } finally {
