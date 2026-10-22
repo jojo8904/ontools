@@ -7,8 +7,8 @@
 
 | 크기 | 기존 발급 단위 | 기존/변경 위치 |
 | --- | --- | --- |
-| PC 728×90 | DAN-YmhVtuLiN5Q2MJ3K | 홈 도구목록 아래 → 소개 아래 한 칸 |
-| 모바일 320×100 | DAN-TMWlzezuMlSsAZtt | 홈 도구목록 아래 → 소개 아래 한 칸 |
+| PC 728×90 | DAN-YmhVtuLiN5Q2MJ3K | 홈 도구목록 아래 → 고양이 점프 아래 한 칸 |
+| 모바일 320×100 | DAN-TMWlzezuMlSsAZtt | 홈 도구목록 아래 → 고양이 점프 아래 한 칸 |
 
 `ResponsiveAdFit`는 viewport 768px 기준으로 선택하고 resize 시 교체한다. `AdFitUnit`는 production 마운트마다 ins와 비동기 `https://t1.kakaocdn.net/kas/static/ba.min.js`를 삽입하고 해제 시 비운다. NEXT_PUBLIC_ADFIT_UNIT_ID는 기본 AdFitUnit의 override이며 ResponsiveAdFit처럼 이번 홈도 위의 명시적 PC/모바일 단위를 사용한다.
 
@@ -16,9 +16,9 @@
 
 ## 변경과 실패 처리
 
-- 소개 아래 광고 라벨을 둔 한 칸, 게임 위 간격 44px 이상. sticky/floating 광고, 팝업, 클릭 유도 문구, 강제 클릭은 없다.
+- 사용자의 후속 요청에 따라 소개 → 고양이 점프 → 광고 → 도구 순서다. 게임 아래 광고 라벨을 둔 한 칸이며 실제 광고 내용은 게임에서 48px 이상 떨어진다. 스크롤 힌트는 첫 viewport 하단의 안전한 위치에만 표시한다. 도구 제목이 이미 보이거나 스크롤/게임 조작을 시작하면 숨기고 계속 따라다니지 않는다. 광고 예약 영역·검색 버튼·게임 조작 문구와 16px 이상 떨어진 위치를 찾고, 없으면 숨긴다. 창/visualViewport 크기 변경을 반영하며 reduced-motion에서는 부드러운 스크롤과 전환 애니메이션을 사용하지 않는다. sticky/floating 광고, 팝업, 클릭 유도 문구, 강제 클릭은 없다.
 - 최초 HTML부터 광고 내용 100px + 라벨/여백을 예약한다(전체 172px). 미송출·차단·실패에도 이 공간은 유지해 도구가 움직이지 않는다. 기존 대형 프로모션 영역을 제거하므로 상단 전체는 줄어든다. 메뉴의 도구 바로가기는 첫 화면에서 유지한다.
-- 홈 전용 HomeAdFit은 실제 컨테이너 폭이 확보되면 한 단위만 선택하고 ResizeObserver를 즉시 해제한다. SPA 뒤로가기로 처음 숨겨진 트리에 마운트되어도 폭이 확보되면 초기화한다. 리사이즈로 재요청하지 않는다. PC 광고가 좁은 폭으로 바뀌면 CSS로 숨겨 잘리지 않게 하고 새로 요청하지 않는다. 다시 넓어지면 같은 광고가 보인다.
+- 홈 전용 HomeAdFit은 실제 컨테이너 폭이 확보되면 한 단위만 선택하고, SDK 로드 전에도 호스트에 해당 728px/320px 폭을 명시한다. 이후 ResizeObserver를 즉시 해제한다. SPA 뒤로가기로 처음 숨겨진 트리에 마운트되어도 폭이 확보되면 초기화한다. 리사이즈로 재요청하지 않는다. PC 광고가 좁은 폭으로 바뀌면 CSS로 숨겨 잘리지 않게 하고 새로 요청하지 않는다. 다시 넓어지면 같은 광고가 보인다.
 - 기존 하단 AdFit과 향후 AdSense home 수동 슬롯 호출을 제거해 홈의 수동 광고는 한 칸이다. root의 기존 AdSense 스크립트 및 계정의 자동광고 설정은 변경하지 않았다. 계정 자동광고 설정은 저장소에서 확인할 수 없다.
 - 홍보는 도구 목록 뒤 작은 텍스트 카드, 주 메뉴와 푸터의 행운연구소 링크를 유지한다.
 - 일반 자동 테스트는 모든 외부 광고/분석을 차단하거나 합성 SDK를 사용한다. 운영 관찰만 데스크톱/모바일 각각 한 번 요청하고 클릭·갱신·재시도하지 않는다. iframe/영역 존재와 실제 유료 광고 송출을 동일시하지 않는다.
@@ -47,3 +47,7 @@
 lint, typecheck, 전체 단위 테스트, production build, 데스크톱/모바일 E2E를 실행한다. 홈 회귀는 320/390/1366/1440px, 태블릿 740px, JS 비활성, SDK 차단/빈 응답/지연 합성 송출, 크기변경과 SPA 왕복, 메뉴 접근, 작은 카드 순서·높이, 가로 넘침 및 중복 ins/스크립트를 검사한다.
 
 이 실행환경은 공개 ontools.co.kr 직접 접속 시 프록시 CONNECT HTTP 403으로 실패했다(브라우저 ERR_TUNNEL_CONNECTION_FAILED도 확인). 이는 설치·송출 실패의 증거는 아니다. 기존 운영 CI에서 기능 배포 대기 후 차단 E2E와 scripts/verify-home-adfit.mjs를 실행하고 production-browser-results 아티팩트에 관찰 JSON/스크린샷을 남긴다. 최종 PR/commit/CI와 실제 관찰 결과는 배포 기록을 참조한다.
+
+후속 사용자 증거: 소유자 제공 스크린샷에서 LG 그램 프로 16인치 광고 소재의 실제 송출을 확인했다는 보고를 받았다. 이는 GitHub Actions의 첫 5초 관찰(소재 비표시)과 별개이며 관찰 환경/시점에 따라 송출이 다를 수 있다. 최종 순서 식별자는 홈 루트의 `data-home-layout="game-ad-tools"`다.
+
+IndexNow 읽기 전용 조사: [run 39804042872](https://github.com/jojo8904/ontools/actions/runs/39804042872)는 잘못 추출된 `https://ontools.co.kr/page` 1건을 6분 기다린 뒤 제외하고 제출 없이 실패했다. scripts/indexnow-submit.mjs의 일반 app TSX 정규식이 app/page.tsx를 `/page`로 먼저 해석하고 continue하여 아래의 홈 `/` 전용 처리를 건너뛴다. 같은 commit 범위의 --dry-run으로 `/page` 추출을 재현했다. 이는 검색엔진 통지 작업의 URL 선택 문제이며 성공한 Vercel/Quality Checks 운영 배포와 별개다. 요청대로 스크립트·workflow를 수정하거나 재제출하지 않았다.

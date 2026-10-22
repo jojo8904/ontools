@@ -33,7 +33,7 @@ export function HomeAdFit() {
           <p className="mb-2 text-center text-[10px] leading-4 text-[#999]">광고</p>
           <div className={styles.space}>
             {size && (
-              <div className={styles.creative} data-width={size.width}>
+              <div className={styles.creative} data-width={size.width} style={{ width: size.width }}>
                 <AdFitUnit {...size} />
               </div>
             )}

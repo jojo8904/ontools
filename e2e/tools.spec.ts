@@ -17,7 +17,7 @@ test('home renders assets and fits the viewport', async ({ page }, testInfo) => 
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
   const tools = page.locator('#tools')
   expect(await tools.evaluate((el) => Number(getComputedStyle(el.parentElement!).opacity))).toBe(1)
-  await page.getByRole('button', { name: '도구 모음으로 스크롤' }).click()
+  await page.getByRole('navigation', { name: '주 메뉴' }).getByRole('link', { name: '도구', exact: true }).click()
   await expect(page.locator('#tools a[href="/salary"]')).toBeInViewport()
   await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }))
   await page.screenshot({ path: testInfo.outputPath('home-viewport.png') })
@@ -52,18 +52,14 @@ test('home keeps one top ad and a compact partner card below tools', async ({ pa
     const runnerBox = (await runner.boundingBox())!
     const promoBox = (await promo.boundingBox())!
     const toolsBox = (await page.locator('#tools').boundingBox())!
-    const scrollButtonBox = (await page.getByRole('button', { name: '도구 모음으로 스크롤' }).boundingBox())!
-    const titleBox = (await page.getByRole('heading', { name: '도구 모음', exact: true }).boundingBox())!
     expect(introBox.y).toBeGreaterThanOrEqual(headerBox.y + headerBox.height)
     expect(copyBox.y + copyBox.height).toBeLessThanOrEqual(introBox.y + introBox.height)
-    expect(adBox.y).toBeGreaterThanOrEqual(introBox.y + introBox.height)
+    expect(runnerBox.y).toBeGreaterThanOrEqual(introBox.y + introBox.height)
     expect(adBox.height).toBe(172)
-    expect(runnerBox.y).toBeGreaterThanOrEqual(adBox.y + adBox.height + 20)
-    expect(toolsBox.y).toBeGreaterThanOrEqual(runnerBox.y + runnerBox.height)
+    expect(adBox.y).toBeGreaterThanOrEqual(runnerBox.y + runnerBox.height)
+    expect(toolsBox.y).toBeGreaterThanOrEqual(adBox.y + adBox.height)
     expect(promoBox.y).toBeGreaterThanOrEqual(toolsBox.y + toolsBox.height)
     expect(promoBox.height).toBeLessThanOrEqual(130)
-    expect(scrollButtonBox.y).toBeGreaterThanOrEqual(runnerBox.y + runnerBox.height)
-    expect(scrollButtonBox.y + scrollButtonBox.height).toBeLessThanOrEqual(titleBox.y)
     for (const link of await page.getByRole('navigation', { name: '주 메뉴' }).getByRole('link').all()) {
       const box = (await link.boundingBox())!
       expect(box.x).toBeGreaterThanOrEqual(0)

@@ -31,6 +31,8 @@ for (const mode of ['blocked', 'no-fill', 'delayed-fill'] as const) {
     await expect.poll(() => calls).toBe(1)
     const available = await ad.locator('p').evaluate(el => el.parentElement!.clientWidth)
     await expect(ins).toHaveAttribute('data-ad-unit', available >= 728 ? 'DAN-YmhVtuLiN5Q2MJ3K' : 'DAN-TMWlzezuMlSsAZtt')
+    // The SDK must receive a correctly sized host even before a hidden ins fills.
+    expect(await ins.evaluate(el => el.parentElement!.clientWidth)).toBe(available >= 728 ? 728 : 320)
     // Measure the wrapper's layout position, excluding its entrance transform.
     const initialToolsY = await page.locator('#tools').evaluate(el => el.parentElement!.offsetTop)
     const initialHeight = (await ad.boundingBox())!.height
@@ -49,7 +51,7 @@ for (const mode of ['blocked', 'no-fill', 'delayed-fill'] as const) {
     await expect(page.locator('ins.kakao_ad_area')).toHaveCount(1)
     await expect(page.locator('script[src*="kas/static/ba.min.js"]')).toHaveCount(1)
     expect(calls).toBe(1)
-    await page.getByRole('button', { name: '도구 모음으로 스크롤' }).click()
+    await page.locator('#tools').evaluate(el => el.scrollIntoView({ behavior: 'instant' }))
     await expect(page.getByRole('heading', { name: '도구 모음', exact: true })).toBeInViewport()
     await page.locator('#tools a[href="/salary"]').click()
     await expect(page).toHaveURL(/\/salary$/)

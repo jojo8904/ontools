@@ -44,7 +44,7 @@ export default function HomePage() {
   const bottomCategories = TOOL_CATEGORIES.slice(3)
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col" data-home-layout="game-ad-tools">
       {/* Header */}
       <header className="bg-white border-b border-[#eee] sticky top-0 z-10 backdrop-blur-md bg-white/90">
         <div className="container mx-auto px-4 py-4 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -98,14 +98,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      <HomeAdFit />
-
-      <section aria-label="고양이 점프" className="relative bg-white">
-        <div className="container mx-auto px-4 pt-5 pb-8">
+      <section aria-label="고양이 점프" className="bg-white">
+        <div className="container mx-auto px-4 pt-5">
           <CatRunner />
         </div>
-        <ScrollDownButton />
       </section>
+
+      <HomeAdFit />
+      <ScrollDownButton />
 
       {/* Tool Categories Section */}
       <FadeInSection>
