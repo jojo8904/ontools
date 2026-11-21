@@ -193,12 +193,29 @@ export default function VatPage() {
               <h2 className="text-xl font-bold mb-4">전자세금계산서 발행</h2>
               <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-1">의무 발행 대상</h3>
-                  <p>모든 법인사업자, 직전 연도 공급가액 합계 1억원 이상 개인사업자는 전자세금계산서를 의무적으로 발행해야 합니다.</p>
+                  <h3 className="font-semibold text-gray-900 mb-1">의무 발급 대상</h3>
+                  <p>
+                    법인사업자와 직전 연도 사업장별 과세·면세 공급가액 합계가 8천만 원 이상인 개인사업자는 전자세금계산서 의무 발급 대상입니다.
+                    개인사업자는 정기신고 기준으로 해당 금액을 충족한 해의 다음 해 7월 1일부터 의무가 적용되며, 이후 공급가액이 기준 아래로 내려가도 의무가 계속됩니다.
+                    수정신고·결정·경정으로 기준을 넘긴 경우에는 시작 시기가 다를 수 있습니다.
+                  </p>
+                  <p className="mt-1">
+                    <a href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7787&amp;mi=2461" className="underline">국세청 의무 발급 대상·시기 안내</a>
+                  </p>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-1">발행 기한</h3>
-                  <p>공급일이 속하는 달의 다음 달 10일까지 발행. 기한 초과 시 공급가액의 1% 가산세 부과.</p>
+                  <h3 className="font-semibold text-gray-900 mb-1">발급 시기와 가산세</h3>
+                  <p>
+                    세금계산서는 원칙적으로 재화나 용역의 공급시기에 발급합니다.
+                    월합계 세금계산서 등 법에서 정한 경우에는 공급일이 속하는 달의 다음 달 10일까지 발급할 수 있습니다.
+                    그 10일이 토요일이나 공휴일이면 바로 다음 영업일까지입니다.
+                    법정 발급시기를 넘겼더라도 공급시기가 속하는 과세기간의 부가가치세 확정신고기한까지 발급하면 발급자에게 공급가액의 1%, 그 기한까지 발급하지 않으면 원칙적으로 2%의 가산세가 적용됩니다.
+                  </p>
+                  <p className="mt-1">
+                    <a href="https://www.law.go.kr/LSW/lsLinkCommonInfo.do?lsJoLnkSeq=1017629659" className="underline">부가가치세법 제34조</a>
+                    {' · '}
+                    <a href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7786&amp;mi=2464" className="underline">국세청 가산세 안내</a>
+                  </p>
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-1">발행 방법</h3>
